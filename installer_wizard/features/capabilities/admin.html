@@ -1,0 +1,26 @@
+<section class="tab stack" id="tab-capabilities">
+  <div class="panel">
+    <div class="panel-title">🧭 Collega un assistente esterno ad Atena</div>
+    <p class="faint">Qualsiasi assistente o programma compatibile con il protocollo MCP può usare gli strumenti di Atena (musica, telecamere, widget, squadra di agenti) con un token. Indirizzo: <code id="cp-url"></code></p>
+    <div class="cp-form">
+      <input id="cp-label" type="text" maxlength="60" placeholder="Nome del client (es. Claude Desktop)">
+      <label class="cp-check"><input id="cp-risky" type="checkbox"> Consenti anche azioni delicate (file, comandi, impostazioni), sempre con conferma esplicita</label>
+      <button class="btn primary" id="cp-create">Crea token</button>
+    </div>
+    <div id="cp-new" class="cp-new" hidden></div>
+    <div id="cp-tokens"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">🔌 Server MCP a cui Atena si collega</div>
+    <p class="faint">Gli strumenti dei server collegati diventano strumenti di Atena. Un server non fidato chiede conferma prima di ogni azione, salvo quelle di sola lettura.</p>
+    <div class="cp-form">
+      <input id="sv-name" type="text" maxlength="40" placeholder="Nome (es. Calendario)">
+      <input id="sv-url" type="text" placeholder="https://indirizzo/mcp">
+      <input id="sv-token" type="password" placeholder="Token (facoltativo)" autocomplete="off">
+      <label class="cp-check"><input id="sv-trusted" type="checkbox"> Server fidato: esegue senza chiedere conferma</label>
+      <button class="btn primary" id="sv-add">Collega</button>
+    </div>
+    <div id="sv-list"></div>
+  </div>
+  <div class="panel"><div class="panel-title">Squadra di agenti</div><div class="faint" id="cp-board"></div><div id="cp-team"></div></div>
+</section>

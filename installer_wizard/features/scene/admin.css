@@ -1,0 +1,12 @@
+.sc-list { display: grid; gap: 8px; }
+.sc-item { display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px; }
+.sc-editor { display: grid; grid-template-columns: minmax(0, 3fr) minmax(260px, 2fr); gap: 16px; margin-top: 12px; }
+.sc-canvas { position: relative; border-radius: 12px; overflow: hidden; background: #000; cursor: crosshair; aspect-ratio: 4 / 3; }
+.sc-canvas img, .sc-canvas svg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+.sc-canvas polygon { fill: rgba(41, 224, 255, 0.18); stroke: var(--cyan); stroke-width: 0.004; }
+.sc-canvas polygon.saved { fill: rgba(61, 255, 168, 0.12); stroke: var(--green, #3dffa8); }
+.sc-canvas circle { fill: var(--cyan); }
+.sc-req { display: grid; grid-template-columns: auto 1fr 1fr auto auto; gap: 8px; align-items: center; }
+.sc-bar { height: 4px; border-radius: 2px; background: var(--line); overflow: hidden; margin-top: 4px; }
+.sc-bar i { display: block; height: 100%; background: var(--cyan); }
+@media (max-width: 760px) { .sc-editor { grid-template-columns: 1fr; } .sc-req { grid-template-columns: 1fr 1fr; } }

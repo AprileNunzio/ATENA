@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/AprileNunzio/ATENA/blob/main/SECURITY.md
+    about: Report vulnerabilities privately as described in the security policy. Do not open a public issue.
+  - name: Code of Conduct concern
+    url: https://github.com/AprileNunzio/ATENA/blob/main/CODE_OF_CONDUCT.md
+    about: Report conduct problems to the address in the Code of Conduct.
+  - name: Documentation
+    url: https://github.com/AprileNunzio/ATENA#indice
+    about: The README covers installation, configuration, API, troubleshooting and FAQ.

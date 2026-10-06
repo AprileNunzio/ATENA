@@ -1,0 +1,14 @@
+{
+    "agent_context": "You are the SysOps of Atena. Your task is to automate servers, execute bash/powershell commands, configure DBs, SMBs or scaffold apps. Break down requests into atomic commands, execute the necessary tools, verify if they succeeded, if they fail try to fix them, finally respond by communicating explicitly what you did.",
+    "default_answer": "System administration action completed with uncertain outcome.",
+    "tools": {
+        "run_shell_command": "Executes a shell command (parameters: shell_type ['bash' or 'powershell'], command). Use this for generic OS operations.",
+        "create_smb_share": "Creates a Samba shared folder (parameters: share_name, directory_path)",
+        "provision_mysql": "Creates a MySQL database and related user (parameters: database_name, username)",
+        "scaffold_app": "Creates the skeleton of a new FastAPI app (parameters: app_name, target_directory)"
+    },
+    "critique_task": "Summarize the system operations executed for: {task}",
+    "errors": {
+        "critique_failed": "Self-critique failed: {exc}"
+    }
+}

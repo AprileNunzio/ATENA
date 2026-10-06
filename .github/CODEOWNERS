@@ -1,0 +1,13 @@
+*                                   @AprileNunzio
+/SECURITY.md                        @AprileNunzio
+/CODE_OF_CONDUCT.md                 @AprileNunzio
+/LICENSE                            @AprileNunzio
+/.github/                           @AprileNunzio
+/scripts/os/                        @AprileNunzio
+/installer_wizard/backend/          @AprileNunzio
+/installer_wizard/features/capabilities/ @AprileNunzio
+/installer_wizard/features/mcpclient/    @AprileNunzio
+/installer_wizard/features/forge/        @AprileNunzio
+/installer_wizard/features/agent/        @AprileNunzio
+/sandbox_broker/                    @AprileNunzio
+/server/core/security_guard/        @AprileNunzio

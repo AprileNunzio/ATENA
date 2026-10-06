@@ -1,0 +1,21 @@
+{
+  "id": "understanding",
+  "name": "Comprensione dei comandi",
+  "icon": "🧠",
+  "category": "assistente",
+  "order": 15,
+  "pinned": false,
+  "panel": "",
+  "toggle": { "env": "ATENA_UNDERSTANDING", "apply": [] },
+  "description": "Prima di eseguire un comando Atena legge tutta la frase, guarda i widget aperti e le conversazioni precedenti, confronta le funzioni che potrebbero riguardarla e, se due sembrano ugualmente probabili, ci ragiona con il modello prima di scegliere.",
+  "capabilities": [
+    "Ogni funzione (lavagna, telecamere, musica, casa) dà un punteggio alla frase: vince la più convincente, non la prima che somiglia",
+    "Contesto: widget aperti, ultimo argomento della conversazione e riferimenti come «e adesso 5 per 5?»",
+    "Se due funzioni sono vicine, il modello decide leggendo frase e conversazione, e spiega il motivo",
+    "Ogni decisione è registrata e consultabile nel pannello (/api/understanding)"
+  ],
+  "settings": [
+    {"key": "ATENA_UNDERSTANDING_LLM", "label": "Ragionamento con il modello nei casi dubbi", "type": "select", "default": "1",
+     "options": [{"value": "1", "label": "Attivo"}, {"value": "0", "label": "Solo punteggi"}]}
+  ]
+}

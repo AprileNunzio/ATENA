@@ -1,0 +1,26 @@
+<section class="tab stack" id="tab-twin">
+  <div class="panel">
+    <div class="panel-title" style="margin:0" data-i18n="admin:twin.title">Gemello digitale</div>
+    <div class="faint" data-i18n="admin:twin.intro">Ogni comando per la casa viene prima simulato su una copia dello stato attuale.</div>
+    <div class="faint" id="tw-mode" style="margin-top:6px"></div>
+  </div>
+  <div class="grid g2">
+    <div class="panel">
+      <div class="panel-title" data-i18n="admin:twin.rules">Regole di sicurezza</div>
+      <div class="tw-list" id="tw-rules"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title" data-i18n="admin:twin.try">Prova una simulazione</div>
+      <form class="form-grid" id="tw-sim" style="grid-template-columns:1fr">
+        <div><label for="tw-plan" data-i18n="admin:twin.plan_label">Una chiamata per riga: servizio entità</label>
+          <textarea id="tw-plan" rows="5" spellcheck="false" placeholder="alarm_control_panel.alarm_arm_night alarm_control_panel.casa&#10;switch.turn_off switch.telecamere"></textarea></div>
+        <div class="actions"><button class="btn primary" type="submit" data-i18n="admin:twin.simulate">Simula</button></div>
+      </form>
+      <div id="tw-result" class="tw-list" style="margin-top:10px"></div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title" data-i18n="admin:twin.history">Interventi recenti</div>
+    <div class="tw-list" id="tw-history"></div>
+  </div>
+</section>

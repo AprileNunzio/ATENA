@@ -1,0 +1,511 @@
+{
+  "id": "ear",
+  "name": "Ascolto vocale",
+  "icon": "🎙",
+  "category": "percezione",
+  "order": 70,
+  "description": "Parla ad Atena dicendo «Atena» o «Ehi, Atena»: ascolto offline con pulizia del rumore, conversazione continua e riconoscimento della persona dalla voce.",
+  "toggle": {
+    "env": "ATENA_EAR",
+    "apply": [
+      "ear",
+      "music"
+    ]
+  },
+  "requires": {
+    "ram_gb": 3
+  },
+  "capabilities": [
+    "Attivazione istantanea «Ehi, Atena»",
+    "Parola di attivazione «Atena»",
+    "Riduzione del rumore e amplificazione della voce",
+    "Conversazione continua: capisce se parli con lui",
+    "Impronta vocale di ogni persona",
+    "Trascrizione offline (faster-whisper) adattata all'hardware",
+    "Apprende le varianti del nome",
+    "Riconosce la lingua in cui parli",
+    "Registra la voce a blocchi e la rivede a riposo per capire se ha capito bene",
+    "Impara dagli errori: nuove varianti del nome, sensibilità e amplificazione automatiche",
+    "Impronta vocale che migliora da sola, con campioni diversi e protezione dalle contaminazioni",
+    "Voci molto simili (gemelli) distinte con un margine più severo"
+  ],
+  "settings": [
+    {
+      "key": "ATENA_EAR_MODE",
+      "label": "Modalità di ascolto e riconoscimento",
+      "type": "select",
+      "default": "offline",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "offline",
+          "label": "Offline locale (100% privato, nessun costo, zero connessioni esterne)"
+        },
+        {
+          "value": "online",
+          "label": "Online cloud (Deepgram, Groq, OpenAI o Gemini ad altissima precisione)"
+        },
+        {
+          "value": "hybrid",
+          "label": "Ibrido (prova online, fallback automatico offline se manca connessione)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_ONLINE_STT_PROVIDER",
+      "label": "Fornitore STT online (se attivo Online o Ibrido)",
+      "type": "select",
+      "default": "deepgram",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "deepgram",
+          "label": "Deepgram Nova-2/Nova-3 (streaming ultra-veloce, keyphrase boosting)"
+        },
+        {
+          "value": "groq",
+          "label": "Groq Whisper (whisper-large-v3-turbo, latenza ~150ms)"
+        },
+        {
+          "value": "openai",
+          "label": "OpenAI Whisper (whisper-1)"
+        },
+        {
+          "value": "gemini",
+          "label": "Google Gemini (gemini-2.5-flash audio nativo)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_ONLINE_STT_KEY",
+      "label": "Chiave API per STT online (Deepgram, Groq, OpenAI o Gemini)",
+      "type": "text",
+      "default": "",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_AUTO_FOLLOWUP",
+      "label": "Finestra di ascolto continuo dopo una risposta (secondi, 0 = disattivo)",
+      "type": "number",
+      "default": "8",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_VOICEPRINT_ENFORCE",
+      "label": "Filtro anti-TV ed estranei (rispondi solo alle voci registrate)",
+      "type": "select",
+      "default": "0",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "0",
+          "label": "No (ascolta chiunque dica Atena)"
+        },
+        {
+          "value": "1",
+          "label": "Sì (ignora frasi da voci sconosciute se ci sono voci registrate)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_EAR_ENHANCE_ENGINE",
+      "label": "Pulizia audio e dereverberazione da lontano",
+      "type": "select",
+      "default": "auto",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automatico (DeepFilterNet 3 se presente, altrimenti filtri spettrali)"
+        },
+        {
+          "value": "deepfilternet",
+          "label": "DeepFilterNet (deep learning dereverberation per stanze grandi)"
+        },
+        {
+          "value": "spectral",
+          "label": "Filtro spettrale adattivo standard"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_STT_MODEL",
+      "label": "Modello di ascolto offline",
+      "type": "select",
+      "default": "",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "",
+          "label": "Automatico (in base al processore)"
+        },
+        {
+          "value": "base",
+          "label": "base (veloce)"
+        },
+        {
+          "value": "small",
+          "label": "small (bilanciato)"
+        },
+        {
+          "value": "medium",
+          "label": "medium (preciso, lento)"
+        },
+        {
+          "value": "large-v3-turbo",
+          "label": "large-v3-turbo (massima precisione, ottimizzato)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_EAR_MULTILANG",
+      "label": "Riconosci la lingua parlata",
+      "type": "select",
+      "default": "1",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì (Atena risponde nella tua lingua)"
+        },
+        {
+          "value": "0",
+          "label": "No, solo italiano"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_EAR_MAX_GAIN",
+      "label": "Amplificazione massima per sentire da lontano (2 - 80)",
+      "type": "number",
+      "default": "30",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_TARGET_RMS",
+      "label": "Livello vocale obiettivo (0.03 - 0.2)",
+      "type": "number",
+      "default": "0.08",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_WAKEWORD_THRESHOLD",
+      "label": "Sensibilità dell'attivazione «Ehi, Atena» (0,25 sensibile - 0,80 severa)",
+      "type": "number",
+      "default": "0.5",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_WAKE_GAIN",
+      "label": "Amplificazione massima della parola di attivazione da lontano (1 - 30)",
+      "type": "number",
+      "default": "8",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_END_SILENCE",
+      "label": "Silenzio per considerare finita la frase, in secondi (0,3 - 1,5)",
+      "type": "number",
+      "default": "0.65",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_CONVERSATION_S",
+      "label": "Durata della conversazione continua dopo una risposta, in secondi (5 - 120)",
+      "type": "number",
+      "default": "30",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_MIC_EC",
+      "label": "Cancellazione dell'eco del browser",
+      "type": "select",
+      "default": "1",
+      "apply": [],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì (consigliato se l'audio esce dalle casse vicine)"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MIC_NS",
+      "label": "Riduzione del rumore del browser",
+      "type": "select",
+      "default": "0",
+      "apply": [],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No (consigliato: Atena pulisce l'audio da sola)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MIC_AGC",
+      "label": "Controllo automatico del volume del browser",
+      "type": "select",
+      "default": "0",
+      "apply": [],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No (consigliato: Atena amplifica da sola)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_EAR_RECORD",
+      "label": "Registra la voce a blocchi per imparare (solo sul tuo server)",
+      "type": "select",
+      "default": "1",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì: solo i tratti con voce, a blocchi di circa un minuto"
+        },
+        {
+          "value": "0",
+          "label": "No: non registrare nulla"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_EAR_RECORD_CHUNK",
+      "label": "Durata di ogni blocco registrato, in secondi (20 - 300)",
+      "type": "number",
+      "default": "60",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_RECORD_HOURS",
+      "label": "Conserva le registrazioni al massimo (ore, 1 - 168)",
+      "type": "number",
+      "default": "24",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_RECORD_MAX_MB",
+      "label": "Spazio massimo per le registrazioni (MB, 50 - 5000)",
+      "type": "number",
+      "default": "500",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_KEEP_REVIEWED_H",
+      "label": "Conserva l'audio già analizzato ancora per (ore, 0 = cancella subito)",
+      "type": "number",
+      "default": "2",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_REVIEW",
+      "label": "Analizza le registrazioni a riposo per capire se ha capito bene",
+      "type": "select",
+      "default": "1",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_EAR_REVIEW_IDLE",
+      "label": "Considera «a riposo» dopo questi secondi di silenzio (10 - 3600)",
+      "type": "number",
+      "default": "120",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_REVIEW_LOAD",
+      "label": "Analizza solo se il carico del processore è sotto (0,1 - 2 per core)",
+      "type": "number",
+      "default": "0.6",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_EAR_REVIEW_MODEL",
+      "label": "Modello usato per rivedere le registrazioni",
+      "type": "select",
+      "default": "same",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "same",
+          "label": "Lo stesso dell'ascolto"
+        },
+        {
+          "value": "base",
+          "label": "base"
+        },
+        {
+          "value": "small",
+          "label": "small (più preciso, più lento)"
+        },
+        {
+          "value": "medium",
+          "label": "medium (molto preciso, molto lento)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_EAR_AUTOTUNE",
+      "label": "Regola da solo sensibilità e amplificazione dopo le analisi",
+      "type": "select",
+      "default": "1",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì (le modifiche restano nello storico e si azzerano dal pannello)"
+        },
+        {
+          "value": "0",
+          "label": "No: solo suggerimenti"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_VOICE_AUTOIMPROVE",
+      "label": "Migliora da solo l'impronta vocale quando ti riconosce",
+      "type": "select",
+      "default": "1",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì: aggiunge campioni diversi, mai quelli dubbi"
+        },
+        {
+          "value": "0",
+          "label": "No: solo campioni dell'iscrizione"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_VOICE_ADAPTIVE",
+      "label": "Soglia di riconoscimento calcolata per ogni persona",
+      "type": "select",
+      "default": "1",
+      "apply": [
+        "ear"
+      ],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No: soglia unica"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_VOICEPRINT_MATCH",
+      "label": "Soglia di somiglianza della voce (0,3 - 0,95)",
+      "type": "number",
+      "default": "0.62",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_VOICE_MARGIN",
+      "label": "Distacco minimo dalla seconda voce più simile (0 - 0,5)",
+      "type": "number",
+      "default": "0.06",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_VOICE_TWIN_SIM",
+      "label": "Due voci sono «simili» oltre questa somiglianza (0,2 - 0,95)",
+      "type": "number",
+      "default": "0.5",
+      "apply": [
+        "ear"
+      ]
+    },
+    {
+      "key": "ATENA_VOICE_TWIN_MARGIN",
+      "label": "Distacco richiesto tra voci simili, per esempio gemelli (0 - 0,6)",
+      "type": "number",
+      "default": "0.12",
+      "apply": [
+        "ear"
+      ]
+    }
+  ]
+}

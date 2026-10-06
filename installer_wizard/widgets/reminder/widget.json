@@ -1,0 +1,14 @@
+{
+  "id": "reminder",
+  "personal": true,
+  "name": "Promemoria",
+  "icon": "\u23f0",
+  "priority": 75,
+  "size": "m",
+  "ttl": 300,
+  "intents": [
+    "reminder"
+  ],
+  "description": "Promemoria.",
+  "demo": {}
+}

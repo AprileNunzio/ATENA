@@ -1,0 +1,5 @@
+.tw-list { display: grid; gap: 8px; }
+.tw-item { padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; display: grid; gap: 4px; }
+.tw-item.block { border-color: rgba(255, 77, 106, 0.5); }
+.tw-item.warn { border-color: rgba(255, 181, 71, 0.5); }
+#tw-plan { width: 100%; font-family: ui-monospace, monospace; }

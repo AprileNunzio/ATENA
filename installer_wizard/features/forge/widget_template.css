@@ -1,0 +1,7 @@
+.fg { padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; height: 100%; box-sizing: border-box; overflow: auto; }
+.fg-title { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
+.fg-value { font-size: 44px; font-weight: 600; line-height: 1.1; }
+.fg-value small { font-size: 18px; margin-left: 6px; opacity: .7; }
+.fg-label { opacity: .75; }
+.fg-text { margin: 0; line-height: 1.45; }
+.fg-list { margin: 0; padding-left: 18px; line-height: 1.5; }

@@ -1,0 +1,42 @@
+<section class="tab stack" id="tab-nvr">
+  <div class="panel nv-head">
+    <div>
+      <div class="panel-title" style="margin:0" data-i18n="admin:nvr.title">NVR</div>
+      <div class="faint" id="nv-status"></div>
+    </div>
+    <form class="row nv-search" id="nv-search">
+      <input id="nv-query" autocomplete="off" maxlength="300" data-i18n-placeholder="admin:nvr.search_hint">
+      <button class="btn primary" type="submit" data-i18n="admin:nvr.search">Cerca</button>
+    </form>
+  </div>
+  <div class="panel">
+    <div class="panel-title" data-i18n="admin:nvr.cameras">Telecamere</div>
+    <div class="nv-grid" id="nv-cameras"></div>
+  </div>
+  <div class="grid g2">
+    <div class="panel">
+      <div class="panel-title"><span data-i18n="admin:nvr.events">Eventi</span> <span class="badge" id="nv-live" data-i18n="admin:nvr.live">in diretta</span></div>
+      <div class="nv-list" id="nv-events"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title" data-i18n="admin:nvr.settings">Impostazioni</div>
+      <form class="form-grid" id="nv-settings" style="grid-template-columns:1fr 1fr">
+        <div class="wide"><label class="switch"><input type="checkbox" id="nv-enabled"><span data-i18n="admin:nvr.field.enabled">Ricevi eventi da un motore NVR esterno (MQTT)</span></label></div>
+        <div><label for="nv-host" data-i18n="admin:nvr.field.host">Server MQTT</label><input id="nv-host" autocomplete="off" placeholder="192.168.1.20"></div>
+        <div><label for="nv-port" data-i18n="admin:nvr.field.port">Porta</label><input id="nv-port" type="number" min="1" max="65535"></div>
+        <div><label for="nv-topic" data-i18n="admin:nvr.field.topic">Topic</label><input id="nv-topic" autocomplete="off"></div>
+        <div><label class="switch" style="margin-top:22px"><input type="checkbox" id="nv-tls"><span data-i18n="admin:nvr.field.tls">TLS</span></label></div>
+        <div><label for="nv-user" data-i18n="admin:nvr.field.user">Utente</label><input id="nv-user" autocomplete="off"></div>
+        <div><label for="nv-pass" data-i18n="admin:nvr.field.password">Password</label><input id="nv-pass" type="password" autocomplete="new-password"></div>
+        <div><label for="nv-retention" data-i18n="admin:nvr.field.retention">Conservazione eventi (giorni)</label><input id="nv-retention" type="number" min="1" max="365"></div>
+        <div><label for="nv-score" data-i18n="admin:nvr.field.min_score">Affidabilità minima</label><input id="nv-score" type="number" min="0" max="1" step="0.05"></div>
+        <div class="wide"><label data-i18n="admin:nvr.field.labels">Oggetti da archiviare</label><div class="nv-chips" id="nv-labels"></div></div>
+        <div class="wide"><label data-i18n="admin:nvr.field.notify">Oggetti che generano un avviso</label><div class="nv-chips" id="nv-notify"></div></div>
+        <div class="actions wide">
+          <button class="btn primary" type="submit" data-i18n="admin:nvr.save">Salva</button>
+          <button class="btn danger" type="button" id="nv-clear" data-i18n="admin:nvr.clear">Cancella archivio eventi</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>

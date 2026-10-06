@@ -1,0 +1,15 @@
+{
+    "welcome": {
+        "title": "Benvenuto in Atena",
+        "description": "Iniziamo configurando le tue preferenze.",
+        "start_button": "Inizia"
+    },
+    "errors": {
+        "setup_failed": "Impossibile completare il setup iniziale. Riprova.",
+        "pull_failed": "Impossibile scaricare il modello: {model}"
+    },
+    "status": {
+        "completed": "Configurazione completata con successo",
+        "skipped": "Modello già presente, download saltato"
+    }
+}

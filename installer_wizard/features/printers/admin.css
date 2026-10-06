@@ -1,0 +1,5 @@
+.pr-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pr-list { display: grid; gap: 8px; }
+.pr-item { display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; }
+.pr-item .faint { word-break: break-all; }
+@media (max-width: 640px) { .pr-item { grid-template-columns: 1fr; } }

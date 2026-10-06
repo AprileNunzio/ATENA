@@ -1,0 +1,30 @@
+<section class="tab" id="tab-music">
+  <div class="mu-app">
+    <aside class="mu-side" id="mu-side">
+      <nav class="mu-nav" id="mu-nav">
+        <button data-view="home" class="on">⌂ <span>Home</span></button>
+        <button data-view="search">⌕ <span>Cerca</span></button>
+        <div class="mu-sec">La tua libreria</div>
+        <button data-view="tracks">♪ <span>Brani</span></button>
+        <button data-view="albums">◉ <span>Album</span></button>
+        <button data-view="artists">☻ <span>Artisti</span></button>
+        <button data-view="genres">▦ <span>Generi e decenni</span></button>
+        <button data-view="favorites">♥ <span>Preferiti</span></button>
+        <button data-view="history">◷ <span>Ascoltati di recente</span></button>
+        <button data-view="stats">▤ <span>Le tue statistiche</span></button>
+        <div class="mu-sec">Playlist <button class="mu-add" id="mu-new-playlist" title="Nuova playlist">＋</button></div>
+        <div id="mu-playlists"></div>
+        <div class="mu-sec">Altro</div>
+        <button data-view="devices">▶ <span>Dispositivi</span></button>
+        <button data-view="manage">⚙ <span>Gestione e condivisione</span></button>
+      </nav>
+    </aside>
+    <main class="mu-main" id="mu-main"><div class="faint">Caricamento…</div></main>
+    <aside class="mu-drawer" id="mu-drawer" hidden>
+      <div class="mu-drawer-tabs" id="mu-drawer-tabs">
+        <button data-pane="queue" class="on">Coda</button><button data-pane="lyrics">Testo</button><button data-pane="eq">Equalizzatore</button>
+      </div>
+      <div class="mu-drawer-body" id="mu-drawer-body"></div>
+    </aside>
+  </div>
+</section>

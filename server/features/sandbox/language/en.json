@@ -1,0 +1,13 @@
+{
+    "status": {
+        "initializing": "Initializing Sandbox Environment",
+        "ready": "Sandbox is ready",
+        "terminated": "Sandbox terminated"
+    },
+    "errors": {
+        "isolation_breach": "Critical: Isolation breach detected.",
+        "timeout": "Execution timed out.",
+        "wasm_unavailable": "Wasm environment is not available",
+        "wasm_missing": "Wasmtime library is not installed. Sandbox is deactivated."
+    }
+}

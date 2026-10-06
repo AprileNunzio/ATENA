@@ -1,0 +1,131 @@
+{
+  "id": "governor",
+  "name": "Gestione delle risorse",
+  "icon": "📊",
+  "category": "sistema",
+  "order": 14,
+  "description": "Misura quanto pesano funzioni e widget, tiene una statistica dei consumi e adatta Atena al dispositivo: rimanda i lavori di fondo quando il sistema è sotto sforzo e fa girare il display in modo più leggero sui PC datati.",
+  "toggle": {
+    "env": "ATENA_GOVERNOR",
+    "apply": []
+  },
+  "capabilities": [
+    "Pressione del sistema da processore, memoria, swap e carico, con isteresi",
+    "Lavori di fondo e cron rimandati (non scartati) quando serve",
+    "Classe del dispositivo (bassa, media, alta) rilevata dall'hardware e modificabile",
+    "Database dei costi per componente, con stima in base alla dimensione del contenuto",
+    "Il display impara quanto regge ogni dispositivo e scende o risale di livello da solo",
+    "Limite di widget attivi per dispositivo, con priorità a quello richiamato"
+  ],
+  "settings": [
+    {
+      "key": "ATENA_GOV_CLASS",
+      "label": "Classe del dispositivo",
+      "type": "select",
+      "default": "auto",
+      "apply": [],
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automatica (dall'hardware)"
+        },
+        {
+          "value": "low",
+          "label": "Bassa (PC datato)"
+        },
+        {
+          "value": "mid",
+          "label": "Media"
+        },
+        {
+          "value": "high",
+          "label": "Alta"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_GOV_QUALITY",
+      "label": "Qualità grafica del display",
+      "type": "select",
+      "default": "auto",
+      "apply": [],
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automatica (si adatta da sola)"
+        },
+        {
+          "value": "full",
+          "label": "Sempre piena"
+        },
+        {
+          "value": "reduced",
+          "label": "Sempre ridotta"
+        },
+        {
+          "value": "minimal",
+          "label": "Sempre minima"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_GOV_MAX_WIDGETS",
+      "label": "Widget attivi insieme (0 = automatico)",
+      "type": "number",
+      "default": "0",
+      "apply": []
+    },
+    {
+      "key": "ATENA_GOV_CLIENT_REPORT",
+      "label": "I display inviano le proprie misure di fluidità",
+      "type": "select",
+      "default": "1",
+      "apply": [],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì (solo numeri aggregati)"
+        },
+        {
+          "value": "0",
+          "label": "No: nessuna misura dal display"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_GOV_SAMPLE_S",
+      "label": "Ogni quanti secondi misurare il sistema (1 - 30)",
+      "type": "number",
+      "default": "2",
+      "apply": []
+    },
+    {
+      "key": "ATENA_GOV_PRESSURE_ENTER",
+      "label": "Sistema sotto sforzo oltre questa pressione (30 - 100)",
+      "type": "number",
+      "default": "75",
+      "apply": []
+    },
+    {
+      "key": "ATENA_GOV_PRESSURE_EXIT",
+      "label": "Torna normale sotto questa pressione (10 - 99)",
+      "type": "number",
+      "default": "55",
+      "apply": []
+    },
+    {
+      "key": "ATENA_GOV_DEFER_MAX_MIN",
+      "label": "Un lavoro di fondo si può rimandare al massimo (minuti, 0 = mai)",
+      "type": "number",
+      "default": "30",
+      "apply": []
+    },
+    {
+      "key": "ATENA_GOV_RETENTION_DAYS",
+      "label": "Conserva le statistiche per (giorni, 1 - 365)",
+      "type": "number",
+      "default": "14",
+      "apply": []
+    }
+  ]
+}

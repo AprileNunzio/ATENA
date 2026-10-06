@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  atena:
+    build: .
+    container_name: atena_core
+    restart: unless-stopped
+    ports:
+      - "80:80"       # Frontend Ologramma
+      - "8080:8080"   # Pannello di Controllo / Admin
+    volumes:
+      - ./data:/app/data
+      - ./.env:/app/.env
+    environment:
+      - ATENA_ENV=production
+      - ATENA_HOST=0.0.0.0
+      - ATENA_PORT=80
+      - ATENA_DB_URL=postgresql://atena:secret@postgres:5432/atena
+      - OTLP_ENDPOINT=http://jaeger:4317
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    container_name: atena_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  postgres:
+    image: postgres:15-alpine
+    container_name: atena_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: atena
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: atena
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  jaeger:
+    image: jaegertracing/all-in-one:latest
+    container_name: atena_jaeger
+    ports:
+      - "16686:16686" # UI
+      - "4317:4317"   # OTLP gRPC
+
+volumes:
+  pgdata:

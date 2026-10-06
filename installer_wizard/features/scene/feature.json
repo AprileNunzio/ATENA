@@ -1,0 +1,17 @@
+{
+  "id": "scene",
+  "name": "Scena e presenza",
+  "icon": "🗺",
+  "category": "percezione",
+  "order": 27,
+  "panel": "scene",
+  "requires": { "features": ["vision"] },
+  "description": "Grafo spaziale della casa: stanze, mobili e zone con coordinate, oggetti visti dalle telecamere e fusione di volto, voce e tracker in un'unica stima di presenza.",
+  "capabilities": [
+    "Ricorda dove ha visto per l'ultima volta gli oggetti (tavolo della cucina, mensola dell'ingresso…) anche con coordinate in metri",
+    "Risponde a «dov'è il portafoglio?» e «è tutto pronto per uscire?»",
+    "Profili di prontezza: elenco di oggetti che devono trovarsi in una zona o vicino all'ingresso",
+    "Fonde volto (con prova di vitalità), voce riconosciuta e tracker di Home Assistant in una probabilità di presenza per persona",
+    "Avvia la previsione dei comandi all'arrivo fuso, non al singolo sensore"
+  ]
+}

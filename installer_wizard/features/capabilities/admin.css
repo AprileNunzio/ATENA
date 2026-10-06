@@ -1,0 +1,6 @@
+#tab-capabilities .cp-form { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0; }
+#tab-capabilities .cp-form input[type="text"] { flex: 1 1 240px; }
+#tab-capabilities .cp-check { flex: 1 1 100%; font-size: 13px; opacity: .85; }
+#tab-capabilities .cp-row { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line, rgba(255,255,255,.08)); }
+#tab-capabilities .cp-new { margin: 10px 0; padding: 12px; border-radius: 10px; border: 1px solid var(--accent, #4cc9f0); }
+#tab-capabilities .cp-new pre { margin: 8px 0 0; overflow-x: auto; user-select: all; font-size: 12px; }

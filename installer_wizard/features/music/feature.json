@@ -1,0 +1,323 @@
+{
+  "id": "music",
+  "name": "Gestione Musica",
+  "icon": "🎵",
+  "category": "intelligenza",
+  "order": 80,
+  "panel": "music",
+  "description": "Il tuo Spotify locale: libreria, playlist, mix, ricerca, testi, Chromecast e DLNA, link condivisi, app per telefono e riconoscimento ambientale.",
+  "toggle": {
+    "env": "ATENA_MUSIC_ID",
+    "apply": [
+      "music"
+    ]
+  },
+  "requires": {},
+  "capabilities": [
+    "Libreria con smistamento automatico",
+    "Playlist normali e intelligenti",
+    "Mix e radio infinita",
+    "Chromecast, DLNA e schermo di Atena",
+    "Link condivisi a scadenza",
+    "Server compatibile con le app musicali",
+    "Riconoscimento ambientale"
+  ],
+  "settings": [
+    {
+      "key": "ATENA_MUSIC_ORGANIZE",
+      "label": "Smista da solo i file messi in «Da smistare»",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_SCAN_MIN",
+      "label": "Controllo della libreria",
+      "type": "select",
+      "default": "15",
+      "options": [
+        {
+          "value": "5",
+          "label": "Ogni 5 minuti"
+        },
+        {
+          "value": "15",
+          "label": "Ogni 15 minuti"
+        },
+        {
+          "value": "60",
+          "label": "Ogni ora"
+        },
+        {
+          "value": "360",
+          "label": "Ogni 6 ore"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_COVERS",
+      "label": "Cerca online copertine e dati mancanti (album, anno, genere)",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_LYRICS",
+      "label": "Scarica i testi e salvali accanto ai brani (.lrc)",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_CAST",
+      "label": "Cerca Chromecast, TV e speaker DLNA",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_RADIO",
+      "label": "Radio infinita quando la coda finisce",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_CROSSFADE",
+      "label": "Dissolvenza tra i brani",
+      "type": "select",
+      "default": "0",
+      "options": [
+        {
+          "value": "0",
+          "label": "Nessuna"
+        },
+        {
+          "value": "3",
+          "label": "3 secondi"
+        },
+        {
+          "value": "6",
+          "label": "6 secondi"
+        },
+        {
+          "value": "10",
+          "label": "10 secondi"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_TRANSCODE",
+      "label": "Conversione dei formati non supportati",
+      "type": "select",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Solo se serve"
+        },
+        {
+          "value": "never",
+          "label": "Mai"
+        },
+        {
+          "value": "always",
+          "label": "Sempre (risparmia banda)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_TRANSCODE_KBPS",
+      "label": "Qualità della conversione",
+      "type": "select",
+      "default": "192",
+      "options": [
+        {
+          "value": "128",
+          "label": "128 kbps"
+        },
+        {
+          "value": "192",
+          "label": "192 kbps"
+        },
+        {
+          "value": "256",
+          "label": "256 kbps"
+        },
+        {
+          "value": "320",
+          "label": "320 kbps"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_SHARE_LINKS",
+      "label": "Permetti i link condivisi",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_SHARE_HOURS",
+      "label": "Durata dei link condivisi",
+      "type": "select",
+      "default": "24",
+      "options": [
+        {
+          "value": "1",
+          "label": "1 ora"
+        },
+        {
+          "value": "24",
+          "label": "1 giorno"
+        },
+        {
+          "value": "168",
+          "label": "1 settimana"
+        },
+        {
+          "value": "720",
+          "label": "30 giorni"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_HISTORY_DAYS",
+      "label": "Cronologia di ascolto conservata",
+      "type": "select",
+      "default": "365",
+      "options": [
+        {
+          "value": "30",
+          "label": "30 giorni"
+        },
+        {
+          "value": "365",
+          "label": "1 anno"
+        },
+        {
+          "value": "3650",
+          "label": "Sempre"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_VOICE",
+      "label": "Comandi vocali per la musica",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_IDENTIFY",
+      "label": "Riconosci i brani senza dati dal suono (invia 12 secondi di audio al servizio di riconoscimento)",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_TAGS",
+      "label": "Scrivi nei file i dati mancanti (titolo, artista, album, anno, genere)",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_MUSIC_RENAME",
+      "label": "Dai ai file nomi completi: numero - artista - titolo (anno)",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    }
+  ]
+}

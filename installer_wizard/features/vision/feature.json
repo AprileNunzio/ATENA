@@ -1,0 +1,213 @@
+{
+  "id": "vision",
+  "name": "Visione e volti",
+  "icon": "👁",
+  "category": "percezione",
+  "order": 60,
+  "panel": "people",
+  "description": "Webcam e riconoscimento facciale locale: chi è in casa, saluti personalizzati, nuove persone aggiunte da sole.",
+  "toggle": {
+    "env": "ATENA_VISION",
+    "apply": [
+      "vision"
+    ]
+  },
+  "requires": {
+    "video": true,
+    "ram_gb": 2
+  },
+  "capabilities": [
+    "Riconoscimento facciale offline",
+    "Presenze in tempo reale",
+    "Ospiti registrati da soli",
+    "Filtro dei riflessi (specchi e vetri)",
+    "Oggetti che hai in mano",
+    "Lettura di etichette e testi",
+    "Riparazione guidata via webcam con i cervelli che vedono",
+    "Webcam a doppio sensore (colori + infrarosso) riconosciute al collegamento, senza riavvio",
+    "Anti-foto e anti-schermo con l'infrarosso",
+    "Gemelli e volti somiglianti distinti con un margine più severo, senza mischiare i loro campioni",
+    "Il riconoscimento migliora da solo: campioni diversi, soglie per persona, infrarosso"
+  ],
+  "settings": [
+    {
+      "key": "ATENA_IR_MODE",
+      "label": "Sensore infrarosso (webcam con doppio sensore)",
+      "type": "select",
+      "default": "auto",
+      "apply": [
+        "vision"
+      ],
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automatico: lo usa se c'è"
+        },
+        {
+          "value": "off",
+          "label": "Non usarlo"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_LIVENESS",
+      "label": "Controllo anti-foto e anti-schermo (richiede l'infrarosso)",
+      "type": "select",
+      "default": "advisory",
+      "apply": [
+        "vision"
+      ],
+      "options": [
+        {
+          "value": "advisory",
+          "label": "Segnala soltanto"
+        },
+        {
+          "value": "strict",
+          "label": "Rigido: foto e schermi non vengono riconosciuti"
+        },
+        {
+          "value": "off",
+          "label": "Disattivato"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_LIVENESS_MIN",
+      "label": "Punteggio minimo per considerare vivo un volto (0,1 - 0,95)",
+      "type": "number",
+      "default": "0.55",
+      "apply": [
+        "vision"
+      ]
+    },
+    {
+      "key": "ATENA_CAMERA_RES",
+      "label": "Risoluzione della webcam",
+      "type": "select",
+      "default": "auto",
+      "apply": [
+        "vision"
+      ],
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automatica (dal processore)"
+        },
+        {
+          "value": "640x480",
+          "label": "640x480 (leggera)"
+        },
+        {
+          "value": "1280x720",
+          "label": "1280x720"
+        },
+        {
+          "value": "1920x1080",
+          "label": "1920x1080 (massima nitidezza)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_CAMERA_RGB",
+      "label": "Webcam a colori: automatica oppure percorso (es. /dev/video0)",
+      "type": "text",
+      "default": "auto",
+      "apply": [
+        "vision"
+      ]
+    },
+    {
+      "key": "ATENA_CAMERA_IR",
+      "label": "Sensore infrarosso: automatico, off oppure percorso (es. /dev/video2)",
+      "type": "text",
+      "default": "auto",
+      "apply": [
+        "vision"
+      ]
+    },
+    {
+      "key": "ATENA_FACE_AUTOIMPROVE",
+      "label": "Il riconoscimento dei volti migliora da solo nel tempo",
+      "type": "select",
+      "default": "1",
+      "apply": [
+        "vision"
+      ],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì: aggiunge campioni diversi e scarta quelli ridondanti"
+        },
+        {
+          "value": "0",
+          "label": "No: solo i campioni dell'iscrizione"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_FACE_ADAPTIVE",
+      "label": "Soglia di riconoscimento calcolata per ogni persona",
+      "type": "select",
+      "default": "1",
+      "apply": [
+        "vision"
+      ],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No: soglia unica"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_FACE_THRESHOLD",
+      "label": "Soglia di somiglianza del volto (0,2 - 0,8)",
+      "type": "number",
+      "default": "0.40",
+      "apply": [
+        "vision"
+      ]
+    },
+    {
+      "key": "ATENA_FACE_MARGIN",
+      "label": "Distacco minimo dalla seconda persona più simile (0 - 0,4)",
+      "type": "number",
+      "default": "0.05",
+      "apply": [
+        "vision"
+      ]
+    },
+    {
+      "key": "ATENA_FACE_TWIN_SIM",
+      "label": "Due persone sono «somiglianti» oltre questa somiglianza (0,3 - 0,95)",
+      "type": "number",
+      "default": "0.55",
+      "apply": [
+        "vision"
+      ]
+    },
+    {
+      "key": "ATENA_FACE_TWIN_MARGIN",
+      "label": "Distacco richiesto tra persone somiglianti, per esempio gemelli (0 - 0,5)",
+      "type": "number",
+      "default": "0.12",
+      "apply": [
+        "vision"
+      ]
+    },
+    {
+      "key": "ATENA_FACE_IR_WEIGHT",
+      "label": "Peso dell'infrarosso nel riconoscimento (0 - 0,8)",
+      "type": "number",
+      "default": "0.35",
+      "apply": [
+        "vision"
+      ]
+    }
+  ]
+}

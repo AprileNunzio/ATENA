@@ -1,0 +1,59 @@
+name: atena
+
+services:
+  atena-core:
+    image: atena-core:local
+    build:
+      context: ..
+      dockerfile: docker/core/Dockerfile
+      args:
+        ATENA_SRC_HASH: ${ATENA_SRC_HASH:-dev}
+    container_name: atena-core
+    restart: unless-stopped
+    network_mode: host
+    env_file:
+      - path: /etc/atena/atena.env
+        required: false
+    environment:
+      ATENA_ENV: production
+      ATENA_HOST: 0.0.0.0
+      ATENA_PORT: "8443"
+      OLLAMA_BASE_URL: ${ATENA_OLLAMA_URL:-http://127.0.0.1:11434}
+      QDRANT_HOST: 127.0.0.1
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ../data/db:/app/data/db
+      - ../data/certs:/app/data/certs
+      - ../data/models:/app/data/models
+      - /run/atena/sandbox:/run/atena/sandbox
+      - /var/lib/atena/brain:/run/atena/brain:ro
+    depends_on:
+      - atena-qdrant
+
+  atena-qdrant:
+    image: qdrant/qdrant:latest
+    container_name: atena-qdrant
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"
+      - "127.0.0.1:6334:6334"
+    volumes:
+      - ../data/qdrant:/qdrant/storage
+
+  atena-inference:
+    profiles: ["gpu"]
+    build:
+      context: ..
+      dockerfile: docker/inference/Dockerfile
+    image: atena-inference:local
+    container_name: atena-inference
+    restart: unless-stopped
+    ports:
+      - "8444:8444"
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]

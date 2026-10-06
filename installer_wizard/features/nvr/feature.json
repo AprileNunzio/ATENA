@@ -1,0 +1,21 @@
+{
+  "id": "nvr",
+  "name": "NVR",
+  "title": "NVR",
+  "icon": "🛡️",
+  "category": "casa",
+  "order": 31,
+  "panel": "nvr",
+  "description": "Videoregistratore di rete: archivio degli eventi delle telecamere e dei motori NVR esterni via MQTT, ricerca in linguaggio naturale, conservazione e avvisi.",
+  "capabilities": [
+    "Archivia gli eventi di movimento delle telecamere di Atena",
+    "Riceve via MQTT gli eventi di motori NVR esterni (persone, veicoli, animali, pacchi, targhe)",
+    "Ricerca come «persona ieri in giardino» o «auto oggi»",
+    "Pubblica eventi e avvisi sul bus di Atena per widget e automazioni"
+  ],
+  "requires": {
+    "features": [
+      "cameras"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+[Unit]
+Description=Atena OS Ear (ascolto vocale e parola di attivazione)
+After=atena-supervisor.service
+PartOf=atena-supervisor.service
+
+[Service]
+Type=simple
+Environment=PYTHONUNBUFFERED=1
+Environment=HF_HUB_OFFLINE=1
+EnvironmentFile=-/etc/atena/atena.env
+ExecStart=/opt/atena-ear/venv/bin/python /opt/Atena/installer_wizard/features/ear/service.py
+Restart=always
+RestartSec=5
+Nice=-5
+CPUWeight=400
+MemoryMax=3G
+
+[Install]
+WantedBy=multi-user.target

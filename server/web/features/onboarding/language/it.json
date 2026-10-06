@@ -1,0 +1,10 @@
+{
+    "welcome": {
+        "title": "Benvenuto in Atena",
+        "description": "Iniziamo configurando le tue preferenze.",
+        "start_button": "Inizia"
+    },
+    "errors": {
+        "setup_failed": "Impossibile completare il setup iniziale. Riprova."
+    }
+}

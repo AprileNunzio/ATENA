@@ -1,0 +1,28 @@
+{
+    "ui": {
+        "title": "Atena Cognitive Orchestrator",
+        "subtitle": "Sistema Agentico Avanzato v2.0",
+        "input_placeholder": "Scrivi un prompt per Atena o per lo Swarm...",
+        "send_button": "Invia Comando",
+        "thinking_title": "Atena sta ragionando (System 2)...",
+        "response_title": "Esecuzione e Risposta",
+        "tools_title": "Strumenti Dinamici Utilizzati",
+        "whiteboard_title": "Lavagna Interattiva",
+        "metrics_strategy": "Strategia:",
+        "metrics_latency": "Latenza:"
+    },
+    "chips": {
+        "chip_1": "Organizza la mia libreria musicale",
+        "chip_2": "Esegui il deploy di un server MySQL",
+        "chip_3": "Apri la lavagna architetturale"
+    },
+    "dynamic": {
+        "whiteboard_added": "Aggiunto componente architetturale #{count}",
+        "whiteboard_traced": "Connessione gRPC/WebSocket tracciata",
+        "whiteboard_cleared": "Lavagna pulita",
+        "processing": "Elaborazione in corso...",
+        "error_connection": "Errore di connessione o inferenza: {err}",
+        "semantic_fast_path": "Fast-Path Semantico (0 ms)",
+        "system1": "System 1: {intent}"
+    }
+}

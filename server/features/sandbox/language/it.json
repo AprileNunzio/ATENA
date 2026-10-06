@@ -1,0 +1,13 @@
+{
+    "status": {
+        "initializing": "Inizializzazione Ambiente Sandbox",
+        "ready": "Sandbox pronta",
+        "terminated": "Sandbox terminata"
+    },
+    "errors": {
+        "isolation_breach": "Critico: Rilevata violazione dell'isolamento.",
+        "timeout": "Tempo di esecuzione scaduto.",
+        "wasm_unavailable": "Ambiente Wasm non disponibile",
+        "wasm_missing": "Libreria Wasmtime non installata. Sandbox disattivato."
+    }
+}

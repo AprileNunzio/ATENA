@@ -1,0 +1,190 @@
+{
+  "id": "cameras",
+  "name": "Telecamere",
+  "icon": "📹",
+  "category": "percezione",
+  "order": 120,
+  "pinned": false,
+  "panel": "cameras",
+  "description": "Un'unica funzione per webcam, infrarosso e telecamere di rete: vista dal vivo di tutte le sorgenti, ricerca e modelli per le marche più comuni, prova della connessione, opzioni per ogni telecamera (nome, stanza, rotazione, specchio, fluidità), controlli della webcam (luminosità, contrasto, esposizione), foto e clip, avviso di movimento e registrazione ad anello. Registrazione spenta di default: va attivata con il consenso di chi viene ripreso.",
+  "toggle": {
+    "env": "ATENA_CAMERAS",
+    "default": "0",
+    "apply": []
+  },
+  "capabilities": [
+    "Webcam locali, sensore infrarosso e telecamere di rete (RTSP, ONVIF, Hikvision) in un'unica vista dal vivo",
+    "Ricerca automatica in rete (ONVIF e porte RTSP) e modelli per Hikvision, Dahua, Reolink, Tapo, Foscam, Axis e altre",
+    "Prova della connessione con diagnosi dell'errore (password, percorso, porta, rete)",
+    "Opzioni per telecamera: nome, stanza, rotazione, specchio, fluidità, risoluzione, preferita, nascosta",
+    "Controlli della webcam (luminosità, contrasto, esposizione, bilanciamento) ripristinati a ogni avvio",
+    "Foto a richiesta e al movimento, archivio con anteprima, scarico e cancellazione",
+    "Avviso di movimento con sensibilità regolabile e registro degli eventi",
+    "Registrazione ad anello (5/15/60 minuti) con credenziali cifrate, consenso obbligatorio e indicatore visibile",
+    "Configurazione automatica dell'emettitore infrarosso con un clic",
+    "Con la voce: «apri la webcam salotto a tutto schermo», «scatta una foto dall'ingresso», «avvisami se si muove qualcosa in giardino»",
+    "Tutto ciò che manca (ffmpeg, v4l-utils, strumento dell'emettitore infrarosso) si installa e si configura da solo, senza interventi"
+  ],
+  "settings": [
+    {
+      "key": "ATENA_LIVECAM_FPS",
+      "label": "Fluidità dell'immagine in diretta",
+      "type": "select",
+      "default": "8",
+      "options": [
+        {
+          "value": "5",
+          "label": "5 immagini al secondo (leggero)"
+        },
+        {
+          "value": "8",
+          "label": "8 al secondo"
+        },
+        {
+          "value": "12",
+          "label": "12 al secondo"
+        },
+        {
+          "value": "20",
+          "label": "20 al secondo (fluido)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_LIVECAM_WIDTH",
+      "label": "Larghezza dell'immagine in diretta",
+      "type": "select",
+      "default": "640",
+      "options": [
+        {
+          "value": "480",
+          "label": "480 px"
+        },
+        {
+          "value": "640",
+          "label": "640 px"
+        },
+        {
+          "value": "960",
+          "label": "960 px"
+        },
+        {
+          "value": "1280",
+          "label": "1280 px"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_LIVECAM_MAX",
+      "label": "Telecamere in diretta contemporanee",
+      "type": "select",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        },
+        {
+          "value": "3",
+          "label": "3"
+        },
+        {
+          "value": "4",
+          "label": "4"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_CAMERAS_MOTION_EVERY",
+      "label": "Controllo del movimento ogni",
+      "type": "select",
+      "default": "5",
+      "options": [
+        {
+          "value": "3",
+          "label": "3 secondi (reattivo)"
+        },
+        {
+          "value": "5",
+          "label": "5 secondi"
+        },
+        {
+          "value": "10",
+          "label": "10 secondi (leggero)"
+        },
+        {
+          "value": "30",
+          "label": "30 secondi"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_CAMERAS_MOTION_COOLDOWN",
+      "label": "Pausa tra due avvisi di movimento",
+      "type": "select",
+      "default": "60",
+      "options": [
+        {
+          "value": "30",
+          "label": "30 secondi"
+        },
+        {
+          "value": "60",
+          "label": "1 minuto"
+        },
+        {
+          "value": "300",
+          "label": "5 minuti"
+        },
+        {
+          "value": "900",
+          "label": "15 minuti"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_CAMERAS_PHOTOS_MAX",
+      "label": "Foto conservate per telecamera",
+      "type": "select",
+      "default": "200",
+      "options": [
+        {
+          "value": "50",
+          "label": "50"
+        },
+        {
+          "value": "200",
+          "label": "200"
+        },
+        {
+          "value": "500",
+          "label": "500"
+        },
+        {
+          "value": "1000",
+          "label": "1000"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_IR_AUTO",
+      "label": "Configura da solo l'emettitore infrarosso se l'immagine è al buio",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì, in automatico"
+        },
+        {
+          "value": "0",
+          "label": "No, solo su mia richiesta"
+        }
+      ]
+    }
+  ]
+}

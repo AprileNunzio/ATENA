@@ -1,0 +1,25 @@
+🚀 Atena 3.0: L'Agente Cognitivo Universale (AGI Baseline)
+
+[ITALIANO]
+Questa release segna l'abbandono della vecchia architettura reattiva in favore di un vero Sistema Nervoso Centrale autonomo.
+Principali novità architetturali:
+- Architettura Dual-Process (Kahneman): Sistema 1 locale e ultra-veloce (50ms) per le abitudini, Sistema 2 per il ragionamento profondo e analitico.
+- Babbling Engine: Apprendimento attivo esplorativo (RL). Di fronte a input o hardware sconosciuti, Atena genera Probe sicuri per capire e mappare il funzionamento dell'ambiente (Motor & Protocol Babbling).
+- Universal Actuator & Sensory Bus: Astrazione totale (UniversalObservation / UniversalAction). Qualsiasi feed (Webcam, Rete, USB, Voce) e qualsiasi azione sono generalizzati nello spazio latente.
+- Deep Memory Distiller (Fase REM): Durante l'idle notturno, le esperienze di successo (episodiche) vengono convertite in dataset DPO/LoRA per il fine-tuning del Sistema 1 (conoscenza parametrica).
+- NVR Enterprise: Videosorveglianza integrata con ricerca semantica, VectorDB per gli eventi e Vision Language Models (VLM).
+- P2P Mesh Coordinator: Sharding decentralizzato dei tensori per suddividere il carico inferenziale su cluster locali.
+- Dynamic Brain Routing: Iniezione modulare dei modelli LLM (Cloud vs Locali) in base all'astrazione cognitiva richiesta (Esplorazione vs Ragionamento).
+
+[ENGLISH]
+🚀 Atena 3.0: The Universal Cognitive Agent (AGI Baseline)
+
+This release marks the shift from a reactive architecture to an autonomous Central Nervous System.
+Key architectural features:
+- Dual-Process Architecture (Kahneman): Ultra-fast local System 1 (50ms) for habits, and System 2 for deep, analytical reasoning.
+- Babbling Engine: Active exploratory learning (RL). Faced with unknown input or hardware, Atena generates safe Probes to understand and map the environment (Motor & Protocol Babbling).
+- Universal Actuator & Sensory Bus: Total abstraction (UniversalObservation / UniversalAction). Any feed (Webcam, Network, USB, Voice) and any action are generalized into the latent space.
+- Deep Memory Distiller (REM Phase): During nightly idle time, successful experiences (episodic memory) are converted into DPO/LoRA datasets to fine-tune System 1 (parametric knowledge).
+- NVR Enterprise: Integrated video surveillance with semantic search, VectorDB for events, and Vision Language Models (VLM).
+- P2P Mesh Coordinator: Decentralized tensor sharding to split inferential load across local clusters.
+- Dynamic Brain Routing: Modular injection of LLM models (Cloud vs. Local) based on the required cognitive abstraction (Exploration vs. Reasoning).

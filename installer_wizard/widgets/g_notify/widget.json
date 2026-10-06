@@ -1,0 +1,18 @@
+{
+  "id": "g_notify",
+  "personal": true,
+  "name": "Notifiche Google",
+  "icon": "🔔",
+  "priority": 80,
+  "size": "m",
+  "ttl": 180,
+  "description": "Nuove email, appuntamenti in arrivo e riepilogo della giornata di chi è davanti ad Atena.",
+  "demo": {
+    "kind": "event",
+    "who": "Nunzio",
+    "title": "Dentista",
+    "text": "Via Roma 12",
+    "at": 0,
+    "icon": "📅"
+  }
+}

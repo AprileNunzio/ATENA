@@ -1,0 +1,23 @@
+[package]
+name = "atena-egress"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[[bin]]
+name = "atena-egress"
+path = "src/main.rs"
+
+[features]
+test-hooks = []
+
+[lints]
+workspace = true
+
+[dependencies]
+landlock = "0.4.7"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+tokio = { version = "1", features = ["rt-multi-thread", "net", "io-util", "time", "macros", "sync", "io-std"] }

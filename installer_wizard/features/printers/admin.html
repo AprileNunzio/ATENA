@@ -1,0 +1,62 @@
+<section class="tab stack" id="tab-printers">
+  <div class="panel pr-head">
+    <div>
+      <div class="panel-title" style="margin:0" data-i18n="admin:printers.title">Stampanti</div>
+      <div class="faint" data-i18n="admin:printers.intro">Stampanti di sistema rilevate in automatico, stampanti di rete, 3D e incisori laser.</div>
+    </div>
+    <div class="actions">
+      <button class="btn primary" id="pr-add-open" data-i18n="admin:printers.add">Aggiungi stampante</button>
+      <button class="btn" id="pr-discover" data-i18n="admin:printers.discover">Cerca in rete</button>
+      <button class="btn" id="pr-refresh" data-i18n="admin:printers.refresh">Aggiorna</button>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="pr-list" id="pr-list"></div>
+  </div>
+  <div class="panel" id="pr-add-panel" hidden>
+    <div class="panel-title" data-i18n="admin:printers.new">Nuova stampante</div>
+    <form class="form-grid" id="pr-add-form">
+      <div><label for="pr-name" data-i18n="admin:printers.field.name">Nome</label><input id="pr-name" maxlength="60" required autocomplete="off"></div>
+      <div><label for="pr-type" data-i18n="admin:printers.field.type">Tipo</label>
+        <select id="pr-type">
+          <option value="laser_2d" data-i18n="admin:printers.type.laser_2d">Laser</option>
+          <option value="inkjet_2d" data-i18n="admin:printers.type.inkjet_2d">Getto d'inchiostro</option>
+          <option value="3d" data-i18n="admin:printers.type.3d">Stampante 3D</option>
+          <option value="engraver" data-i18n="admin:printers.type.engraver">Incisore laser</option>
+        </select></div>
+      <div><label for="pr-conn" data-i18n="admin:printers.field.connection">Connessione</label>
+        <select id="pr-conn">
+          <option value="network" data-i18n="admin:printers.connection.network">Rete</option>
+          <option value="usb" data-i18n="admin:printers.connection.usb">USB / seriale</option>
+        </select></div>
+      <div><label for="pr-address" data-i18n="admin:printers.field.address">Indirizzo</label><input id="pr-address" required autocomplete="off" data-i18n-placeholder="admin:printers.field.address_hint"></div>
+      <div><label for="pr-port" data-i18n="admin:printers.field.port">Porta</label><input id="pr-port" type="number" min="1" max="65535" value="9100"></div>
+      <div><label for="pr-key" data-i18n="admin:printers.field.api_key">Chiave API (facoltativa)</label><input id="pr-key" type="password" autocomplete="off"></div>
+      <div class="actions wide"><button class="btn primary" type="submit" data-i18n="admin:printers.save">Salva</button><button class="btn" type="button" id="pr-add-cancel" data-i18n="admin:printers.cancel">Annulla</button></div>
+    </form>
+  </div>
+  <div class="panel" id="pr-options-panel" hidden>
+    <div class="panel-title" id="pr-options-title"></div>
+    <form class="form-grid" id="pr-options-form">
+      <div><label for="po-paper" data-i18n="admin:printers.option.paper">Formato carta</label>
+        <select id="po-paper"><option>A4</option><option>A3</option><option>A5</option><option>Letter</option><option>Legal</option></select></div>
+      <div><label for="po-orientation" data-i18n="admin:printers.option.orientation">Orientamento</label>
+        <select id="po-orientation"><option value="portrait" data-i18n="admin:printers.option.portrait">Verticale</option><option value="landscape" data-i18n="admin:printers.option.landscape">Orizzontale</option></select></div>
+      <div><label for="po-quality" data-i18n="admin:printers.option.quality">Qualità</label>
+        <select id="po-quality"><option value="draft" data-i18n="admin:printers.option.draft">Bozza</option><option value="normal" data-i18n="admin:printers.option.normal">Normale</option><option value="high" data-i18n="admin:printers.option.high">Alta</option></select></div>
+      <div><label for="po-copies" data-i18n="admin:printers.option.copies">Copie</label><input id="po-copies" type="number" min="1" max="99" value="1"></div>
+      <div class="pr-2d"><label class="switch"><input type="checkbox" id="po-color"><span data-i18n="admin:printers.option.color">A colori</span></label></div>
+      <div class="pr-2d"><label class="switch"><input type="checkbox" id="po-duplex"><span data-i18n="admin:printers.option.duplex">Fronte-retro</span></label></div>
+      <div class="pr-laser"><label for="po-power" data-i18n="admin:printers.option.laser_power">Potenza laser (0-1000)</label><input id="po-power" type="number" min="0" max="1000"></div>
+      <div class="pr-laser"><label for="po-feed" data-i18n="admin:printers.option.laser_feed">Velocità (mm/min)</label><input id="po-feed" type="number" min="10" max="10000"></div>
+      <div class="pr-3d"><label for="po-nozzle" data-i18n="admin:printers.option.nozzle">Ugello (°C)</label><input id="po-nozzle" type="number" min="0" max="300"></div>
+      <div class="pr-3d"><label for="po-bed" data-i18n="admin:printers.option.bed">Piatto (°C)</label><input id="po-bed" type="number" min="0" max="120"></div>
+      <div class="wide"><label class="switch"><input type="checkbox" id="po-default"><span data-i18n="admin:printers.option.default">Stampante predefinita di Atena</span></label></div>
+      <div class="actions wide"><button class="btn primary" type="submit" data-i18n="admin:printers.save">Salva</button><button class="btn" type="button" id="pr-options-cancel" data-i18n="admin:printers.cancel">Annulla</button></div>
+    </form>
+  </div>
+  <div class="panel" id="pr-discover-panel" hidden>
+    <div class="panel-title" data-i18n="admin:printers.found">Dispositivi trovati</div>
+    <div class="pr-list" id="pr-found"></div>
+  </div>
+</section>

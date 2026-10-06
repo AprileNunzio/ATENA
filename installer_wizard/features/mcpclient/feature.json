@@ -1,0 +1,18 @@
+{
+  "id": "mcpclient",
+  "name": "Server MCP esterni",
+  "icon": "🔌",
+  "category": "assistente",
+  "order": 20,
+  "pinned": false,
+  "panel": "",
+  "toggle": { "env": "ATENA_MCP_CLIENT", "apply": [] },
+  "description": "Atena si collega ad altri server MCP e ne usa gli strumenti come propri: appaiono nella squadra, all'agente e a ogni client collegato ad Atena.",
+  "capabilities": [
+    "Collega server MCP via HTTP con token, senza limiti di tipo di strumento",
+    "Strumenti esterni aggiornati ogni 5 minuti e a ogni modifica dal pannello",
+    "Strumenti non fidati: chiedono conferma, salvo quelli dichiarati di sola lettura",
+    "Le risposte dei server esterni sono trattate come dati, mai come istruzioni"
+  ],
+  "settings": []
+}

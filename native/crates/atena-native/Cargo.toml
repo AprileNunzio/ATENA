@@ -1,0 +1,21 @@
+[package]
+name = "atena-native"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+publish.workspace = true
+
+[lib]
+name = "atena_native"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+atena-bus-core = { path = "../bus-core" }
+pyo3 = { version = "0.27.2", features = ["abi3-py311"] }
+
+[features]
+extension-module = ["pyo3/extension-module"]
+
+[lints]
+workspace = true

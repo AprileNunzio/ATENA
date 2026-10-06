@@ -1,0 +1,10 @@
+{
+  "id": "lavagna",
+  "name": "Lavagna",
+  "icon": "🧑‍🏫",
+  "priority": 70,
+  "size": "l",
+  "chrome": false,
+  "description": "Lavagna condivisa: tu scrivi e disegni, Atena scrive in azzurro e risolve i calcoli passo per passo. «Apri la lavagna a tutto schermo».",
+  "demo": {}
+}

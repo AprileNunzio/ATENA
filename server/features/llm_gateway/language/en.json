@@ -1,0 +1,11 @@
+{
+    "errors": {
+        "all_providers_failed": "All providers in chain failed. Using deterministic fallback.",
+        "ollama_unavailable": "No Ollama models available",
+        "empty_response": "empty response",
+        "model_unavailable": "Model {model} unavailable: {exc}"
+    },
+    "fallback": {
+        "synthetic_response": "Atena Core acknowledges the request: '{query}'. Operating in deterministic autonomous mode. (Last error: {error})"
+    }
+}

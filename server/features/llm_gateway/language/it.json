@@ -1,0 +1,11 @@
+{
+    "errors": {
+        "all_providers_failed": "Tutti i provider nella catena hanno fallito. Utilizzo del fallback deterministico.",
+        "ollama_unavailable": "Nessun modello Ollama disponibile",
+        "empty_response": "risposta vuota",
+        "model_unavailable": "Modello {model} non disponibile: {exc}"
+    },
+    "fallback": {
+        "synthetic_response": "Atena Core accusa ricevuta per: '{query}'. Operatività in modalità autonoma deterministica. (Ultimo errore: {error})"
+    }
+}

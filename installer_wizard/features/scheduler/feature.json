@@ -1,0 +1,95 @@
+{
+  "id": "scheduler",
+  "name": "Pianificatore e servizi continui",
+  "icon": "🗓",
+  "category": "sistema",
+  "order": 13,
+  "description": "Tiene sempre vivi i servizi in background (li riavvia se si fermano o si bloccano) e fa girare i cron: espressioni cron, ripresa delle esecuzioni mancate quando Atena era spenta e stato che sopravvive ai riavvii.",
+  "toggle": {
+    "env": "ATENA_LOOPS_RESTART",
+    "apply": []
+  },
+  "capabilities": [
+    "Riavvio automatico dei servizi in background con attesa crescente",
+    "Rilevamento dei servizi bloccati tramite battito",
+    "Cron a 5 campi (*/15 8-18 * * 1-5, @daily, @hourly) con giorni e mesi per nome",
+    "Esecuzioni mancate recuperate: salta, recupera una volta o recupera tutte",
+    "Stato dei pianificatori salvato su disco: gli intervalli non ripartono da zero",
+    "Prossime esecuzioni in elenco"
+  ],
+  "settings": [
+    {
+      "key": "ATENA_LOOPS_BACKOFF_MAX",
+      "label": "Attesa massima prima di riavviare un servizio guasto, in secondi (5 - 600)",
+      "type": "number",
+      "default": "60",
+      "apply": []
+    },
+    {
+      "key": "ATENA_LOOPS_STALE_FACTOR",
+      "label": "Un servizio è bloccato dopo quante volte il suo battito normale (2 - 20)",
+      "type": "number",
+      "default": "5",
+      "apply": []
+    },
+    {
+      "key": "ATENA_SCHED_PERSIST",
+      "label": "Ricorda le esecuzioni dopo un riavvio",
+      "type": "select",
+      "default": "1",
+      "apply": [],
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì (consigliato)"
+        },
+        {
+          "value": "0",
+          "label": "No: riparto sempre da zero"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_SCHED_MISFIRE",
+      "label": "Se Atena era spenta all'orario di un'automazione",
+      "type": "select",
+      "default": "run_once",
+      "apply": [],
+      "options": [
+        {
+          "value": "run_once",
+          "label": "Recupera una sola volta"
+        },
+        {
+          "value": "skip",
+          "label": "Salta"
+        },
+        {
+          "value": "run_all",
+          "label": "Recupera tutte (con limite)"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_SCHED_GRACE_MIN",
+      "label": "Recupera solo se la mancata esecuzione è più recente di (minuti, 0 = mai recuperare)",
+      "type": "number",
+      "default": "120",
+      "apply": []
+    },
+    {
+      "key": "ATENA_SCHED_MAX_CATCHUP",
+      "label": "Massimo di esecuzioni recuperate per ogni innesco (1 - 50)",
+      "type": "number",
+      "default": "3",
+      "apply": []
+    },
+    {
+      "key": "ATENA_SCHED_JITTER_S",
+      "label": "Sfasamento casuale degli orari per non farli scattare tutti insieme, in secondi (0 - 300)",
+      "type": "number",
+      "default": "0",
+      "apply": []
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+.nv-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.nv-search { flex: 1 1 360px; max-width: 620px; }
+.nv-search input { flex: 1; }
+.nv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.nv-cam { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.nv-cam img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; }
+.nv-cam .nv-meta { padding: 8px 10px; display: grid; gap: 4px; }
+.nv-list { display: grid; gap: 6px; max-height: 520px; overflow: auto; }
+.nv-ev { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; }
+.nv-ev.fresh { border-color: var(--cyan); }
+.nv-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.nv-chips label { display: flex; gap: 6px; align-items: center; border: 1px solid var(--line); border-radius: 99px; padding: 3px 10px; font-size: 12px; cursor: pointer; }
+.nv-chips input { width: auto; margin: 0; }

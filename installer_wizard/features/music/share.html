@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Musica condivisa</title>
+<style>
+  :root { color-scheme: dark; --bg: #0b1220; --card: #121c30; --line: #223250; --text: #e6efff; --dim: #8aa0c4; --accent: #29e0ff; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+  main { max-width: 640px; margin: 0 auto; padding: 24px 16px 120px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  .sub { color: var(--dim); font-size: 13px; margin-bottom: 18px; }
+  .cover { width: 100%; max-width: 280px; aspect-ratio: 1; border-radius: 14px; object-fit: cover; background: var(--card); display: block; margin: 0 auto 18px; }
+  ol { list-style: none; padding: 0; margin: 0; }
+  li { display: flex; gap: 12px; align-items: center; padding: 10px 12px; border-radius: 10px; cursor: pointer; }
+  li:hover, li.on { background: var(--card); }
+  li.on .t { color: var(--accent); }
+  .n { width: 22px; color: var(--dim); text-align: right; font-size: 13px; }
+  .t { font-size: 15px; }
+  .a { color: var(--dim); font-size: 12px; }
+  .d { margin-left: auto; color: var(--dim); font-size: 12px; }
+  footer { position: fixed; left: 0; right: 0; bottom: 0; background: var(--card); border-top: 1px solid var(--line); padding: 10px 16px; }
+  audio { width: 100%; max-width: 640px; display: block; margin: 0 auto; }
+  .err { color: #ff8a8a; padding: 40px 0; text-align: center; }
+</style>
+</head>
+<body>
+<main id="app"><div class="sub">Caricamento…</div></main>
+<footer><audio id="audio" controls preload="none"></audio></footer>
+<script>
+(() => {
+  const token = location.pathname.split("/").pop();
+  const app = document.getElementById("app");
+  const audio = document.getElementById("audio");
+  let tracks = [], index = -1;
+  const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; };
+  const clock = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+
+  function play(i) {
+    if (i < 0 || i >= tracks.length) return;
+    index = i;
+    audio.src = `/api/music/share/${token}/media/${tracks[i].id}`;
+    audio.play().catch(() => {});
+    [...document.querySelectorAll("li")].forEach((li, n) => li.classList.toggle("on", n === i));
+    document.title = `${tracks[i].title} — ${tracks[i].artist}`;
+    if ("mediaSession" in navigator) navigator.mediaSession.metadata = new MediaMetadata({ title: tracks[i].title, artist: tracks[i].artist, album: tracks[i].album });
+  }
+
+  function render(data) {
+    app.textContent = "";
+    const first = data.tracks[0];
+    if (first.cover) {
+      const img = el("img", "cover");
+      img.alt = "";
+      img.src = `/api/music/share/${token}/art/${first.album_key}`;
+      app.append(img);
+    }
+    app.append(el("h1", "", data.title));
+    const hours = Math.max(1, Math.round((data.expires * 1000 - Date.now()) / 3600000));
+    app.append(el("div", "sub", `${data.tracks.length} ${data.tracks.length === 1 ? "brano" : "brani"} · il collegamento scade tra circa ${hours} h`));
+    const list = el("ol");
+    data.tracks.forEach((t, i) => {
+      const li = el("li");
+      const info = el("div");
+      info.append(el("div", "t", t.title), el("div", "a", `${t.artist} — ${t.album}`));
+      li.append(el("span", "n", String(i + 1)), info, el("span", "d", t.duration ? clock(t.duration) : ""));
+      li.addEventListener("click", () => play(i));
+      list.append(li);
+    });
+    app.append(list);
+  }
+
+  audio.addEventListener("ended", () => play(index + 1));
+  fetch(`/api/music/share/${token}/data`).then((r) => { if (!r.ok) throw new Error(); return r.json(); }).then((d) => { tracks = d.tracks; render(d); })
+    .catch(() => { app.textContent = ""; app.append(el("div", "err", "Questo collegamento è scaduto o non è valido.")); });
+})();
+</script>
+</body>
+</html>

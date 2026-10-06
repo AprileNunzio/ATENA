@@ -1,0 +1,19 @@
+[Unit]
+Description=Atena OS Vision (riconoscimento facciale locale)
+After=atena-supervisor.service
+PartOf=atena-supervisor.service
+
+[Service]
+Type=simple
+Environment=PYTHONUNBUFFERED=1
+Environment=OMP_NUM_THREADS=2
+EnvironmentFile=-/etc/atena/atena.env
+ExecStart=/opt/Atena/installer_wizard/venv/bin/python /opt/Atena/installer_wizard/features/vision/service.py
+Restart=always
+RestartSec=5
+Nice=5
+MemoryMax=1G
+SupplementaryGroups=video
+
+[Install]
+WantedBy=multi-user.target

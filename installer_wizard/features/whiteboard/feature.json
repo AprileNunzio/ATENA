@@ -1,0 +1,20 @@
+{
+  "id": "whiteboard",
+  "name": "Lavagna",
+  "icon": "🧑‍🏫",
+  "category": "assistente",
+  "order": 21,
+  "pinned": false,
+  "panel": "",
+  "toggle": { "env": "ATENA_WHITEBOARD", "apply": [] },
+  "description": "Una lavagna come a scuola: dici «apri la lavagna a tutto schermo» e Atena diventa un widget sulla lavagna, dove scrivete e disegnate insieme per calcoli, equazioni e ragionamenti.",
+  "capabilities": [
+    "Si apre a voce, anche a tutto schermo; il contenuto resta salvato anche dopo la chiusura",
+    "Tu scrivi e disegni con dito, mouse o penna; Atena scrive in azzurro, come un compagno di banco",
+    "Calcoli ed equazioni di primo grado risolti passo per passo: «calcola 12 per (3 più 4)», «risolvi 2x + 3 = 11»",
+    "Spiegazioni e ragionamenti scritti alla lavagna: «spiegami la fotosintesi alla lavagna»",
+    "Atena guarda la lavagna e verifica ciò che hai scritto: «controlla cosa ho scritto»",
+    "Altri comandi: «scrivi alla lavagna…», «annulla», «cancella la lavagna», «chiudi la lavagna»"
+  ],
+  "settings": []
+}

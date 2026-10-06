@@ -1,0 +1,12 @@
+{
+  "id": "printers",
+  "name": "stampanti",
+  "title": "Stampanti",
+  "description": "Gestione stampanti, USB, di rete e dispositivi CNC",
+  "icon": "🖨",
+  "version": "1.0",
+  "widgets": [],
+  "has_admin": true,
+  "panel": "printers",
+  "category": "casa"
+}

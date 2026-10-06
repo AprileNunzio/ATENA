@@ -1,0 +1,241 @@
+<section class="tab" id="tab-models">
+  <div class="br-subnav" id="br-subnav">
+    <button type="button" class="br-subnav-btn on" data-sub="dashboard">
+      <span class="br-subnav-ic">📊</span>
+      <span class="br-subnav-meta">
+        <span class="br-subnav-title">Dashboard Cervelli</span>
+        <span class="br-subnav-desc">In uso adesso, instradamento e stato in tempo reale</span>
+      </span>
+    </button>
+    <button type="button" class="br-subnav-btn" data-sub="assign">
+      <span class="br-subnav-ic">🔀</span>
+      <span class="br-subnav-meta">
+        <span class="br-subnav-title">Assegnazioni per Componente</span>
+        <span class="br-subnav-desc">Mappe per singoli agenti e permanenza in memoria</span>
+      </span>
+    </button>
+    <button type="button" class="br-subnav-btn" data-sub="add">
+      <span class="br-subnav-ic">➕</span>
+      <span class="br-subnav-meta">
+        <span class="br-subnav-title">Aggiungi e Gestisci Cervelli</span>
+        <span class="br-subnav-desc">Catalogo Ollama, altri computer e chiavi cloud API</span>
+      </span>
+    </button>
+  </div>
+
+  <div class="br-subpage on" id="br-sub-dashboard">
+    <div class="panel br-now">
+      <div class="br-now-head">
+        <div>
+          <div class="panel-title" style="margin:0">Cervelli Attivi in Uso</div>
+          <div class="dim" style="font-size:13px; margin-top:2px">Visualizza quale modello risponde per ciascuna funzione di Atena</div>
+        </div>
+        <div class="br-routing-wrap">
+          <span class="dim" style="font-size:12px">Instradamento:</span>
+          <div class="seg" id="br-routing">
+            <button data-r="auto">Automatico</button>
+            <button data-r="1">Sempre due cervelli</button>
+            <button data-r="0">Un solo cervello</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="br-now-grid" id="br-now-grid"></div>
+      <div class="br-last" id="br-last"></div>
+
+      <div class="br-sim-box">
+        <div class="dim" style="font-size:12px; margin-bottom:6px">🧪 <b>Simulatore di Instradamento</b> — Scrivi una domanda di prova per vedere quale cervello risponderebbe e perché:</div>
+        <form class="route-box" id="br-test">
+          <input id="br-q" placeholder="Es: «Spiegami il calcolo quantistico» oppure «Accendi la luce in cucina»" autocomplete="off">
+          <button class="btn primary">Simula</button>
+        </form>
+        <div class="route-res" id="br-res"></div>
+      </div>
+    </div>
+
+    <div class="panel" style="margin-bottom:18px">
+      <div class="panel-title">Catene di Priorità e Ripiego per Ruolo</div>
+      <div class="dim" style="font-size:13px; margin-bottom:12px">Per ogni ruolo puoi ordinare i cervelli trascinandoli. Se il primo modello non è disponibile o fallisce, Atena usa istantaneamente il successivo.</div>
+      <div class="grid g2 br-lists" id="br-roles"></div>
+    </div>
+
+    <div class="panel br-edu-panel">
+      <div class="br-edu-header">
+        <div class="panel-title" style="margin:0">🎓 Guida Rapida per Capire i Cervelli di Atena</div>
+        <span class="badge ok">per tutti i livelli</span>
+      </div>
+      <div class="dim" style="font-size:13px; margin:4px 0 16px">Una panoramica semplice e trasparente sul funzionamento dei modelli neurali di Atena.</div>
+      <div class="br-edu-grid">
+        <div class="br-edu-card">
+          <div class="br-edu-icon">⚡ vs 🧠</div>
+          <div class="br-edu-title">Sistema 1 e Sistema 2</div>
+          <div class="br-edu-text">Atena divide i compiti: il <b>Sistema 1 (Veloce)</b> risponde a saluti e comandi domotici in millisecondi consumando pochissima memoria. Il <b>Sistema 2 (Ragionamento)</b> entra in gioco per problemi complessi, codice, calcoli e analisi, ragionando prima di parlare.</div>
+        </div>
+        <div class="br-edu-card">
+          <div class="br-edu-icon">📏 1B · 7B · 14B</div>
+          <div class="br-edu-title">Miliardi di Parametri (B)</div>
+          <div class="br-edu-text">La lettera <b>B</b> indica i miliardi di parametri del modello. Più il numero è alto, più il modello è intelligente e dettagliato, ma richiederà più RAM o memoria video GPU. Per computer standard consigliamo modelli tra 1.5B e 7B.</div>
+        </div>
+        <div class="br-edu-card">
+          <div class="br-edu-icon">🖥 · 🖧 · ☁</div>
+          <div class="br-edu-title">Locale, Rete o Cloud</div>
+          <div class="br-edu-text"><b>Locale:</b> 100% privato e gratuito sul tuo computer, funziona anche senza internet. <b>Server:</b> usa la potenza di un altro computer nella tua rete. <b>Cloud:</b> massima intelligenza tramite OpenAI, Claude, Gemini o DeepSeek con la tua chiave API.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="br-subpage" id="br-sub-assign">
+    <div id="br-assign"></div>
+  </div>
+
+  <div class="br-subpage" id="br-sub-add">
+    <div class="panel">
+      <div class="br-add-head">
+        <div>
+          <div class="panel-title" style="margin:0">Aggiungi e Gestisci Cervelli</div>
+          <div class="dim" style="font-size:13px; margin-top:2px">Scegli la sorgente di intelligenza neurale per Atena</div>
+        </div>
+      </div>
+
+      <div class="br-source" id="br-source">
+        <button type="button" data-v="local" class="on">
+          <b>🖥 Modelli locali</b>
+          <span>Ollama su questo computer: gratis, privato e funzionante offline</span>
+        </button>
+        <button type="button" data-v="servers">
+          <b>🖧 Altri computer e server</b>
+          <span>Collega altri computer in rete locale con Ollama, LM Studio o vLLM</span>
+        </button>
+        <button type="button" data-v="cloud">
+          <b>🔑 Servizi cloud</b>
+          <span>OpenAI, Anthropic Claude, Gemini, DeepSeek, Grok e altri via API</span>
+        </button>
+      </div>
+
+      <div class="br-view on" id="br-view-local">
+        <div class="br-hw-banner">
+          <div class="br-hw-info">
+            <span class="br-hw-label">🖥 Hardware Rilevato su questo computer:</span>
+            <span class="br-hw-specs mono" id="br-hw"></span>
+          </div>
+          <div class="br-hw-hint faint">I modelli del catalogo mostrano un indicatore di velocità e compatibilità calcolato per queste specifiche.</div>
+        </div>
+
+        <div class="br-ollama">
+          <div class="br-sub dim">
+            Indirizzo Server Ollama
+            <span class="faint">— Lascia vuoto per usare l'istanza locale; specifica un IP per scaricare il carico su un'altra macchina</span>
+          </div>
+          <form class="row" id="ol-form">
+            <input id="ol-url" placeholder="127.0.0.1:11434 (predefinito locale) — oppure es. 192.168.1.50:11434" autocomplete="off">
+            <button type="button" class="btn" id="ol-test">Verifica Connessione</button>
+            <button class="btn primary">Salva Indirizzo</button>
+          </form>
+          <div class="faint" id="ol-res"></div>
+        </div>
+
+        <div class="br-installed-box">
+          <div class="grid g2" style="align-items:start">
+            <div class="panel" style="background:rgba(2,8,16,0.35)">
+              <div class="panel-title" style="font-size:14px">📥 Scarica Modello Personalizzato per Nome</div>
+              <div class="dim" style="font-size:12px; margin-bottom:8px">Digita qualsiasi nome o tag presente su Ollama (es. mistral, starcoder2:3b, llama3.2:1b)</div>
+              <div class="row">
+                <input id="pull-name" placeholder="Es: deepseek-r1:1.5b o mistral:latest" autocomplete="off">
+                <button class="btn primary" id="pull-btn">Avvia Scaricamento</button>
+              </div>
+              <div id="pull-status" class="mono dim" style="margin-top:10px; font-size:12px"></div>
+              <div class="bar" style="margin-top:8px"><i id="pull-bar"></i></div>
+            </div>
+            <div class="panel" style="background:rgba(2,8,16,0.35)">
+              <div class="panel-title" style="font-size:14px">💾 Modelli Locali Attualmente Installati</div>
+              <div class="dim" style="font-size:12px; margin-bottom:8px">Modelli già presenti sul disco pronti per essere utilizzati da Atena</div>
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr><th>Modello</th><th>Dimensione</th><th>Stato</th><th style="text-align:right">Azione</th></tr>
+                  </thead>
+                  <tbody id="models-body"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="br-catalog-section">
+          <div class="br-catalog-header">
+            <div>
+              <div class="panel-title" style="margin:0">📚 Catalogo Completo Modelli Ollama</div>
+              <div class="dim" style="font-size:13px; margin-top:2px">I modelli open-source più apprezzati al mondo, ordinati per popolarità sul web. Scarica con 1 click o aggiungi ai ruoli.</div>
+            </div>
+          </div>
+
+          <div class="cat-toolbar">
+            <div class="cat-search-box">
+              <span class="cat-search-icon">🔍</span>
+              <input id="cat-search" placeholder="Cerca modello per nome, categoria o descrizione (es. deepseek, qwen, codice, vista)..." autocomplete="off">
+            </div>
+            <div class="cat-sort-box">
+              <label for="cat-sort" class="dim" style="font-size:12px">Ordina per:</label>
+              <select id="cat-sort">
+                <option value="web_rank">⭐ Più Popolari e Raccomandati dal Web</option>
+                <option value="size_asc">📉 Dimensione: dal più leggero al più pesante</option>
+                <option value="size_desc">📈 Dimensione: dal più pesante al più leggero</option>
+                <option value="name_asc">🔤 Nome Alfabetico (A-Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="cat-pills" id="cat-pills">
+            <button type="button" class="cat-pill on" data-cat="all">Tutti i Modelli</button>
+            <button type="button" class="cat-pill" data-cat="reasoning">🧠 Ragionamento (R1)</button>
+            <button type="button" class="cat-pill" data-cat="chat">⚡ Conversazione e Chat</button>
+            <button type="button" class="cat-pill" data-cat="code">💻 Codice e Programmazione</button>
+            <button type="button" class="cat-pill" data-cat="vision">👁️ Visione e Multimodale</button>
+            <button type="button" class="cat-pill" data-cat="light">🪶 Leggeri (≤ 3 GB)</button>
+            <button type="button" class="cat-pill" data-cat="heavy">🚀 Potenti (≥ 7 GB)</button>
+          </div>
+
+          <div class="cat-grid" id="br-catalog"></div>
+
+          <div class="cat-pagination" id="cat-pagination">
+            <button type="button" class="btn sm" id="cat-prev">← Precedente</button>
+            <div class="cat-page-numbers" id="cat-page-numbers"></div>
+            <span class="cat-page-info dim" id="cat-page-info"></span>
+            <button type="button" class="btn sm" id="cat-next">Successiva →</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="br-view" id="br-view-servers">
+        <div class="cl-intro-text dim" style="margin-bottom:14px">Aggiungi computer o server esterni: ciascuno mette a disposizione i propri modelli locali (tramite Ollama o software compatibile OpenAI come LM Studio, vLLM, LocalAI). Puoi ripartire il lavoro: per esempio, un mini PC per risposte istantanee e una workstation con GPU potente per il ragionamento logico.</div>
+        <form class="sv-form" id="sv-form">
+          <label>Nome identificativo<input id="sv-name" placeholder="es. Workstation Studio" autocomplete="off"></label>
+          <label>Tipo server<select id="sv-flavor"><option value="ollama">Ollama</option><option value="openai">Compatibile OpenAI (LM Studio, vLLM, LocalAI)</option></select></label>
+          <label class="wide">Indirizzo IP e Porta<input id="sv-url" placeholder="es. 192.168.1.50:11434" autocomplete="off"></label>
+          <label>Chiave API (se richiesta)<input id="sv-key" type="password" autocomplete="off"></label>
+          <div class="actions"><button type="button" class="btn" id="sv-test">Verifica</button><button class="btn primary">Aggiungi Server</button></div>
+        </form>
+        <div class="faint" id="sv-res"></div>
+        <div class="row br-sub" style="margin-top:16px"><span class="dim">Modelli Disponibili sui Server Collegati</span><span class="faint" id="sv-stamp"></span></div>
+        <div class="cl-grid" id="sv-list"></div>
+      </div>
+
+      <div class="br-view" id="br-view-cloud">
+        <div class="cl-intro">
+          <div class="cl-intro-text dim">Collega i migliori provider cloud mondiali con le tue chiavi API personali. Le chiavi sono protette con cifratura hardware su questo server e non lasciano mai la macchina se non per comunicare con il fornitore ufficiale.</div>
+          <div class="cl-only">
+            <label>⚡ Conversazione<select id="cl-only-chat"></select></label>
+            <label>🧠 Ragionamento<select id="cl-only-deep"></select></label>
+            <button class="btn primary" id="cl-only-btn">Attiva Modalità Solo Cloud</button>
+          </div>
+        </div>
+        <div class="cl-filter">
+          <input id="cl-search" placeholder="Cerca fornitore (OpenAI, Anthropic, Google, Grok, DeepSeek)..." autocomplete="off">
+          <div class="seg" id="cl-show"><button data-f="all" class="on">Tutti i Fornitori</button><button data-f="on">Solo Collegati</button></div>
+        </div>
+        <div class="cl-grid" id="cl-grid"></div>
+      </div>
+    </div>
+  </div>
+</section>

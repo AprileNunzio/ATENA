@@ -1,0 +1,14 @@
+{
+  "id": "clipboard_sync",
+  "personal": true,
+  "name": "Shared Clipboard",
+  "icon": "\ud83d\udccb",
+  "priority": 55,
+  "size": "m",
+  "intents": [
+    "clipboard_sync"
+  ],
+  "description": "Clipboard",
+  "ttl": 60,
+  "demo": {}
+}

@@ -1,0 +1,13 @@
+{
+  "id": "live_cam",
+  "name": "Webcam in diretta",
+  "icon": "📹",
+  "priority": 75,
+  "size": "l",
+  "ttl": 900,
+  "description": "Immagine in diretta di una webcam o telecamera: si apre con la voce («apri la webcam salotto»), anche a tutto schermo.",
+  "demo": {
+    "source": "w-00000000",
+    "name": "Webcam di prova"
+  }
+}

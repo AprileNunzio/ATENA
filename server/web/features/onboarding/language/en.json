@@ -1,0 +1,10 @@
+{
+    "welcome": {
+        "title": "Welcome to Atena",
+        "description": "Let's start by configuring your preferences.",
+        "start_button": "Get Started"
+    },
+    "errors": {
+        "setup_failed": "Failed to complete onboarding. Please try again."
+    }
+}

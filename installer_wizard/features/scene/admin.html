@@ -1,0 +1,53 @@
+<section class="tab stack" id="tab-scene">
+  <div class="panel">
+    <div class="panel-title" style="margin:0" data-i18n="admin:scene.title">Scena e presenza</div>
+    <div class="faint" data-i18n="admin:scene.intro">Zone e mobili con coordinate, oggetti visti dalle telecamere e presenza fusa da volto, voce e tracker.</div>
+  </div>
+  <div class="grid g2">
+    <div class="panel">
+      <div class="panel-title" data-i18n="admin:scene.presence">Presenza fusa</div>
+      <div class="sc-list" id="sc-presence"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title" data-i18n="admin:scene.items">Oggetti da ritrovare</div>
+      <div class="sc-list" id="sc-items"></div>
+      <form class="form-grid" id="sc-item-form" style="grid-template-columns:1fr 1fr; margin-top:12px">
+        <div><label for="sc-item-name" data-i18n="admin:scene.field.item_name">Nome</label><input id="sc-item-name" maxlength="60" required data-i18n-placeholder="admin:scene.field.item_hint"></div>
+        <div><label for="sc-item-label" data-i18n="admin:scene.field.detector">Riconosciuto come</label><select id="sc-item-label"></select></div>
+        <div class="wide"><label for="sc-item-aliases" data-i18n="admin:scene.field.aliases">Altri nomi (separati da virgola)</label><input id="sc-item-aliases" maxlength="300"></div>
+        <div class="actions wide"><button class="btn primary" type="submit" data-i18n="admin:scene.add">Aggiungi</button></div>
+      </form>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title" data-i18n="admin:scene.anchors">Zone e mobili</div>
+    <div class="faint" data-i18n="admin:scene.anchors_help">Clicca sull'immagine per disegnare la zona (almeno 3 punti), poi dai un nome. Le coordinate in metri sono facoltative.</div>
+    <div class="sc-editor">
+      <div class="sc-canvas"><img id="sc-snapshot" alt=""><svg id="sc-svg" viewBox="0 0 1 1" preserveAspectRatio="none"></svg></div>
+      <form class="form-grid" id="sc-anchor-form" style="grid-template-columns:1fr 1fr; align-content:start">
+        <div class="wide"><label for="sc-anchor-name" data-i18n="admin:scene.field.anchor_name">Nome della zona</label><input id="sc-anchor-name" maxlength="60" required data-i18n-placeholder="admin:scene.field.anchor_hint"></div>
+        <div class="wide"><label for="sc-anchor-room" data-i18n="admin:scene.field.room">Stanza</label><input id="sc-anchor-room" maxlength="60"></div>
+        <div><label for="sc-x">X (m)</label><input id="sc-x" type="number" step="0.01"></div>
+        <div><label for="sc-y">Y (m)</label><input id="sc-y" type="number" step="0.01"></div>
+        <div><label for="sc-z">Z (m)</label><input id="sc-z" type="number" step="0.01"></div>
+        <div><label class="switch" style="margin-top:22px"><input type="checkbox" id="sc-entrance"><span data-i18n="admin:scene.field.entrance">Vicino all'ingresso</span></label></div>
+        <div class="actions wide">
+          <button class="btn primary" type="submit" data-i18n="admin:scene.save_anchor">Salva zona</button>
+          <button class="btn" type="button" id="sc-clear-points" data-i18n="admin:scene.clear_points">Cancella punti</button>
+          <button class="btn" type="button" id="sc-refresh-shot" data-i18n="admin:scene.refresh_shot">Nuova immagine</button>
+        </div>
+      </form>
+    </div>
+    <div class="sc-list" id="sc-anchors" style="margin-top:12px"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-title" data-i18n="admin:scene.profiles">Profili di prontezza</div>
+    <div class="sc-list" id="sc-profiles"></div>
+    <form class="form-grid" id="sc-profile-form" style="grid-template-columns:1fr 1fr; margin-top:12px">
+      <div><label for="sc-profile-name" data-i18n="admin:scene.field.profile_name">Nome</label><input id="sc-profile-name" maxlength="60" required data-i18n-placeholder="admin:scene.field.profile_hint"></div>
+      <div><label for="sc-profile-aliases" data-i18n="admin:scene.field.aliases">Altri nomi (separati da virgola)</label><input id="sc-profile-aliases" maxlength="300"></div>
+      <div class="wide"><label data-i18n="admin:scene.field.requirements">Oggetti richiesti</label><div class="sc-list" id="sc-reqs"></div></div>
+      <div class="actions wide"><button class="btn primary" type="submit" data-i18n="admin:scene.save_profile">Salva profilo</button></div>
+    </form>
+  </div>
+</section>

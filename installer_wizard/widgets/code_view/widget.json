@@ -1,0 +1,18 @@
+{
+  "id": "code_view",
+  "name": "Visualizzatore Codice",
+  "icon": "\ud83d\udcbb",
+  "priority": 80,
+  "size": "l",
+  "intents": [
+    "code_view"
+  ],
+  "description": "Mostra il codice chiesto ad Atena con il linguaggio e un pulsante per copiarlo (resta 15 minuti).",
+  "demo": {
+    "language": "html",
+    "title": "Pagina di esempio",
+    "content": "<!DOCTYPE html>\n<html lang=\"it\">\n<head>\n  <meta charset=\"utf-8\">\n  <title>Ciao</title>\n</head>\n<body>\n  <h1>Ciao, mondo</h1>\n</body>\n</html>"
+  },
+  "ttl": 900,
+  "panel_type": "code"
+}

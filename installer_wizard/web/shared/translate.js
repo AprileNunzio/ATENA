@@ -1,0 +1,132 @@
+(function (global) {
+  "use strict";
+  const LANGS = ["it", "en"];
+  const ATTRS = ["placeholder", "title", "aria-label", "alt"];
+  const SKIP = new Set(["SCRIPT", "STYLE", "TEXTAREA", "CODE", "PRE", "NOSCRIPT"]);
+  const state = { lang: "it", exact: new Map(), patterns: [], ready: false, observer: null };
+
+  function pick() {
+    let saved = "";
+    try { saved = localStorage.getItem("atena_ui_lang") || localStorage.getItem("atena_admin_lang") || ""; } catch (e) { saved = ""; }
+    const code = (saved || global.ATENA_UI_LANG || document.documentElement.lang || navigator.language || "it").slice(0, 2).toLowerCase();
+    return LANGS.includes(code) ? code : "it";
+  }
+
+  function escapeRe(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+
+  function build(pairs, lang) {
+    const exact = new Map(), patterns = [];
+    for (const pair of pairs) {
+      const source = pair[0], target = pair[1];
+      if (!source || !target || source === target) continue;
+      if (/\{\d+\}/.test(source)) {
+        const order = [];
+        const re = new RegExp("^" + escapeRe(source).replace(/\\\{(\d+)\\\}/g, (m, n) => { order.push(Number(n)); return "(.+?)"; }) + "$", "s");
+        patterns.push({ re, order, target });
+      } else {
+        exact.set(source, target);
+      }
+    }
+    patterns.sort((a, b) => b.re.source.length - a.re.source.length);
+    return { exact, patterns };
+  }
+
+  function translate(text) {
+    if (!text || !state.ready) return text;
+    const core = text.trim();
+    if (!core || core.length > 2000) return text;
+    const norm = core.replace(/\s+/g, " ");
+    let out = state.exact.get(norm);
+    if (out === undefined && /\S/.test(norm)) {
+      for (const p of state.patterns) {
+        const m = p.re.exec(norm);
+        if (m) {
+          out = p.target.replace(/\{(\d+)\}/g, (all, n) => { const i = p.order.indexOf(Number(n)); return i >= 0 ? m[i + 1] : all; });
+          break;
+        }
+      }
+    }
+    if (out === undefined) return text;
+    const lead = text.match(/^\s*/)[0], tail = text.match(/\s*$/)[0];
+    return lead + out + tail;
+  }
+
+  function skipped(el) {
+    return !el || SKIP.has(el.tagName) || (el.closest && el.closest("[data-no-i18n],[contenteditable=true]"));
+  }
+
+  function textNode(node) {
+    if (skipped(node.parentElement) || node.__jt === node.nodeValue) return;
+    const next = translate(node.nodeValue);
+    if (next !== node.nodeValue) node.nodeValue = next;
+    node.__jt = node.nodeValue;
+  }
+
+  function element(el) {
+    if (skipped(el)) return;
+    for (const name of ATTRS) {
+      const value = el.getAttribute(name);
+      if (value) {
+        const next = translate(value);
+        if (next !== value) el.setAttribute(name, next);
+      }
+    }
+    if (el.tagName === "INPUT" && (el.type === "button" || el.type === "submit") && el.value) {
+      const next = translate(el.value);
+      if (next !== el.value) el.value = next;
+    }
+  }
+
+  function walk(root) {
+    if (!root) return;
+    if (root.nodeType === 3) return textNode(root);
+    if (root.nodeType !== 1 && root.nodeType !== 9 && root.nodeType !== 11) return;
+    if (root.nodeType === 1) element(root);
+    const walker = document.createTreeWalker(root, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT);
+    let node = walker.nextNode();
+    while (node) {
+      node.nodeType === 3 ? textNode(node) : element(node);
+      node = walker.nextNode();
+    }
+  }
+
+  function observe() {
+    if (state.observer || !global.MutationObserver) return;
+    state.observer = new MutationObserver((records) => {
+      for (const r of records) {
+        if (r.type === "characterData") textNode(r.target);
+        else if (r.type === "attributes") element(r.target);
+        else r.addedNodes.forEach(walk);
+      }
+    });
+    state.observer.observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS });
+  }
+
+  async function start(lang) {
+    state.lang = lang || pick();
+    document.documentElement.lang = state.lang;
+    try {
+      const v = global.ATENA_ASSET_V ? `?v=${global.ATENA_ASSET_V}` : "";
+      const data = await (await fetch(`/static/shared/i18n_catalog.json${v}`, { cache: "force-cache" })).json();
+      const built = build(state.lang === "en" ? data.pairs || [] : data.reverse || [], state.lang);
+      state.exact = built.exact;
+      state.patterns = built.patterns;
+      state.ready = true;
+      walk(document.body);
+      observe();
+      document.dispatchEvent(new CustomEvent("atena-translated", { detail: state.lang }));
+    } catch (e) {
+      console.warn("i18n catalog unavailable", e);
+    }
+  }
+
+  function setLanguage(lang) {
+    if (!LANGS.includes(lang)) return;
+    try { localStorage.setItem("atena_ui_lang", lang); } catch (e) { return; }
+    location.reload();
+  }
+
+  global.AtenaI18n = { start, setLanguage, translate, language: () => state.lang, languages: LANGS };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => start());
+  else start();
+})(window);
