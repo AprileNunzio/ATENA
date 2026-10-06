@@ -1,7 +1,7 @@
 {
   "id": "study",
   "name": "Studio in corso",
-  "icon": "\ud83c\udf93",
+  "icon": "🎓",
   "priority": 10,
   "size": "s",
   "bind": {
@@ -16,5 +16,6 @@
     "topic": "Elettronica",
     "level": "Intermedio",
     "detail": "Lezione: il transistor come interruttore"
-  }
+  },
+  "tone": "violet"
 }

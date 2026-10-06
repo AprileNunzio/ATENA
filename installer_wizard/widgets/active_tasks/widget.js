@@ -1,14 +1,10 @@
 (() => {
   AtenaDesk.register("active_tasks", {
     render(el, d, ctx) {
-      const tasks = d.tasks || ["In attesa di istruzioni...", "Monitoraggio file di sistema in corso (Daemon)"];
-      
-      el.innerHTML = `<div style="background: #0f172a; border-left: 3px solid #14b8a6; border-radius: 0 12px 12px 0; padding: 16px;">
-        <h4 style="margin: 0 0 12px 0; color: #5eead4; font-size: 0.85rem; text-transform: uppercase; display: flex; align-items: center;"><span style="margin-right: 8px;">🤖</span> Stato Agente</h4>
-        <ul style="margin: 0; padding-left: 20px; color: #cbd5e1; font-size: 0.95rem; line-height: 1.6;">
-          ${tasks.map(t => `<li style="margin-bottom: 4px;">${ctx.esc(t)}</li>`).join('')}
-        </ul>
-      </div>`;
-    }
+      const tasks = (Array.isArray(d.tasks) ? d.tasks : []).slice(0, 10);
+      const rows = tasks.map((t, i) => `<div class="wk-task${i === 0 ? " on" : ""}">${ctx.esc(t)}</div>`).join("");
+      el.innerHTML = `${ctx.head({ icon: "brain", label: "Stato agente", chip: tasks.length ? `${tasks.length} attive` : "", live: tasks.length > 0 })}
+        ${rows || `<div class="wk-empty">In attesa di istruzioni</div>`}`;
+    },
   });
 })();

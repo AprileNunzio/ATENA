@@ -18,6 +18,7 @@ SYSTEM_DIR = WIDGETS_DIR
 USER_DIR = STATE_DIR / "widgets"
 STATE_FILE = STATE_DIR / "widgets.json"
 SIZES = ("s", "m", "l", "full")
+TONES = ("cyan", "green", "blue", "violet", "amber", "red")
 FILES = {"widget.js": "application/javascript", "widget.css": "text/css"}
 _ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{1,40}$")
 
@@ -73,6 +74,9 @@ class Desk:
             m.setdefault("intents", [])
             m.setdefault("replaces", [])
             m["chrome"] = m.get("chrome", True) is not False
+            m["essential"] = m.get("essential") is True
+            m["urgent"] = m.get("urgent") is True
+            m["tone"] = m.get("tone") if m.get("tone") in TONES else "cyan"
             m["overlay"] = m.get("overlay") is True
             m["personal"] = m.get("personal") is True
             m["source"] = "system" if folder.is_relative_to(SYSTEM_DIR) else (m.get("source") if m.get("source") in ("ai", "user") else "user")
@@ -208,6 +212,7 @@ class Desk:
             prio = i["priority"] if i["priority"] is not None else self.priority(i["id"])
             out.append({**i, "priority": prio, "size": m["size"], "name": m["name"], "icon": m["icon"],
                         "rev": m["rev"], "css": m["has_css"], "chrome": m.get("chrome", True),
+                        "essential": m.get("essential", False), "urgent": m.get("urgent", False), "tone": m.get("tone", "cyan"),
                         "pos": self.position(i["id"]), "overlay": m.get("overlay", False),
                         "takeover": prio >= 90 and m["size"] == "full", "fullscreen": bool(i.get("fullscreen")),
                         "personal": m.get("personal", False)})
@@ -251,7 +256,11 @@ class Desk:
                 continue
             attr, when = (bind, None) if isinstance(bind, str) else (bind.get("attr"), bind.get("when"))
             source = self.sources.get(attr)
-            value = source() if source else getattr(store, attr, None) if attr else None
+            try:
+                value = source() if source else getattr(store, attr, None) if attr else None
+            except Exception:
+                log.exception("Sorgente del widget %s", m["id"])
+                value = None
             key = f"bind:{m['id']}"
             if key in self.suppressed:
                 continue

@@ -66,7 +66,19 @@
     });
   }
   const mmss = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
-  const ctx = { esc, mmss, speak: (t) => hooks.speak(t), now: () => Date.now() / 1000 };
+  const TONES = new Set(["cyan", "green", "blue", "violet", "amber", "red"]);
+  const icon = (name) => (window.AtenaIcons ? window.AtenaIcons.icon(name) : "");
+  const head = ({ icon: ic = "", label = "", title = "", chip = "", live = false, state = "" } = {}) =>
+    `<div class="wk-head">${ic ? icon(ic) : ""}<span class="wk-k">${esc(label)}</span>${title !== "" && title != null ? `<span class="wk-n">${esc(title)}</span>` : ""}`
+    + `${chip !== "" && chip != null ? `<span class="wk-chip${live ? " live" : ""}${state ? ` ${esc(state)}` : ""}">${esc(chip)}</span>` : ""}</div>`;
+  const pct = (v) => Math.max(0, Math.min(100, Number(v) || 0));
+  const bar = (v, state = "") => `<span class="wk-bar${state ? ` ${esc(state)}` : ""}"><i style="width:${pct(v)}%"></i></span>`;
+  const ring = (v, text = "", sub = "") => {
+    const c = 2 * Math.PI * 42, arc = c * 0.75;
+    return `<span class="wk-ring"><svg viewBox="0 0 96 96" aria-hidden="true"><circle class="track" cx="48" cy="48" r="42" stroke-dasharray="${arc} ${c}"/>`
+      + `<circle class="value" cx="48" cy="48" r="42" stroke-dasharray="${(arc * pct(v)) / 100} ${c}"/></svg><b><span>${esc(text)}${sub ? `<small>${esc(sub)}</small>` : ""}</span></b></span>`;
+  };
+  const ctx = { esc, mmss, icon, head, bar, ring, pct, speak: (t) => hooks.speak(t), now: () => Date.now() / 1000 };
 
   function load(inst) {
     const key = `${inst.id}@${inst.rev}`;
@@ -96,7 +108,7 @@
     if (!card || card.rev !== inst.rev) {
       if (card) remove(inst.key, true);
       const el = document.createElement("section");
-      el.className = `widget size-${inst.size} w-${inst.id}${inst.takeover ? " takeover" : ""}${inst.chrome === false ? " frameless" : ""} hidden`;
+      el.className = `widget size-${inst.size} w-${inst.id} tone-${TONES.has(inst.tone) ? inst.tone : "cyan"}${inst.essential ? " essential" : ""}${inst.urgent ? " urgent" : ""}${inst.takeover ? " takeover" : ""}${inst.chrome === false ? " frameless" : ""} hidden`;
       el.dataset.key = inst.key;
       el.innerHTML = '<div class="w-body"></div>';
       card = { el, sig, rev: inst.rev, impl, inst, placed: false };
@@ -335,6 +347,8 @@
 
   window.AtenaDesk = {
     register(id, impl) { impls[id] = impl; },
+    ctx,
+    implOf: (id) => impls[id] || null,
     mount, render, relayout: scheduleLayout, moveTo, neighbor,
     setScreens(list) { screens = list || []; document.body.classList.toggle("multi-screen", screens.length > 1); },
     cardAt(x, y) {

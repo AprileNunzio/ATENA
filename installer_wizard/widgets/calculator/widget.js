@@ -8,8 +8,8 @@
       el.innerHTML = `
         <div class="calc-wrapper">
           <div class="calc-head">
-            <span>🧮 Calcolatrice</span>
-            <button class="calc-mode-btn">Sci</button>
+            ${ctx.head({ icon: "calc", label: "Calcolatrice" })}
+            <button class="calc-mode-btn wk-btn" type="button">Sci</button>
           </div>
           <div class="calc-screen">
             <div class="calc-history"></div>
@@ -77,8 +77,6 @@
         return res;
       }
       
-      // Make factorial globally available for evaluation if needed, but new Function can wrap it.
-      
       el.querySelector('.calc-grid').addEventListener('click', (e) => {
         if(e.target.tagName !== 'BUTTON') return;
         const val = e.target.getAttribute('data-val');
@@ -96,10 +94,8 @@
         } else if (val === '=') {
           try {
             let toEval = expr.replace(/(\d+)!/g, "factorial($1)");
-            // Evaluate safely
             let res = new Function("factorial", "return " + toEval)(factorial);
             historyEl.textContent = displayExpr + " =";
-            // Round to avoid floating point weirdness
             displayExpr = String(Math.round(res * 100000000) / 100000000); 
             expr = displayExpr;
             currEl.textContent = displayExpr;

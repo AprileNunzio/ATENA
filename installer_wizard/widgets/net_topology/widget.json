@@ -1,13 +1,16 @@
 {
   "id": "net_topology",
   "name": "Network Mesh",
-  "icon": "\ud83d\udd78\ufe0f",
+  "icon": "🕸️",
   "priority": 20,
   "size": "l",
   "intents": [
     "net_topology"
   ],
-  "description": "LAN Map",
+  "description": "Mappa dei dispositivi della rete locale.",
   "ttl": 300,
-  "demo": {}
+  "demo": {
+    "content": "12 dispositivi attivi su 192.168.1.0/24, gateway 192.168.1.1, 2 nuovi nelle ultime 24 ore."
+  },
+  "tone": "green"
 }

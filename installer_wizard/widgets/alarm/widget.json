@@ -1,7 +1,7 @@
 {
   "id": "alarm",
   "name": "Allarme di casa",
-  "icon": "\ud83d\udea8",
+  "icon": "🚨",
   "priority": 100,
   "size": "full",
   "description": "Fumo, gas, allagamento, intrusione: occupa tutto lo schermo e lo ripete a voce.",
@@ -10,5 +10,8 @@
     "room": "Cucina",
     "message": "Il sensore ha rilevato fumo. Verifica subito la stanza.",
     "speak": "Attenzione: rilevato fumo in cucina."
-  }
+  },
+  "tone": "red",
+  "essential": true,
+  "urgent": true
 }

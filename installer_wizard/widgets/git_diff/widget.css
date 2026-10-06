@@ -1,0 +1,4 @@
+.w-git_diff .wk-pre { max-height: 48vh; overflow: auto; white-space: pre; }
+.w-git_diff .gd-add { color: var(--green); }
+.w-git_diff .gd-del { color: var(--red); }
+.w-git_diff .gd-meta { color: var(--text-faint); }

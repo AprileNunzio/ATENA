@@ -6,7 +6,11 @@
   "size": "s",
   "chrome": false,
   "overlay": true,
-  "pos": { "x": 0.12, "y": 0.86 },
+  "pos": {
+    "x": 0.12,
+    "y": 0.86
+  },
   "bind": "ear_widget",
-  "description": "Indicatore semitrasparente dell'ascolto: si accende quando Atena ti ascolta e segnala se il microfono non funziona."
+  "description": "Indicatore semitrasparente dell'ascolto: si accende quando Atena ti ascolta e segnala se il microfono non funziona.",
+  "tone": "violet"
 }

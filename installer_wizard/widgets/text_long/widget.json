@@ -1,7 +1,7 @@
 {
   "id": "text_long",
   "name": "Testo Lungo",
-  "icon": "\ud83d\udcc4",
+  "icon": "📄",
   "priority": 65,
   "size": "l",
   "ttl": 120,
@@ -9,5 +9,8 @@
     "text_long"
   ],
   "description": "Testo esteso con overflow automatico.",
-  "demo": {}
+  "demo": {
+    "content": "<p><b>Riassunto della riunione</b></p><p>Il team ha approvato il nuovo calendario dei rilasci: la versione stabile uscirà a fine mese, con una <em>beta pubblica</em> due settimane prima.</p><ul><li>Test di carico entro venerdì</li><li>Documentazione aggiornata</li><li>Revisione della sicurezza</li></ul>"
+  },
+  "tone": "cyan"
 }

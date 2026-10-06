@@ -1,17 +1,20 @@
 (() => {
+  const plain = (v) => {
+    const s = String(v ?? "").slice(0, 6000).replace(/<br\s*\/?>/gi, "\n").replace(/<\/(p|div|li|tr|h[1-6])>/gi, "\n");
+    return s.includes("<") ? new DOMParser().parseFromString(s, "text/html").body.textContent : s;
+  };
   AtenaDesk.register("ssh_sessions", {
     render(el, d, ctx) {
-      el.innerHTML = `
-        <div style="background: #0f172a; border-left: 4px solid #3b82f6; border-radius: 8px; padding: 16px; height: 100%; box-sizing: border-box;">
-          <h4 style="margin: 0 0 12px 0; color: #3b82f6; font-size: 0.9rem; text-transform: uppercase; display: flex; align-items: center;">
-            <span style="margin-right: 8px; font-size: 1.2rem;">🔌</span> Active SSH
-          </h4>
-          <div style="color: #cbd5e1; font-size: 0.95rem;">
-            ${d.content || "Inizializzazione modulo e caricamento dati in corso..."}<br>
-            <small style="color: #64748b;">(Modulo Auto-Generato)</small>
-          </div>
-        </div>
-      `;
-    }
+      const lines = plain(d.content).split("\n").map((l) => l.trim()).filter(Boolean).slice(0, 10);
+      const rows = lines.map((l) => {
+        const p = l.match(/^([^:]{1,64}):\s+(.+)$/);
+        const root = /^root@/i.test(p ? p[1] : l);
+        return p
+          ? `<li class="wk-row ic${root ? " warn" : ""}">${ctx.icon("terminal")}<span><b>${ctx.esc(p[1])}</b></span><span class="wk-val">${ctx.esc(p[2])}</span></li>`
+          : `<li class="wk-row ic${root ? " warn" : ""}">${ctx.icon("terminal")}<span><b>${ctx.esc(l)}</b></span></li>`;
+      }).join("");
+      el.innerHTML = `${ctx.head({ icon: "terminal", label: "Sessioni SSH", chip: lines.length ? `${lines.length} attive` : "", live: lines.length > 0 })}
+        ${rows ? `<ul class="wk-list">${rows}</ul>` : `<div class="wk-empty"><span>Nessuna sessione attiva</span></div>`}`;
+    },
   });
 })();

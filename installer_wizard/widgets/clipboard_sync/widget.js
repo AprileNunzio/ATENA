@@ -1,17 +1,13 @@
 (() => {
+  const plain = (v) => {
+    const s = String(v ?? "").slice(0, 4000).replace(/<br\s*\/?>/gi, "\n").replace(/<\/(p|div|li|tr|h[1-6])>/gi, "\n");
+    return s.includes("<") ? new DOMParser().parseFromString(s, "text/html").body.textContent : s;
+  };
   AtenaDesk.register("clipboard_sync", {
     render(el, d, ctx) {
-      el.innerHTML = `
-        <div style="background: #0f172a; border-left: 4px solid #f59e0b; border-radius: 8px; padding: 16px; height: 100%; box-sizing: border-box;">
-          <h4 style="margin: 0 0 12px 0; color: #f59e0b; font-size: 0.9rem; text-transform: uppercase; display: flex; align-items: center;">
-            <span style="margin-right: 8px; font-size: 1.2rem;">📋</span> Shared Clipboard
-          </h4>
-          <div style="color: #cbd5e1; font-size: 0.95rem;">
-            ${d.content || "Inizializzazione modulo e caricamento dati in corso..."}<br>
-            <small style="color: #64748b;">(Modulo Auto-Generato)</small>
-          </div>
-        </div>
-      `;
-    }
+      const text = plain(d.content).trim();
+      el.innerHTML = `${ctx.head({ icon: "clipboard", label: "Appunti condivisi", chip: text ? `${text.length} caratteri` : "" })}
+        ${text ? `<pre class="wk-pre">${ctx.esc(text)}</pre>` : `<div class="wk-empty"><span>Appunti vuoti</span></div>`}`;
+    },
   });
 })();

@@ -1,7 +1,7 @@
 {
   "id": "usb_monitor",
   "name": "Analizzatore USB",
-  "icon": "\ud83d\udd0c",
+  "icon": "🔌",
   "priority": 100,
   "size": "m",
   "intents": [
@@ -15,5 +15,6 @@
     "serial": "4C530001...",
     "mount": "E:\\",
     "size": "32 GB"
-  }
+  },
+  "tone": "blue"
 }

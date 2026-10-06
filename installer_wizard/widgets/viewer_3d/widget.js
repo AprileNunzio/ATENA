@@ -164,16 +164,16 @@
 
   function mount(el, d, ctx) {
     const files = d.files || [];
-    el.innerHTML = `<div class="v3-head"><span class="v3-title">🧊 ${ctx.esc(d.title || "Modello 3D")}</span>
-        <span class="v3-tag">${ctx.esc(LABEL[d.format] || (d.format || "").toUpperCase())}</span></div>
+    const href = /^(https?:\/\/|\/(?!\/))/i.test(String(d.url || "")) ? String(d.url) : "";
+    el.innerHTML = `${ctx.head({ icon: "cube", label: "Modello 3D", title: d.title || "", chip: LABEL[d.format] || String(d.format || "").toUpperCase() })}
       <div class="v3-stage"><canvas></canvas><div class="v3-msg">Caricamento del modello…</div>
-        <div class="v3-tools"><button data-a="spin" title="Rotazione automatica">⟳</button><button data-a="wire" title="Reticolo">▦</button>
-          <button data-a="fit" title="Inquadra">⤢</button></div></div>
+        <div class="v3-tools"><button class="wk-btn icon" type="button" data-a="spin" title="Rotazione automatica">${ctx.icon("refresh")}</button><button class="wk-btn icon" type="button" data-a="wire" title="Reticolo">${ctx.icon("cube")}</button>
+          <button class="wk-btn icon" type="button" data-a="fit" title="Inquadra">${ctx.icon("expand")}</button></div></div>
       <div class="v3-info"><span class="v3-stats"></span>${d.note ? `<span class="v3-note">${ctx.esc(d.note)}</span>` : ""}</div>
-      <div class="v3-files">${files.map((f) => `<a href="${d.url}${encodeURIComponent(f.name)}" download>${ctx.esc(f.name)}</a>`).join("")}</div>`;
+      <div class="v3-files">${href ? files.slice(0, 12).map((f) => `<a class="wk-btn" href="${ctx.esc(href + encodeURIComponent(f.name))}" download>${ctx.icon("download")} ${ctx.esc(f.name)}</a>`).join("") : ""}</div>`;
     const st = { el, id: d.id, alive: true, spin: true, wire: false };
     el._v3 = st;
-    start(st, d).catch((err) => { const m = el.querySelector(".v3-msg"); if (m) { m.textContent = `⚠ ${err.message}`; m.classList.add("err"); } });
+    start(st, d).catch((err) => { const m = el.querySelector(".v3-msg"); if (m) { m.textContent = err.message; m.classList.add("err"); } });
   }
 
   async function start(st, d) {

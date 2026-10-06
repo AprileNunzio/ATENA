@@ -1,0 +1,21 @@
+{
+  "id": "people_seen",
+  "name": "Chi vedo",
+  "icon": "👁",
+  "priority": 55,
+  "size": "s",
+  "tone": "green",
+  "ttl": 30,
+  "personal": true,
+  "intents": [
+    "vision"
+  ],
+  "panel_type": "list",
+  "description": "Le persone riconosciute dalla webcam, quando chiedi chi vedo.",
+  "demo": {
+    "items": [
+      {"label": "Nunzio", "value": "vicino · 97%", "status": "ok"},
+      {"label": "Ospite", "value": "lontano", "status": "warn"}
+    ]
+  }
+}

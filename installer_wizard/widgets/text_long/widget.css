@@ -1,0 +1,11 @@
+.w-text_long .tx-long { max-height: 400px; overflow-y: auto; font-size: 15px; line-height: 1.65; scrollbar-width: thin; scrollbar-color: rgba(var(--tone), 0.3) transparent; }
+.w-text_long .tx-long > :first-child { margin-top: 0; }
+.w-text_long .tx-long p { margin: 0 0 10px; }
+.w-text_long .tx-long h3, .w-text_long .tx-long h4 { margin: 14px 0 6px; font-size: 15px; font-weight: 500; color: var(--hud-text); }
+.w-text_long .tx-long ul, .w-text_long .tx-long ol { margin: 0 0 10px; padding-left: 18px; }
+.w-text_long .tx-long li::marker { color: rgb(var(--tone)); }
+.w-text_long .tx-long b, .w-text_long .tx-long strong { font-weight: 500; color: var(--hud-text); }
+.w-text_long .tx-long em, .w-text_long .tx-long mark { font-style: normal; background: none; color: rgb(var(--tone)); }
+.w-text_long .tx-long code, .w-text_long .tx-long pre { font-family: var(--mono); font-size: 0.86em; color: var(--text-dim); white-space: pre-wrap; }
+.w-text_long .tx-long blockquote { margin: 0 0 10px; padding-left: 12px; box-shadow: 1px 0 0 rgba(255, 255, 255, 0.14) inset; color: var(--text-dim); }
+.w-text_long .tx-long > i { color: var(--text-faint); }

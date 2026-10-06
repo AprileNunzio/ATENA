@@ -33,5 +33,7 @@
         "connected": false
       }
     ]
-  }
+  },
+  "tone": "blue",
+  "essential": true
 }

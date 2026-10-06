@@ -14,5 +14,7 @@
   "panel_type": "tool",
   "ttl": 3600,
   "description": "Calcolatrice normale e scientifica. Effettua calcoli matematici.",
-  "demo": {}
+  "demo": {},
+  "tone": "cyan",
+  "essential": true
 }
