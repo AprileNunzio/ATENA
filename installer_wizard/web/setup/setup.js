@@ -2,9 +2,17 @@
   "use strict";
   const $ = (id) => document.getElementById(id);
   const NAME_RE = /^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ-]{0,39}$/u;
-  const FLOW = ["intro", "profile", "voice", "home", "privacy"];
+  const FLOW = ["intro", "brain", "packages", "voice", "home", "privacy"];
   const OPTIONAL = new Set(["home"]);
-  const choice = { lang: "it", profile: "auto", voice: "if_sara" };
+  const BRAINS = [
+    ["local", { label: "Su questo computer", note: "Tutto resta in casa. Servono spazio e memoria per i modelli." }],
+    ["remote", { label: "Su un altro computer della rete", note: "Uso Ollama già installato su un altro PC di casa." }],
+    ["cloud", { label: "Nel cloud", note: "Leggero e veloce anche su computer piccoli. Serve una chiave API." }],
+  ];
+  const HOST_RE = /^(https?:\/\/)?[A-Za-z0-9.-]+(:\d{1,5})?\/?$/;
+  const KEY_RE = /^[A-Za-z0-9_.-]{20,256}$/;
+  const choice = { lang: "it", profile: "auto", voice: "if_sara", brain: "local", cloud: "" };
+  const picked = new Set();
   let info = null;
   let order = [];
   let at = 0;
@@ -65,6 +73,34 @@
       ? `Ho trovato ${hw.ram_gb} GB di memoria, ${hw.cpu} processori, una scheda video e ${hw.disk_free_gb} GB liberi sul disco.`
       : `Ho trovato ${hw.ram_gb} GB di memoria, ${hw.cpu} processori e ${hw.disk_free_gb} GB liberi sul disco.`;
     choice.profile = hw.recommended;
+    choice.brain = hw.board || hw.ram_gb < 7.5 ? "cloud" : "local";
+    radio($("brains"), BRAINS, "brain", (_, p) => {
+      const b = el("button", "choice");
+      b.type = "button";
+      b.append(el("b", null, p.label), el("small", null, p.note));
+      return b;
+    });
+    $("brains").addEventListener("click", brainPanels);
+    brainPanels();
+    choice.cloud = Object.keys(info.clouds)[0] || "";
+    radio($("clouds"), Object.entries(info.clouds), "cloud", (_, label) => {
+      const b = el("button", null, label);
+      b.type = "button";
+      return b;
+    });
+
+    for (const id of info.suggested) picked.add(id);
+    $("packages").replaceChildren(...Object.entries(info.packages).map(([id, p]) => {
+      const row = el("label", "toggle");
+      const box = el("input");
+      box.type = "checkbox";
+      box.checked = picked.has(id);
+      box.addEventListener("change", () => { box.checked ? picked.add(id) : picked.delete(id); });
+      const text = el("span");
+      text.append(el("b", null, `${p.title} · ${p.size_gb} GB`), el("small", null, p.description));
+      row.append(box, text);
+      return row;
+    }));
     radio($("profiles"), Object.entries(info.profiles), "profile", (id, p) => {
       const b = el("button", "choice");
       b.type = "button";
@@ -101,6 +137,16 @@
     if (info.wakeword) $("wake-label").textContent = "Modello «Ehi, Atena» già presente: caricane uno nuovo se vuoi";
   }
 
+  function brainPanels() {
+    for (const mode of ["local", "remote", "cloud"]) $(`brain-${mode}`).hidden = choice.brain !== mode;
+  }
+
+  function flow() {
+    const head = order.slice(0, at + 1);
+    const rest = FLOW.slice(FLOW.indexOf(order[at]) + 1).filter((id) => id !== "voice" || picked.has("voice"));
+    order = [...head, ...rest];
+  }
+
   async function preview(id, button) {
     error();
     if (audio) { audio.pause(); audio = null; }
@@ -122,7 +168,8 @@
     const id = order[at];
     document.querySelectorAll(".screen").forEach((s) => { s.hidden = s.dataset.screen !== id; });
     const dots = $("dots");
-    dots.replaceChildren(...FLOW.map((_, i) => el("li", FLOW.indexOf(id) >= i ? "on" : "")));
+    const steps = order.filter((s) => s !== "code" && s !== "done");
+    dots.replaceChildren(...steps.map((s) => el("li", steps.indexOf(id) >= steps.indexOf(s) ? "on" : "")));
     $("nav").hidden = id === "done";
     $("back").hidden = at === 0;
     $("skip").hidden = !OPTIONAL.has(id);
@@ -138,6 +185,13 @@
     if (id === "intro") {
       const name = $("name").value.trim();
       if (name && !NAME_RE.test(name)) return "Il nome può contenere solo lettere e trattini, senza spazi";
+    }
+    if (id === "brain" && choice.brain === "remote" && !HOST_RE.test($("ollama-url").value.trim())) {
+      return "Indica l'indirizzo del computer con Ollama, ad esempio 192.168.1.20";
+    }
+    if (id === "brain" && choice.brain === "cloud") {
+      if (!choice.cloud) return "Scegli un servizio cloud";
+      if (!KEY_RE.test($("cloud-key").value.trim())) return "La chiave API non sembra valida";
     }
     if (id === "home") {
       const url = $("ha-url").value.trim();
@@ -156,11 +210,14 @@
     const res = await call("/api/setup", {
       body: {
         name: $("name").value.trim(), lang: choice.lang, profile: choice.profile, voice: choice.voice,
+        brain: choice.brain, ollama_url: $("ollama-url").value.trim(),
+        cloud_provider: choice.brain === "cloud" ? choice.cloud : "", cloud_key: choice.brain === "cloud" ? $("cloud-key").value.trim() : "",
+        packages: [...picked],
         ha_url: $("ha-url").value.trim(), ha_token: $("ha-token").value.trim(), telegram: $("telegram").value.trim(),
         commercial: $("commercial").checked, shares: $("shares").checked,
       },
     });
-    for (const id of ["ha-token", "telegram", "code"]) $(id).value = "";
+    for (const id of ["ha-token", "telegram", "code", "cloud-key"]) $(id).value = "";
     code = "";
     if (res.shares_password) {
       $("secret-value").textContent = res.shares_password;
@@ -182,6 +239,7 @@
         try { await call("/api/setup/verify"); } catch (e) { code = ""; throw e; }
       }
       if (skip && id === "home") for (const f of ["ha-url", "ha-token", "telegram"]) $(f).value = "";
+      if (id === "packages") flow();
       if (id === "privacy") await finish();
       at = Math.min(at + 1, order.length - 1);
       show();

@@ -3,7 +3,7 @@ import time
 
 from state import store
 
-from features.agent import registry, tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_rpa, tools_system
+from features.agent import registry, tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_packages, tools_rpa, tools_system
 from features.agent.paths import FILES, AccessDenied, level
 from features.automations import tools as tools_automations
 from features.documents import tools as tools_documents
@@ -15,7 +15,7 @@ from features.team import tools as tools_team
 from features.team.board import board
 from features.whiteboard import tools as tools_whiteboard
 
-MODULES = (tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_rpa, tools_system, tools_autonomy, tools_automations, tools_documents, tools_team, tools_forge, tools_whiteboard)
+MODULES = (tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_packages, tools_rpa, tools_system, tools_autonomy, tools_automations, tools_documents, tools_team, tools_forge, tools_whiteboard)
 MAX_STEPS = 8
 PENDING_TTL = 180
 

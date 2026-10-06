@@ -51,6 +51,9 @@ input.code { font: 600 32px/1 var(--mono); letter-spacing: .5em; text-align: cen
 .seg button[aria-checked=true] { background: var(--cyan-soft); color: var(--cyan); box-shadow: 0 0 0 1px var(--line-strong) inset; }
 
 .choices { display: grid; gap: 10px; }
+.sub { margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--line); display: grid; gap: 14px; }
+.sub[hidden] { display: none; }
+.sub .hint { margin: 0; }
 .choice {
   display: grid;
   grid-template-columns: 1fr auto;

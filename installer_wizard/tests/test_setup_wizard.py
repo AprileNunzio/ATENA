@@ -10,7 +10,7 @@ from fastapi.testclient import TestClient
 
 import atena_supervisor
 import setup_api
-from config import read_env
+from config import read_env, write_env
 
 HEADERS = {"X-Atena-Request": "1"}
 BINARY = {**HEADERS, "Content-Type": "application/octet-stream"}
@@ -87,6 +87,42 @@ class WizardTest(unittest.TestCase):
         self.assertEqual(out["ATENA_VOICE"], "if_sara")
         self.assertEqual(out["ATENA_COMMERCIAL"], "0")
 
+    def test_brain_choices(self):
+        local = setup_api._clean({"brain": "local", "profile": "bilanciato"})
+        self.assertEqual((local["ATENA_BRAIN"], local["ATENA_LLM_MODEL"]), ("local", "granite3.3:8b"))
+        remote = setup_api._clean({"brain": "remote", "ollama_url": "192.168.1.30", "profile": "potente"})
+        self.assertEqual(remote["ATENA_OLLAMA_URL"], "http://192.168.1.30:11434")
+        self.assertNotIn("ATENA_LLM_MODEL", remote)
+        cloud = setup_api._clean({"brain": "cloud", "cloud_provider": "anthropic", "cloud_key": "sk-ant-" + "a" * 40})
+        self.assertEqual(cloud["ATENA_LLM_CHAT_ORDER"], "cloud:anthropic/claude-haiku-4-5-20251001")
+        self.assertNotIn("sk-ant", " ".join(cloud.values()))
+        for bad in ({"brain": "quantum"}, {"brain": "remote"}, {"brain": "remote", "ollama_url": "http://a b"},
+                    {"brain": "cloud", "cloud_provider": "evil", "cloud_key": "x" * 30},
+                    {"brain": "cloud", "cloud_provider": "gemini", "cloud_key": "short"},
+                    {"brain": "cloud", "cloud_provider": "gemini", "cloud_key": "$(reboot)" * 5},
+                    {"packages": ["voice", "rootkit"]}, {"packages": "voice"}):
+            with self.subTest(bad=bad), self.assertRaises(HTTPException):
+                setup_api._clean(bad)
+
+    def test_only_the_chosen_packages_are_requested(self):
+        out = setup_api._clean({"packages": ["voice", "documents"]})
+        self.assertEqual(out["ATENA_VOICE_PACKAGE"], "1")
+        self.assertEqual(out["ATENA_DOCUMENTS"], "1")
+        self.assertNotIn("ATENA_EAR", out)
+        self.assertNotIn("ATENA_VISION", out)
+
+    def test_cloud_key_goes_to_the_vault_not_the_env_file(self):
+        key = "AIza" + "b" * 35
+        self.addCleanup(write_env, {"ATENA_BRAIN": "", "ATENA_LLM_CHAT_ORDER": "", "ATENA_LLM_DEEP_ORDER": ""})
+        with Network(local=True), mock.patch("features.cloud.vault.vault.update") as update:
+            r = self.public.post("/api/setup", json={"brain": "cloud", "cloud_provider": "gemini", "cloud_key": key},
+                                 headers=HEADERS)
+            self.assertEqual(r.status_code, 200, r.text)
+        update.assert_called_once_with("gemini", {"key": key, "enabled": True})
+        self.assertNotIn(key, "".join(read_env().values()))
+        self.assertEqual(read_env().get("ATENA_BRAIN"), "cloud")
+        self.assertEqual(r.json()["shares_password"], "")
+
     def test_completing_the_wizard_closes_it(self):
         with Network(local=True):
             r = self.public.post("/api/setup", json={"name": "Nunzio", "lang": "it", "profile": "auto", "shares": True},
@@ -127,6 +163,7 @@ class WizardTest(unittest.TestCase):
             env = read_env()
             self.assertEqual(env.get("ATENA_LLM_MODEL"), "granite3.3:8b")
             self.assertEqual(env.get("ATENA_SMB_PASSWORD"), "Corretta-Batteria-42")
+            self.assertEqual(env.get("ATENA_SHARES"), "1")
             self.assertNotIn("ATENA_EVIL", env)
             self.assertTrue(setup_api.done())
 

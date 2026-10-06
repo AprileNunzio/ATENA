@@ -1,5 +1,6 @@
 import asyncio
 import unittest
+from unittest import mock
 
 from orchestrator import orch
 from state import store
@@ -15,9 +16,19 @@ class BackgroundStepsTest(unittest.TestCase):
     def test_boot_pipeline_skips_background_steps(self):
         for s in STEPS:
             store.steps.pop(s.id, None)
-        self.assertTrue(asyncio.run(run_pipeline()))
+        with mock.patch("steps.read_env", return_value={"ATENA_DOCUMENTS": "1"}):
+            self.assertTrue(asyncio.run(run_pipeline()))
         self.assertEqual(store.steps["office"]["status"], "background")
         self.assertEqual(store.steps["models"]["status"], "done")
+
+    def test_boot_pipeline_leaves_unrequested_packages_on_demand(self):
+        for s in STEPS:
+            store.steps.pop(s.id, None)
+        with mock.patch("steps.read_env", return_value={}):
+            self.assertTrue(asyncio.run(run_pipeline()))
+        self.assertEqual(store.steps["office"]["status"], "on_demand")
+        self.assertEqual(store.steps["sandbox"]["status"], "on_demand")
+        self.assertEqual(store.steps["core"]["status"], "done")
 
     def test_on_demand_install(self):
         store.steps.pop("office", None)

@@ -31,6 +31,7 @@
 <div class="sec" data-i18n="admin:nav.favorites">Preferiti</div>
 <div id="nav-pinned" style="display:contents"></div>
 <div class="sec" data-i18n="admin:nav.system">Sistema</div>
+<a data-tab="packages"><span class="ic">◇</span><span class="lb" data-i18n="admin:nav.packages">Pacchetti</span></a>
 <a data-tab="steps"><span class="ic">☰</span><span class="lb" data-i18n="admin:nav.steps">Installazione</span></a>
 <a data-tab="config"><span class="ic">⚙</span><span class="lb" data-i18n="admin:nav.config">Configurazione</span></a>
 <a data-tab="updates"><span class="ic">⟳</span><span class="lb" data-i18n="admin:nav.updates">Aggiornamenti</span></a>
@@ -92,6 +93,22 @@
 <div class="bar" style="margin-top:14px"><i id="b-progress"></i></div>
 <div class="muted-note" id="boot-info"></div>
 </div>
+</div>
+</section>
+<section class="tab" id="tab-packages">
+<div class="panel">
+<div class="panel-title">Cervello</div>
+<div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap">
+<div class="seg" id="brain-mode" role="radiogroup" aria-label="Cervello"><button type="button" data-mode="local">Su questo computer</button><button type="button" data-mode="remote">Su un altro computer</button><button type="button" data-mode="cloud">Nel cloud</button></div>
+<input id="brain-url" autocomplete="off" spellcheck="false" placeholder="192.168.1.20" hidden style="max-width:240px">
+<button class="btn sm primary" id="brain-save" type="button">Applica</button>
+</div>
+<div class="muted-note" id="brain-note"></div>
+</div>
+<div class="panel" style="margin-top:18px">
+<div class="panel-title">Pacchetti</div>
+<table><thead><tr><th>Pacchetto</th><th>Dimensione</th><th>Stato</th><th></th></tr></thead><tbody id="pkg-body"></tbody></table>
+<div class="muted-note">Atena installa solo quello che usi. Puoi aggiungere un pacchetto da qui oppure chiederlo a voce, ad esempio «installa i documenti Office».</div>
 </div>
 </section>
 <section class="tab" id="tab-steps">
@@ -175,6 +192,7 @@
 <script src="/static/admin/sortable.js"></script>
 <script src="/static/admin/features.js"></script>
 <script src="/static/admin/system.js"></script>
+<script src="/static/admin/packages.js"></script>
 <atena-slot name="feature-scripts"></atena-slot>
 <script src="/static/admin/boot.js"></script>
 <script type="module">

@@ -1,6 +1,7 @@
 import asyncio
 import time
 import unittest
+from unittest import mock
 
 from fastapi.testclient import TestClient
 
@@ -23,13 +24,21 @@ def fresh_queue() -> BackgroundQueue:
 
 
 class QueueTest(unittest.TestCase):
+    @mock.patch("background.read_env", return_value={})
+    def test_requested_packages_only(self, _env):
+        ids = {s.id for s in fresh_queue().steps()}
+        self.assertNotIn("office", ids)
+        self.assertNotIn("voice", ids)
+        self.assertIn("brain", ids)
+
     def test_large_and_optional_parts_wait_for_the_background(self):
         heavy = {s.id for s in STEPS if s.background}
         self.assertTrue({"brain", "voice", "ear", "vision", "music", "office"} <= heavy)
         self.assertFalse({"preflight", "system", "docker", "ollama", "models", "core", "services"} & heavy)
         self.assertGreater(STEP_BY_ID["brain"].size_gb, STEP_BY_ID["models"].size_gb)
 
-    def test_order_follows_priority_and_admin_choice(self):
+    @mock.patch("background.read_env", return_value={"ATENA_VOICE_PACKAGE": "1", "ATENA_EAR": "1", "ATENA_DOCUMENTS": "1"})
+    def test_order_follows_priority_and_admin_choice(self, _env):
         q = fresh_queue()
         order = [s.id for s in q.steps()]
         self.assertLess(order.index("voice"), order.index("ear"))

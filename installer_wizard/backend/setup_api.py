@@ -45,7 +45,17 @@ HA_URL_RE = re.compile(r"https?://[A-Za-z0-9.-]{1,253}(:\d{1,5})?(/[A-Za-z0-9._~
 HA_TOKEN_RE = re.compile(r"[A-Za-z0-9._-]{20,512}")
 TELEGRAM_RE = re.compile(r"\d{5,12}:[A-Za-z0-9_-]{30,64}")
 ANSWER_KEYS = {"ATENA_USER_NAME", "ATENA_UI_LANG", "ATENA_VOICE", "ATENA_LLM_MODEL", "ATENA_COMMERCIAL",
-               "HOME_ASSISTANT_URL", "HOME_ASSISTANT_TOKEN", "ATENA_TELEGRAM_TOKEN", "ATENA_SMB_PASSWORD"}
+               "HOME_ASSISTANT_URL", "HOME_ASSISTANT_TOKEN", "ATENA_TELEGRAM_TOKEN", "ATENA_SMB_PASSWORD",
+               "ATENA_BRAIN", "ATENA_OLLAMA_URL", "ATENA_CLOUD_PROVIDER", "ATENA_CLOUD_KEY", "ATENA_PACKAGES"}
+BRAINS = ("local", "remote", "cloud")
+CLOUD_PICK = {
+    "anthropic": ("Anthropic Claude", "claude-haiku-4-5-20251001", "claude-sonnet-5-5"),
+    "gemini": ("Google Gemini", "gemini-2.5-flash", "gemini-2.5-pro"),
+    "openai": ("OpenAI", "gpt-5-mini", "gpt-5"),
+    "mistral": ("Mistral AI", "mistral-small-latest", "mistral-large-latest"),
+}
+CLOUD_KEY_RE = re.compile(r"[A-Za-z0-9_\-.]{20,256}")
+WIZARD_PACKAGES = {"voice": "ATENA_VOICE_PACKAGE", "ear": "ATENA_EAR", "vision": "ATENA_VISION", "documents": "ATENA_DOCUMENTS"}
 SMB_RE = re.compile(r"[A-Za-z0-9_.@%+=:,-]{12,128}")
 
 public_routes = APIRouter()
@@ -123,6 +133,29 @@ def require_setup(request: Request) -> None:
         guard.check(request.headers.get("X-Atena-Setup-Code", ""))
 
 
+def suggested_packages() -> list[str]:
+    import glob
+    hw = hardware()
+    picks = ["voice", "ear"] if hw["ram_gb"] >= 7.5 and not hw["board"] else []
+    if DEMO or glob.glob("/dev/video*"):
+        picks.append("vision")
+    return picks
+
+
+def _wizard_packages() -> dict:
+    import packages
+    return {pid: {"title": packages.PACKAGE_BY_ID[pid].title, "description": packages.PACKAGE_BY_ID[pid].description,
+                  "size_gb": packages.PACKAGE_BY_ID[pid].size_gb} for pid in WIZARD_PACKAGES}
+
+
+def _board() -> str:
+    try:
+        model = Path("/proc/device-tree/model").read_text(encoding="utf-8", errors="replace").strip("\x00 \n")
+    except OSError:
+        return ""
+    return model[:80] if "raspberry" in model.lower() else ""
+
+
 def hardware() -> dict:
     mem = psutil.virtual_memory().total / 2 ** 30
     try:
@@ -137,7 +170,7 @@ def hardware() -> dict:
     else:
         best = "leggero"
     return {"ram_gb": round(mem, 1), "disk_free_gb": round(disk, 1), "cpu": psutil.cpu_count() or 0,
-            "gpu": gpu, "recommended": best}
+            "gpu": gpu, "recommended": best, "board": _board()}
 
 
 def _clean(raw: dict) -> dict:
@@ -151,11 +184,11 @@ def _clean(raw: dict) -> dict:
     if lang not in LANGS:
         raise HTTPException(400, "Lingua non supportata")
     out["ATENA_UI_LANG"] = lang
-    profile = str(raw.get("profile") or "auto")
-    if profile not in PROFILES:
-        raise HTTPException(400, "Profilo non valido")
-    if PROFILES[profile]["model"]:
-        out["ATENA_LLM_MODEL"] = PROFILES[profile]["model"]
+    out.update(_brain(raw))
+    picked = raw.get("packages") or []
+    if not isinstance(picked, list) or any(p not in WIZARD_PACKAGES for p in picked):
+        raise HTTPException(400, "Pacchetto non valido")
+    out.update({WIZARD_PACKAGES[p]: "1" for p in picked})
     voice = str(raw.get("voice") or "if_sara")
     if voice not in VOICE_CHOICES:
         raise HTTPException(400, "Voce non disponibile")
@@ -172,6 +205,50 @@ def _clean(raw: dict) -> dict:
         out.update(ATENA_TELEGRAM_TOKEN=telegram, ATENA_TELEGRAM="1")
     out["ATENA_COMMERCIAL"] = "1" if raw.get("commercial") is True else "0"
     return out
+
+
+def _brain(raw: dict) -> dict:
+    brain = str(raw.get("brain") or "local")
+    if brain not in BRAINS:
+        raise HTTPException(400, "Scelta del cervello non valida")
+    out = {"ATENA_BRAIN": brain}
+    if brain == "local":
+        profile = str(raw.get("profile") or "auto")
+        if profile not in PROFILES:
+            raise HTTPException(400, "Profilo non valido")
+        if PROFILES[profile]["model"]:
+            out["ATENA_LLM_MODEL"] = PROFILES[profile]["model"]
+    elif brain == "remote":
+        from settings import normalize_ollama
+        url = normalize_ollama(str(raw.get("ollama_url") or ""))
+        if not url:
+            raise HTTPException(400, "Indica l'indirizzo del computer con Ollama")
+        out["ATENA_OLLAMA_URL"] = url
+    else:
+        provider, _ = cloud_choice(raw)
+        _, fast, deep = CLOUD_PICK[provider]
+        out.update(ATENA_LLM_CHAT_ORDER=f"cloud:{provider}/{fast}", ATENA_LLM_DEEP_ORDER=f"cloud:{provider}/{deep}")
+    return out
+
+
+def cloud_choice(raw: dict) -> tuple[str, str]:
+    provider, key = str(raw.get("cloud_provider") or ""), str(raw.get("cloud_key") or "").strip()
+    if provider not in CLOUD_PICK:
+        raise HTTPException(400, "Servizio cloud non valido")
+    if not CLOUD_KEY_RE.fullmatch(key):
+        raise HTTPException(400, "Chiave del servizio cloud non valida")
+    return provider, key
+
+
+def _store_cloud(raw: dict) -> None:
+    if str(raw.get("brain") or "") != "cloud":
+        return
+    provider, key = cloud_choice(raw)
+    from features.cloud.vault import vault
+    try:
+        vault.update(provider, {"key": key, "enabled": True})
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
 
 
 async def _apply(updates: dict, source: str) -> None:
@@ -226,6 +303,9 @@ async def setup_state(request: Request):
         "needed": True, "local": is_local(request), "code": guard.code if is_local(request) else None,
         "hardware": hardware(), "languages": LANGS, "voices": VOICE_CHOICES,
         "profiles": {k: {kk: vv for kk, vv in v.items() if kk != "min_ram_gb"} for k, v in PROFILES.items()},
+        "clouds": {k: v[0] for k, v in CLOUD_PICK.items()},
+        "suggested": suggested_packages(),
+        "packages": _wizard_packages(),
         "current": {"name": env.get("ATENA_USER_NAME", ""), "lang": env.get("ATENA_UI_LANG", "it")},
         "wakeword": (WAKE_DIR / "ehi_atena.onnx").exists(),
     }, headers=NO_CACHE)
@@ -240,10 +320,11 @@ async def setup_save(request: Request, _: None = Depends(require_setup)):
     if not isinstance(raw, dict):
         raise HTTPException(400, "Dati non validi")
     updates = _clean(raw)
+    _store_cloud(raw)
     password = ""
-    if raw.get("shares", True):
+    if raw.get("shares") is True:
         password = secrets.token_urlsafe(18)
-        updates["ATENA_SMB_PASSWORD"] = password
+        updates.update(ATENA_SMB_PASSWORD=password, ATENA_SHARES="1")
     await _apply(updates, "procedura guidata")
     _mark_done("procedura guidata")
     return JSONResponse({"ok": True, "shares_password": password}, headers=NO_CACHE)
@@ -306,7 +387,11 @@ def _parse_answers(text: str) -> dict:
         if key in ANSWER_KEYS:
             raw[key] = value.strip().strip('"').strip("'")
     profile = next((k for k, v in PROFILES.items() if v["model"] and v["model"] == raw.get("ATENA_LLM_MODEL")), "auto")
+    picked = [p.strip() for p in raw.get("ATENA_PACKAGES", "").split(",") if p.strip()]
     updates = _clean({"name": raw.get("ATENA_USER_NAME", ""), "lang": raw.get("ATENA_UI_LANG", "it"), "profile": profile,
+                      "brain": raw.get("ATENA_BRAIN", "local"), "ollama_url": raw.get("ATENA_OLLAMA_URL", ""),
+                      "cloud_provider": raw.get("ATENA_CLOUD_PROVIDER", ""), "cloud_key": raw.get("ATENA_CLOUD_KEY", ""),
+                      "packages": picked,
                       "voice": raw.get("ATENA_VOICE", "if_sara"), "ha_url": raw.get("HOME_ASSISTANT_URL", ""),
                       "ha_token": raw.get("HOME_ASSISTANT_TOKEN", ""), "telegram": raw.get("ATENA_TELEGRAM_TOKEN", ""),
                       "commercial": raw.get("ATENA_COMMERCIAL") == "1"})
@@ -314,7 +399,9 @@ def _parse_answers(text: str) -> dict:
     if smb:
         if not SMB_RE.fullmatch(smb):
             raise HTTPException(400, "Password delle condivisioni non valida (almeno 12 caratteri, nessuno spazio)")
-        updates["ATENA_SMB_PASSWORD"] = smb
+        updates.update(ATENA_SMB_PASSWORD=smb, ATENA_SHARES="1")
+    _store_cloud({"brain": raw.get("ATENA_BRAIN", ""), "cloud_provider": raw.get("ATENA_CLOUD_PROVIDER", ""),
+                  "cloud_key": raw.get("ATENA_CLOUD_KEY", "")})
     return updates
 
 

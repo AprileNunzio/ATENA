@@ -22,6 +22,7 @@ COMPONENTS = {
     "disk": "Archiviazione",
 }
 CRITICAL = {"docker", "ollama", "core"}
+ON_DEMAND = {"voice": "voice", "vision": "vision", "ear": "ear", "kiosk": "display"}
 
 
 async def sh(*cmd: str, timeout: float = 60) -> tuple[int, str]:
@@ -213,6 +214,21 @@ async def probe_all() -> dict:
                            "detail": f"{free_mb / 1024:.1f} GB liberi"}
     except (IndexError, ValueError):
         results["disk"] = {"status": "warn", "detail": "Sconosciuto"}
+    return on_demand(results, env)
+
+
+def on_demand(results: dict, env: dict) -> dict:
+    import packages
+    mode = packages.brain_mode(env)
+    if mode in ("cloud", "pending"):
+        detail = "Non serve: il cervello è nel cloud" if mode == "cloud" else "Su richiesta: scegli il cervello in Pacchetti"
+        for key in ("ollama", "llm"):
+            if results.get(key, {}).get("status") != "ok":
+                results[key] = {"status": "ok", "detail": detail, "on_demand": True}
+    for key, pkg_id in ON_DEMAND.items():
+        pkg = packages.PACKAGE_BY_ID[pkg_id]
+        if key in results and not any(packages.step_wanted(s, env) for s in pkg.steps):
+            results[key] = {"status": "ok", "detail": "Su richiesta: installalo da Pacchetti o chiedilo ad Atena", "on_demand": True}
     return results
 
 

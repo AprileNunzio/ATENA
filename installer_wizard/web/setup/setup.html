@@ -32,11 +32,31 @@
     <p class="local-code" id="local-code" hidden>Vuoi configurarmi dal telefono? Apri questa pagina sulla rete di casa e inserisci il codice <b id="local-code-value"></b>.</p>
   </section>
 
-  <section class="card screen" data-screen="profile" hidden>
-    <h1>Quanto deve essere potente il mio cervello?</h1>
+  <section class="card screen" data-screen="brain" hidden>
+    <h1>Dove deve pensare il mio cervello?</h1>
     <p class="lead" id="hw"></p>
-    <div class="choices" id="profiles" role="radiogroup" aria-label="Profilo"></div>
-    <p class="hint">Inizio subito con un modello piccolo e veloce; quello scelto si scarica in background e prende il suo posto da solo.</p>
+    <div class="choices" id="brains" role="radiogroup" aria-label="Cervello"></div>
+    <div class="sub" id="brain-local">
+      <div class="choices" id="profiles" role="radiogroup" aria-label="Profilo"></div>
+      <p class="hint">Inizio subito con un modello piccolo e veloce; quello scelto si scarica in background e prende il suo posto da solo.</p>
+    </div>
+    <div class="sub" id="brain-remote" hidden>
+      <label class="field"><span>Indirizzo del computer con Ollama</span>
+        <input id="ollama-url" inputmode="url" autocomplete="off" spellcheck="false" placeholder="192.168.1.20"></label>
+      <p class="hint">Su questo computer non installo nulla del cervello: uso quello della tua rete.</p>
+    </div>
+    <div class="sub" id="brain-cloud" hidden>
+      <div class="field"><span>Servizio</span><div class="seg" id="clouds" role="radiogroup" aria-label="Servizio"></div></div>
+      <label class="field"><span>Chiave API</span>
+        <input id="cloud-key" type="password" autocomplete="off" spellcheck="false"></label>
+      <p class="hint">La chiave resta cifrata su questo computer. Le conversazioni passano dal servizio che scegli.</p>
+    </div>
+  </section>
+
+  <section class="card screen" data-screen="packages" hidden>
+    <h1>Cosa vuoi usare da subito?</h1>
+    <p class="lead">Installo solo quello che scegli. Il resto lo aggiungo quando me lo chiedi, anche a voce.</p>
+    <div class="choices" id="packages" aria-label="Pacchetti"></div>
   </section>
 
   <section class="card screen" data-screen="voice" hidden>
@@ -58,7 +78,7 @@
 
   <section class="card screen" data-screen="privacy" hidden>
     <h1>Privacy e sicurezza</h1>
-    <label class="toggle"><input type="checkbox" id="shares" checked>
+    <label class="toggle"><input type="checkbox" id="shares">
       <span><b>Cartelle condivise in rete</b><small>Creo una password robusta e te la mostro una sola volta.</small></span></label>
     <label class="toggle"><input type="checkbox" id="commercial">
       <span><b>Uso in un'attività commerciale</b><small>Non installo da sola componenti con licenza non commerciale.</small></span></label>

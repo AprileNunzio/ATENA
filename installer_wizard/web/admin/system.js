@@ -1,7 +1,7 @@
 (() => {
   const A = window.AtenaAdmin, { $, fmt } = A;
   const PHASE_DOT = { READY: "ok", DEGRADED: "warn", ERROR: "down", INSTALLING: "warn", BOOTING: "warn", UPDATING: "warn" };
-  const STEP_STATUS = { pending: "in attesa", checking: "verifica", running: "in corso", retrying: "nuovo tentativo", done: "operativo", failed: "errore", skipped: "saltato", background: "in background dopo l'avvio" };
+  const STEP_STATUS = { pending: "in attesa", checking: "verifica", running: "in corso", retrying: "nuovo tentativo", done: "operativo", failed: "errore", skipped: "saltato", background: "in background dopo l'avvio", on_demand: "su richiesta" };
   const RESTARTABLE = { core: 1, qdrant: 1, ollama: 1, docker: 1, kiosk: 1 };
 
   function renderPhase(s) {
@@ -30,8 +30,8 @@
 
   function renderComponents(s) {
     $("comp-body").innerHTML = Object.entries(s.components || {}).map(([k, c]) => `
-      <tr><td><span class="dot ${c.status}"></span></td><td>${fmt.esc(c.label)}<div class="faint mono">${fmt.esc(c.detail)}</div></td>
-      <td><span class="badge ${c.status}">${c.status === "ok" ? "operativo" : c.status === "warn" ? "attenzione" : "guasto"}</span></td>
+      <tr><td><span class="dot ${c.on_demand ? "idle" : c.status}"></span></td><td>${fmt.esc(c.label)}<div class="faint mono">${fmt.esc(c.detail)}</div></td>
+      <td><span class="badge ${c.on_demand ? "" : c.status}">${c.on_demand ? "su richiesta" : c.status === "ok" ? "operativo" : c.status === "warn" ? "attenzione" : "guasto"}</span></td>
       <td style="text-align:right">${RESTARTABLE[k] ? `<button class="btn sm" data-action="restart-component" data-body='{"component":"${k}"}' data-confirm="Riavviare ${fmt.esc(c.label)}?">Riavvia</button>` : ""}</td></tr>`).join("")
       || `<tr><td colspan="4" class="faint">Diagnosi disponibile quando il sistema è operativo.</td></tr>`;
   }

@@ -11039,6 +11039,278 @@
 [
 "Ascolto…",
 "Listening…"
+],
+[
+"Atena installa solo quello che usi. Puoi aggiungere un pacchetto da qui oppure chiederlo a voce, ad esempio «installa i documenti Office».",
+"Atena installs only what you use. Add a package here or just ask out loud, for example «install the Office documents»."
+],
+[
+"Cambiare dove pensa Atena? I componenti necessari si installano in background.",
+"Change where Atena thinks? The required components install in the background."
+],
+[
+"Chiave API",
+"API key"
+],
+[
+"Chiave del servizio cloud non valida",
+"Invalid cloud service key"
+],
+[
+"Cosa vuoi usare da subito?",
+"What do you want to use right away?"
+],
+[
+"Dove deve pensare il mio cervello?",
+"Where should my brain think?"
+],
+[
+"I modelli girano su questo computer con Ollama: tutto resta in casa.",
+"Models run on this computer with Ollama: everything stays at home."
+],
+[
+"Il cervello non è ancora scelto: scegli dove deve pensare Atena.",
+"No brain chosen yet: choose where Atena should think."
+],
+[
+"Indica l'indirizzo del computer con Ollama",
+"Enter the address of the computer running Ollama"
+],
+[
+"Indica l'indirizzo del computer con Ollama, ad esempio 192.168.1.20",
+"Enter the address of the computer running Ollama, for example 192.168.1.20"
+],
+[
+"Indica l'indirizzo del server Ollama",
+"Enter the Ollama server address"
+],
+[
+"Indirizzo del computer con Ollama",
+"Address of the computer running Ollama"
+],
+[
+"Installa",
+"Install"
+],
+[
+"Installazione avviata in background",
+"Installation started in the background"
+],
+[
+"Installo solo quello che scegli. Il resto lo aggiungo quando me lo chiedi, anche a voce.",
+"I install only what you choose. I add the rest whenever you ask, even by voice."
+],
+[
+"La chiave API non sembra valida",
+"The API key does not look valid"
+],
+[
+"La chiave resta cifrata su questo computer. Le conversazioni passano dal servizio che scegli.",
+"The key stays encrypted on this computer. Conversations go through the service you choose."
+],
+[
+"Le risposte arrivano dal servizio cloud configurato in Funzionalità › Cloud.",
+"Answers come from the cloud service configured in Features › Cloud."
+],
+[
+"Leggero e veloce anche su computer piccoli. Serve una chiave API.",
+"Light and fast even on small computers. Needs an API key."
+],
+[
+"Modalità del cervello non valida",
+"Invalid brain mode"
+],
+[
+"Nel cloud",
+"In the cloud"
+],
+[
+"Pacchetti",
+"Packages"
+],
+[
+"Pacchetto",
+"Package"
+],
+[
+"Pacchetto disattivato",
+"Package turned off"
+],
+[
+"Pacchetto non valido",
+"Invalid package"
+],
+[
+"Pacchetto sconosciuto o non rimovibile",
+"Unknown or non-removable package"
+],
+[
+"Rimuovere il pacchetto? Lo puoi reinstallare quando vuoi.",
+"Remove the package? You can reinstall it whenever you like."
+],
+[
+"Scegli un servizio cloud",
+"Choose a cloud service"
+],
+[
+"Scelta del cervello non valida",
+"Invalid brain choice"
+],
+[
+"Scelta salvata, applicazione in corso",
+"Choice saved, applying now"
+],
+[
+"Servizio",
+"Service"
+],
+[
+"Servizio cloud non valido",
+"Invalid cloud service"
+],
+[
+"Su questo computer",
+"On this computer"
+],
+[
+"Su questo computer non installo nulla del cervello: uso quello della tua rete.",
+"I install nothing of the brain on this computer: I use the one on your network."
+],
+[
+"Su un altro computer",
+"On another computer"
+],
+[
+"Su un altro computer della rete",
+"On another computer on the network"
+],
+[
+"Tutto resta in casa. Servono spazio e memoria per i modelli.",
+"Everything stays at home. Models need disk space and memory."
+],
+[
+"Uso Ollama di un altro computer della rete: qui non installo nulla del cervello.",
+"I use Ollama on another computer on the network: nothing of the brain is installed here."
+],
+[
+"Uso Ollama già installato su un altro PC di casa.",
+"I use Ollama already installed on another PC at home."
+],
+[
+"in installazione",
+"installing"
+],
+[
+"su richiesta",
+"on demand"
+],
+[
+"Ascolto",
+"Listening"
+],
+[
+"Riconoscimento musicale",
+"Music recognition"
+],
+[
+"Visione",
+"Vision"
+],
+[
+"Conversione 3D",
+"3D conversion"
+],
+[
+"Cartelle condivise",
+"Shared folders"
+],
+[
+"Core nativo",
+"Native core"
+],
+[
+"Cervello locale",
+"Local brain"
+],
+[
+"Modelli del cervello",
+"Brain models"
+],
+[
+"Schermo a tutto campo con volto, widget e lavagna",
+"Full-screen display with face, widgets and whiteboard"
+],
+[
+"Atena ti risponde parlando, voce neurale offline",
+"Atena answers out loud with an offline neural voice"
+],
+[
+"Ti ascolta dal microfono e risponde a «Ehi, Atena»",
+"Listens through the microphone and answers «Hey, Atena»"
+],
+[
+"Brano, artista e album della musica in ascolto",
+"Track, artist and album of the music playing"
+],
+[
+"Riconosce chi ha davanti dalla webcam, tutto in locale",
+"Recognises who is in front of the webcam, fully local"
+],
+[
+"Casse, cuffie e microfoni senza fili",
+"Wireless speakers, headphones and microphones"
+],
+[
+"Crea e apre Word, Excel, PowerPoint e PDF",
+"Creates and opens Word, Excel, PowerPoint and PDF"
+],
+[
+"Apre file BLEND, USD e DWG",
+"Opens BLEND, USD and DWG files"
+],
+[
+"Cartelle visibili da Windows e Mac",
+"Folders visible from Windows and Mac"
+],
+[
+"Esegue in sicurezza il codice che Atena scrive",
+"Safely runs the code Atena writes"
+],
+[
+"Componenti in Rust più veloci, con ritorno automatico a Python",
+"Faster Rust components with automatic fallback to Python"
+],
+[
+"Modelli linguistici su questo computer con Ollama",
+"Language models on this computer with Ollama"
+],
+[
+"Scarica e prepara i modelli scelti",
+"Downloads and prepares the chosen models"
+],
+[
+"Su richiesta: installalo da Pacchetti o chiedilo ad Atena",
+"On demand: install it from Packages or ask Atena"
+],
+[
+"Non serve: il cervello è nel cloud",
+"Not needed: the brain is in the cloud"
+],
+[
+"Su richiesta: scegli il cervello in Pacchetti",
+"On demand: choose the brain in Packages"
+],
+[
+"installato",
+"installed"
+],
+[
+"rimosso",
+"removed"
+],
+[
+"errore",
+"error"
 ]
 ],
 "reverse": [
@@ -11434,6 +11706,7 @@
 "wk-sub st-d",
 "wk-sub wk-faint",
 "wk-text wk-faint",
-"Microphone"
+"Microphone",
+"Sandbox"
 ]
 }

@@ -6,7 +6,8 @@ import shutil
 import time
 from pathlib import Path
 
-from config import DEMO, STATE_DIR
+import packages
+from config import DEMO, STATE_DIR, read_env
 from state import store
 from steps import STEP_BY_ID, STEPS, Step, converge_step
 
@@ -63,7 +64,8 @@ class BackgroundQueue:
 
     def steps(self) -> list[Step]:
         rank = {sid: i for i, sid in enumerate(self.order)}
-        return sorted((s for s in STEPS if s.background), key=lambda s: (rank.get(s.id, len(rank)), s.priority))
+        env = read_env()
+        return sorted((s for s in STEPS if s.background and packages.step_wanted(s.id, env)), key=lambda s: (rank.get(s.id, len(rank)), s.priority))
 
     @staticmethod
     def status(step: Step) -> str:

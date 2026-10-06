@@ -6,6 +6,7 @@ import shutil
 import time
 from dataclasses import dataclass
 
+import packages
 from config import DEMO, HEAL_SCRIPT, STEPS_DIR, read_env
 from state import store
 
@@ -97,7 +98,7 @@ def _recompute_progress() -> None:
     total = 0.0
     for s in STEPS:
         rec = store.steps.get(s.id, {})
-        if rec.get("status") in ("done", "skipped", "failed"):
+        if rec.get("status") in ("done", "skipped", "failed", "on_demand"):
             total += s.weight
         elif rec.get("status") in ("running", "retrying"):
             total += s.weight * rec.get("progress", 0) / 100
@@ -275,8 +276,14 @@ async def run_pipeline(only: list[str] | None = None, force: bool = False) -> bo
         _record(step)
     store.last_error = ""
     ok = True
+    env = read_env()
     for step in STEPS:
         if only and step.id not in only:
+            continue
+        if not packages.step_wanted(step.id, env):
+            rec = store.steps[step.id]
+            if rec.get("status") != "done":
+                rec.update(status="on_demand", progress=0, message="Su richiesta", error="")
             continue
         if step.background and not only:
             rec = store.steps[step.id]

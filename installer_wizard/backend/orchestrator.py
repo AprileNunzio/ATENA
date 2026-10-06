@@ -3,6 +3,7 @@ import logging
 import time
 
 import health
+import packages
 import sysinfo
 import updater
 from config import DEMO, VERSION
@@ -24,6 +25,10 @@ class Orchestrator:
     async def boot(self) -> None:
         store.boot_count += 1
         store.save()
+        try:
+            packages.migrate()
+        except (OSError, ValueError):
+            log.exception("Pacchetti installati non confermati")
         pending = None if DEMO else updater.pending()
         if pending:
             base_phase, label = "UPDATING", "Verifica della nuova versione…"

@@ -24,6 +24,12 @@ STEP_TRIGGERS = (
     ({"ATENA_GPU_DRIVER"}, ["display_driver"]),
     ({"ATENA_SHARES", "ATENA_SMB_PASSWORD"}, ["shares"]),
     ({"ATENA_OLLAMA_URL"}, ["ollama", "models", "brain", "warmup", "services"]),
+    ({"ATENA_BRAIN"}, ["ollama", "models", "brain", "warmup", "services"]),
+    ({"ATENA_VOICE_PACKAGE"}, ["voice"]),
+    ({"ATENA_DOCUMENTS"}, ["office"]),
+    ({"ATENA_BLUETOOTH"}, ["bluetooth"]),
+    ({"ATENA_SANDBOX"}, ["sandbox", "gvisor", "firecracker"]),
+    ({"ATENA_NATIVE"}, ["native"]),
 )
 
 
