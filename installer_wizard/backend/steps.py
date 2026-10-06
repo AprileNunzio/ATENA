@@ -29,6 +29,8 @@ class Step:
 
 STEPS = [
     Step("preflight", "10-preflight.sh", "Analisi del sistema", "Hardware, rete e scelta delle reti neurali", 2),
+    Step("memory", "15-memory.sh", "Memoria compressa", "Memoria di scorta compressa in RAM per Raspberry Pi e computer piccoli", 1,
+         critical=False),
     Step("system", "20-system.sh", "Componenti di sistema", "Runtime, interfaccia grafica, voce", 10),
     Step("kiosk", "25-kiosk.sh", "Display olografico", "Sessione kiosk dedicata e sicura", 2, critical=False),
     Step("docker", "30-docker.sh", "Motore container", "Docker Engine e isolamento dei servizi", 9),

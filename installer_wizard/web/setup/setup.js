@@ -73,7 +73,8 @@
       ? `Ho trovato ${hw.ram_gb} GB di memoria, ${hw.cpu} processori, una scheda video e ${hw.disk_free_gb} GB liberi sul disco.`
       : `Ho trovato ${hw.ram_gb} GB di memoria, ${hw.cpu} processori e ${hw.disk_free_gb} GB liberi sul disco.`;
     choice.profile = hw.recommended;
-    choice.brain = hw.board || hw.ram_gb < 7.5 ? "cloud" : "local";
+    choice.brain = hw.brain || "local";
+    if (hw.board) $("hw").textContent = `${hw.board}: ho trovato ${hw.ram_gb} GB di memoria. Ti consiglio il cervello nel cloud o su un altro computer di casa.`;
     radio($("brains"), BRAINS, "brain", (_, p) => {
       const b = el("button", "choice");
       b.type = "button";
@@ -97,7 +98,7 @@
       box.checked = picked.has(id);
       box.addEventListener("change", () => { box.checked ? picked.add(id) : picked.delete(id); });
       const text = el("span");
-      text.append(el("b", null, `${p.title} · ${p.size_gb} GB`), el("small", null, p.description));
+      text.append(el("b", null, `${p.title} · ${p.size_gb} GB`), el("small", null, p.heavy ? `${p.description}. Pesante per questo computer` : p.description));
       row.append(box, text);
       return row;
     }));

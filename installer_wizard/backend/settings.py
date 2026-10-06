@@ -30,6 +30,7 @@ STEP_TRIGGERS = (
     ({"ATENA_BLUETOOTH"}, ["bluetooth"]),
     ({"ATENA_SANDBOX"}, ["sandbox", "gvisor", "firecracker"]),
     ({"ATENA_NATIVE"}, ["native"]),
+    ({"ATENA_ZRAM"}, ["memory"]),
 )
 
 

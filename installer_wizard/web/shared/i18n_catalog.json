@@ -11311,6 +11311,14 @@
 [
 "errore",
 "error"
+],
+[
+"Memoria compressa",
+"Compressed memory"
+],
+[
+"Memoria di scorta compressa in RAM per Raspberry Pi e computer piccoli",
+"Compressed spare memory in RAM for Raspberry Pi and small computers"
 ]
 ],
 "reverse": [

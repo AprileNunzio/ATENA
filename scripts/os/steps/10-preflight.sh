@@ -6,12 +6,15 @@ free_disk_mb() { df -Pm / | awk 'NR==2 {print $4}'; }
 step_check() {
     [ -n "${ATENA_LLM_MODEL:-}" ] && [ -n "${ATENA_LLM_FAST_MODEL:-}" ] && [ -n "${ATENA_EMBED_MODEL:-}" ] \
         && [ "$(free_disk_mb)" -gt 3072 ] \
-        && [ "${ATENA_HW_PROFILE:-}" = "$(hw_profile)" ]
+        && [ "${ATENA_HW_PROFILE:-}" = "$(hw_profile)" ] \
+        && [ "${ATENA_MACHINE:-}" = "$(machine_class)" ]
 }
 
 select_llm() {
-    local ram_gb=$1 vram_gb=$2
-    if   [ "$vram_gb" -ge 20 ]; then echo "qwen2.5:14b"
+    local ram_gb=$1 vram_gb=$2 machine=${3:-standard}
+    if   [ "$machine" = pi ] && [ "$ram_gb" -ge 7 ]; then echo "qwen2.5:1.5b"
+    elif [ "$machine" = pi ]; then echo "qwen2.5:0.5b"
+    elif [ "$vram_gb" -ge 20 ]; then echo "qwen2.5:14b"
     elif [ "$vram_gb" -ge 8 ] || [ "$ram_gb" -ge 24 ]; then echo "qwen2.5:7b"
     elif [ "$ram_gb" -ge 7 ]; then echo "granite3.3:2b"
     else echo "qwen2.5:1.5b"
@@ -19,8 +22,9 @@ select_llm() {
 }
 
 select_fast_llm() {
-    local ram_gb=$1 vram_gb=$2
-    if   [ "$vram_gb" -ge 6 ]; then echo "granite3.3:2b"
+    local ram_gb=$1 vram_gb=$2 machine=${3:-standard}
+    if   [ "$machine" = pi ]; then echo "qwen2.5:0.5b"
+    elif [ "$vram_gb" -ge 6 ]; then echo "granite3.3:2b"
     elif [ "$ram_gb" -ge 6 ]; then echo "qwen2.5:1.5b"
     else echo "qwen2.5:0.5b"
     fi
@@ -66,6 +70,21 @@ step_apply() {
         info "Nessuna GPU NVIDIA: modalità inferenza CPU ottimizzata"
     fi
 
+    local machine board
+    machine=$(machine_class)
+    board=$(board_model)
+    case "$machine" in
+        pi) info "Scheda: ${board:-Raspberry Pi} — profilo leggero: modelli piccoli, memoria compressa, display semplificato" ;;
+        small) info "Computer con poca memoria: profilo leggero, consigliato il cervello nel cloud o su un altro computer" ;;
+        powerful) info "Computer potente: profilo completo" ;;
+        *) info "Computer standard: profilo bilanciato" ;;
+    esac
+    if [ -n "${ATENA_MACHINE:-}" ] && [ "$ATENA_MACHINE" != "$machine" ]; then
+        [ "${ATENA_LLM_MODEL_AUTO:-1}" = "1" ] && ATENA_LLM_MODEL=""
+        [ "${ATENA_LLM_FAST_AUTO:-1}" = "1" ] && ATENA_LLM_FAST_MODEL=""
+    fi
+    set_env ATENA_MACHINE "$machine"
+
     progress 80 "Selezione reti neurali ottimali"
     ATENA_HW_PROFILE_PREV="${ATENA_HW_PROFILE:-}"
     set_env ATENA_HW_PROFILE "$profile"
@@ -79,10 +98,10 @@ step_apply() {
         ATENA_LLM_FAST_MODEL=""
     fi
     if [ -z "${ATENA_LLM_MODEL:-}" ]; then
-        set_env ATENA_LLM_MODEL "$(select_llm "$ram_gb" "${vram_gb:-0}")"
+        set_env ATENA_LLM_MODEL "$(select_llm "$ram_gb" "${vram_gb:-0}" "$machine")"
     fi
     if [ -z "${ATENA_LLM_FAST_MODEL:-}" ]; then
-        set_env ATENA_LLM_FAST_MODEL "$(select_fast_llm "$ram_gb" "${vram_gb:-0}")"
+        set_env ATENA_LLM_FAST_MODEL "$(select_fast_llm "$ram_gb" "${vram_gb:-0}" "$machine")"
     fi
     if [ -z "${ATENA_EMBED_MODEL:-}" ]; then
         set_env ATENA_EMBED_MODEL "nomic-embed-text"

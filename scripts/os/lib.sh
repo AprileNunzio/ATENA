@@ -156,6 +156,19 @@ has_usable_gpu() {
 
 hw_profile() { if has_usable_gpu; then echo gpu; else echo cpu; fi; }
 
+ram_mb() { awk '/MemTotal/ {printf "%d", $2 / 1024}' /proc/meminfo; }
+board_model() { [ -r /proc/device-tree/model ] && tr -d '\0' < /proc/device-tree/model || true; }
+
+machine_class() {
+    local ram
+    ram=$(ram_mb)
+    if board_model | grep -qi raspberry; then echo pi
+    elif [ "$ram" -lt 7680 ]; then echo small
+    elif has_usable_gpu || [ "$ram" -ge 28672 ]; then echo powerful
+    else echo standard
+    fi
+}
+
 core_src_hash() {
     (
         cd "$ATENA_DIR"

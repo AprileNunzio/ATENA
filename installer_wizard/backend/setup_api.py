@@ -11,6 +11,7 @@ import psutil
 from fastapi import APIRouter, Depends, HTTPException, Request
 from fastapi.responses import JSONResponse, RedirectResponse, Response
 
+import machine
 from access import NO_CACHE, is_local, require_admin
 from config import DEMO, ETC_DIR, STATE_DIR, read_env
 from state import store
@@ -135,8 +136,7 @@ def require_setup(request: Request) -> None:
 
 def suggested_packages() -> list[str]:
     import glob
-    hw = hardware()
-    picks = ["voice", "ear"] if hw["ram_gb"] >= 7.5 and not hw["board"] else []
+    picks = list(machine.SUGGESTED[machine.current()])
     if DEMO or glob.glob("/dev/video*"):
         picks.append("vision")
     return picks
@@ -145,15 +145,7 @@ def suggested_packages() -> list[str]:
 def _wizard_packages() -> dict:
     import packages
     return {pid: {"title": packages.PACKAGE_BY_ID[pid].title, "description": packages.PACKAGE_BY_ID[pid].description,
-                  "size_gb": packages.PACKAGE_BY_ID[pid].size_gb} for pid in WIZARD_PACKAGES}
-
-
-def _board() -> str:
-    try:
-        model = Path("/proc/device-tree/model").read_text(encoding="utf-8", errors="replace").strip("\x00 \n")
-    except OSError:
-        return ""
-    return model[:80] if "raspberry" in model.lower() else ""
+                  "size_gb": packages.PACKAGE_BY_ID[pid].size_gb, "heavy": machine.heavy(pid)} for pid in WIZARD_PACKAGES}
 
 
 def hardware() -> dict:
@@ -170,7 +162,8 @@ def hardware() -> dict:
     else:
         best = "leggero"
     return {"ram_gb": round(mem, 1), "disk_free_gb": round(disk, 1), "cpu": psutil.cpu_count() or 0,
-            "gpu": gpu, "recommended": best, "board": _board()}
+            "gpu": gpu, "recommended": best, "board": machine.board(), "machine": machine.current(),
+            "brain": machine.BRAIN[machine.current()]}
 
 
 def _clean(raw: dict) -> dict:

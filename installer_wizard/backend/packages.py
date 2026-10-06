@@ -5,6 +5,7 @@ import shutil
 import time
 from dataclasses import dataclass
 
+import machine
 from config import DEMO, STATE_DIR, ollama_remote, read_env, write_env
 from state import store
 
@@ -143,7 +144,8 @@ def state(pkg: Package, env: dict | None = None) -> str:
 def catalog() -> list[dict]:
     env = read_env()
     return [{"id": p.id, "title": p.title, "description": p.description, "size_gb": p.size_gb, "steps": list(p.steps),
-             "state": state(p, env), "wanted": wanted(p, env), "removable": p.removable, "detected": bool(p.detect) and _detect(p.detect)}
+             "state": state(p, env), "wanted": wanted(p, env), "removable": p.removable, "detected": bool(p.detect) and _detect(p.detect),
+             "heavy": machine.heavy(p.id, env)}
             for p in PACKAGES if p.id != "brain_models"]
 
 

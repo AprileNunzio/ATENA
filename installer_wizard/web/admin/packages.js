@@ -30,7 +30,7 @@
       const action = p.state === "installing" ? ""
         : !on ? `<button class="btn sm primary" type="button" data-pkg="${fmt.esc(p.id)}" data-on="1">Installa</button>`
         : p.removable ? `<button class="btn sm" type="button" data-pkg="${fmt.esc(p.id)}" data-on="0">Rimuovi</button>` : "";
-      return `<tr><td>${fmt.esc(p.title)}<div class="faint" style="font-size:12px">${fmt.esc(p.description)}${p.detected ? " · dispositivo rilevato" : ""}</div></td>
+      return `<tr><td>${fmt.esc(p.title)}<div class="faint" style="font-size:12px">${fmt.esc(p.description)}${p.detected ? " · dispositivo rilevato" : ""}${p.heavy ? " · pesante per questo computer" : ""}</div></td>
         <td class="mono">${Number(p.size_gb).toFixed(1)} GB</td>
         <td><span class="badge ${BADGE[p.state] || ""}">${STATE[p.state] || fmt.esc(p.state)}</span></td>
         <td style="text-align:right">${action}</td></tr>`;
