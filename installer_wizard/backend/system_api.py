@@ -5,6 +5,7 @@ from fastapi.responses import JSONResponse
 
 import auth
 import health
+import machine
 import updater
 from access import NO_CACHE, require_admin, require_internal, session_user
 from config import DEMO, EDITABLE_KEYS, ATENA_DIR, NODE, SECRET_KEYS, kiosk_log, read_env
@@ -22,7 +23,7 @@ admin_routes = APIRouter()
 LOG_SOURCES = {
     "install": "Installazione e step",
     "supervisor": "Supervisore (journal)",
-    "core": "Atena Core (container)",
+    "core": "Atena Core",
     "ollama": "Motore neurale",
     "kiosk": "Display kiosk",
     "rollback": "Rollback",
@@ -30,7 +31,8 @@ LOG_SOURCES = {
 LOG_COMMANDS = {
     "install": lambda n: ("tail", "-n", n, str(INSTALL_LOG)),
     "supervisor": lambda n: ("journalctl", "-u", "atena-supervisor", "-n", n, "--no-pager"),
-    "core": lambda n: ("docker", "logs", "--tail", n, "atena-core"),
+    "core": lambda n: (("journalctl", "-u", "atena-core", "-n", n, "--no-pager") if machine.core_runtime() == "native"
+                       else ("docker", "logs", "--tail", n, "atena-core")),
     "ollama": lambda n: ("journalctl", "-u", "ollama", "-n", n, "--no-pager"),
     "kiosk": lambda n: ("tail", "-n", n, str(kiosk_log())),
     "rollback": lambda n: ("tail", "-n", n, "/var/log/atena/rollback.log"),
@@ -170,7 +172,8 @@ async def admin_action(action: str, request: Request, user: str = Depends(requir
             raise HTTPException(404, "Componente sconosciuto")
         if comp == "kiosk":
             await health.sh("pkill", "-t", "tty1")
-        code, out = (0, "demo") if DEMO else await health.sh(*COMPONENT_RESTART[comp], timeout=180)
+        command = ["systemctl", "restart", "atena-core"] if comp == "core" and machine.core_runtime() == "native" else COMPONENT_RESTART[comp]
+        code, out = (0, "demo") if DEMO else await health.sh(*command, timeout=180)
         return {"ok": code == 0, "output": out[-500:]}
     elif action == "update-check":
         return await updater.check()

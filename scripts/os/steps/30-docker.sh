@@ -14,6 +14,7 @@ daemon_json() {
 }
 
 step_check() {
+    docker_needed || return 0
     command -v docker >/dev/null 2>&1 \
         && docker info >/dev/null 2>&1 \
         && docker compose version >/dev/null 2>&1 \
@@ -21,6 +22,10 @@ step_check() {
 }
 
 step_apply() {
+    if ! docker_needed; then
+        progress 100 "Docker non serve: il core gira senza container"
+        return 0
+    fi
     if ! command -v docker >/dev/null 2>&1 || ! docker compose version >/dev/null 2>&1; then
         progress 10 "Download Docker Engine"
         local installer

@@ -46,3 +46,16 @@ def current(env: dict | None = None) -> str:
 
 def heavy(pkg_id: str, env: dict | None = None) -> bool:
     return pkg_id in HEAVY[current(env)]
+
+
+def core_runtime(env: dict | None = None) -> str:
+    env = read_env() if env is None else env
+    value = env.get("ATENA_CORE_RUNTIME", "")
+    if value in ("native", "docker"):
+        return value
+    return "native" if current(env) in ("pi", "small") else "docker"
+
+
+def docker_needed(env: dict | None = None) -> bool:
+    env = read_env() if env is None else env
+    return core_runtime(env) == "docker" or env.get("ATENA_SANDBOX", "").strip().lower() in ("1", "on", "yes", "true", "auto")

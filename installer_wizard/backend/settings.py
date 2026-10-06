@@ -31,6 +31,7 @@ STEP_TRIGGERS = (
     ({"ATENA_SANDBOX"}, ["sandbox", "gvisor", "firecracker"]),
     ({"ATENA_NATIVE"}, ["native"]),
     ({"ATENA_ZRAM"}, ["memory"]),
+    ({"ATENA_CORE_RUNTIME"}, ["docker", "core", "services"]),
 )
 
 
@@ -70,6 +71,10 @@ async def apply_config(updates: dict, user: str, extra_steps: list | None = None
     needs = [n for n in dict.fromkeys(needs) if n in STEP_BY_ID]
     if needs:
         if "services" in needs and not DEMO:
-            await health.sh("docker", "rm", "-f", "atena-core", timeout=60)
+            import machine
+            if machine.core_runtime() == "native":
+                await health.sh("systemctl", "stop", "atena-core", timeout=60)
+            else:
+                await health.sh("docker", "rm", "-f", "atena-core", timeout=60)
         background(converge_steps(needs, "Applicazione della nuova configurazione"))
     return needs

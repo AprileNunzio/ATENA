@@ -169,6 +169,16 @@ machine_class() {
     fi
 }
 
+core_runtime() {
+    case "${ATENA_CORE_RUNTIME:-}" in native|docker) echo "$ATENA_CORE_RUNTIME"; return 0 ;; esac
+    case "${ATENA_MACHINE:-$(machine_class)}" in pi|small) echo native ;; *) echo docker ;; esac
+}
+native_core() { [ "$(core_runtime)" = native ]; }
+docker_needed() {
+    native_core || return 0
+    case "${ATENA_SANDBOX:-0}" in 1|on|yes|true|auto) return 0 ;; *) return 1 ;; esac
+}
+
 core_src_hash() {
     (
         cd "$ATENA_DIR"

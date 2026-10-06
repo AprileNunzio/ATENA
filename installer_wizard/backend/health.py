@@ -218,7 +218,12 @@ async def probe_all() -> dict:
 
 
 def on_demand(results: dict, env: dict) -> dict:
+    import machine
     import packages
+    if machine.core_runtime(env) == "native":
+        results["qdrant"] = {"status": "ok", "detail": "Non serve: il core gira senza Docker", "on_demand": True}
+        if not machine.docker_needed(env):
+            results["docker"] = {"status": "ok", "detail": "Non serve: il core gira senza Docker", "on_demand": True}
     mode = packages.brain_mode(env)
     if mode in ("cloud", "pending"):
         detail = "Non serve: il cervello è nel cloud" if mode == "cloud" else "Su richiesta: scegli il cervello in Pacchetti"
@@ -240,6 +245,11 @@ def publish(results: dict) -> None:
         store.components[key] = {**res, "label": COMPONENTS[key], "since": since,
                                  "failures": prev.get("failures", 0)}
     store.touch()
+
+
+def native() -> bool:
+    import machine
+    return machine.core_runtime() == "native"
 
 
 BACKOFF = (0, 60, 180, 600, 1800)
@@ -285,6 +295,11 @@ class Watchdog:
             await sh("systemctl", "restart", "ollama", timeout=120)
         elif key == "llm":
             await self.orch.converge(["warmup"], reason="Riattivazione rete linguistica")
+        elif key == "core" and native():
+            if count <= 2:
+                await sh("systemctl", "restart", "atena-core", timeout=120)
+            else:
+                await self.orch.converge(["core", "services"], reason="Ricostruzione del core")
         elif key in ("core", "qdrant"):
             if count <= 2:
                 await sh("docker", "restart", f"atena-{key}", timeout=120)

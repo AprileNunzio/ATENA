@@ -2,6 +2,8 @@
 . "$(dirname "$0")/../lib.sh"
 
 IMAGE=atena-core:local
+CORE_VENV=/opt/atena-core/venv
+NATIVE_MARK="$ATENA_STATE/.core-native"
 
 image_hash() {
     docker image inspect "$IMAGE" --format '{{ index .Config.Labels "org.atena.src" }}' 2>/dev/null || true
@@ -9,7 +11,26 @@ image_hash() {
 
 gpu_profile() { [[ ",${COMPOSE_PROFILES:-}," == *",gpu,"* ]]; }
 
+native_ready() {
+    [ "$(cat "$NATIVE_MARK" 2>/dev/null)" = "$(core_src_hash)" ] \
+        && "$CORE_VENV/bin/python" -c "import fastapi, uvicorn, pydantic_settings, sqlalchemy" 2>/dev/null
+}
+
+apply_native() {
+    progress 10 "Ambiente Python del Core, senza Docker"
+    [ -x "$CORE_VENV/bin/python" ] || python3 -m venv "$CORE_VENV" || fail "Ambiente Python del Core non creato"
+    retry 3 5 "$CORE_VENV/bin/pip" install -q --disable-pip-version-check --upgrade pip
+    progress 40 "Installazione delle librerie del Core"
+    retry 3 5 "$CORE_VENV/bin/pip" install -q --disable-pip-version-check --require-virtualenv \
+        -r "$ATENA_DIR/server/requirements.txt" || fail "Librerie del Core non installate"
+    "$CORE_VENV/bin/python" -c "import fastapi, uvicorn, pydantic_settings, sqlalchemy" || fail "Librerie del Core incomplete"
+    mkdir -p "$ATENA_STATE"
+    core_src_hash > "$NATIVE_MARK"
+    progress 100 "Core pronto senza Docker"
+}
+
 step_check() {
+    if native_core; then native_ready; return; fi
     local want
     want=$(core_src_hash)
     [ -n "$want" ] && [ "$(image_hash)" = "$want" ] || return 1
@@ -17,6 +38,7 @@ step_check() {
 }
 
 step_apply() {
+    if native_core; then apply_native; return; fi
     export ATENA_SRC_HASH
     ATENA_SRC_HASH=$(core_src_hash)
     info "Versione sorgente Core: $ATENA_SRC_HASH"
