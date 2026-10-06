@@ -3,7 +3,7 @@
     const s = String(v ?? "").slice(0, 8000).replace(/<br\s*\/?>/gi, "\n").replace(/<\/(p|div|li|tr|h[1-6])>/gi, "\n");
     return s.includes("<") ? new DOMParser().parseFromString(s, "text/html").body.textContent : s;
   };
-  const IP = /\b(?:\d{1,3}\.){3}\d{1,3}\b|\b[0-9a-f]{1,4}(?::[0-9a-f]{0,4}){2,7}\b/gi;
+  const IP = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
   AtenaDesk.register("firewall_logs", {
     render(el, d, ctx) {
       const lines = plain(d.content).split("\n").map((l) => l.trim()).filter(Boolean).slice(-14);

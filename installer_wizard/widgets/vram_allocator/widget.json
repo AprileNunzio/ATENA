@@ -1,13 +1,16 @@
 {
   "id": "vram_allocator",
-  "name": "VRAM Monitor",
+  "name": "Memoria GPU",
   "icon": "\ud83d\udcbe",
   "priority": 40,
   "size": "m",
   "intents": [
     "vram_allocator"
   ],
-  "description": "GPU Mem",
+  "description": "Memoria video occupata dai modelli caricati.",
   "ttl": 60,
-  "demo": {}
+  "demo": {
+    "content": "VRAM usata: 78%\nTotale: 18,7 / 24 GB\nLlama 3.1 8B: 9,2 GB\nWhisper large: 3,1 GB\nEmbedding: 1,4 GB"
+  },
+  "tone": "violet"
 }

@@ -19,7 +19,7 @@
       return;
     }
     el.innerHTML = head + `<div class="ka-lines">${synced.map((l, i) =>
-      `<div class="ka-line" data-i="${i}">${ctx.esc(String((l && l.text) || "♪").slice(0, 200))}</div>`).join("")}</div>`;
+      `<div class="ka-line" data-i="${i}">${ctx.esc(String((l && l.text) || "· · ·").slice(0, 200))}</div>`).join("")}</div>`;
     el._lines = synced;
     tick(el, d, ctx);
   }

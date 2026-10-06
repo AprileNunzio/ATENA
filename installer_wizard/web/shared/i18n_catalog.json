@@ -10363,6 +10363,682 @@
 [
 "{0} di {1} pronte · {2}%",
 "{0} of {1} ready · {2}%"
+],
+[
+"Stato agente",
+"Agent status"
+],
+[
+"{0} attive",
+"{0} active"
+],
+[
+"In attesa di istruzioni",
+"Waiting for instructions"
+],
+[
+"Coda di pensiero e azioni dell'agente.",
+"The agent's train of thought and actions."
+],
+[
+"critico",
+"critical"
+],
+[
+"Errore di sistema",
+"System error"
+],
+[
+"Informazione",
+"Information"
+],
+[
+"Notifica di sistema informativa.",
+"Informational system notification."
+],
+[
+"Attenzione",
+"Warning"
+],
+[
+"avviso",
+"notice"
+],
+[
+"Avviso di attenzione.",
+"Warning notice."
+],
+[
+"Scheda",
+"Card"
+],
+[
+"Avviso",
+"Notice"
+],
+[
+"Nuovo promemoria",
+"New reminder"
+],
+[
+"Caricamento testo esteso…",
+"Loading full text…"
+],
+[
+"Spotify",
+"Spotify"
+],
+[
+"in riproduzione",
+"playing"
+],
+[
+"Karaoke",
+"Karaoke"
+],
+[
+"sincronizzato",
+"synced"
+],
+[
+"Costi API",
+"API costs"
+],
+[
+"Contesto del modello",
+"Model context"
+],
+[
+"Cripto",
+"Crypto"
+],
+[
+"Energia",
+"Energy"
+],
+[
+"Memoria GPU",
+"GPU memory"
+],
+[
+"In attesa di dati",
+"Waiting for data"
+],
+[
+"Pipeline CI/CD",
+"CI/CD pipelines"
+],
+[
+"{0} fallite",
+"{0} failed"
+],
+[
+"{0} in corso",
+"{0} running"
+],
+[
+"Container",
+"Containers"
+],
+[
+"Sessioni SSH",
+"SSH sessions"
+],
+[
+"Nessuna sessione attiva",
+"No active sessions"
+],
+[
+"Firewall",
+"Firewall"
+],
+[
+"{0} bloccati",
+"{0} blocked"
+],
+[
+"Nessun pacchetto bloccato",
+"No blocked packets"
+],
+[
+"Scansione porte",
+"Port scan"
+],
+[
+"{0} aperte",
+"{0} open"
+],
+[
+"Modifiche",
+"Changes"
+],
+[
+"Appunti condivisi",
+"Shared clipboard"
+],
+[
+"{0} caratteri",
+"{0} characters"
+],
+[
+"Appunti vuoti",
+"Clipboard empty"
+],
+[
+"{0} passi",
+"{0} steps"
+],
+[
+"Spettro audio",
+"Audio spectrum"
+],
+[
+"Nessun audio in ingresso",
+"No incoming audio"
+],
+[
+"Telemetria nodo",
+"Node telemetry"
+],
+[
+"sotto carico",
+"under load"
+],
+[
+"nominale",
+"nominal"
+],
+[
+"testo",
+"text"
+],
+[
+"{0} righe",
+"{0} lines"
+],
+[
+"Spettro Audio",
+"Audio Spectrum"
+],
+[
+"Spettro animato dell'audio in riproduzione.",
+"Animated spectrum of the audio being played."
+],
+[
+"Spesa per i modelli linguistici: oggi, mese e budget.",
+"Language model spending: today, this month and budget."
+],
+[
+"Stato delle pipeline di build e rilascio.",
+"Status of build and release pipelines."
+],
+[
+"Appunti Condivisi",
+"Shared Clipboard"
+],
+[
+"Ultimo testo copiato, condiviso tra i dispositivi.",
+"Last copied text, shared across devices."
+],
+[
+"Contesto del Modello",
+"Model Context"
+],
+[
+"Quanta finestra di contesto sta usando la conversazione.",
+"How much of the context window the conversation is using."
+],
+[
+"Prezzi di Bitcoin ed Ethereum.",
+"Bitcoin and Ethereum prices."
+],
+[
+"Container Docker",
+"Docker Containers"
+],
+[
+"Stato dei container in esecuzione sul server.",
+"Status of the containers running on the server."
+],
+[
+"Consumi Energia",
+"Energy Usage"
+],
+[
+"Potenza assorbita e produzione della casa.",
+"Home power draw and production."
+],
+[
+"Ultimi pacchetti bloccati dal firewall.",
+"Latest packets blocked by the firewall."
+],
+[
+"Modifiche Git",
+"Git Changes"
+],
+[
+"Differenze del codice, righe aggiunte e rimosse.",
+"Code differences, added and removed lines."
+],
+[
+"Scansione Porte",
+"Port Scan"
+],
+[
+"Porte aperte trovate dall'ultima scansione di rete.",
+"Open ports found by the latest network scan."
+],
+[
+"Accessi SSH attivi in questo momento.",
+"SSH logins active right now."
+],
+[
+"Diagnostica CPU e memoria del nodo.",
+"Node CPU and memory diagnostics."
+],
+[
+"Memoria video occupata dai modelli caricati.",
+"Video memory used by the loaded models."
+],
+[
+"Passi di ragionamento dell'agente.",
+"The agent's reasoning steps."
+],
+[
+"Videocamera",
+"Camera"
+],
+[
+"movimento",
+"motion"
+],
+[
+"Flusso RTSP non disponibile",
+"RTSP stream unavailable"
+],
+[
+"Movimento rilevato",
+"Motion detected"
+],
+[
+"Nessun movimento",
+"No motion"
+],
+[
+"Flusso della videocamera di sicurezza con avviso di movimento.",
+"Security camera stream with motion alerts."
+],
+[
+"Contatto",
+"Contact"
+],
+[
+"Telefono",
+"Phone"
+],
+[
+"Email",
+"Email"
+],
+[
+"Nessun numero",
+"No number"
+],
+[
+"mappa LAN",
+"LAN map"
+],
+[
+"Caricamento della mappa di rete…",
+"Loading the network map…"
+],
+[
+"Mappa dei dispositivi della rete locale.",
+"Map of the devices on the local network."
+],
+[
+"Pomodoro",
+"Pomodoro"
+],
+[
+"concentrazione",
+"focus"
+],
+[
+"Preparazione del timer…",
+"Preparing the timer…"
+],
+[
+"Sessioni di concentrazione a tempo.",
+"Timed focus sessions."
+],
+[
+"Nuovo dispositivo USB",
+"New USB device"
+],
+[
+"collegato",
+"connected"
+],
+[
+"Montato su",
+"Mounted on"
+],
+[
+"Prodotto",
+"Product"
+],
+[
+"Seriale",
+"Serial"
+],
+[
+"viaggio",
+"trip"
+],
+[
+"in auto",
+"by car"
+],
+[
+"Parti entro",
+"Leave by"
+],
+[
+"Appuntamento",
+"Appointment"
+],
+[
+"Arrivo",
+"Arrival"
+],
+[
+"Documento",
+"Document"
+],
+[
+"Progetto",
+"Project"
+],
+[
+"Non riusciti",
+"Failed"
+],
+[
+"Documenti",
+"Documents"
+],
+[
+"Visualizzatore",
+"Viewer"
+],
+[
+"Anteprima non disponibile per questo formato",
+"Preview not available for this format"
+],
+[
+"in arrivo",
+"coming up"
+],
+[
+"La tua giornata",
+"Your day"
+],
+[
+"Nuova email",
+"New email"
+],
+[
+"nuova",
+"new"
+],
+[
+"Webcam",
+"Webcam"
+],
+[
+"Modello 3D",
+"3D model"
+],
+[
+"Alba",
+"Sunrise"
+],
+[
+"Tramonto",
+"Sunset"
+],
+[
+"Luce",
+"Daylight"
+],
+[
+"Alba e tramonto",
+"Sunrise and sunset"
+],
+[
+"Arco del sole di oggi con alba, tramonto e ore di luce, calcolati dalla posizione della casa.",
+"Today's sun arc with sunrise, sunset and hours of daylight, calculated from the home's location."
+],
+[
+"Attacco",
+"Attack"
+],
+[
+"Origine",
+"Source"
+],
+[
+"Avvisa quando su GitHub c'è una nuova versione di Atena con i test superati, con le novità.",
+"Alerts you when GitHub has a new version of Atena that passed its tests, with what's new."
+],
+[
+"Chi vedo",
+"Who I see"
+],
+[
+"Compare solo se un componente di Atena smette di funzionare, mentre il supervisore prova a ripararlo.",
+"Appears only when an Atena component stops working, while the supervisor tries to repair it."
+],
+[
+"Dispositivi in rete",
+"Network devices"
+],
+[
+"I dispositivi connessi alla rete di casa, quando chiedi chi è connesso.",
+"The devices connected to the home network, when you ask who is connected."
+],
+[
+"Installata",
+"Installed"
+],
+[
+"Le lingue in cui Atena sa già parlare, quando chiedi quali voci ha.",
+"The languages Atena can already speak, when you ask which voices she has."
+],
+[
+"Le persone riconosciute dalla webcam, quando chiedi chi vedo.",
+"The people recognized by the webcam, when you ask who I see."
+],
+[
+"Le stanze in cui i sensori di Home Assistant rilevano qualcuno in questo momento.",
+"The rooms where Home Assistant sensors detect someone right now."
+],
+[
+"Lingue e voci",
+"Languages and voices"
+],
+[
+"Ora, data e settimana dell'anno, quando chiedi che ore sono o che giorno è.",
+"Time, date and week of the year, when you ask what time or what day it is."
+],
+[
+"Orologio",
+"Clock"
+],
+[
+"Processore, memoria, disco e temperatura quando chiedi lo stato del sistema.",
+"Processor, memory, disk and temperature when you ask for the system status."
+],
+[
+"Salute del sistema",
+"System health"
+],
+[
+"Settimana",
+"Week"
+],
+[
+"Sottosistemi in errore",
+"Failing subsystems"
+],
+[
+"Stanze occupate",
+"Occupied rooms"
+],
+[
+"Umidità",
+"Humidity"
+],
+[
+"Clima",
+"Climate"
+],
+[
+"Sole",
+"Sun"
+],
+[
+"Risorse",
+"Resources"
+],
+[
+"Rete di casa",
+"Home network"
+],
+[
+"Voci pronte",
+"Ready voices"
+],
+[
+"Aggiornamento",
+"Update"
+],
+[
+"disponibile",
+"available"
+],
+[
+"Riparazione in corso",
+"Repair in progress"
+],
+[
+"1 guasto",
+"1 failure"
+],
+[
+"{0} guasti",
+"{0} failures"
+],
+[
+"1 occupata",
+"1 occupied"
+],
+[
+"{0} occupate",
+"{0} occupied"
+],
+[
+"1 connesso",
+"1 connected"
+],
+[
+"{0} connessi",
+"{0} connected"
+],
+[
+"1 lingua",
+"1 language"
+],
+[
+"{0} lingue",
+"{0} languages"
+],
+[
+"{0} voci pronte",
+"{0} voices ready"
+],
+[
+"Non vedo nessuno",
+"I don't see anyone"
+],
+[
+"Dati non ancora disponibili",
+"Data not available yet"
+],
+[
+"Nuovo dispositivo",
+"New device"
+],
+[
+"in rete",
+"online"
+],
+[
+"Reti e Bluetooth",
+"Networks and Bluetooth"
+],
+[
+"{0} nelle vicinanze",
+"{0} nearby"
+],
+[
+"connesso",
+"connected"
+],
+[
+"Connetti",
+"Connect"
+],
+[
+"Nessun dispositivo nelle vicinanze",
+"No devices nearby"
+],
+[
+"Attività dell'agente",
+"Agent tasks"
+],
+[
+"In corso · {0}",
+"In progress · {0}"
+],
+[
+"Da fare · {0}",
+"To do · {0}"
+],
+[
+"Fonti consultate",
+"Sources consulted"
+],
+[
+"Accesso bloccato",
+"Access blocked"
+],
+[
+"ora",
+"now"
+],
+[
+"standby",
+"standby"
+],
+[
+"{0} h {1} min",
+"{0} h {1} min"
+],
+[
+"Ascolto…",
+"Listening…"
 ]
 ],
 "reverse": [
@@ -10744,6 +11420,20 @@
 "Colour",
 "Inkjet",
 "None",
-"(pointer: fine)"
+"(pointer: fine)",
+"filter:drop-shadow(0 0 6px rgb(var(--tone)))",
+"mono wk-accent",
+"wk-chip live",
+"wk-col gn-group",
+"wk-cols three gn-stats",
+"wk-num sm",
+"wk-row bad",
+"wk-row ic on",
+"wk-sub gn-text",
+"wk-sub mu-bio",
+"wk-sub st-d",
+"wk-sub wk-faint",
+"wk-text wk-faint",
+"Microphone"
 ]
 }

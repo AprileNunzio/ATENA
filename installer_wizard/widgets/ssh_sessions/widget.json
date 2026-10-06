@@ -1,13 +1,17 @@
 {
   "id": "ssh_sessions",
-  "name": "Active SSH",
+  "name": "Sessioni SSH",
   "icon": "\ud83d\udd0c",
   "priority": 90,
   "size": "m",
   "intents": [
     "ssh_sessions"
   ],
-  "description": "SSH Logins",
+  "description": "Accessi SSH attivi in questo momento.",
   "ttl": 60,
-  "demo": {}
+  "demo": {
+    "content": "atena@192.168.1.12: da 42 min\nroot@10.0.0.5: da 3 min"
+  },
+  "tone": "red",
+  "essential": true
 }

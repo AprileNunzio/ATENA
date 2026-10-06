@@ -1,14 +1,14 @@
 .w-alarm { background: radial-gradient(ellipse at 50% 46%, rgba(var(--tone), 0.16), rgba(4, 10, 20, 0.55) 68%); }
-.w-alarm .w-body { display: flex; flex-direction: column; height: 100%; min-height: 360px; padding: 6px 4px; box-sizing: border-box; }
-.w-alarm .al-core { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 12px 20px 24px; }
-.w-alarm .al-mark { position: relative; display: grid; place-items: center; width: clamp(120px, 20vh, 190px); aspect-ratio: 1; margin-bottom: 10px; }
+.w-alarm .w-body { container-type: size; display: flex; flex-direction: column; height: 100%; min-height: 300px; overflow: hidden; box-sizing: border-box; }
+.w-alarm .al-core { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: clamp(4px, 2cqh, 12px); text-align: center; padding: 0 20px clamp(8px, 4cqh, 28px); min-height: 0; }
+.w-alarm .al-mark { position: relative; display: grid; place-items: center; width: clamp(64px, 30cqh, 190px); aspect-ratio: 1; margin-bottom: clamp(2px, 2cqh, 12px); }
 .w-alarm .al-ring { position: absolute; inset: 0; border-radius: 50%; box-shadow: 0 0 0 1px rgba(var(--tone), 0.7) inset; animation: al-ring 2.8s cubic-bezier(0.2, 0.7, 0.3, 1) infinite; }
 .w-alarm .al-ring.r2 { animation-delay: 1.4s; }
-.w-alarm .al-icon { font-size: clamp(60px, 10vh, 96px); line-height: 1; color: rgb(var(--tone)); filter: drop-shadow(0 0 18px rgba(var(--tone), 0.55)); }
+.w-alarm .al-icon { font-size: clamp(32px, 15cqh, 96px); line-height: 1; color: rgb(var(--tone)); filter: drop-shadow(0 0 18px rgba(var(--tone), 0.55)); }
 .w-alarm .al-icon .wk-svg { stroke-width: 1.1; }
-.w-alarm .al-title { font-size: clamp(34px, 6vh, 62px); font-weight: 200; letter-spacing: -0.01em; line-height: 1.1; color: var(--hud-text); }
+.w-alarm .al-title { font-size: clamp(26px, 10cqh, 62px); font-weight: 200; letter-spacing: -0.01em; line-height: 1.1; color: var(--hud-text); }
 .w-alarm .al-room { font: 600 12px/1 var(--mono); letter-spacing: 0.3em; text-transform: uppercase; color: rgb(var(--tone)); }
-.w-alarm .al-msg { max-width: 680px; margin-top: 6px; font-size: 17px; font-weight: 300; line-height: 1.55; color: var(--text); }
+.w-alarm .al-msg { max-width: 680px; margin-top: 6px; font-size: clamp(13px, 4.6cqh, 18px); font-weight: 300; line-height: 1.55; color: var(--text); }
 .w-alarm .al-time { margin-top: 4px; font: 400 12px var(--mono); letter-spacing: 0.12em; color: var(--text-faint); font-variant-numeric: tabular-nums; }
-@keyframes al-ring { from { transform: scale(0.72); opacity: 0.9; } to { transform: scale(1.7); opacity: 0; } }
+@keyframes al-ring { from { transform: scale(0.72); opacity: 0.9; } to { transform: scale(1.55); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .w-alarm .al-ring { animation: none; opacity: 0.5; } .w-alarm .al-ring.r2 { display: none; } }

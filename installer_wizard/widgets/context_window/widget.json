@@ -1,13 +1,16 @@
 {
   "id": "context_window",
-  "name": "Context Monitor",
+  "name": "Contesto del Modello",
   "icon": "\ud83d\udcca",
   "priority": 30,
   "size": "m",
   "intents": [
     "context_window"
   ],
-  "description": "Uso token",
+  "description": "Quanta finestra di contesto sta usando la conversazione.",
   "ttl": 60,
-  "demo": {}
+  "demo": {
+    "content": "Contesto usato: 62%\nToken: 124.000 / 200.000\nMessaggi: 48\nUltima compattazione: 14 min fa"
+  },
+  "tone": "violet"
 }

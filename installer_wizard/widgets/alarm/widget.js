@@ -8,7 +8,7 @@
       const [icon, title] = Object.hasOwn(KIND, d.kind) ? KIND[d.kind] : KIND.generic;
       const at = Number(d.at) > 0 ? Number(d.at) : ctx.now();
       const time = new Date(at * 1000).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
-      el.innerHTML = `${ctx.head({ icon: "alert", label: "Allarme di casa", title: d.room || "", chip: "in corso", live: true, state: "bad" })}
+      el.innerHTML = `${ctx.head({ icon: "alert", label: "Allarme di casa", chip: "in corso", live: true, state: "bad" })}
         <div class="al-core">
           <div class="al-mark"><span class="al-ring"></span><span class="al-ring r2"></span><span class="al-icon">${ctx.icon(icon)}</span></div>
           <div class="al-title">${ctx.esc(String(d.title || title).slice(0, 80))}</div>

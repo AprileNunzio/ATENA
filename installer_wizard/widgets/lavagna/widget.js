@@ -4,24 +4,24 @@
   const MONO = '"DejaVu Sans Mono","Cascadia Mono",Consolas,monospace', SANS = '"Segoe UI",Roboto,Arial,sans-serif';
   const COLORS = ["#f4f4f0", "#ffd166", "#ff4d6a", "#7cfc9a", "#29e0ff"];
   const WIDTHS = { s: 4, m: 9, l: 18 };
-  const CALLOUT = { info: ["#29e0ff", "ℹ️"], tip: ["#7cfc9a", "💡"], warning: ["#ff4d6a", "⚠️"], definition: ["#ffd166", "📘"], formula: ["#c792ea", "∑"], example: ["#f4a261", "✏️"] };
+  const CALLOUT = { info: ["#29e0ff", "ⓘ"], tip: ["#7cfc9a", "✱"], warning: ["#ff4d6a", "!"], definition: ["#ffd166", "§"], formula: ["#c792ea", "∑"], example: ["#f4a261", "✎"] };
   const SERIES = ["#29e0ff", "#ffd166", "#ff4d6a", "#7cfc9a", "#c792ea", "#f4a261", "#90e0ef", "#e9c46a"];
   const STRINGS = {
     it: { pen: "Penna", eraser: "Gomma", text: "Testo", color: "Colore", undo: "Annulla", clear: "Cancella lavagna", sure: "Sicuro?", save: "Salva",
-      saveTitle: "Salva in memoria", load: "Carica", loadTitle: "Carica da memoria", aiTitle: "Attiva o disattiva la valutazione autonoma", aiOn: "🤖 AI: ON",
-      aiOff: "🤖 AI: OFF", micOff: "🎤 Disattivato", micOn: "🎙️ Ascolto…", micTitle: "Parla con l'insegnante", prev: "Pagina precedente", next: "Pagina successiva",
+      saveTitle: "Salva in memoria", load: "Carica", loadTitle: "Carica da memoria", aiTitle: "Attiva o disattiva la valutazione autonoma", aiOn: "AI: ON",
+      aiOff: "AI: OFF", micOff: "Microfono", micOn: "Ascolto…", micTitle: "Parla con l'insegnante", prev: "Pagina precedente", next: "Pagina successiva",
       newPage: "Nuova pagina", delPage: "Elimina pagina", page: "Pag", pdfTitle: "Esporta in PDF", print: "Stampa", printTitle: "Stampa (laser, getto, 3D, incisore)",
-      full: "Tutto schermo", close: "Chiudi", printHead: "🖨️ Stampa", searching: "Ricerca stampanti in corso…", noPrinters: "Nessuna stampante rilevata.",
+      full: "Tutto schermo", close: "Chiudi", printHead: "Stampa", searching: "Ricerca stampanti in corso…", noPrinters: "Nessuna stampante rilevata.",
       printersError: "Errore nel caricamento delle stampanti.", cancel: "Annulla", confirm: "Conferma stampa", sending: "Invio in corso…", sent: "Lavoro inviato.",
       error: "Errore", noMic: "Il browser non supporta il microfono in questa modalità.", thinking: "Sto pensando: ", boardName: "Nome della lavagna:",
       saved: "Lavagna salvata.", available: "Lavagne disponibili:", none: "Nessuna", loadName: "Nome della lavagna da caricare:", loaded: "Lavagna caricata.",
       aiEnabled: "Valutazione automatica attivata", aiDisabled: "Valutazione automatica disattivata", pdfStarted: "Download del PDF avviato…",
       types: { laser_2d: "Laser 2D", inkjet_2d: "Getto d'inchiostro", "3d": "Stampante 3D", engraver: "Incisore laser", virtual_pdf: "PDF" }, speech: "it-IT" },
     en: { pen: "Pen", eraser: "Eraser", text: "Text", color: "Colour", undo: "Undo", clear: "Clear board", sure: "Sure?", save: "Save",
-      saveTitle: "Save to memory", load: "Load", loadTitle: "Load from memory", aiTitle: "Turn autonomous checking on or off", aiOn: "🤖 AI: ON",
-      aiOff: "🤖 AI: OFF", micOff: "🎤 Off", micOn: "🎙️ Listening…", micTitle: "Talk to the teacher", prev: "Previous page", next: "Next page",
+      saveTitle: "Save to memory", load: "Load", loadTitle: "Load from memory", aiTitle: "Turn autonomous checking on or off", aiOn: "AI: ON",
+      aiOff: "AI: OFF", micOff: "Microphone", micOn: "Listening…", micTitle: "Talk to the teacher", prev: "Previous page", next: "Next page",
       newPage: "New page", delPage: "Delete page", page: "Page", pdfTitle: "Export to PDF", print: "Print", printTitle: "Print (laser, inkjet, 3D, engraver)",
-      full: "Full screen", close: "Close", printHead: "🖨️ Print", searching: "Looking for printers…", noPrinters: "No printers found.",
+      full: "Full screen", close: "Close", printHead: "Print", searching: "Looking for printers…", noPrinters: "No printers found.",
       printersError: "Could not load the printers.", cancel: "Cancel", confirm: "Confirm print", sending: "Sending…", sent: "Job sent.",
       error: "Error", noMic: "This browser does not support the microphone here.", thinking: "Thinking: ", boardName: "Board name:",
       saved: "Board saved.", available: "Available boards:", none: "None", loadName: "Name of the board to load:", loaded: "Board loaded.",
@@ -33,6 +33,7 @@
     return code in STRINGS ? code : "it";
   };
   const L = () => STRINGS[lang()];
+  const icon = (name) => (window.AtenaIcons ? window.AtenaIcons.icon(name) : "");
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const post = (path, body) => fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body || {}) }).then((r) => r.json()).catch(() => ({}));
   const images = new Map();
@@ -255,9 +256,9 @@
 
     el.innerHTML = `<div class="lv">
       <div class="lv-bar">
-        <button data-t="pen" class="on" title="${esc(t.pen)}">✏️</button>
-        <button data-t="eraser" title="${esc(t.eraser)}">🧽</button>
-        <button data-t="text" title="${esc(t.text)}">T</button>
+        <button data-t="pen" class="on" title="${esc(t.pen)}">${icon("pen")}</button>
+        <button data-t="eraser" title="${esc(t.eraser)}">⌫</button>
+        <button data-t="text" title="${esc(t.text)}">${icon("text")}</button>
         <span class="lv-sep"></span>
         ${COLORS.map((c) => `<button data-c="${c}" class="lv-dot" style="--c:${c}" title="${esc(t.color)}"></button>`).join("")}
         <span class="lv-sep"></span>
@@ -266,10 +267,10 @@
         <button data-w="l">⬤</button>
         <span class="lv-sep"></span>
         <button data-a="undo" title="${esc(t.undo)}">↶</button>
-        <button data-a="clear" title="${esc(t.clear)}">🗑</button>
+        <button data-a="clear" title="${esc(t.clear)}">⌧</button>
         <span class="lv-sep"></span>
-        <button data-a="save" title="${esc(t.saveTitle)}">💾 ${esc(t.save)}</button>
-        <button data-a="load" title="${esc(t.loadTitle)}">📁 ${esc(t.load)}</button>
+        <button data-a="save" title="${esc(t.saveTitle)}">${icon("file")}<span>${esc(t.save)}</span></button>
+        <button data-a="load" title="${esc(t.loadTitle)}">${icon("list")}<span>${esc(t.load)}</span></button>
         <span class="lv-sep"></span>
         <button data-a="ai-toggle" class="lv-ai-btn active" title="${esc(t.aiTitle)}">${esc(t.aiOn)}</button>
         <button id="lv-mic-btn" title="${esc(t.micTitle)}">${esc(t.micOff)}</button>
@@ -279,14 +280,14 @@
           <span class="lv-page-badge" id="lv-page-num">${esc(t.page)} 1 / 1</span>
           <button data-a="next-page" title="${esc(t.next)}">▶</button>
           <button data-a="new-page" title="${esc(t.newPage)}">+</button>
-          <button data-a="del-page" title="${esc(t.delPage)}" style="display:none">🗑 ${esc(t.page)}</button>
+          <button data-a="del-page" title="${esc(t.delPage)}" style="display:none">− ${esc(t.page)}</button>
         </div>
         <span class="lv-sep"></span>
-        <button data-a="pdf" title="${esc(t.pdfTitle)}">📄 PDF</button>
-        <button data-a="print" title="${esc(t.printTitle)}">🖨️ ${esc(t.print)}</button>
+        <button data-a="pdf" title="${esc(t.pdfTitle)}">${icon("doc")}<span>PDF</span></button>
+        <button data-a="print" title="${esc(t.printTitle)}">${icon("printer")}<span>${esc(t.print)}</span></button>
         <span class="lv-fill"></span>
-        <button data-a="full" title="${esc(t.full)}">⤢</button>
-        <button data-a="close" title="${esc(t.close)}">✕</button>
+        <button data-a="full" title="${esc(t.full)}">${icon("expand")}</button>
+        <button data-a="close" title="${esc(t.close)}">${icon("close")}</button>
       </div>
       <div class="lv-stage">
         <canvas class="lv-canvas"></canvas>
@@ -295,7 +296,7 @@
       <div class="lv-atena"><div class="lv-orb"></div><div class="lv-says" hidden></div></div>
       <div class="lv-modal-mask" style="display:none">
         <div class="lv-modal">
-          <div class="lv-modal-head"><h3>${esc(t.printHead)}</h3><button data-m="close" class="lv-modal-x">✕</button></div>
+          <div class="lv-modal-head"><h3>${icon("printer")}${esc(t.printHead)}</h3><button data-m="close" class="lv-modal-x">${icon("close")}</button></div>
           <div class="lv-modal-body" id="lv-printer-list"><div class="lv-modal-note">${esc(t.searching)}</div></div>
           <div class="lv-modal-foot">
             <button data-m="close" class="lv-btn-plain">${esc(t.cancel)}</button>
@@ -576,11 +577,11 @@
         if (Date.now() - st.armed > 3000) {
           st.armed = Date.now();
           b.textContent = t.sure;
-          setTimeout(() => { b.textContent = "🗑"; }, 3000);
+          setTimeout(() => { b.textContent = "⌧"; }, 3000);
           return;
         }
         st.armed = 0;
-        b.textContent = "🗑";
+        b.textContent = "⌧";
         post("/api/board/clear").then(poll);
       } else if (b.dataset.a === "save") {
         const name = prompt(t.boardName);

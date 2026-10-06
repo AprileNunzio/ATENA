@@ -18,13 +18,12 @@
 
   AtenaDesk.register("code_view", {
     render(el, d, ctx) {
-      const lines = String(d.content || "").split("\n").length;
-      el.innerHTML = `
-        <div class="cv-head"><span class="cv-lang">${ctx.esc(d.language || "testo")}</span>
-          <span class="cv-title">${ctx.esc(d.title || "")}</span><span class="cv-lines">${lines} righe</span>
-          <button class="cv-copy" type="button">Copia</button></div>
-        <pre class="cv-code"><code>${ctx.esc(d.content || "")}</code></pre>`;
-      el.querySelector(".cv-copy").addEventListener("click", (e) => { e.stopPropagation(); copy(d.content || "", e.currentTarget); });
+      const content = String(d.content || "");
+      const lines = content.split("\n").length;
+      el.innerHTML = `${ctx.head({ icon: "code", label: String(d.language || "testo").slice(0, 24), title: String(d.title || "").slice(0, 120), chip: `${lines} righe` })}
+        <pre class="wk-pre cv-code"><code>${ctx.esc(content)}</code></pre>
+        <div class="wk-actions"><button class="wk-btn primary cv-copy" type="button">Copia</button></div>`;
+      el.querySelector(".cv-copy").addEventListener("click", (e) => { e.stopPropagation(); copy(content, e.currentTarget); });
     },
   });
 })();

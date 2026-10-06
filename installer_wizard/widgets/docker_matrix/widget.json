@@ -1,13 +1,16 @@
 {
   "id": "docker_matrix",
-  "name": "Docker Matrix",
+  "name": "Container Docker",
   "icon": "\ud83d\udc33",
   "priority": 35,
   "size": "l",
   "intents": [
     "docker_matrix"
   ],
-  "description": "Containers",
+  "description": "Stato dei container in esecuzione sul server.",
   "ttl": 60,
-  "demo": {}
+  "demo": {
+    "content": "atena-core: running\nchroma-db: running\nollama: healthy\nnginx: restarting\nbackup-job: exited (1)"
+  },
+  "tone": "cyan"
 }

@@ -1,13 +1,16 @@
 {
   "id": "crypto_ticker",
-  "name": "Crypto Prices",
+  "name": "Cripto",
   "icon": "\ud83e\ude99",
   "priority": 25,
   "size": "m",
   "intents": [
     "crypto_ticker"
   ],
-  "description": "BTC/ETH",
+  "description": "Prezzi di Bitcoin ed Ethereum.",
   "ttl": 300,
-  "demo": {}
+  "demo": {
+    "content": "BTC: \u20ac 58.420\nETH: \u20ac 2.315\nVariazione BTC 24h: +2,1%\nVariazione ETH 24h: -0,8%"
+  },
+  "tone": "amber"
 }

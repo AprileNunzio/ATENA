@@ -1,13 +1,16 @@
 {
   "id": "git_diff",
-  "name": "Git Diff Visualizer",
+  "name": "Modifiche Git",
   "icon": "\ud83d\udc19",
   "priority": 75,
   "size": "l",
   "intents": [
     "git_diff"
   ],
-  "description": "Code diff",
+  "description": "Differenze del codice, righe aggiunte e rimosse.",
   "ttl": 300,
-  "demo": {}
+  "demo": {
+    "content": "--- a/core/desk.py\n+++ b/core/desk.py\n@@ -42,7 +42,8 @@ class Desk:\n     def show(self, wid, data):\n-        inst = self.make(wid)\n+        inst = self.make(wid, data)\n+        inst.touch()\n         self.instances[inst.id] = inst\n         return inst"
+  },
+  "tone": "cyan"
 }
