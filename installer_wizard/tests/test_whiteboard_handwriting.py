@@ -38,6 +38,14 @@ class StrokeRecognitionTest(Base):
         self.assertEqual(data["result"], "4")
         self.assertTrue(data["has_equals"])
 
+    def test_a_narrow_handwritten_seven_is_not_read_as_one(self):
+        from features.whiteboard import digits
+        for width in (48, 56, 64):
+            seven = [[100 + width * 0.05, 100], [100 + width * 0.95, 100], [100 + width * 0.35, 180]]
+            self.assertEqual(digits.recognize([seven]), "7")
+        self.assertEqual(digits.recognize([[[130, 100], [130, 180]]]), "1")
+        self.assertEqual(digits.recognize([[[115, 120], [133, 100], [133, 180]]]), "1")
+
     def test_atena_text_is_ignored_by_recognition(self):
         board.text("Metodo Perfetto: 242", x=260, y=150, size=34)
         write(handwritten_two_plus_two())
@@ -68,6 +76,18 @@ class AnswerLayoutTest(Base):
             x0, y0, x1, y1 = board.bounds(item)
             for ux0, uy0, ux1, uy1 in user_boxes:
                 self.assertFalse(x0 < ux1 and x1 > ux0 and y0 < uy1 and y1 > uy0, item["text"])
+
+    def test_steps_and_plots_flow_around_the_user_ink(self):
+        service.open_board()
+        board.stroke(line(70, 100, 700, 120), "#f4f4f0", 6, False)
+        board.stroke(line(80, 300, 650, 330), "#f4f4f0", 6, False)
+        user_boxes = board.occupied()
+        service.solve_on_board("3x + 5 = 20")
+        board.plot([{"label": "y = x", "points": [[0, 0], [1, 1]]}], 0, 1, 0, 1)
+        for item in (i for i in board.items if i["by"] == "atena"):
+            x0, y0, x1, y1 = board.bounds(item)
+            for ux0, uy0, ux1, uy1 in user_boxes:
+                self.assertFalse(x0 < ux1 and x1 > ux0 and y0 < uy1 and y1 > uy0, item.get("text", item["type"]))
 
     def test_perfect_method_is_a_shortcut_for_next_time(self):
         res = teacher.teach("47 + 29 =", line=[100, 100, 400, 160], size=50)

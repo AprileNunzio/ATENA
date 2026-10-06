@@ -233,14 +233,21 @@ class Board:
 
     def reserve(self, height: float, gap: float = GAP) -> tuple[float, float]:
         height = min(height, BOTTOM - TOP)
-        if self.cursor + height > BOTTOM:
-            if self.column + 1 < len(COLUMNS):
-                self.column, self.cursor = self.column + 1, TOP
-            else:
-                self.add_page()
-        x, y = COLUMNS[self.column], self.cursor
-        self.cursor += height + gap
-        return x, y
+        boxes = self.occupied()
+        while True:
+            if self.cursor + height > BOTTOM:
+                if self.column + 1 < len(COLUMNS):
+                    self.column, self.cursor = self.column + 1, TOP
+                else:
+                    self.add_page()
+                    boxes = []
+                continue
+            x, y = COLUMNS[self.column], self.cursor
+            hits = [b for b in boxes if b[0] < x + COLUMN_WIDTH and b[2] > x and b[1] < y + height and b[3] > y]
+            if not hits:
+                self.cursor += height + gap
+                return x, y
+            self.cursor = max(max(b[3] for b in hits) + gap, self.cursor + 1)
 
     @staticmethod
     def wrap(text: str, size: float, width: float = COLUMN_WIDTH) -> list[str]:

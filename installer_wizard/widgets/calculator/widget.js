@@ -2,8 +2,14 @@
   AtenaDesk.register("calculator", {
     render(el, d, ctx) {
       let isScientific = false;
-      let expr = "";
-      let displayExpr = "";
+      let parts = [];
+      const SHOW = {
+        "Math.sin(": "sin(", "Math.cos(": "cos(", "Math.tan(": "tan(",
+        "Math.log(": "ln(", "Math.log10(": "log(", "Math.sqrt(": "√(",
+        "Math.PI": "π", "Math.E": "e", "**": "^", "*": "×", "/": "÷", "-": "−"
+      };
+      const source = () => parts.join("");
+      const shown = () => parts.map((p) => SHOW[p] || p).join("");
       
       el.innerHTML = `
         <div class="calc-wrapper">
@@ -130,40 +136,28 @@
         if (!val) return;
         
         if (val === 'C') {
-          expr = "";
-          displayExpr = "";
+          parts = [];
           currEl.textContent = "0";
           historyEl.textContent = "";
         } else if (val === 'DEL') {
-          expr = expr.slice(0, -1);
-          displayExpr = displayExpr.slice(0, -1);
-          currEl.textContent = displayExpr || "0";
+          parts.pop();
+          currEl.textContent = shown() || "0";
         } else if (val === '=') {
+          if (!parts.length) return;
           try {
-            const res = evaluate(expr);
-            historyEl.textContent = displayExpr + " =";
-            displayExpr = String(Math.round(res * 100000000) / 100000000); 
-            expr = displayExpr;
-            currEl.textContent = displayExpr;
+            const res = evaluate(source());
+            historyEl.textContent = shown() + " =";
+            const out = String(Math.round(res * 100000000) / 100000000);
+            parts = [...out];
+            currEl.textContent = out;
           } catch (err) {
             currEl.textContent = "Errore";
-            expr = "";
-            displayExpr = "";
+            parts = [];
           }
         } else {
-          if (displayExpr === "" && val === "0") return;
-          
-          let dispVal = val;
-          const map = {
-            "Math.sin(": "sin(", "Math.cos(": "cos(", "Math.tan(": "tan(",
-            "Math.log(": "ln(", "Math.log10(": "log(", "Math.sqrt(": "√(",
-            "Math.PI": "π", "Math.E": "e", "**": "^"
-          };
-          if (map[val]) dispVal = map[val];
-          
-          expr += val;
-          displayExpr += dispVal;
-          currEl.textContent = displayExpr;
+          if (!parts.length && val === "0") return;
+          parts.push(val);
+          currEl.textContent = shown();
         }
       });
     }

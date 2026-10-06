@@ -79,7 +79,10 @@ async def solve(request: Request):
     if expr:
         res = service.solve_on_board(expr)
         return {"rev": board.rev, "result": res}
-    res = await service.collaborate_math()
+    try:
+        res = await service.collaborate_math()
+    except ValueError as exc:
+        raise HTTPException(422, str(exc))
     return {"rev": board.rev, "result": res}
 
 @public_routes.post("/api/board/auto_evaluate")
