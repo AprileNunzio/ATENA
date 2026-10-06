@@ -49,7 +49,7 @@ services:
     container_name: atena-inference
     restart: unless-stopped
     ports:
-      - "8444:8444"
+      - "127.0.0.1:8444:8444"
     deploy:
       resources:
         reservations:

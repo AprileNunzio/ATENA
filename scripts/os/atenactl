@@ -34,7 +34,7 @@ case "${1:-status}" in
             install) tail -n 200 -f /var/log/atena/install.log ;;
             supervisor|ollama) journalctl -fu "${src/supervisor/atena-supervisor}" ;;
             voice|vision|ear) journalctl -fu "atena-$src" ;;
-            core) docker logs -f --tail 200 atena-core ;;
+            core) if systemctl is-active --quiet atena-core; then journalctl -u atena-core -f -n 200; else docker logs -f --tail 200 atena-core; fi ;;
             *) echo "Sorgenti: install supervisor core ollama voice vision ear" >&2; exit 2 ;;
         esac
         ;;

@@ -156,7 +156,13 @@ EDITABLE_KEYS = {
 }
 SECRET_KEYS = {"ATENA_SECRET_KEY", "ATENA_SMB_PASSWORD", "GEMINI_API_KEY", "ANTHROPIC_API_KEY", "HOME_ASSISTANT_TOKEN", "ATENA_TELEGRAM_TOKEN", "ATENA_SMTP_PASSWORD",
                "ATENA_SPOTIFY_CLIENT_SECRET", "ATENA_SPOTIFY_REFRESH_TOKEN",
-               "ATENA_GOOGLE_CLIENT_SECRET", "ATENA_GOOGLE_REFRESH_TOKEN", "ATENA_MAPS_API_KEY"}
+               "ATENA_GOOGLE_CLIENT_SECRET", "ATENA_GOOGLE_REFRESH_TOKEN", "ATENA_MAPS_API_KEY",
+               "ATENA_ONLINE_STT_KEY", "ATENA_MUSIC_APP_PASSWORD", "ATENA_CLOUD_KEY"}
+SECRET_RE = re.compile(r"(KEY|TOKEN|PASSWORD|PASSWD|SECRET|PASSPHRASE|CREDENTIALS?|COOKIE)(_|$)")
+
+
+def is_secret(key: str) -> bool:
+    return key in SECRET_KEYS or bool(SECRET_RE.search(key))
 _KEY_RE = re.compile(r"^[A-Z][A-Z0-9_]*$")
 
 
@@ -167,7 +173,7 @@ _nodes_cache = {"mtime": -1.0, "data": {}}
 
 
 def node_keys() -> list[str]:
-    return [k for k in EDITABLE_KEYS if k not in SECRET_KEYS and k not in NODE_FIXED]
+    return [k for k in EDITABLE_KEYS if not is_secret(k) and k not in NODE_FIXED]
 
 
 def node_overrides(node_id: str) -> dict:

@@ -11,7 +11,7 @@ from pathlib import Path
 
 import psutil
 
-from config import DEMO, FEATURES_DIR, EDITABLE_KEYS, SECRET_KEYS, STATE_DIR, read_env, write_env
+from config import DEMO, FEATURES_DIR, EDITABLE_KEYS, STATE_DIR, is_secret, read_env, write_env
 from state import store
 
 log = logging.getLogger("atena.features")
@@ -299,7 +299,7 @@ class Registry:
         for s in m["settings"]:
             v = env.get(s["key"], s.get("default", "")) if s.get("env", True) and s["key"].isupper() \
                 else local.get(s["key"], s.get("default", ""))
-            if s["type"] == "secret" or s["key"] in SECRET_KEYS:
+            if s["type"] == "secret" or is_secret(s["key"]):
                 v = ("••••" + str(v)[-4:]) if v else ""
             values[s["key"]] = v
         return values
@@ -311,7 +311,7 @@ class Registry:
             if s["key"] not in body:
                 continue
             value = str(body[s["key"]]).strip()
-            if (s["type"] == "secret" or s["key"] in SECRET_KEYS) and value.startswith("••••"):
+            if (s["type"] == "secret" or is_secret(s["key"])) and value.startswith("••••"):
                 continue
             if s["type"] == "select" and s.get("options") and value not in [str(o.get("value", o)) if isinstance(o, dict) else str(o) for o in s["options"]]:
                 raise ValueError(f"Valore non valido per {s['label']}")

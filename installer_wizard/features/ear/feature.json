@@ -83,7 +83,7 @@
     {
       "key": "ATENA_ONLINE_STT_KEY",
       "label": "Chiave API per STT online (Deepgram, Groq, OpenAI o Gemini)",
-      "type": "text",
+      "type": "secret",
       "default": "",
       "apply": [
         "ear"

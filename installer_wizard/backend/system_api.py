@@ -8,7 +8,7 @@ import health
 import machine
 import updater
 from access import NO_CACHE, require_admin, require_internal, session_user
-from config import DEMO, EDITABLE_KEYS, ATENA_DIR, NODE, SECRET_KEYS, kiosk_log, read_env
+from config import DEMO, EDITABLE_KEYS, ATENA_DIR, NODE, is_secret, kiosk_log, read_env
 from orchestrator import orch
 from pages import page
 from settings import apply_config
@@ -235,10 +235,10 @@ async def get_config(_: str = Depends(require_admin)):
     items = []
     for key, label in EDITABLE_KEYS.items():
         value = env.get(key, "")
-        secret = key in SECRET_KEYS
+        secret = is_secret(key)
         items.append({"key": key, "label": label, "secret": secret,
                       "value": ("••••" + value[-4:]) if (secret and value) else value, "set": bool(value)})
-    readonly = {k: v for k, v in env.items() if k not in EDITABLE_KEYS}
+    readonly = {k: ("••••" if v else "") if is_secret(k) else v for k, v in env.items() if k not in EDITABLE_KEYS}
     return {"editable": items, "system": readonly, "atena_dir": str(ATENA_DIR)}
 
 
@@ -246,7 +246,7 @@ async def get_config(_: str = Depends(require_admin)):
 async def put_config(request: Request, user: str = Depends(require_admin)):
     body = await request.json()
     updates = {k: str(v).strip() for k, v in body.items() if k in EDITABLE_KEYS}
-    updates = {k: v for k, v in updates.items() if not (k in SECRET_KEYS and v.startswith("••••"))}
+    updates = {k: v for k, v in updates.items() if not (is_secret(k) and v.startswith("••••"))}
     if not updates:
         return {"ok": True, "changed": []}
     needs = await apply_config(updates, user)
