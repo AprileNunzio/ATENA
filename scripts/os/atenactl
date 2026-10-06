@@ -24,8 +24,9 @@ case "${1:-status}" in
         echo -e "${C}Controllo aggiornamenti su GitHub…${N}"
         call update 60 | jq -r '.message'
         ;;
-    repair)
-        call repair | jq -r '.message'
+    ripara|fix|repair)
+        [ "$EUID" -eq 0 ] || exec sudo -- "$0" "$@"
+        bash /opt/Atena/scripts/os/repair.sh "${@:2}"
         ;;
     logs)
         src=${2:-install}
@@ -50,7 +51,7 @@ case "${1:-status}" in
         git -c safe.directory='*' -C /opt/Atena log -1 --format='%h %ci %s'
         ;;
     *)
-        sed -n '3,10p' "$0" | sed 's/^# \{0,1\}//'
+        echo "atenactl status | ripara | update | logs [install|supervisor|core|ollama|voice|vision|ear] | setup-code | background | version" >&2
         exit 2
         ;;
 esac

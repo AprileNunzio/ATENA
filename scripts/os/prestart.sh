@@ -40,6 +40,16 @@ fi
 
 pkill -f 'backend/wizard_server.py' >/dev/null 2>&1 || true
 
+units_changed=0
+for unit in atena-supervisor.service atena-rollback.service; do
+    src="$ATENA_DIR/scripts/os/systemd/$unit"
+    if [ -f "$src" ] && ! cmp -s "$src" "/etc/systemd/system/$unit"; then
+        install -m 0644 "$src" /etc/systemd/system/
+        units_changed=1
+    fi
+done
+if [ "$units_changed" = 1 ]; then systemctl daemon-reload >/dev/null 2>&1 || true; fi
+
 if [ ! -f /etc/pam.d/atena-admin ]; then
     printf '%s\n' '# Atena OS admin panel' '@include common-auth' '@include common-account' > /etc/pam.d/atena-admin
 fi

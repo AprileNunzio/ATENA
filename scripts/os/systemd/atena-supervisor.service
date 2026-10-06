@@ -12,7 +12,7 @@ Type=simple
 Environment=PYTHONUNBUFFERED=1
 Environment=ATENA_DIR=/opt/Atena
 ExecStartPre=/bin/bash /opt/Atena/scripts/os/prestart.sh
-ExecStart=/opt/Atena/installer_wizard/venv/bin/python /opt/Atena/installer_wizard/backend/atena_supervisor.py
+ExecStart=/opt/Atena/installer_wizard/venv/bin/python /opt/Atena/installer_wizard/backend/atena_launch.py
 Restart=always
 RestartSec=3
 TimeoutStartSec=900

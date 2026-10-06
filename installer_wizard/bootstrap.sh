@@ -38,6 +38,15 @@ if [ "$UI_LANG" = it ]; then
         [noresp]="Il Supervisor non risponde" [done]="Installazione di base completata"
         [autonomy]="Il Supervisor completa l'installazione in autonomia."
         [monitor]="Monitor installazione / Atena" [admin]="Pannello di amministrazione" [live]="Log in tempo reale"
+        [retry]="Nuovo tentativo %d di %d" [heal_apt]="Gestore dei pacchetti riparato" [heal_net]="Connessione verificata"
+        [heal_git]="Copia di Atena rimossa: la riscarico da zero" [heal_pipcache]="Cache delle librerie svuotata"
+        [heal_venv]="Ambiente Python ricostruito da zero" [heal_repair]="Riparazione automatica eseguita" [autorepair]="Riparazione automatica"
+        [disk_clean]="Pulizia del disco" [disk_full]="Spazio su disco insufficiente: liberi %s, ne servono almeno 2 GB. Libera spazio e rilancia il comando."
+        [offline]="Nessuna connessione a internet: controlla cavo o Wi-Fi e rilancia il comando." [net_wait]="Nessuna connessione, riprovo"
+        [net_check]="Verifica della connessione" [apt_wait]="Un altro programma sta installando pacchetti, attendo"
+        [port_busy]="La porta %s è occupata dal programma «%s»: chiudilo o disinstallalo e rilancia il comando."
+        [safe]="Atena è partita in modalità sicura e si sta riparando da sola: apri la pagina qui sotto per seguire la riparazione."
+        [failed_after]="%s non riuscito dopo %d tentativi."
     )
 else
     DEC="."
@@ -58,6 +67,15 @@ else
         [noresp]="The Supervisor is not responding" [done]="Base installation complete"
         [autonomy]="The Supervisor finishes the installation on its own."
         [monitor]="Installation monitor / Atena" [admin]="Admin panel" [live]="Live log"
+        [retry]="Retry %d of %d" [heal_apt]="Package manager repaired" [heal_net]="Connection checked"
+        [heal_git]="Atena copy removed: downloading it again from scratch" [heal_pipcache]="Library cache cleared"
+        [heal_venv]="Python environment rebuilt from scratch" [heal_repair]="Automatic repair done" [autorepair]="Automatic repair"
+        [disk_clean]="Cleaning up the disk" [disk_full]="Not enough disk space: %s free, at least 2 GB needed. Free some space and run the command again."
+        [offline]="No internet connection: check the cable or Wi-Fi and run the command again." [net_wait]="No connection, retrying"
+        [net_check]="Checking the connection" [apt_wait]="Another program is installing packages, waiting"
+        [port_busy]="Port %s is used by the program \"%s\": close or uninstall it and run the command again."
+        [safe]="Atena started in safe mode and is repairing itself: open the page below to follow the repair."
+        [failed_after]="%s failed after %d attempts."
     )
 fi
 
@@ -69,9 +87,9 @@ else
     G_FULL="#" G_EMPTY="-" G_OK="+" G_RUN=">" G_WAIT="o" G_BAD="x" G_DOT="-" G_SPIN=("|" "/" "-" "\\") G_PIPE="|"
 fi
 if [ "$TTY" = 1 ]; then
-    C_CYAN=$'\033[36m' C_GREEN=$'\033[32m' C_RED=$'\033[31m' C_DIM=$'\033[2m' C_BOLD=$'\033[1m' C_OFF=$'\033[0m'
+    C_CYAN=$'\033[36m' C_GREEN=$'\033[32m' C_RED=$'\033[31m' C_AMBER=$'\033[33m' C_DIM=$'\033[2m' C_BOLD=$'\033[1m' C_OFF=$'\033[0m'
 else
-    C_CYAN="" C_GREEN="" C_RED="" C_DIM="" C_BOLD="" C_OFF=""
+    C_CYAN="" C_GREEN="" C_RED="" C_AMBER="" C_DIM="" C_BOLD="" C_OFF=""
 fi
 COLS=$(tput cols 2>/dev/null || echo 80)
 [[ "$COLS" =~ ^[0-9]+$ ]] || COLS=80
@@ -423,67 +441,182 @@ trap 'on_err $LINENO' ERR
 trap cleanup EXIT
 if [ "$TTY" = 1 ]; then printf '\033[?25l\033[?7l\n'; fi
 
-step_begin 1
-phase "${T[repair]}"
-stream h_none dpkg --configure -a || true
-phase "${T[index]}"
-stream h_none apt-get update -q
-APT_N=0 APT_TOTAL=0
-while read -r _ _ size _; do
-    APT_N=$(( APT_N + 1 ))
-    APT_TOTAL=$(( APT_TOTAL + ${size:-0} ))
-done < <(apt-get install -y -qq --no-install-recommends --print-uris "${PREREQS[@]}" 2>>"$LOG" | grep "^'" || true)
-if (( APT_N == 0 )); then
-    step_end "${T[present]}"
-else
+MAX_TRY=3
+HEAL_NOTE=""
+
+pause() {
+    local secs=$1 text=$2 k
+    for (( k = secs * 4; k > 0; k-- )); do
+        DETAIL1="${C_AMBER}${text} $G_DOT $(( (k + 3) / 4 )) s${C_OFF}"
+        DETAIL2="${HEAL_NOTE:+${C_DIM}${HEAL_NOTE}${C_OFF}}"
+        draw
+        sleep 0.25
+    done
+}
+
+attempt() {
+    local fn=$1 heal=$2 i msg
+    for (( i = 1; i <= MAX_TRY; i++ )); do
+        if "$fn" "$i"; then return 0; fi
+        (( i == MAX_TRY )) && break
+        printf '\n--- %s: tentativo %d fallito, riparazione ---\n' "$fn" "$i" >> "$LOG"
+        HEAL_NOTE=""
+        DETAIL1="${C_AMBER}${T[autorepair]}${C_OFF}" DETAIL2=""
+        draw 1
+        "$heal" "$i" >>"$LOG" 2>&1 || true
+        printf -v msg "${T[retry]}" $(( i + 1 )) "$MAX_TRY"
+        pause $(( 5 * i * i )) "$msg"
+    done
+    printf -v msg "${T[failed_after]}" "${T[s$CUR]}" "$MAX_TRY"
+    die "$msg"
+}
+
+free_mb() { df -Pm / | awk 'NR==2 {print $4+0}'; }
+online() {
+    curl -fsS --proto '=https' --max-time 8 -o /dev/null "${REPO_URL%.git}.git/info/refs?service=git-upload-pack" 2>/dev/null \
+        || curl -fsS --proto '=https' --max-time 8 -o /dev/null https://pypi.org/simple/pip/ 2>/dev/null
+}
+apt_busy() { pgrep -x apt-get >/dev/null || pgrep -x apt >/dev/null || pgrep -x dpkg >/dev/null || pgrep -x unattended-upgr >/dev/null; }
+
+wait_online() {
+    local limit=${1:-300} t0=$EPOCHSECONDS restarted=0
+    online && return 0
+    while (( EPOCHSECONDS - t0 < limit )); do
+        if (( restarted == 0 && EPOCHSECONDS - t0 >= 20 )); then
+            systemctl restart systemd-resolved >>"$LOG" 2>&1 || true
+            systemctl restart NetworkManager >>"$LOG" 2>&1 || true
+            restarted=1
+        fi
+        DETAIL1="${C_AMBER}${T[net_wait]} $G_DOT $(( EPOCHSECONDS - t0 )) s${C_OFF}" DETAIL2=""
+        draw 1
+        sleep 4
+        online && return 0
+    done
+    return 1
+}
+
+wait_apt() {
+    local t0=$EPOCHSECONDS
+    while apt_busy && (( EPOCHSECONDS - t0 < 1800 )); do
+        DETAIL1="${C_AMBER}${T[apt_wait]} $G_DOT $(( EPOCHSECONDS - t0 )) s${C_OFF}" DETAIL2=""
+        draw 1
+        sleep 3
+    done
+}
+
+heal_apt() {
+    HEAL_NOTE=${T[heal_apt]}
+    wait_apt
+    dpkg --configure -a
+    apt-get -f install -y -q
+    (( $1 >= 2 )) && apt-get clean
+    wait_online 120 || true
+    return 0
+}
+
+heal_git() {
+    HEAL_NOTE=${T[heal_net]}
+    wait_online 180 || true
+    if (( $1 >= 2 )); then
+        rm -rf "$ATENA_DIR"
+        HEAL_NOTE=${T[heal_git]}
+    fi
+    return 0
+}
+
+heal_pip() {
+    wait_online 180 || true
+    if (( $1 == 1 )); then
+        "$VENV/bin/pip" cache purge
+        rm -rf /root/.cache/pip
+        HEAL_NOTE=${T[heal_pipcache]}
+    else
+        rm -rf "$VENV" /root/.cache/pip
+        HEAL_NOTE=${T[heal_venv]}
+    fi
+    return 0
+}
+
+heal_none() { return 0; }
+
+heal_start() {
+    systemctl stop atena-supervisor.service
+    bash "$ATENA_DIR/scripts/os/repair.sh" --quiet --no-restart --origin=installer
+    HEAL_NOTE=${T[heal_repair]}
+    return 0
+}
+
+do_prereqs() {
+    local size
+    if (( $1 == 1 )); then
+        phase "${T[repair]}"
+        stream h_none dpkg --configure -a || true
+    fi
+    phase "${T[index]}"
+    stream h_none apt-get update -q || return 1
+    APT_N=0 APT_TOTAL=0
+    while read -r _ _ size _; do
+        APT_N=$(( APT_N + 1 ))
+        APT_TOTAL=$(( APT_TOTAL + ${size:-0} ))
+    done < <(apt-get install -y -qq --no-install-recommends --print-uris "${PREREQS[@]}" 2>>"$LOG" | grep "^'" || true)
+    if (( APT_N == 0 )); then
+        apt-get install -y -qq --no-install-recommends "${PREREQS[@]}" </dev/null >>"$LOG" 2>&1 || return 1
+        STEP_RESULT=${T[present]}
+        return 0
+    fi
     fmt_bytes apt_size "$APT_TOTAL"
     if (( APT_N == 1 )); then apt_word=${T[package]}; else apt_word=${T[packages]}; fi
     STEP_NOTE[1]="$APT_N $apt_word $G_DOT $apt_size"
-    stream h_apt apt-get install -y -q --no-install-recommends -o APT::Status-Fd=1 -o Dpkg::Use-Pty=0 "${PREREQS[@]}"
-    step_end "$APT_N $apt_word $G_DOT $apt_size"
-fi
+    speed_reset
+    stream h_apt apt-get install -y -q --no-install-recommends -o APT::Status-Fd=1 -o Dpkg::Use-Pty=0 "${PREREQS[@]}" || return 1
+    STEP_RESULT="$APT_N $apt_word $G_DOT $apt_size"
+}
 
-step_begin 2
-GIT_SIZE=""
-git config --global --add safe.directory "$ATENA_DIR" >>"$LOG" 2>&1 || true
-phase "${T[prepare]}"
-if [ -d "$ATENA_DIR/.git" ]; then
-    stream h_git env LC_ALL=C git -C "$ATENA_DIR" fetch --progress origin "$BRANCH"
-    phase "${T[checkout]}"
-    git -C "$ATENA_DIR" reset --hard --quiet "origin/$BRANCH" >>"$LOG" 2>&1
-else
-    rm -rf "$ATENA_DIR"
-    stream h_git env LC_ALL=C git clone --progress --branch "$BRANCH" "$REPO_URL" "$ATENA_DIR"
-fi
-HEAD_SHORT=$(git -C "$ATENA_DIR" rev-parse --short HEAD)
-step_end "$HEAD_SHORT${GIT_SIZE:+ $G_DOT ${GIT_SIZE//./$DEC}}"
+do_download() {
+    GIT_SIZE=""
+    speed_reset
+    phase "${T[prepare]}"
+    if [ -d "$ATENA_DIR/.git" ] && git -C "$ATENA_DIR" rev-parse --verify -q HEAD >/dev/null 2>&1; then
+        stream h_git env LC_ALL=C git -C "$ATENA_DIR" fetch --progress origin "$BRANCH" || return 1
+        phase "${T[checkout]}"
+        git -C "$ATENA_DIR" reset --hard --quiet "origin/$BRANCH" >>"$LOG" 2>&1 || return 1
+    else
+        rm -rf "$ATENA_DIR"
+        stream h_git env LC_ALL=C git clone --progress --branch "$BRANCH" "$REPO_URL" "$ATENA_DIR" || return 1
+    fi
+    HEAD_SHORT=$(git -C "$ATENA_DIR" rev-parse --short HEAD) || return 1
+    STEP_RESULT="$HEAD_SHORT${GIT_SIZE:+ $G_DOT ${GIT_SIZE//./$DEC}}"
+}
 
-step_begin 3
-if [ ! -x "$VENV/bin/pip" ]; then
-    phase "${T[venv]}"
-    rm -rf "$VENV"
-    python3 -m venv "$VENV" </dev/null >>"$LOG" 2>&1
-fi
-PCT=3
-phase "${T[pip]}"
-stream h_none "$VENV/bin/pip" install --disable-pip-version-check --no-input -q --upgrade pip
-exec 9>"$VENV/.requirements.lock"
-if ! flock -n 9; then
-    phase "${T[lock]}"
-    flock -w 1800 9
-fi
-want=$(sha1sum "$REQ" | cut -c1-40)
-if [ "$(cat "$STAMP" 2>/dev/null || true)" = "$want" ] \
-        && "$VENV/bin/python" -c "import fastapi, uvicorn, httpx, psutil, pam" >/dev/null 2>&1; then
-    step_end "${T[present]}"
-else
+do_python() {
+    local want
+    if [ ! -x "$VENV/bin/pip" ]; then
+        phase "${T[venv]}"
+        rm -rf "$VENV"
+        python3 -m venv "$VENV" </dev/null >>"$LOG" 2>&1 || return 1
+    fi
+    PCT=3
+    phase "${T[pip]}"
+    stream h_none "$VENV/bin/pip" install --disable-pip-version-check --no-input -q --upgrade pip || return 1
+    exec 9>"$VENV/.requirements.lock"
+    if ! flock -n 9; then
+        phase "${T[lock]}"
+        flock -w 1800 9 || return 1
+    fi
+    want=$(sha1sum "$REQ" | cut -c1-40)
+    if [ "$(cat "$STAMP" 2>/dev/null || true)" = "$want" ] \
+            && "$VENV/bin/python" -c "import fastapi, uvicorn, httpx, psutil, pam" >/dev/null 2>&1; then
+        exec 9>&-
+        STEP_RESULT=${T[present]}
+        return 0
+    fi
     PCT=5
     phase "${T[resolve]}"
     REPORT=$(mktemp)
-    stream h_none "$VENV/bin/pip" install --disable-pip-version-check --no-input -q --dry-run --report "$REPORT" -r "$REQ"
+    stream h_none "$VENV/bin/pip" install --disable-pip-version-check --no-input -q --dry-run --report "$REPORT" -r "$REQ" || { rm -f "$REPORT"; exec 9>&-; return 1; }
     mapfile -t PIP_URLS < <(jq -r '.install[].download_info.url' "$REPORT" || true)
     rm -f "$REPORT"
-    PIP_N=${#PIP_URLS[@]}
+    PIP_N=${#PIP_URLS[@]} PIP_DONE_N=0 PIP_DONE_B=0 PIP_CUR="" PIP_CUR_B=0 PIP_CUR_T=0
     phase "${T[sizes]} ($PIP_N ${T[packages]})"
     PIP_TOTAL=0
     if (( PIP_N > 0 )); then
@@ -495,73 +628,147 @@ else
     fmt_bytes pip_size "$PIP_TOTAL"
     STEP_NOTE[3]="0 ${T[of]} $PIP_N ${T[packages]}"
     phase "${T[download]} $G_DOT $pip_size"
-    stream h_pip "$VENV/bin/pip" install --disable-pip-version-check --no-input --progress-bar raw -r "$REQ"
-    echo "$want" > "$STAMP.tmp"
-    mv -f "$STAMP.tmp" "$STAMP"
-    if (( PIP_N == 0 )); then step_end "${T[present]}"
-    elif (( PIP_TOTAL > 0 )); then step_end "$PIP_N ${T[packages]} $G_DOT $pip_size"
-    else step_end "$PIP_N ${T[packages]}"
+    speed_reset
+    stream h_pip "$VENV/bin/pip" install --disable-pip-version-check --no-input --progress-bar raw -r "$REQ" || { exec 9>&-; return 1; }
+    "$VENV/bin/python" -c "import fastapi, uvicorn, httpx, psutil, pam" >>"$LOG" 2>&1 || { exec 9>&-; return 1; }
+    echo "$want" > "$STAMP.tmp" && mv -f "$STAMP.tmp" "$STAMP"
+    exec 9>&-
+    if (( PIP_N == 0 )); then STEP_RESULT=${T[present]}
+    elif (( PIP_TOTAL > 0 )); then STEP_RESULT="$PIP_N ${T[packages]} $G_DOT $pip_size"
+    else STEP_RESULT="$PIP_N ${T[packages]}"
     fi
-fi
-exec 9>&-
+}
 
-step_begin 4
-phase "${T[config]}"
-mkdir -p /etc/atena /var/lib/atena
-touch /etc/atena/atena.env
-chmod 700 /etc/atena
-chmod 600 /etc/atena/atena.env
-grep -q '^ATENA_UPDATE_BRANCH=' /etc/atena/atena.env || echo "ATENA_UPDATE_BRANCH=$BRANCH" >> /etc/atena/atena.env
-grep -q '^ATENA_AUTO_UPDATE=' /etc/atena/atena.env || echo "ATENA_AUTO_UPDATE=1" >> /etc/atena/atena.env
-getent group atena-admin >/dev/null || groupadd --system atena-admin
-ADMINS=()
-for candidate in "${SUDO_USER:-}" "$(getent passwd 1000 | cut -d: -f1)"; do
-    if [ -n "$candidate" ] && [ "$candidate" != "root" ] && id "$candidate" >/dev/null 2>&1; then
-        usermod -aG atena-admin "$candidate"
-        [[ " ${ADMINS[*]} " == *" $candidate "* ]] || ADMINS+=("$candidate")
-    fi
-done
-PCT=40
-draw 1
-pkill -f 'backend/wizard_server.py' >/dev/null 2>&1 || true
-systemctl disable atena-updater.service >/dev/null 2>&1 || true
-rm -f /etc/systemd/system/atena-updater.service
-install -m 0644 "$ATENA_DIR/scripts/os/systemd/atena-supervisor.service" /etc/systemd/system/
-install -m 0644 "$ATENA_DIR/scripts/os/systemd/atena-rollback.service" /etc/systemd/system/
-PCT=60
-draw 1
-bash "$ATENA_DIR/scripts/os/prestart.sh" >>"$LOG" 2>&1
-if (( ${#ADMINS[@]} > 0 )); then step_end "${T[admin_user]} ${ADMINS[*]}"; else step_end ""; fi
+do_config() {
+    local candidate
+    phase "${T[config]}"
+    mkdir -p /etc/atena /var/lib/atena || return 1
+    touch /etc/atena/atena.env
+    chmod 700 /etc/atena
+    chmod 600 /etc/atena/atena.env
+    grep -q '^ATENA_UPDATE_BRANCH=' /etc/atena/atena.env || echo "ATENA_UPDATE_BRANCH=$BRANCH" >> /etc/atena/atena.env
+    grep -q '^ATENA_AUTO_UPDATE=' /etc/atena/atena.env || echo "ATENA_AUTO_UPDATE=1" >> /etc/atena/atena.env
+    getent group atena-admin >/dev/null || groupadd --system atena-admin || return 1
+    ADMINS=()
+    for candidate in "${SUDO_USER:-}" "$(getent passwd 1000 | cut -d: -f1)"; do
+        if [ -n "$candidate" ] && [ "$candidate" != "root" ] && id "$candidate" >/dev/null 2>&1; then
+            usermod -aG atena-admin "$candidate" || return 1
+            [[ " ${ADMINS[*]} " == *" $candidate "* ]] || ADMINS+=("$candidate")
+        fi
+    done
+    PCT=40
+    draw 1
+    pkill -f 'backend/wizard_server.py' >/dev/null 2>&1 || true
+    systemctl disable atena-updater.service >/dev/null 2>&1 || true
+    rm -f /etc/systemd/system/atena-updater.service
+    install -m 0644 "$ATENA_DIR/scripts/os/systemd/atena-supervisor.service" /etc/systemd/system/ || return 1
+    install -m 0644 "$ATENA_DIR/scripts/os/systemd/atena-rollback.service" /etc/systemd/system/ || return 1
+    PCT=60
+    draw 1
+    bash "$ATENA_DIR/scripts/os/prestart.sh" >>"$LOG" 2>&1 || return 1
+    if (( ${#ADMINS[@]} > 0 )); then STEP_RESULT="${T[admin_user]} ${ADMINS[*]}"; else STEP_RESULT=""; fi
+}
 
-step_begin 5
-phase "${T[start]}"
-systemctl daemon-reload >>"$LOG" 2>&1
-systemctl enable atena-supervisor.service >>"$LOG" 2>&1
-systemctl reset-failed atena-supervisor.service >>"$LOG" 2>&1 || true
-systemctl restart atena-supervisor.service >>"$LOG" 2>&1
-WAIT_MAX=120
-ok=0
-for (( w = 0; w < WAIT_MAX * 4; w++ )); do
-    if (( w % 4 == 0 )); then
-        if curl -fs -o /dev/null --max-time 2 http://127.0.0.1/healthz; then ok=1; break; fi
-        PCT=$(( w * 95 / (WAIT_MAX * 4) ))
-        DETAIL1="${T[waiting]} $G_DOT $(( w / 4 )) s"
-    fi
-    draw
-    sleep 0.25
-done
-if (( ok == 0 )); then
+port_owner() {
+    ss -Hltnp "sport = :$1" 2>/dev/null | grep -o 'users:(("[^"]*",pid=[0-9]*' | head -n 1 | sed 's/users:(("\([^"]*\)",pid=\([0-9]*\)/\1 \2/'
+}
+
+check_ports() {
+    local port owner name pid msg
+    systemctl is-active -q atena-supervisor.service && return 0
+    for port in 80 8080; do
+        owner=$(port_owner "$port")
+        [ -n "$owner" ] || continue
+        read -r name pid <<< "$owner"
+        if [ -n "$pid" ] && tr '\0' ' ' < "/proc/$pid/cmdline" 2>/dev/null | grep -q "$WIZ/"; then
+            kill "$pid" 2>/dev/null || true
+            continue
+        fi
+        printf -v msg "${T[port_busy]}" "$port" "$name"
+        die "$msg"
+    done
+}
+
+SAFE=0
+do_start() {
+    local w body
+    phase "${T[start]}"
+    check_ports
+    systemctl daemon-reload >>"$LOG" 2>&1
+    systemctl enable atena-supervisor.service >>"$LOG" 2>&1 || return 1
+    systemctl reset-failed atena-supervisor.service >>"$LOG" 2>&1 || true
+    systemctl restart atena-supervisor.service >>"$LOG" 2>&1 || return 1
+    for (( w = 0; w < WAIT_MAX * 4; w++ )); do
+        if (( w % 4 == 0 )); then
+            if body=$(curl -fsS --max-time 2 http://127.0.0.1/healthz 2>/dev/null); then
+                if jq -e '.safe_mode == true' >/dev/null 2>&1 <<< "$body"; then
+                    (( $1 < MAX_TRY )) && return 1
+                    SAFE=1
+                fi
+                STEP_RESULT=${T[ready]}
+                return 0
+            fi
+            PCT=$(( w * 95 / (WAIT_MAX * 4) ))
+            DETAIL1="${T[waiting]} $G_DOT $(( w / 4 )) s" DETAIL2=""
+        fi
+        draw
+        sleep 0.25
+    done
     journalctl -u atena-supervisor -n 40 --no-pager >>"$LOG" 2>&1 || true
-    die "${T[noresp]}: journalctl -u atena-supervisor"
-fi
-step_end "${T[ready]}"
+    return 1
+}
+
+run_step() {
+    local n=$1 fn=$2 heal=$3
+    step_begin "$n"
+    STEP_RESULT=""
+    HEAL_NOTE=""
+    attempt "$fn" "$heal"
+    step_end "$STEP_RESULT"
+}
+
+preflight() {
+    local mb shown
+    mb=$(free_mb)
+    if (( mb < 3072 )); then
+        phase "${T[disk_clean]}"
+        apt-get clean >>"$LOG" 2>&1 || true
+        journalctl --vacuum-size=200M >>"$LOG" 2>&1 || true
+        rm -rf /root/.cache/pip
+        mb=$(free_mb)
+        if (( mb < 2048 )); then
+            fmt_bytes shown $(( mb * 1048576 ))
+            printf -v shown "${T[disk_full]}" "$shown"
+            die "$shown"
+        fi
+    fi
+    phase "${T[net_check]}"
+    wait_online 300 || die "${T[offline]}"
+    wait_apt
+}
+
+WAIT_MAX=120
+step_begin 1
+preflight
+STEP_RESULT=""
+attempt do_prereqs heal_apt
+step_end "$STEP_RESULT"
+git config --global --add safe.directory "$ATENA_DIR" >>"$LOG" 2>&1 || true
+run_step 2 do_download heal_git
+run_step 3 do_python heal_pip
+run_step 4 do_config heal_none
+run_step 5 do_start heal_start
 trap - ERR
 
 IP=$(hostname -I 2>/dev/null | awk '{print $1}')
 fmt_dur total_dur $(( EPOCHSECONDS - START ))
 echo
-echo -e "   ${C_GREEN}${G_OK}${C_OFF} ${T[done]} ${C_DIM}(${total_dur})${C_OFF}"
-echo -e "   ${T[autonomy]}"
+if (( SAFE )); then
+    echo -e "   ${C_AMBER}!${C_OFF} ${T[safe]}"
+else
+    echo -e "   ${C_GREEN}${G_OK}${C_OFF} ${T[done]} ${C_DIM}(${total_dur})${C_OFF}"
+    echo -e "   ${T[autonomy]}"
+fi
 echo
 echo -e "   ${T[monitor]}:  ${C_GREEN}http://${IP:-localhost}/${C_OFF}"
 echo -e "   ${T[admin]}:  ${C_GREEN}http://${IP:-localhost}:8080/${C_OFF}"

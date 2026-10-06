@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="it" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<title>Atena</title>
+<style>
+:root { --bg: #04070d; --text: #e8f6ff; --dim: #8fa6b8; --faint: #55697a; --cyan: 41, 224, 255; --green: #3dffa8; --amber: #ffb547; --red: #ff4d6a; --mono: ui-monospace, "JetBrains Mono", Menlo, monospace; }
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 15px/1.55 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+body { display: grid; place-items: center; min-height: 100vh; padding: 24px 16px;
+       background: radial-gradient(1200px 600px at 50% -10%, rgba(var(--cyan), 0.10), transparent 60%), var(--bg); }
+main { width: 100%; max-width: 560px; }
+.brand { font: 600 12px/1 var(--mono); letter-spacing: 0.42em; color: rgba(var(--cyan), 0.85); margin-bottom: 28px; }
+.pulse { display: inline-block; width: 8px; height: 8px; margin-right: 12px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 12px var(--amber); vertical-align: 1px; animation: blink 2.4s ease-in-out infinite; }
+.ok .pulse { background: var(--green); box-shadow: 0 0 12px var(--green); }
+h1 { margin: 0 0 10px; font-size: 26px; font-weight: 300; letter-spacing: -0.01em; }
+p { margin: 0 0 18px; color: var(--dim); }
+ol { list-style: none; margin: 26px 0; padding: 0; }
+li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; padding: 9px 0; }
+li + li { box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.05); }
+li b { font-weight: 400; }
+li small { display: block; color: var(--faint); font-size: 12.5px; }
+.i { font: 600 13px/1.6 var(--mono); text-align: center; color: var(--faint); }
+.s-ok .i, .s-fixed .i { color: var(--green); }
+.s-failed .i { color: var(--red); }
+.s-failed small { color: var(--red); }
+.s-running .i { color: rgb(var(--cyan)); animation: blink 1.2s ease-in-out infinite; }
+button { appearance: none; border: 0; border-radius: 999px; padding: 12px 26px; font: 500 15px system-ui, sans-serif; cursor: pointer;
+         color: #00131a; background: rgb(var(--cyan)); box-shadow: 0 0 30px rgba(var(--cyan), 0.25); transition: opacity 0.2s; }
+button:disabled { opacity: 0.4; cursor: default; }
+button:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+.msg { min-height: 1.5em; margin-top: 14px; font-size: 13.5px; color: var(--dim); }
+.msg.bad { color: var(--red); }
+details { margin-top: 30px; color: var(--faint); font-size: 12.5px; }
+summary { cursor: pointer; }
+code { display: block; margin-top: 8px; padding: 10px 12px; border-radius: 10px; background: rgba(255, 255, 255, 0.04); font: 12px/1.5 var(--mono); color: var(--dim); overflow-wrap: anywhere; }
+.cli { margin-top: 10px; }
+@keyframes blink { 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) { .pulse, .s-running .i { animation: none; } }
+</style>
+</head>
+<body>
+<main id="app">
+  <div class="brand"><span class="pulse"></span>A.T.E.N.A.</div>
+  <h1 id="title"></h1>
+  <p id="lead"></p>
+  <ol id="steps" hidden></ol>
+  <button type="button" id="repair"></button>
+  <div class="msg" id="msg" role="status" aria-live="polite"></div>
+  <details>
+    <summary id="tech"></summary>
+    <code id="error"></code>
+    <code class="cli">sudo atenactl ripara</code>
+  </details>
+</main>
+<script>
+(() => {
+  const TEXT = {
+    it: {
+      title: "Atena è in modalità sicura",
+      titleOk: "Atena è di nuovo operativa",
+      reasons: {
+        missing_library: "Mancano alcune librerie che servono ad Atena per partire.",
+        broken_code: "Alcuni file di Atena sono danneggiati o incompleti.",
+        system: "Un problema del sistema impedisce ad Atena di partire.",
+        unknown: "Atena non è riuscita a partire normalmente."
+      },
+      calm: "I tuoi dati sono al sicuro. Atena può ripararsi da sola: basta un tocco.",
+      repair: "Ripara ora", repairing: "Riparazione in corso…", retry: "Riprova la riparazione",
+      started: "Riparazione avviata, segui i passaggi qui sopra.",
+      busy: "Una riparazione è già in corso.", wait: "Attendi qualche secondo prima di riprovare.",
+      unavailable: "La riparazione automatica non è disponibile: usa il comando qui sotto.",
+      offline: "Atena non risponde, sto riprovando…",
+      done: "Riparazione completata, sto riavviando Atena…",
+      failed: "Alcuni problemi vanno risolti a mano: leggi i passaggi in rosso.",
+      tech: "Dettagli tecnici",
+      steps: { disk: "Spazio su disco", apt: "Gestore dei pacchetti", network: "Connessione a internet", code: "File di Atena",
+               python: "Librerie Python", system: "File di sistema", ports: "Porte di rete", service: "Avvio di Atena" }
+    },
+    en: {
+      title: "Atena is in safe mode",
+      titleOk: "Atena is working again",
+      reasons: {
+        missing_library: "Some libraries Atena needs to start are missing.",
+        broken_code: "Some Atena files are damaged or incomplete.",
+        system: "A system problem is preventing Atena from starting.",
+        unknown: "Atena could not start normally."
+      },
+      calm: "Your data is safe. Atena can repair itself with a single tap.",
+      repair: "Repair now", repairing: "Repairing…", retry: "Try repairing again",
+      started: "Repair started, follow the steps above.",
+      busy: "A repair is already running.", wait: "Wait a few seconds before trying again.",
+      unavailable: "Automatic repair is not available: use the command below.",
+      offline: "Atena is not responding, retrying…",
+      done: "Repair complete, restarting Atena…",
+      failed: "Some problems need a manual fix: read the steps in red.",
+      tech: "Technical details",
+      steps: { disk: "Disk space", apt: "Package manager", network: "Internet connection", code: "Atena files",
+               python: "Python libraries", system: "System files", ports: "Network ports", service: "Starting Atena" }
+    }
+  };
+  const ICON = { ok: "✓", fixed: "✓", failed: "✗", running: "◌", pending: "·", skipped: "–" };
+  const $ = (id) => document.getElementById(id);
+  const browser = (navigator.language || "it").slice(0, 2);
+  let T = TEXT[browser] || TEXT.en;
+  let lastState = "";
+
+  const say = (text, bad) => { $("msg").textContent = text || ""; $("msg").className = bad ? "msg bad" : "msg"; };
+
+  function renderSteps(repair) {
+    const list = $("steps");
+    if (!repair || !Array.isArray(repair.steps)) { list.hidden = true; return; }
+    list.hidden = false;
+    list.replaceChildren(...repair.steps.map((s) => {
+      const li = document.createElement("li");
+      li.className = `s-${s.status}`;
+      const icon = document.createElement("span");
+      icon.className = "i";
+      icon.textContent = ICON[s.status] || "·";
+      const body = document.createElement("span");
+      const name = document.createElement("b");
+      name.textContent = T.steps[s.key] || s.key;
+      body.append(name);
+      if (s.detail) {
+        const small = document.createElement("small");
+        small.textContent = s.detail;
+        body.append(small);
+      }
+      li.append(icon, body);
+      return li;
+    }));
+  }
+
+  function render(data) {
+    T = TEXT[browser] || TEXT[data.lang] || TEXT.en;
+    document.documentElement.lang = TEXT[browser] ? browser : (TEXT[data.lang] ? data.lang : "en");
+    $("title").textContent = T.title;
+    $("lead").textContent = `${T.reasons[data.reason] || T.reasons.unknown} ${T.calm}`;
+    $("tech").textContent = T.tech;
+    $("error").textContent = data.error || "";
+    const repair = data.repair;
+    renderSteps(repair);
+    const running = repair && repair.state === "running";
+    $("repair").disabled = running;
+    $("repair").textContent = running ? T.repairing : (repair && repair.state === "failed" ? T.retry : T.repair);
+    if (repair && repair.state !== lastState) {
+      if (repair.state === "failed") say(T.failed, true);
+      if (repair.state === "done") say(T.done);
+      lastState = repair.state;
+    }
+  }
+
+  async function poll() {
+    try {
+      const health = await fetch("/healthz", { cache: "no-store" }).then((r) => r.json());
+      if (!health.safe_mode) {
+        document.getElementById("app").classList.add("ok");
+        $("title").textContent = T.titleOk;
+        setTimeout(() => location.replace("/"), 1200);
+        return;
+      }
+      render(await fetch("/api/safe", { cache: "no-store" }).then((r) => r.json()));
+    } catch {
+      say(T.offline);
+    }
+    setTimeout(poll, 2000);
+  }
+
+  $("repair").addEventListener("click", async () => {
+    $("repair").disabled = true;
+    try {
+      const r = await fetch("/api/safe/repair", { method: "POST", headers: { "X-Atena-Request": "1" } });
+      const map = { 202: [T.started], 409: [T.busy], 429: [T.wait], 503: [T.unavailable, true] };
+      const [text, bad] = map[r.status] || [T.unavailable, true];
+      say(text, bad);
+    } catch {
+      say(T.offline);
+    }
+  });
+
+  poll();
+})();
+</script>
+</body>
+</html>
