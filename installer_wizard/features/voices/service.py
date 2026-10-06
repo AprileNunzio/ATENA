@@ -15,7 +15,7 @@ log = logging.getLogger("atena.voice")
 
 BASE = os.environ.get("ATENA_KOKORO_DIR", "/opt/atena-voice/kokoro")
 PORT = int(os.environ.get("ATENA_VOICE_PORT", "8092"))
-DEFAULT_VOICE = "im_nicola"
+DEFAULT_VOICE = "if_sara"
 LANGS = {"a": "en-us", "b": "en-gb", "e": "es", "f": "fr-fr", "h": "hi", "i": "it", "j": "ja", "p": "pt-br", "z": "cmn"}
 
 started = time.time()

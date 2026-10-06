@@ -103,10 +103,10 @@ step_apply() {
     code_mark voice "$CODE"
 
     if [ ! -f "$MIGRATION" ]; then
-        set_env ATENA_VOICE im_nicola
+        set_env ATENA_VOICE if_sara
         touch "$MIGRATION"
     fi
-    info "Voce neurale: ${ATENA_VOICE:-im_nicola} (riserva: $FALLBACK)"
+    info "Voce neurale: ${ATENA_VOICE:-if_sara} (riserva: $FALLBACK)"
     progress 100 "Voce neurale maschile attiva"
 }
 

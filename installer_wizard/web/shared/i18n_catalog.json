@@ -9923,6 +9923,446 @@
 [
 "Voci neurali online di Edge (1 = sì, 0 = mai; servizio non ufficiale: serve anche ATENA_UNOFFICIAL_SERVICES=1)",
 "Edge online neural voices (1 = yes, 0 = never; unofficial service: ATENA_UNOFFICIAL_SERVICES=1 is also required)"
+],
+[
+"Annotala ora: per sicurezza non la mostrerò più.",
+"Write it down now: for security I won't show it again."
+],
+[
+"Atena sceglie da sola in base all'hardware.",
+"Atena chooses on her own based on the hardware."
+],
+[
+"Atena · Prima configurazione",
+"Atena · First setup"
+],
+[
+"Atena è al completo",
+"Atena is complete"
+],
+[
+"Atena è già pronta: queste parti si aggiungono da sole, senza riavvii.",
+"Atena is already ready: these parts are added on their own, without restarts."
+],
+[
+"Avanti",
+"Next"
+],
+[
+"Avanzamento",
+"Progress"
+],
+[
+"Bastano due minuti, anche mentre l'installazione continua",
+"It only takes two minutes, even while the installation continues"
+],
+[
+"Bilanciato",
+"Balanced"
+],
+[
+"Carica il file .onnx (facoltativo)",
+"Upload the .onnx file (optional)"
+],
+[
+"Carica modello «Ehi, Atena» (.onnx)",
+"Upload «Hey, Atena» model (.onnx)"
+],
+[
+"Cartelle condivise in rete",
+"Network shared folders"
+],
+[
+"Casa e servizi",
+"Home and services"
+],
+[
+"Ciao, sono Atena. Questa è la mia voce: ti piace?",
+"Hi, I'm Atena. This is my voice: do you like it?"
+],
+[
+"Codice di 6 cifre",
+"6-digit code"
+],
+[
+"Codice di configurazione non valido",
+"Invalid setup code"
+],
+[
+"Codice di sicurezza",
+"Security code"
+],
+[
+"Come ti chiami?",
+"What's your name?"
+],
+[
+"Completa",
+"Finish"
+],
+[
+"Configura Atena",
+"Set up Atena"
+],
+[
+"Consigliato",
+"Recommended"
+],
+[
+"Copiata",
+"Copied"
+],
+[
+"Creo una password robusta e te la mostro una sola volta.",
+"I create a strong password and show it to you only once."
+],
+[
+"Dati non validi",
+"Invalid data"
+],
+[
+"Facoltativo: collega i servizi che usi già. Puoi lasciare tutto vuoto.",
+"Optional: connect the services you already use. You can leave everything empty."
+],
+[
+"Ho salvato le tue scelte. Le parti più pesanti continuano a installarsi in background: puoi seguirle dal widget in basso.",
+"I saved your choices. The heaviest parts keep installing in the background: you can follow them from the widget below."
+],
+[
+"Ho trovato {0} GB di memoria, {1} processori e {2} GB liberi sul disco.",
+"I found {0} GB of memory, {1} processors and {2} GB free on the disk."
+],
+[
+"Ho trovato {0} GB di memoria, {1} processori, una scheda video e {2} GB liberi sul disco.",
+"I found {0} GB of memory, {1} processors, a graphics card and {2} GB free on the disk."
+],
+[
+"Il codice è di 6 cifre",
+"The code has 6 digits"
+],
+[
+"Il file non è un modello ONNX valido",
+"The file is not a valid ONNX model"
+],
+[
+"Il modello deve essere un file .onnx tra 1 KB e 20 MB",
+"The model must be an .onnx file between 1 KB and 20 MB"
+],
+[
+"Il nome può contenere solo lettere e trattini, senza spazi",
+"The name may only contain letters and hyphens, no spaces"
+],
+[
+"Il tuo nome, senza spazi",
+"Your name, no spaces"
+],
+[
+"In attesa",
+"Waiting"
+],
+[
+"Indietro",
+"Back"
+],
+[
+"Indirizzo di Home Assistant non valido",
+"Invalid Home Assistant address"
+],
+[
+"Indirizzo o token di Home Assistant non validi",
+"Invalid Home Assistant address or token"
+],
+[
+"Inizio subito con un modello piccolo e veloce; quello scelto si scarica in background e prende il suo posto da solo.",
+"I start right away with a small, fast model; the one you choose downloads in the background and takes its place on its own."
+],
+[
+"Installazione sconosciuta",
+"Unknown installation"
+],
+[
+"Installazioni in background",
+"Background installations"
+],
+[
+"Installazioni in background in pausa",
+"Background installations paused"
+],
+[
+"Installazioni in background riprese",
+"Background installations resumed"
+],
+[
+"Installazioni in pausa",
+"Installations paused"
+],
+[
+"Invia il modello come file binario",
+"Send the model as a binary file"
+],
+[
+"La configurazione guidata è disponibile solo dalla rete di casa",
+"Guided setup is only available from the home network"
+],
+[
+"La prima configurazione è disponibile solo dalla rete di casa",
+"First setup is only available from the home network"
+],
+[
+"La prima configurazione è già stata completata: usa il pannello di amministrazione",
+"First setup has already been completed: use the admin panel"
+],
+[
+"Le parti pesanti si installano dopo l'avvio, una alla volta, con priorità bassa, e si fermano mentre parli con Atena. «Prima» sposta un componente in cima alla coda.",
+"Heavy parts install after startup, one at a time, at low priority, and pause while you talk to Atena. «First» moves a component to the top of the queue."
+],
+[
+"Leggero",
+"Light"
+],
+[
+"Lingua",
+"Language"
+],
+[
+"Lingua non supportata",
+"Unsupported language"
+],
+[
+"Massima qualità, consigliato con scheda video da 12 GB o più.",
+"Maximum quality, recommended with a 12 GB or larger graphics card."
+],
+[
+"Mentre finisco di installarmi, scegliamo insieme come lavorare. Puoi cambiare tutto anche dopo dal pannello di amministrazione.",
+"While I finish installing, let's choose together how to work. You can change everything later from the admin panel."
+],
+[
+"Metti in pausa",
+"Pause"
+],
+[
+"Modello «Ehi, Atena»",
+"«Hey, Atena» model"
+],
+[
+"Modello «Ehi, Atena» caricato: l'ascolto si riavvia da solo",
+"«Hey, Atena» model uploaded: listening restarts on its own"
+],
+[
+"Modello «Ehi, Atena» già presente: caricane uno nuovo se vuoi",
+"«Hey, Atena» model already present: upload a new one if you like"
+],
+[
+"Non installo da sola componenti con licenza non commerciale.",
+"I won't install components with a non-commercial license on my own."
+],
+[
+"Password delle cartelle condivise (utente",
+"Shared folders password (user"
+],
+[
+"Password delle condivisioni non valida (almeno 12 caratteri, nessuno spazio)",
+"Invalid shares password (at least 12 characters, no spaces)"
+],
+[
+"Per Home Assistant servono sia l'indirizzo sia il token",
+"Home Assistant needs both the address and the token"
+],
+[
+"Per mini PC e computer con poca memoria.",
+"For mini PCs and computers with little memory."
+],
+[
+"Piacere, sono Atena",
+"Nice to meet you, I'm Atena"
+],
+[
+"Potente",
+"Powerful"
+],
+[
+"Preparazione del prossimo componente",
+"Preparing the next component"
+],
+[
+"Prima",
+"First"
+],
+[
+"Prima configurazione completata ({0})",
+"First setup completed ({0})"
+],
+[
+"Privacy e sicurezza",
+"Privacy and security"
+],
+[
+"Profilo non valido",
+"Invalid profile"
+],
+[
+"Qualcosa non ha funzionato, riprova",
+"Something went wrong, try again"
+],
+[
+"Quanto deve essere potente il mio cervello?",
+"How powerful should my brain be?"
+],
+[
+"Ragionamento migliore, serve un computer recente.",
+"Better reasoning, needs a recent computer."
+],
+[
+"Riprendi",
+"Resume"
+],
+[
+"Riprendo quando finisci di parlare",
+"I'll resume when you finish talking"
+],
+[
+"Scegli la mia voce",
+"Choose my voice"
+],
+[
+"Scegli un file .onnx",
+"Choose an .onnx file"
+],
+[
+"Scelto: {0}",
+"Selected: {0}"
+],
+[
+"Senza modello ti riconosco lo stesso, ascoltando il mio nome.",
+"Without a model I still recognize you, by listening for my name."
+],
+[
+"Stai configurando Atena da un altro dispositivo. Inserisci il codice di 6 cifre che vedi sullo schermo di Atena oppure con il comando",
+"You are setting up Atena from another device. Enter the 6-digit code shown on Atena's screen or given by the command"
+],
+[
+"Tocca il pulsante per ascoltarla. Se la voce non è ancora installata, la potrai ascoltare tra poco.",
+"Tap the button to hear it. If the voice isn't installed yet, you can listen to it shortly."
+],
+[
+"Token del bot Telegram",
+"Telegram bot token"
+],
+[
+"Token di Telegram non valido",
+"Invalid Telegram token"
+],
+[
+"Token di accesso di Home Assistant",
+"Home Assistant access token"
+],
+[
+"Tutte le parti sono installate",
+"All parts are installed"
+],
+[
+"Tutto pronto",
+"All set"
+],
+[
+"Un momento: sto ancora parlando",
+"One moment: I'm still speaking"
+],
+[
+"Uso in un'attività commerciale",
+"Use in a commercial business"
+],
+[
+"Vai ad Atena",
+"Go to Atena"
+],
+[
+"Voce non ancora installata: la potrai ascoltare tra poco",
+"Voice not installed yet: you can listen to it shortly"
+],
+[
+"Voce non disponibile",
+"Voice not available"
+],
+[
+"Voce principale (es. if_sara, im_nicola, it_IT-serena-high; si gestisce da Voci)",
+"Main voice (e.g. if_sara, im_nicola, it_IT-serena-high; managed from Voices)"
+],
+[
+"Vuoi configurarmi dal telefono? Apri questa pagina sulla rete di casa e inserisci il codice",
+"Want to set me up from your phone? Open this page on the home network and enter the code"
+],
+[
+"attende la fine della conversazione",
+"waiting for the conversation to end"
+],
+[
+"circa {0} min",
+"about {0} min"
+],
+[
+"circa {0} ore",
+"about {0} hours"
+],
+[
+"completate",
+"completed"
+],
+[
+"femminile, alta qualità",
+"female, high quality"
+],
+[
+"femminile, naturale",
+"female, natural"
+],
+[
+"femminile, veloce",
+"female, fast"
+],
+[
+"maschile, naturale",
+"male, natural"
+],
+[
+"meno di 2 min",
+"less than 2 min"
+],
+[
+"pronta",
+"ready"
+],
+[
+"riproverà",
+"will retry"
+],
+[
+"riproverò",
+"I'll retry"
+],
+[
+"serve spazio",
+"needs space"
+],
+[
+"spazio insufficiente",
+"not enough space"
+],
+[
+"{0} di {1} pronte",
+"{0} of {1} ready"
+],
+[
+"{0} di {1} pronte · {2} GB in tutto",
+"{0} of {1} ready · {2} GB in total"
+],
+[
+"{0} di {1} pronte · {2} GB in tutto · in pausa",
+"{0} of {1} ready · {2} GB in total · paused"
+],
+[
+"{0} di {1} pronte · {2}%",
+"{0} of {1} ready · {2}%"
 ]
 ],
 "reverse": [
@@ -10303,6 +10743,7 @@
 "Collada",
 "Colour",
 "Inkjet",
-"None"
+"None",
+"(pointer: fine)"
 ]
 }

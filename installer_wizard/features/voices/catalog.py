@@ -20,7 +20,7 @@ CACHE_DIR = STATE_DIR / "tts-cache"
 CATALOG_DIR = STATE_DIR / "voices"
 CACHE_MAX_FILES = 600
 CATALOG_MAX_AGE = 7 * 86400
-DEFAULT_VOICE = "im_nicola"
+DEFAULT_VOICE = "if_sara"
 DEFAULT_FALLBACK = "it_IT-riccardo-x_low"
 HOME_LANG = languages.DEFAULT
 
@@ -44,7 +44,7 @@ KOKORO_KNOWN = (
     "bm_daniel bm_fable bm_george bm_lewis ef_dora em_alex em_santa ff_siwis hf_alpha hf_beta hm_omega hm_psi "
     "if_sara im_nicola jf_alpha jf_gongitsune jf_nezumi jf_tebukuro jm_kumo pf_dora pm_alex pm_santa zf_xiaobei "
     "zf_xiaoni zf_xiaoxiao zf_xiaoyi zm_yunjian zm_yunxi zm_yunxia zm_yunyang").split()
-KOKORO_BEST = {"it": ["im_nicola", "if_sara"], "en": ["am_michael", "am_fenrir", "bm_george", "af_heart"],
+KOKORO_BEST = {"it": ["if_sara", "im_nicola"], "en": ["am_michael", "am_fenrir", "bm_george", "af_heart"],
                "es": ["em_alex", "ef_dora"], "fr": ["ff_siwis"], "pt": ["pm_alex", "pf_dora"],
                "hi": ["hm_omega", "hf_alpha"], "ja": ["jm_kumo", "jf_alpha"], "zh": ["zm_yunjian", "zf_xiaoxiao"]}
 

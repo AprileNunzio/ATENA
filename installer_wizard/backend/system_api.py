@@ -187,6 +187,27 @@ async def admin_action(action: str, request: Request, user: str = Depends(requir
     return {"ok": True}
 
 
+@admin_routes.get("/api/background")
+async def background_state(_: str = Depends(require_admin)):
+    from background import queue
+    return JSONResponse(queue.snapshot(), headers=NO_CACHE)
+
+
+@admin_routes.post("/api/background/{action}")
+async def background_action(action: str, step: str = "", _: str = Depends(require_admin)):
+    from background import queue
+    if action == "pause":
+        queue.pause()
+    elif action == "resume":
+        queue.resume()
+    elif action == "prioritize":
+        if not queue.prioritize(step):
+            raise HTTPException(404, "Installazione sconosciuta")
+    else:
+        raise HTTPException(404, "Azione sconosciuta")
+    return queue.snapshot()
+
+
 @admin_routes.post("/api/internal/{action}")
 async def internal_action(action: str, request: Request):
     require_internal(request)

@@ -138,7 +138,7 @@ def from_dict_block(text: str, name: str) -> list[str]:
 
 def sources() -> list[Path]:
     globs = ("features/*/admin*.html", "features/*/admin*.js", "features/*/feature.json", "web/admin/*.html", "web/admin/*.js",
-             "web/display/*.html", "web/display/*.js", "web/shared/*.js", "web/monitor/*.html", "web/monitor/*.js", "web/screen/*.html", "web/screen/*.js", "widgets/*/widget.js", "widgets/*/widget.json",
+             "web/display/*.html", "web/display/*.js", "web/shared/*.js", "web/monitor/*.html", "web/monitor/*.js", "web/screen/*.html", "web/screen/*.js", "web/setup/*.html", "web/setup/*.js", "widgets/*/widget.js", "widgets/*/widget.json",
              "features/*/*.py", "backend/*.py")
     return sorted({p for g in globs for p in ROOT.glob(g) if "language" not in p.parts})
 

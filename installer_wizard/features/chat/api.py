@@ -6,6 +6,7 @@ import time
 
 import httpx
 from access import NO_CACHE, is_local, lang_of, require_admin, require_display
+from background import queue as install_queue
 from config import CORE_URL, DEMO
 from core_client import core
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -114,6 +115,7 @@ def _heard(body: dict) -> dict:
 
 async def assistant_chat(text: str, device: str, heard_lang: str | None = None, heard: dict | None = None) -> JSONResponse:
     heard = heard or {}
+    install_queue.note_activity()
     text = (text or "").strip()
     if not text:
         raise HTTPException(400, "Messaggio vuoto")
@@ -201,6 +203,7 @@ async def public_ambient():
 async def public_wake(request: Request):
     require_display(request)
     request_context.device.set("kiosk" if is_local(request) else "remote")
+    install_queue.note_activity()
     from features.automations.bus import emit
     emit("wake", {"device": request_context.device.get()})
     result = await wake.greeting()

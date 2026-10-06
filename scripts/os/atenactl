@@ -37,6 +37,15 @@ case "${1:-status}" in
             *) echo "Sorgenti: install supervisor core ollama voice vision ear" >&2; exit 2 ;;
         esac
         ;;
+    setup-code)
+        curl -fsS --max-time 10 http://127.0.0.1/api/setup | jq -r '
+          if .needed then "Codice per la prima configurazione: \(.code)" else "La prima configurazione è già completata" end'
+        ;;
+    background)
+        curl -fsS --max-time 10 http://127.0.0.1/api/state | jq -r '.background |
+          "Installazioni in background: \(.done)/\(.total) — \(.progress)%\(if .paused then " (in pausa)" else "" end)",
+          (.items[] | "  \(if .status == "done" then "●" elif .status == "running" then "◐" else "○" end) \(.title) (\(.size_gb) GB): \(.status)")'
+        ;;
     version)
         git -c safe.directory='*' -C /opt/Atena log -1 --format='%h %ci %s'
         ;;

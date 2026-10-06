@@ -331,6 +331,47 @@ sudo groupadd -f atena-admin
 sudo usermod -aG atena-admin nomeutente
 ```
 
+### Prima configurazione guidata e installazioni in background
+
+Atena diventa usabile appena finisce la parte essenziale (sistema, Docker, sicurezza, Ollama con un modello
+piccolo, Core e servizi). Le parti pesanti o facoltative (modello grande, voci neurali, Whisper, visione,
+riconoscimento musicale, Ufficio, 3D, gVisor, Firecracker, Soup) si installano dopo, in background:
+
+- una alla volta, in ordine di priorità (voce, ascolto, modello grande, visione, il resto), con priorità
+  di processore e disco bassa;
+- in pausa automatica mentre parli con Atena e con controllo dello spazio libero prima di ogni parte;
+- con nuovi tentativi ad attesa crescente se qualcosa non va;
+- ogni parte si attiva da sola appena è pronta, senza riavvii.
+
+Sulla porta 80 un widget in basso a destra mostra l'avanzamento: toccandolo si apre la coda completa. Dalla
+porta 80 è in sola lettura; pausa, ripresa e «Prima» (sposta in cima alla coda) sono nel pannello di
+amministrazione, scheda **Step**. Da terminale: `atenactl background`.
+
+Al primo avvio il display propone **Configura Atena** (`http://<ip-del-server>/setup`): cinque schermate per
+nome e lingua, profilo dell'hardware con i GB da scaricare, voce (con ascolto di prova), Home Assistant e
+Telegram, privacy (cartelle condivise con password generata e mostrata una sola volta, uso commerciale,
+modello «Ehi, Atena»). La procedura:
+
+- risponde solo dalla rete di casa e si chiude per sempre quando è completata (poi si usa il pannello);
+- da un altro dispositivo chiede un codice di 6 cifre, visibile sullo schermo di Atena, nel registro del
+  supervisore o con `atenactl setup-code`; dopo 5 codici sbagliati si blocca per 10 minuti;
+- accetta solo valori validati in modo rigoroso, perché finiscono in `atena.env`.
+
+**Installazione senza schermo**: crea `/etc/atena/answers.env` (proprietario `root`, permessi `600`) prima
+del primo avvio. Atena lo applica, segna la configurazione come completata e cancella il file.
+
+```bash
+ATENA_USER_NAME=Nunzio
+ATENA_UI_LANG=it
+ATENA_LLM_MODEL=granite3.3:8b
+ATENA_VOICE=if_sara
+ATENA_COMMERCIAL=0
+HOME_ASSISTANT_URL=http://homeassistant.local:8123
+HOME_ASSISTANT_TOKEN=...
+ATENA_TELEGRAM_TOKEN=...
+ATENA_SMB_PASSWORD=almeno-12-caratteri
+```
+
 Primi passi consigliati nel pannello:
 
 1. **Panoramica**: controllare che tutti i componenti siano verdi.
@@ -2102,6 +2143,8 @@ atenactl status            # fase, componenti e stato dei passi
 atenactl update            # controlla e applica subito gli aggiornamenti da GitHub
 atenactl repair            # verifica e ripara tutti i componenti
 atenactl logs install      # registro dell'installazione (anche: supervisor, core, ollama, voice, vision, ear)
+atenactl background        # coda delle installazioni in background
+atenactl setup-code        # codice per la prima configurazione da un altro dispositivo
 atenactl version           # commit installato
 ```
 

@@ -32,6 +32,11 @@ class Orchestrator:
         else:
             base_phase, label = "BOOTING", "Verifica e attivazione dei sistemi…"
         store.event("INFO", f"Avvio supervisore v{VERSION} (boot #{store.boot_count})", "supervisor")
+        import setup_api
+        if await setup_api.apply_answers_file():
+            store.event("INFO", "Configurazione applicata dal file di risposte", "setup")
+        elif not setup_api.done():
+            log.warning("Codice per la prima configurazione da un altro dispositivo: %s", setup_api.guard.code)
 
         failures = 0
         while True:
@@ -77,24 +82,11 @@ class Orchestrator:
             self.installer = asyncio.create_task(self.install_background())
 
     async def _quiet_step(self, step_id: str) -> bool:
-        saved = (store.message, store.detail)
-        try:
-            return await converge_step(STEP_BY_ID[step_id])
-        finally:
-            store.current_step = ""
-            store.message, store.detail = saved
-            store.touch()
+        return await converge_step(STEP_BY_ID[step_id], quiet=True)
 
     async def install_background(self) -> None:
-        for step in [s for s in STEPS if s.background]:
-            settled = store.steps.get(step.id, {}).get("status") == "done"
-            async with self.lock:
-                if not settled:
-                    store.event("INFO", f"Installazione in background: {step.title}", step.id)
-                ok = await self._quiet_step(step.id)
-            if not settled or not ok:
-                store.event("INFO" if ok else "WARN", f"{step.title}: {'pronto' if ok else 'non riuscito, riprovo al prossimo avvio'}", step.id)
-            await asyncio.sleep(1)
+        from background import queue
+        await queue.run(self.lock)
 
     async def ensure(self, step_ids: list[str], reason: str = "") -> bool:
         ok = True

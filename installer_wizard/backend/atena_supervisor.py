@@ -15,6 +15,7 @@ import health
 from loops import supervisor as loop_supervisor
 import pages
 import registry_api
+import setup_api
 import system_api
 import updater
 from config import ADMIN_PORT, DEMO, PUBLIC_PORT, VERSION
@@ -176,7 +177,7 @@ def build(admin: bool) -> FastAPI:
     if admin:
         pages.mount_static(app, "shared", "admin")
     else:
-        pages.mount_static(app, "shared", "display", "monitor", "screen")
+        pages.mount_static(app, "shared", "display", "monitor", "screen", "setup")
 
     web_dir = Path(__file__).resolve().parent.parent.parent / "server" / "web"
     if web_dir.exists():
@@ -195,7 +196,7 @@ def build(admin: bool) -> FastAPI:
                 return FileResponse(str(web_dir / "index.html"))
 
     kind = "admin_routes" if admin else "public_routes"
-    for module in (*FEATURE_APIS, bus_api, licensing_api, registry_api, pages, system_api):
+    for module in (*FEATURE_APIS, bus_api, licensing_api, registry_api, pages, setup_api, system_api):
         routes = getattr(module, kind, None)
         if routes is not None:
             app.include_router(routes)

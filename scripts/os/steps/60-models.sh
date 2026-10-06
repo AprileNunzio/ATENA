@@ -10,10 +10,16 @@ licensed() {
     echo "$1"
 }
 
+MODELS_SCOPE="${MODELS_SCOPE:-essential}"
+
 models() {
-    local m
-    for m in "${ATENA_LLM_MODEL:-granite3.3:2b}" "${ATENA_LLM_FAST_MODEL:-${ATENA_LLM_MODEL:-granite3.3:2b}}" \
-        "${ATENA_EMBED_MODEL:-nomic-embed-text}"; do
+    local m list
+    if [ "$MODELS_SCOPE" = full ]; then
+        list=("${ATENA_LLM_MODEL:-granite3.3:2b}")
+    else
+        list=("${ATENA_LLM_FAST_MODEL:-${ATENA_LLM_MODEL:-granite3.3:2b}}" "${ATENA_EMBED_MODEL:-nomic-embed-text}")
+    fi
+    for m in "${list[@]}"; do
         licensed "$m"
     done | awk '!seen[$0]++'
 }

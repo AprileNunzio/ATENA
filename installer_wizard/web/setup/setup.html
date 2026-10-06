@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="it" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="google" content="notranslate">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="referrer" content="no-referrer">
+<title>Atena · Prima configurazione</title>
+<link rel="stylesheet" href="/static/shared/atena.css">
+<link rel="stylesheet" href="/static/shared/bgqueue.css">
+<link rel="stylesheet" href="/static/setup/setup.css">
+</head>
+<body class="holo-grid">
+<main class="wiz" id="wiz">
+  <header class="wiz-head">
+    <div class="brand">A.T.E.N.A.<small>PRIMA CONFIGURAZIONE</small></div>
+    <ol class="dots" id="dots" aria-label="Avanzamento"></ol>
+  </header>
+
+  <section class="card screen" data-screen="code" hidden>
+    <h1>Codice di sicurezza</h1>
+    <p class="lead">Stai configurando Atena da un altro dispositivo. Inserisci il codice di 6 cifre che vedi sullo schermo di Atena oppure con il comando <code>atenactl setup-code</code>.</p>
+    <input class="code" id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" aria-label="Codice di 6 cifre">
+  </section>
+
+  <section class="card screen" data-screen="intro" hidden>
+    <h1>Piacere, sono Atena</h1>
+    <p class="lead">Mentre finisco di installarmi, scegliamo insieme come lavorare. Puoi cambiare tutto anche dopo dal pannello di amministrazione.</p>
+    <label class="field"><span>Come ti chiami?</span>
+      <input id="name" maxlength="40" autocomplete="given-name" placeholder="Il tuo nome, senza spazi"></label>
+    <div class="field"><span>Lingua</span><div class="seg" id="langs" role="radiogroup" aria-label="Lingua"></div></div>
+    <p class="local-code" id="local-code" hidden>Vuoi configurarmi dal telefono? Apri questa pagina sulla rete di casa e inserisci il codice <b id="local-code-value"></b>.</p>
+  </section>
+
+  <section class="card screen" data-screen="profile" hidden>
+    <h1>Quanto deve essere potente il mio cervello?</h1>
+    <p class="lead" id="hw"></p>
+    <div class="choices" id="profiles" role="radiogroup" aria-label="Profilo"></div>
+    <p class="hint">Inizio subito con un modello piccolo e veloce; quello scelto si scarica in background e prende il suo posto da solo.</p>
+  </section>
+
+  <section class="card screen" data-screen="voice" hidden>
+    <h1>Scegli la mia voce</h1>
+    <p class="lead">Tocca il pulsante per ascoltarla. Se la voce non è ancora installata, la potrai ascoltare tra poco.</p>
+    <div class="choices" id="voices" role="radiogroup" aria-label="Voce"></div>
+  </section>
+
+  <section class="card screen" data-screen="home" hidden>
+    <h1>Casa e servizi</h1>
+    <p class="lead">Facoltativo: collega i servizi che usi già. Puoi lasciare tutto vuoto.</p>
+    <label class="field"><span>Indirizzo di Home Assistant</span>
+      <input id="ha-url" inputmode="url" autocomplete="off" placeholder="http://homeassistant.local:8123"></label>
+    <label class="field"><span>Token di accesso di Home Assistant</span>
+      <input id="ha-token" type="password" autocomplete="off" spellcheck="false"></label>
+    <label class="field"><span>Token del bot Telegram</span>
+      <input id="telegram" type="password" autocomplete="off" spellcheck="false" placeholder="123456789:ABC…"></label>
+  </section>
+
+  <section class="card screen" data-screen="privacy" hidden>
+    <h1>Privacy e sicurezza</h1>
+    <label class="toggle"><input type="checkbox" id="shares" checked>
+      <span><b>Cartelle condivise in rete</b><small>Creo una password robusta e te la mostro una sola volta.</small></span></label>
+    <label class="toggle"><input type="checkbox" id="commercial">
+      <span><b>Uso in un'attività commerciale</b><small>Non installo da sola componenti con licenza non commerciale.</small></span></label>
+    <div class="field"><span>Modello «Ehi, Atena»</span>
+      <label class="upload" id="upload"><input type="file" id="wake" accept=".onnx">
+        <b id="wake-label">Carica il file .onnx (facoltativo)</b><small>Senza modello ti riconosco lo stesso, ascoltando il mio nome.</small></label></div>
+  </section>
+
+  <section class="card screen" data-screen="done" hidden>
+    <h1>Tutto pronto</h1>
+    <p class="lead">Ho salvato le tue scelte. Le parti più pesanti continuano a installarsi in background: puoi seguirle dal widget in basso.</p>
+    <div class="secret" id="secret" hidden>
+      <span>Password delle cartelle condivise (utente <b>atena</b>)</span>
+      <code id="secret-value"></code>
+      <button type="button" class="ghost" id="copy">Copia</button>
+      <small>Annotala ora: per sicurezza non la mostrerò più.</small>
+    </div>
+    <a class="primary" href="/">Vai ad Atena</a>
+  </section>
+
+  <p class="error" id="error" role="alert"></p>
+  <nav class="wiz-nav" id="nav">
+    <button type="button" class="ghost" id="back">Indietro</button>
+    <button type="button" class="ghost" id="skip">Salta</button>
+    <button type="button" class="primary" id="next">Avanti</button>
+  </nav>
+</main>
+
+<script src="/static/shared/core.js"></script>
+<script src="/static/setup/setup.js"></script>
+<script src="/static/shared/bgqueue.js"></script>
+</body>
+</html>

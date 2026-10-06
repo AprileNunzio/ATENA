@@ -2,6 +2,7 @@ import asyncio
 import os
 import random
 import re
+import shutil
 import time
 from dataclasses import dataclass
 
@@ -21,6 +22,8 @@ class Step:
     weight: int
     critical: bool = True
     background: bool = False
+    priority: int = 50
+    size_gb: float = 0.5
 
 
 STEPS = [
@@ -31,9 +34,9 @@ STEPS = [
     Step("sandbox", "32-sandbox.sh", "Sandbox isolata", "Esecuzione protetta del codice generato, senza rete e senza accesso al sistema", 3,
          critical=False),
     Step("gvisor", "34-gvisor.sh", "Isolamento gVisor", "Kernel in spazio utente per la sandbox, scaricato in background", 1,
-         critical=False, background=True),
+         critical=False, background=True, priority=80, size_gb=0.1),
     Step("firecracker", "36-firecracker.sh", "Micro-VM Firecracker", "Isolamento hardware della sandbox, attivo solo dove la virtualizzazione KVM è disponibile", 1,
-         critical=False, background=True),
+         critical=False, background=True, priority=85, size_gb=0.3),
     Step("native", "38-native.sh", "Core nativo",
          "Message broker e proxy di uscita della sandbox in Rust, con ritorno automatico a Python", 3, critical=False),
     Step("display_driver", "33-display-driver.sh", "Driver video", "Driver NVIDIA ufficiale per il display, con ritorno automatico", 2,
@@ -41,21 +44,26 @@ STEPS = [
     Step("gpu", "35-gpu.sh", "Accelerazione GPU", "Runtime NVIDIA per l'inferenza", 2, critical=False),
     Step("security", "40-security.sh", "Scudi di sicurezza", "Firewall e hardening del kernel", 2),
     Step("ollama", "50-ollama.sh", "Motore neurale", "Runtime di inferenza locale Ollama", 8),
-    Step("voice", "55-voice.sh", "Voce neurale", "Sintesi vocale italiana offline", 4, critical=False),
+    Step("voice", "55-voice.sh", "Voce neurale", "Sintesi vocale italiana offline", 4, critical=False,
+         background=True, priority=10, size_gb=1.0),
     Step("bluetooth", "56-bluetooth.sh", "Bluetooth", "Casse, cuffie e microfoni senza fili", 1, critical=False),
-    Step("vision", "57-vision.sh", "Visione", "Riconoscimento facciale locale dalla webcam", 3, critical=False),
-    Step("ear", "58-ear.sh", "Ascolto vocale", "Riconoscimento del parlato e parola \"Atena\"", 4, critical=False),
+    Step("vision", "57-vision.sh", "Visione", "Riconoscimento facciale locale dalla webcam", 3, critical=False,
+         background=True, priority=40, size_gb=1.0),
+    Step("ear", "58-ear.sh", "Ascolto vocale", "Riconoscimento del parlato e parola \"Atena\"", 4, critical=False,
+         background=True, priority=20, size_gb=1.5),
     Step("music", "59-music.sh", "Riconoscimento musicale", "Brano, artista e album della musica in ascolto", 1,
-         critical=False),
+         critical=False, background=True, priority=50, size_gb=0.3),
     Step("shares", "63-shares.sh", "Condivisioni di rete", "Cartelle visibili da Windows e Mac, memoria con password", 1,
          critical=False),
     Step("office", "64-office.sh", "Ufficio", "LibreOffice, caratteri e librerie per documenti Office, ODF e PDF", 2,
-         critical=False, background=True),
+         critical=False, background=True, priority=60, size_gb=1.5),
     Step("convert3d", "62-convert3d.sh", "Conversione 3D", "Blender e LibreDWG per aprire BLEND, USD e DWG", 1,
-         critical=False, background=True),
-    Step("models", "60-models.sh", "Reti neurali", "Modello linguistico e memoria semantica", 30),
+         critical=False, background=True, priority=70, size_gb=1.0),
+    Step("models", "60-models.sh", "Reti neurali essenziali", "Modello linguistico veloce e memoria semantica", 12),
+    Step("brain", "61-brain.sh", "Cervello potente", "Modello linguistico per il ragionamento profondo", 18,
+         critical=False, background=True, priority=30, size_gb=8.0),
     Step("soup", "67-soup.sh", "Consolidamento dello studio", "Addestramento con Soup (solo con GPU adatta)", 1,
-         critical=False, background=True),
+         critical=False, background=True, priority=90, size_gb=2.0),
     Step("core", "70-core.sh", "Atena Core", "Compilazione dell'orchestratore cognitivo", 20),
     Step("services", "80-services.sh", "Servizi cognitivi", "Core, memoria vettoriale e agenti", 7),
     Step("maintenance", "90-maintenance.sh", "Manutenzione autonoma", "Aggiornamenti di sicurezza e log", 2,
@@ -68,7 +76,7 @@ TOTAL_WEIGHT = sum(s.weight for s in STEPS)
 
 def step_catalog() -> list:
     return [{"id": s.id, "title": s.title, "description": s.description, "critical": s.critical,
-             "background": s.background} for s in STEPS]
+             "background": s.background, "priority": s.priority} for s in STEPS]
 
 
 def _record(step: Step) -> dict:
@@ -118,10 +126,17 @@ async def _read_lines(reader: asyncio.StreamReader):
         yield buffer, False
 
 
-async def _run_script(step: Step, action: str, stream: bool) -> tuple[int, str]:
+def _command(step: Step, action: str, quiet: bool) -> list[str]:
+    cmd = ["bash", str(STEPS_DIR / step.script), action]
+    if quiet:
+        cmd = ["nice", "-n", "10", *(["ionice", "-c", "2", "-n", "7"] if shutil.which("ionice") else []), *cmd]
+    return cmd
+
+
+async def _run_script(step: Step, action: str, stream: bool, quiet: bool = False) -> tuple[int, str]:
     env = {**os.environ, **read_env()}
     proc = await asyncio.create_subprocess_exec(
-        "bash", str(STEPS_DIR / step.script), action,
+        *_command(step, action, quiet),
         stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.STDOUT, env=env,
     )
     rec = store.steps[step.id]
@@ -133,7 +148,10 @@ async def _run_script(step: Step, action: str, stream: bool) -> tuple[int, str]:
         if not stream:
             continue
         if is_progress_bar:
-            store.detail = line[:160]
+            if quiet:
+                rec["detail"] = line[:160]
+            else:
+                store.detail = line[:160]
             store.touch()
         elif line.startswith("@@PROGRESS "):
             parts = line.split(" ", 2)
@@ -142,11 +160,15 @@ async def _run_script(step: Step, action: str, stream: bool) -> tuple[int, str]:
             except (IndexError, ValueError):
                 pass
             if len(parts) > 2:
-                rec["message"] = parts[2]
-                store.message = parts[2]
+                rec["message"] = parts[2][:200]
+                if not quiet:
+                    store.message = parts[2]
             _recompute_progress()
         elif line.startswith("@@DETAIL "):
-            store.detail = line[9:]
+            if quiet:
+                rec["detail"] = line[9:169]
+            else:
+                store.detail = line[9:]
             store.touch()
         else:
             store.log(line[:500], step.id)
@@ -157,7 +179,7 @@ async def _run_script(step: Step, action: str, stream: bool) -> tuple[int, str]:
 _demo_applied: set = set()
 
 
-async def _demo_script(step: Step, action: str, stream: bool) -> tuple[int, str]:
+async def _demo_script(step: Step, action: str, stream: bool, quiet: bool = False) -> tuple[int, str]:
     if action == "check":
         return (0 if store.installed or step.id in _demo_applied else 1), ""
     _demo_applied.add(step.id)
@@ -166,17 +188,20 @@ async def _demo_script(step: Step, action: str, stream: bool) -> tuple[int, str]
         await asyncio.sleep(0.15 * step.weight / 4 + 0.1)
         rec["progress"] = pct
         rec["message"] = f"{step.title}: {pct}%"
-        store.message = rec["message"]
-        if step.id == "models":
+        if quiet:
+            rec["detail"] = f"{pct * step.size_gb / 100:.2f}/{step.size_gb:.2f} GB — 42.0 MB/s"
+        else:
+            store.message = rec["message"]
+        if step.id == "models" and not quiet:
             store.detail = f"granite3.3:2b — {pct * 19 / 1000:.2f}/1.90 GB — 42.0 MB/s — ETA 0m{(100 - pct) // 3:02d}s"
         store.log(f"[INFO] {step.title} — avanzamento {pct}%", step.id)
         _recompute_progress()
     return 0, ""
 
 
-async def run_step_action(step: Step, action: str, stream: bool = True) -> tuple[int, str]:
+async def run_step_action(step: Step, action: str, stream: bool = True, quiet: bool = False) -> tuple[int, str]:
     runner = _demo_script if DEMO else _run_script
-    return await runner(step, action, stream)
+    return await runner(step, action, stream, quiet)
 
 
 async def heal(step: Step) -> None:
@@ -192,17 +217,19 @@ async def heal(step: Step) -> None:
     await proc.wait()
 
 
-async def converge_step(step: Step, force: bool = False) -> bool:
+async def converge_step(step: Step, force: bool = False, quiet: bool = False) -> bool:
     rec = _record(step)
-    store.current_step = step.id
+    if not quiet:
+        store.current_step = step.id
     started = time.time()
 
     if not force:
-        rec.update(status="checking", message="Verifica…")
-        store.message = f"Verifica: {step.title}"
-        store.detail = ""
+        rec.update(status="checking", message="Verifica…", detail="")
+        if not quiet:
+            store.message = f"Verifica: {step.title}"
+            store.detail = ""
         store.touch()
-        code, _ = await run_step_action(step, "check", stream=False)
+        code, _ = await run_step_action(step, "check", stream=False, quiet=quiet)
         if code == 0:
             rec.update(status="done", progress=100, message="Operativo", error="")
             _recompute_progress()
@@ -210,15 +237,16 @@ async def converge_step(step: Step, force: bool = False) -> bool:
 
     for attempt in range(1, MAX_ATTEMPTS + 1):
         rec.update(status="running", progress=0, attempts=rec.get("attempts", 0) + 1,
-                   message="Avvio…")
-        store.message = step.title
-        store.detail = ""
+                   message="Avvio…", detail="")
+        if not quiet:
+            store.message = step.title
+            store.detail = ""
         store.event("INFO", f"Esecuzione '{step.title}' (tentativo {attempt}/{MAX_ATTEMPTS})", step.id)
         _recompute_progress()
 
-        code, error = await run_step_action(step, "apply")
+        code, error = await run_step_action(step, "apply", quiet=quiet)
         if code == 0:
-            check_code, _ = await run_step_action(step, "check", stream=False)
+            check_code, _ = await run_step_action(step, "check", stream=False, quiet=quiet)
             if check_code == 0:
                 rec.update(status="done", progress=100, message="Completato", error="",
                            duration=round(time.time() - started))
@@ -229,7 +257,8 @@ async def converge_step(step: Step, force: bool = False) -> bool:
             error = error or "Verifica finale non superata"
 
         rec.update(status="retrying", error=error or f"Codice di uscita {code}")
-        store.last_error = f"{step.title}: {rec['error']}"
+        if not quiet:
+            store.last_error = f"{step.title}: {rec['error']}"
         store.event("ERROR", f"'{step.title}' fallito: {rec['error']}", step.id)
         if attempt < MAX_ATTEMPTS:
             await heal(step)
