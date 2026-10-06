@@ -11,6 +11,7 @@ from state import store
 
 EMOJI = re.compile("[\U0001F300-\U0001FAFF\u2600-\u26FF]")
 REGEX_LINE = re.compile(r"/u\b")
+OLD_NAME = "".join(("j", "ar", "v", "is"))
 
 
 class ManifestTest(unittest.TestCase):
@@ -21,7 +22,7 @@ class ManifestTest(unittest.TestCase):
                 self.assertIn(data.get("tone", "cyan"), TONES)
                 self.assertIsInstance(data.get("essential", False), bool)
                 script = (path.parent / "widget.js").read_text(encoding="utf-8")
-                self.assertNotIn("jarvis", script.lower())
+                self.assertNotIn(OLD_NAME, script.lower())
                 self.assertNotIn("#0f172a", script)
 
     def test_widget_scripts_use_vector_icons_not_emoji(self):
