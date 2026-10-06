@@ -1,0 +1,22 @@
+{
+  "id": "system_health",
+  "name": "Salute del sistema",
+  "icon": "⚙",
+  "priority": 55,
+  "size": "m",
+  "tone": "cyan",
+  "ttl": 60,
+  "intents": [
+    "system"
+  ],
+  "panel_type": "stats",
+  "description": "Processore, memoria, disco e temperatura quando chiedi lo stato del sistema.",
+  "demo": {
+    "items": [
+      {"label": "Processore", "value": "23%", "percent": 23},
+      {"label": "Memoria", "value": "61%", "percent": 61},
+      {"label": "Disco", "value": "48%", "percent": 48},
+      {"label": "Temperatura", "value": "54 °C", "percent": 54}
+    ]
+  }
+}

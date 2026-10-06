@@ -1,0 +1,14 @@
+{
+  "id": "home_rooms",
+  "name": "Stanze occupate",
+  "icon": "🏠",
+  "priority": 15,
+  "size": "s",
+  "tone": "green",
+  "personal": true,
+  "bind": "home_rooms",
+  "description": "Le stanze in cui i sensori di Home Assistant rilevano qualcuno in questo momento.",
+  "demo": {
+    "rooms": ["Soggiorno", "Cucina"]
+  }
+}

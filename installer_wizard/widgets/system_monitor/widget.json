@@ -8,6 +8,10 @@
   "intents": [
     "system_monitor"
   ],
-  "description": "Diagnostica CPU/RAM (Enterprise).",
-  "demo": {}
+  "description": "Diagnostica CPU e memoria del nodo.",
+  "demo": {
+    "cpu": 34,
+    "ram": 61
+  },
+  "tone": "cyan"
 }

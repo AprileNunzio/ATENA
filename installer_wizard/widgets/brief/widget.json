@@ -9,6 +9,10 @@
   "description": "Informazioni da avere a colpo d'occhio, scelte e impaginate da Atena: un dato, un riepilogo, un elenco breve o una piccola immagine.",
   "demo": {
     "title": "Diodo",
-    "lines": ["Lascia passare la corrente in un solo verso.", "Caduta tipica: 0,7 V (silicio)."]
-  }
+    "lines": [
+      "Lascia passare la corrente in un solo verso.",
+      "Caduta tipica: 0,7 V (silicio)."
+    ]
+  },
+  "tone": "cyan"
 }

@@ -17,8 +17,8 @@
   const impl = {
     render(el, d, ctx) {
       el.innerHTML = `<div class="lc"><img alt="${ctx.esc(d.name || "Webcam")}" draggable="false">
-        <div class="lc-bar"><span class="lc-live">● LIVE</span><b>${ctx.esc(d.name || "Webcam")}</b>
-          <button type="button" data-act="full" title="Tutto schermo">⤢</button><button type="button" data-act="close" title="Chiudi">✕</button></div>
+        <div class="lc-bar">${ctx.head({ icon: "video", label: "Webcam", title: d.name || "Webcam", chip: "live", live: true, state: "bad" })}
+          <button type="button" class="wk-btn icon" data-act="full" title="Tutto schermo">${ctx.icon("expand")}</button><button type="button" class="wk-btn icon" data-act="close" title="Chiudi">${ctx.icon("close")}</button></div>
         <div class="lc-note">Collegamento…</div></div>`;
       const key = `live:${d.source}`;
       el.addEventListener("click", (e) => {

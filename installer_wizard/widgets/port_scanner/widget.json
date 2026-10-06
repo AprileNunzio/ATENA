@@ -1,13 +1,17 @@
 {
   "id": "port_scanner",
-  "name": "Port Scanner",
+  "name": "Scansione Porte",
   "icon": "\ud83d\udd0d",
   "priority": 85,
   "size": "m",
   "intents": [
     "port_scanner"
   ],
-  "description": "Nmap results",
+  "description": "Porte aperte trovate dall'ultima scansione di rete.",
   "ttl": 180,
-  "demo": {}
+  "demo": {
+    "content": "22/tcp open ssh OpenSSH 9.6\n80/tcp open http nginx 1.24\n443/tcp open https\n3306/tcp filtered mysql\n8080/tcp closed http-proxy"
+  },
+  "tone": "red",
+  "essential": true
 }

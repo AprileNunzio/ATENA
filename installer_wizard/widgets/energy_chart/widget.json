@@ -1,13 +1,16 @@
 {
   "id": "energy_chart",
-  "name": "Energy Grid",
+  "name": "Consumi Energia",
   "icon": "\u26a1",
   "priority": 30,
   "size": "l",
   "intents": [
     "energy_chart"
   ],
-  "description": "Watt usage",
+  "description": "Potenza assorbita e produzione della casa.",
   "ttl": 300,
-  "demo": {}
+  "demo": {
+    "content": "Consumo attuale: 1.420 W\nProduzione solare: 2.900 W\nOggi: 8,6 kWh\nImmessa in rete: 3,1 kWh"
+  },
+  "tone": "green"
 }

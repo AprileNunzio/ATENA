@@ -1,0 +1,16 @@
+{
+  "id": "system_update",
+  "name": "Aggiornamento disponibile",
+  "icon": "⬇",
+  "priority": 30,
+  "size": "m",
+  "tone": "cyan",
+  "essential": true,
+  "bind": "update_ready",
+  "description": "Avvisa quando su GitHub c'è una nuova versione di Atena con i test superati, con le novità.",
+  "demo": {
+    "local": "e451196",
+    "remote": "7c2a9f1",
+    "changes": ["Widget in stile visore", "Nuovi widget: orologio, sole, salute del sistema"]
+  }
+}

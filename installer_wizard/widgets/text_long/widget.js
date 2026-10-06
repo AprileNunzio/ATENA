@@ -1,9 +1,30 @@
 (() => {
-  AtenaDesk.register("text_long", {
-    render(el, d, ctx) {
-      el.innerHTML = `<div style="padding: 1.5rem; max-height: 400px; overflow-y: auto; background: rgba(30,41,59,0.8); border: 1px solid #334155; border-radius: 12px; font-size: 1.1rem; line-height: 1.6; color: #f8fafc;">
-        ${d.content || "<i>Caricamento testo esteso...</i>"}
-      </div>`;
+  const KEEP = new Set(["B", "STRONG", "I", "EM", "U", "S", "MARK", "SMALL", "SUB", "SUP", "CODE", "BR", "P", "UL", "OL", "LI", "BLOCKQUOTE", "H1", "H2", "H3", "H4", "PRE", "SPAN", "DIV"]);
+  const DROP = new Set(["SCRIPT", "STYLE", "TEMPLATE", "IFRAME", "OBJECT", "EMBED", "SVG", "MATH", "NOSCRIPT", "TITLE", "HEAD"]);
+  const copy = (src, dst, depth) => {
+    for (const n of src.childNodes) {
+      if (n.nodeType === Node.TEXT_NODE) { dst.append(document.createTextNode(n.nodeValue)); continue; }
+      if (n.nodeType !== Node.ELEMENT_NODE || DROP.has(n.tagName)) continue;
+      if (depth > 12) { dst.append(document.createTextNode(n.textContent)); continue; }
+      if (KEEP.has(n.tagName)) {
+        const e = document.createElement(n.tagName === "H1" || n.tagName === "H2" ? "h3" : n.tagName.toLowerCase());
+        copy(n, e, depth + 1);
+        dst.append(e);
+      } else copy(n, dst, depth + 1);
     }
+  };
+  const rich = (target, html) => {
+    const doc = new DOMParser().parseFromString(String(html).slice(0, 40000), "text/html");
+    copy(doc.body, target, 0);
+  };
+  AtenaDesk.register("text_long", {
+    render(el, d) {
+      el.innerHTML = `<div class="wk-text tx-long"><i>Caricamento testo esteso…</i></div>`;
+      if (d.content) {
+        const box = el.firstChild;
+        box.textContent = "";
+        rich(box, d.content);
+      }
+    },
   });
 })();

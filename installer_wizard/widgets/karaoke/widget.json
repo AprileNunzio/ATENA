@@ -14,12 +14,28 @@
     "duration": 318,
     "lyrics": {
       "synced": [
-        { "t": 0, "text": "Qui dove il mare luccica" },
-        { "t": 4, "text": "e tira forte il vento" },
-        { "t": 8, "text": "su una vecchia terrazza" },
-        { "t": 12, "text": "davanti al golfo di Surriento" },
-        { "t": 16, "text": "un uomo abbraccia una ragazza" }
+        {
+          "t": 0,
+          "text": "Qui dove il mare luccica"
+        },
+        {
+          "t": 4,
+          "text": "e tira forte il vento"
+        },
+        {
+          "t": 8,
+          "text": "su una vecchia terrazza"
+        },
+        {
+          "t": 12,
+          "text": "davanti al golfo di Surriento"
+        },
+        {
+          "t": 16,
+          "text": "un uomo abbraccia una ragazza"
+        }
       ]
     }
-  }
+  },
+  "tone": "violet"
 }

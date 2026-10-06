@@ -1,17 +1,15 @@
 (() => {
+  const plain = (v) => {
+    const s = String(v ?? "").slice(0, 8000).replace(/<br\s*\/?>/gi, "\n").replace(/<\/(p|div|li|tr|h[1-6])>/gi, "\n");
+    return s.includes("<") ? new DOMParser().parseFromString(s, "text/html").body.textContent : s;
+  };
+  const IP = /\b(?:\d{1,3}\.){3}\d{1,3}\b/g;
   AtenaDesk.register("firewall_logs", {
     render(el, d, ctx) {
-      el.innerHTML = `
-        <div style="background: #0f172a; border-left: 4px solid #ef4444; border-radius: 8px; padding: 16px; height: 100%; box-sizing: border-box;">
-          <h4 style="margin: 0 0 12px 0; color: #ef4444; font-size: 0.9rem; text-transform: uppercase; display: flex; align-items: center;">
-            <span style="margin-right: 8px; font-size: 1.2rem;">🛡️</span> Firewall Drops
-          </h4>
-          <div style="color: #cbd5e1; font-size: 0.95rem;">
-            ${d.content || "Inizializzazione modulo e caricamento dati in corso..."}<br>
-            <small style="color: #64748b;">(Modulo Auto-Generato)</small>
-          </div>
-        </div>
-      `;
-    }
+      const lines = plain(d.content).split("\n").map((l) => l.trim()).filter(Boolean).slice(-14);
+      const out = lines.map((l) => ctx.esc(l).replace(IP, (m) => `<em>${m}</em>`)).join("\n");
+      el.innerHTML = `${ctx.head({ icon: "shield", label: "Firewall", chip: lines.length ? `${lines.length} bloccati` : "", live: lines.length > 0, state: "bad" })}
+        ${out ? `<pre class="wk-pre">${out}</pre>` : `<div class="wk-empty"><span>Nessun pacchetto bloccato</span></div>`}`;
+    },
   });
 })();

@@ -1,13 +1,17 @@
 {
   "id": "firewall_logs",
-  "name": "Firewall Drops",
+  "name": "Firewall",
   "icon": "\ud83d\udee1\ufe0f",
   "priority": 95,
   "size": "l",
   "intents": [
     "firewall_logs"
   ],
-  "description": "Blocked IPs",
+  "description": "Ultimi pacchetti bloccati dal firewall.",
   "ttl": 120,
-  "demo": {}
+  "demo": {
+    "content": "21:04:12 DROP TCP 185.15.22.1:51022 \u2192 22\n21:04:15 DROP TCP 185.15.22.1:51040 \u2192 22\n21:05:02 DROP UDP 45.83.64.7:5353 \u2192 53\n21:06:44 DROP TCP 92.118.39.10:40112 \u2192 3389"
+  },
+  "tone": "red",
+  "essential": true
 }

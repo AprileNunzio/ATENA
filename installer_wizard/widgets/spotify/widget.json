@@ -1,7 +1,7 @@
 {
   "id": "spotify",
   "name": "Spotify",
-  "icon": "\ud83c\udfa7",
+  "icon": "🎧",
   "priority": 45,
   "size": "m",
   "bind": "spotify",
@@ -16,5 +16,6 @@
     "album": "Volare",
     "year": "1958",
     "duration": 213
-  }
+  },
+  "tone": "violet"
 }

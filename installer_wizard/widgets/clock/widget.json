@@ -1,0 +1,14 @@
+{
+  "id": "clock",
+  "name": "Orologio",
+  "icon": "⏱",
+  "priority": 40,
+  "size": "m",
+  "tone": "cyan",
+  "ttl": 20,
+  "intents": [
+    "time"
+  ],
+  "description": "Ora, data e settimana dell'anno, quando chiedi che ore sono o che giorno è.",
+  "demo": {}
+}

@@ -1,7 +1,9 @@
-.fg { padding: 14px 16px; display: flex; flex-direction: column; gap: 6px; height: 100%; box-sizing: border-box; overflow: auto; }
-.fg-title { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; opacity: .7; }
-.fg-value { font-size: 44px; font-weight: 600; line-height: 1.1; }
-.fg-value small { font-size: 18px; margin-left: 6px; opacity: .7; }
-.fg-label { opacity: .75; }
-.fg-text { margin: 0; line-height: 1.45; }
-.fg-list { margin: 0; padding-left: 18px; line-height: 1.5; }
+.fg { display: flex; flex-direction: column; gap: 6px; height: 100%; box-sizing: border-box; overflow: auto; }
+.fg-title { font: 600 9.5px/1 var(--mono); letter-spacing: 0.24em; text-transform: uppercase; color: rgba(var(--tone, 41, 224, 255), 0.8); }
+.fg-value { font-size: 44px; font-weight: 200; line-height: 1; letter-spacing: -0.03em; color: #eaf8ff; font-variant-numeric: tabular-nums; }
+.fg-value small { margin-left: 6px; font-size: 16px; font-weight: 300; color: var(--text-dim); }
+.fg-label { font-size: 12px; color: var(--text-dim); }
+.fg-text { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--text); }
+.fg-list { margin: 0; padding: 0; list-style: none; font-size: 13px; }
+.fg-list li { padding: 6px 0; }
+.fg-list li + li { box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.05); }

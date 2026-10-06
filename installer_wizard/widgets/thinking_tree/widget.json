@@ -7,7 +7,10 @@
   "intents": [
     "thinking_tree"
   ],
-  "description": "Logica dell'agente",
+  "description": "Passi di ragionamento dell'agente.",
   "ttl": 120,
-  "demo": {}
+  "demo": {
+    "content": "Richiesta: accendi le luci del salotto\n  \u2192 stanza riconosciuta: salotto\n  \u2192 dispositivi trovati: 3 lampade\n  \u2713 comando inviato a Home Assistant\nRisposta: luci accese"
+  },
+  "tone": "violet"
 }

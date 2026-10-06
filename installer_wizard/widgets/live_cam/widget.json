@@ -9,5 +9,7 @@
   "demo": {
     "source": "w-00000000",
     "name": "Webcam di prova"
-  }
+  },
+  "tone": "red",
+  "essential": true
 }

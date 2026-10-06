@@ -1,14 +1,17 @@
 {
   "id": "clipboard_sync",
   "personal": true,
-  "name": "Shared Clipboard",
+  "name": "Appunti Condivisi",
   "icon": "\ud83d\udccb",
   "priority": 55,
   "size": "m",
   "intents": [
     "clipboard_sync"
   ],
-  "description": "Clipboard",
+  "description": "Ultimo testo copiato, condiviso tra i dispositivi.",
   "ttl": 60,
-  "demo": {}
+  "demo": {
+    "content": "ssh atena@192.168.1.40 -p 2222\nPassword Wi-Fi ospiti nel gestore password"
+  },
+  "tone": "blue"
 }

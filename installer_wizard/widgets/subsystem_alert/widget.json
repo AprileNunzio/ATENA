@@ -1,0 +1,17 @@
+{
+  "id": "subsystem_alert",
+  "name": "Sottosistemi in errore",
+  "icon": "⚠",
+  "priority": 85,
+  "size": "m",
+  "tone": "red",
+  "essential": true,
+  "urgent": true,
+  "bind": "components_down",
+  "description": "Compare solo se un componente di Atena smette di funzionare, mentre il supervisore prova a ripararlo.",
+  "demo": {
+    "items": [
+      {"label": "Voce neurale", "detail": "Il servizio non risponde", "status": "down"}
+    ]
+  }
+}

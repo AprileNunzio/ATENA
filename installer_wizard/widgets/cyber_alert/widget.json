@@ -14,5 +14,8 @@
     "source_ip": "185.15.22.1",
     "attack_type": "SSH Brute-Force",
     "action_taken": "IP Banned (Firewall)"
-  }
+  },
+  "tone": "red",
+  "essential": true,
+  "urgent": true
 }

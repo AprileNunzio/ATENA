@@ -1,0 +1,33 @@
+{
+  "id": "voices_ready",
+  "name": "Lingue e voci",
+  "icon": "\ud83d\udde3",
+  "priority": 45,
+  "size": "s",
+  "tone": "violet",
+  "ttl": 45,
+  "intents": [
+    "voices"
+  ],
+  "panel_type": "list",
+  "description": "Le lingue in cui Atena sa gi\u00e0 parlare, quando chiedi quali voci ha.",
+  "demo": {
+    "items": [
+      {
+        "label": "Italiano",
+        "value": "6 voci pronte",
+        "status": "ok"
+      },
+      {
+        "label": "English",
+        "value": "9 voci pronte",
+        "status": "ok"
+      },
+      {
+        "label": "Fran\u00e7ais",
+        "value": "2 voci pronte",
+        "status": "ok"
+      }
+    ]
+  }
+}

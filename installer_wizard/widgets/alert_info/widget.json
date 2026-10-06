@@ -1,13 +1,17 @@
 {
   "id": "alert_info",
   "name": "Avviso Info",
-  "icon": "\u2139\ufe0f",
+  "icon": "ℹ️",
   "priority": 85,
   "size": "m",
   "ttl": 15,
   "intents": [
     "alert_info"
   ],
-  "description": "Notifica di sistema blu.",
-  "demo": {}
+  "description": "Notifica di sistema informativa.",
+  "demo": {
+    "title": "Aggiornamento completato",
+    "content": "Il modulo meteo è stato aggiornato alla versione 2.4."
+  },
+  "tone": "cyan"
 }

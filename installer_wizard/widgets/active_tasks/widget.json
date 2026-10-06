@@ -1,13 +1,20 @@
 {
   "id": "active_tasks",
   "name": "Task Attivi",
-  "icon": "\ud83e\udd16",
+  "icon": "🤖",
   "priority": 40,
   "size": "l",
   "ttl": 60,
   "intents": [
     "active_tasks"
   ],
-  "description": "Coda di pensiero e azioni dell'Agente.",
-  "demo": {}
+  "description": "Coda di pensiero e azioni dell'agente.",
+  "demo": {
+    "tasks": [
+      "Riepilogo delle email di oggi",
+      "Monitoraggio file di sistema",
+      "Aggiornamento indice documenti"
+    ]
+  },
+  "tone": "amber"
 }

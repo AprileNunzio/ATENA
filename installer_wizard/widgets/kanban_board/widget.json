@@ -17,5 +17,6 @@
     "todo": [
       "Invia report giornaliero"
     ]
-  }
+  },
+  "tone": "amber"
 }

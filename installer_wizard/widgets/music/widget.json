@@ -1,7 +1,7 @@
 {
   "id": "music",
   "name": "Musica in ascolto",
-  "icon": "\ud83c\udfb5",
+  "icon": "🎵",
   "priority": 35,
   "size": "m",
   "bind": "now_playing",
@@ -12,5 +12,6 @@
     "album": "Dalla/Morandi",
     "year": "1986",
     "duration": 318
-  }
+  },
+  "tone": "violet"
 }

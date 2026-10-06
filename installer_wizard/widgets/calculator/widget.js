@@ -8,8 +8,8 @@
       el.innerHTML = `
         <div class="calc-wrapper">
           <div class="calc-head">
-            <span>🧮 Calcolatrice</span>
-            <button class="calc-mode-btn">Sci</button>
+            ${ctx.head({ icon: "calc", label: "Calcolatrice" })}
+            <button class="calc-mode-btn wk-btn" type="button">Sci</button>
           </div>
           <div class="calc-screen">
             <div class="calc-history"></div>
@@ -70,15 +70,60 @@
         sciKeys.style.display = isScientific ? "grid" : "none";
       });
 
+      const FUNCS = { "Math.sin(": Math.sin, "Math.cos(": Math.cos, "Math.tan(": Math.tan, "Math.log(": Math.log, "Math.log10(": Math.log10, "Math.sqrt(": Math.sqrt };
+      const TOKEN = /\s*(Math\.(?:sin|cos|tan|log10|log|sqrt)\(|Math\.PI|Math\.E|\*\*|\d+(?:\.\d*)?|\.\d+|[-+*/%()!])/y;
       function factorial(n) {
-        if (n === 0 || n === 1) return 1;
+        if (!Number.isInteger(n) || n < 0 || n > 170) throw new RangeError("factorial");
         let res = 1;
-        for(let i=2; i<=n; i++) res *= i;
+        for (let i = 2; i <= n; i++) res *= i;
         return res;
       }
-      
-      // Make factorial globally available for evaluation if needed, but new Function can wrap it.
-      
+      function evaluate(src) {
+        const tokens = [];
+        TOKEN.lastIndex = 0;
+        while (TOKEN.lastIndex < src.length) {
+          const m = TOKEN.exec(src);
+          if (!m) throw new SyntaxError("token");
+          tokens.push(m[1]);
+        }
+        let i = 0;
+        const peek = () => tokens[i];
+        const next = () => tokens[i++];
+        const expect = (t) => { if (next() !== t) throw new SyntaxError(t); };
+        const primary = () => {
+          const t = next();
+          if (t === undefined) throw new SyntaxError("end");
+          if (FUNCS[t]) { const v = expression(); expect(")"); return FUNCS[t](v); }
+          if (t === "Math.PI") return Math.PI;
+          if (t === "Math.E") return Math.E;
+          if (t === "(") { const v = expression(); expect(")"); return v; }
+          if (t === "-") return -unary();
+          if (t === "+") return unary();
+          const n = Number(t);
+          if (!Number.isFinite(n)) throw new SyntaxError(t);
+          return n;
+        };
+        const postfix = () => { let v = primary(); while (peek() === "!") { next(); v = factorial(v); } return v; };
+        const unary = () => postfix();
+        const power = () => { const b = unary(); if (peek() === "**") { next(); return b ** power(); } return b; };
+        const term = () => {
+          let v = power();
+          while (["*", "/", "%"].includes(peek())) {
+            const op = next(), r = power();
+            v = op === "*" ? v * r : op === "/" ? v / r : v % r;
+          }
+          return v;
+        };
+        const expression = () => {
+          let v = term();
+          while (peek() === "+" || peek() === "-") { const op = next(), r = term(); v = op === "+" ? v + r : v - r; }
+          return v;
+        };
+        const out = expression();
+        if (i !== tokens.length || !Number.isFinite(out)) throw new SyntaxError("trailing");
+        return out;
+      }
+
       el.querySelector('.calc-grid').addEventListener('click', (e) => {
         if(e.target.tagName !== 'BUTTON') return;
         const val = e.target.getAttribute('data-val');
@@ -95,16 +140,13 @@
           currEl.textContent = displayExpr || "0";
         } else if (val === '=') {
           try {
-            let toEval = expr.replace(/(\d+)!/g, "factorial($1)");
-            // Evaluate safely
-            let res = new Function("factorial", "return " + toEval)(factorial);
+            const res = evaluate(expr);
             historyEl.textContent = displayExpr + " =";
-            // Round to avoid floating point weirdness
             displayExpr = String(Math.round(res * 100000000) / 100000000); 
             expr = displayExpr;
             currEl.textContent = displayExpr;
           } catch (err) {
-            currEl.textContent = "Error";
+            currEl.textContent = "Errore";
             expr = "";
             displayExpr = "";
           }

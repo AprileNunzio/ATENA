@@ -14,5 +14,6 @@
     "target": 23.0,
     "status": "Riscaldamento Attivo",
     "humidity": 45
-  }
+  },
+  "tone": "green"
 }

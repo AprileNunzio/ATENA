@@ -152,16 +152,16 @@ body.brain .presence { display: none; }
 .desk > .widget.hidden { opacity: 0 !important; visibility: hidden; pointer-events: none; transition: opacity 0.4s, visibility 0s 0.4s; }
 body.focus .desk, body.brain .desk { opacity: 0; pointer-events: none; }
 body.focus .desk > .widget, body.brain .desk > .widget { pointer-events: none; }
-.widget { padding: 14px 16px; border-radius: 16px; background: rgba(6,14,26,0.66); border: 1px solid var(--line);
-          backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); box-shadow: 0 10px 30px rgba(0,0,0,0.35); box-sizing: border-box; }
-.widget::before { content: ""; position: absolute; left: 14px; right: 14px; top: -1px; height: 1px; background: linear-gradient(90deg, transparent, var(--cyan), transparent); opacity: 0.5; }
+.widget { padding: 6px 4px; border-radius: 16px; background: none; border: 0; box-shadow: none; box-sizing: border-box;
+          text-shadow: 0 1px 12px rgba(0,0,0,0.7); }
+.widget.essential { padding: 14px 16px; background: rgba(4,10,20,0.42); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+                    box-shadow: 0 0 0 1px rgba(var(--tone, 41,224,255),0.22) inset; text-shadow: none; }
 .widget.enter { animation: w-in 0.55s cubic-bezier(.2,.8,.2,1) both; }
 .widget.leave { animation: w-out 0.45s ease both; }
 .widget.dragging { transition: none !important; z-index: 6; cursor: grabbing; opacity: 0.92; }
 .widget.pinned { cursor: grab; }
-.widget.frameless { background: none; border: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; padding: 4px 8px; }
-.widget.frameless::before { display: none; }
-.widget.size-s { padding: 10px 14px; }
+.widget.frameless { padding: 4px 8px; }
+.widget.essential.size-s { padding: 10px 14px; }
 .widget.takeover { padding: 0; overflow: hidden; }
 body.desk-full .desk { z-index: 40; }
 .desk > .widget.fullscreen { padding: 0; border-radius: 0; border: 0; background: #000; overflow: hidden; z-index: 5; }

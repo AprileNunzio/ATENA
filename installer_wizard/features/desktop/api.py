@@ -5,6 +5,7 @@ from fastapi.responses import FileResponse
 
 from access import is_local, require_admin, require_display, require_internal
 from features.desktop.desk import FILES, desk
+from features.desktop.sources import SOURCES
 from features.music import music
 from features.spotify.spotify import spotify
 from state import store
@@ -14,6 +15,8 @@ admin_routes = APIRouter()
 
 desk.register_source("now_playing", music.watcher.current)
 desk.register_source("spotify", spotify.current)
+for _name, _fn in SOURCES.items():
+    desk.register_source(_name, _fn)
 
 
 def _alert(body: dict) -> dict:

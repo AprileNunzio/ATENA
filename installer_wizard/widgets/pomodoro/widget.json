@@ -1,13 +1,16 @@
 {
   "id": "pomodoro",
   "name": "Pomodoro Timer",
-  "icon": "\ud83c\udf45",
+  "icon": "🍅",
   "priority": 80,
   "size": "s",
   "intents": [
     "pomodoro"
   ],
-  "description": "Focus time",
+  "description": "Sessioni di concentrazione a tempo.",
   "ttl": 1500,
-  "demo": {}
+  "demo": {
+    "content": "Sessione 2 di 4: 25 minuti di concentrazione, poi 5 di pausa."
+  },
+  "tone": "amber"
 }

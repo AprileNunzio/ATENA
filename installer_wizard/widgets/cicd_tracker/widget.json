@@ -1,13 +1,16 @@
 {
   "id": "cicd_tracker",
-  "name": "CI/CD Pipeline",
+  "name": "Pipeline CI/CD",
   "icon": "\u2699\ufe0f",
   "priority": 50,
   "size": "l",
   "intents": [
     "cicd_tracker"
   ],
-  "description": "Actions status",
+  "description": "Stato delle pipeline di build e rilascio.",
   "ttl": 120,
-  "demo": {}
+  "demo": {
+    "content": "build \u00b7 main: success\ntest \u00b7 unit: success\ntest \u00b7 e2e: running\ndeploy \u00b7 staging: queued\nlint: failed"
+  },
+  "tone": "amber"
 }

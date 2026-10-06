@@ -3,21 +3,23 @@
 
   function lines(d) {
     const ly = d.lyrics || {};
-    return Array.isArray(ly.synced) && ly.synced.length ? ly.synced : null;
+    return Array.isArray(ly.synced) && ly.synced.length ? ly.synced.slice(0, 400) : null;
   }
 
   function paint(el, d, ctx) {
     const synced = lines(d);
-    const head = `<div class="ka-head">🎤 ${ctx.esc(d.title || "")}${d.artist ? ` — ${ctx.esc(d.artist)}` : ""}</div>`;
+    const name = [d.title, d.artist].filter(Boolean).map((x) => String(x).slice(0, 80)).join(" — ");
+    const head = ctx.head({ icon: "mic", label: "Karaoke", title: name, chip: synced ? "sincronizzato" : "", live: !!synced });
     if (!synced) {
-      const plain = (d.lyrics && d.lyrics.plain) || "";
+      el._lines = null;
+      const plain = String((d.lyrics && d.lyrics.plain) || "").slice(0, 8000);
       el.innerHTML = head + (plain
         ? `<div class="ka-plain">${ctx.esc(plain)}</div>`
-        : `<div class="ka-none">Testo non disponibile per questo brano.</div>`);
+        : `<div class="wk-empty">Testo non disponibile per questo brano.</div>`);
       return;
     }
     el.innerHTML = head + `<div class="ka-lines">${synced.map((l, i) =>
-      `<div class="ka-line" data-i="${i}">${ctx.esc(l.text || "♪")}</div>`).join("")}</div>`;
+      `<div class="ka-line" data-i="${i}">${ctx.esc(String((l && l.text) || "· · ·").slice(0, 200))}</div>`).join("")}</div>`;
     el._lines = synced;
     tick(el, d, ctx);
   }
@@ -25,9 +27,9 @@
   function tick(el, d, ctx) {
     const synced = el._lines;
     if (!synced || !d.started_at) return;
-    const pos = ctx.now() - d.started_at;
+    const pos = ctx.now() - Number(d.started_at);
     let cur = -1;
-    for (let i = 0; i < synced.length; i++) { if (synced[i].t <= pos + 0.25) cur = i; else break; }
+    for (let i = 0; i < synced.length; i++) { if (Number(synced[i].t) <= pos + 0.25) cur = i; else break; }
     const box = el.querySelector(".ka-lines");
     const nodes = el.querySelectorAll(".ka-line");
     nodes.forEach((n, i) => {

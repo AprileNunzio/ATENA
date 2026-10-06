@@ -1,13 +1,16 @@
 {
   "id": "api_costs",
-  "name": "API Cost Tracker",
+  "name": "Costi API",
   "icon": "\ud83d\udcb8",
   "priority": 25,
   "size": "m",
   "intents": [
     "api_costs"
   ],
-  "description": "Costi LLM",
+  "description": "Spesa per i modelli linguistici: oggi, mese e budget.",
   "ttl": 300,
-  "demo": {}
+  "demo": {
+    "content": "Oggi: \u20ac 1,84\nQuesto mese: \u20ac 38,20\nBudget mensile: \u20ac 60,00\nRichieste: 1.284\nModello principale: claude-sonnet"
+  },
+  "tone": "amber"
 }

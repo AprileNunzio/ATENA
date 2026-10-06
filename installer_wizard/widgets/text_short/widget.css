@@ -1,0 +1,7 @@
+.w-text_short .tx-short { font-size: 17px; font-weight: 300; line-height: 1.5; color: var(--hud-text); }
+.w-text_short .tx-short p { margin: 0 0 8px; }
+.w-text_short .tx-short ul, .w-text_short .tx-short ol { margin: 0; padding-left: 18px; }
+.w-text_short .tx-short h3, .w-text_short .tx-short h4 { margin: 0 0 6px; font-size: 17px; font-weight: 500; }
+.w-text_short .tx-short b, .w-text_short .tx-short strong { font-weight: 500; }
+.w-text_short .tx-short em, .w-text_short .tx-short mark { font-style: normal; background: none; color: rgb(var(--tone)); }
+.w-text_short .tx-short code { font-family: var(--mono); font-size: 0.85em; color: var(--text-dim); }
