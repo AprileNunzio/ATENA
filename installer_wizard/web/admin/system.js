@@ -48,6 +48,25 @@
     }).join("");
   }
 
+  const BG_STATUS = { queued: "in coda", running: "in corso", done: "pronta", failed: "riproverà", waiting_disk: "spazio insufficiente" };
+  const BG_BADGE = { done: "ok", running: "warn", failed: "down", waiting_disk: "down" };
+  let bgPaused = false;
+  function renderBackground(bg) {
+    if (!bg || !bg.items) return;
+    bgPaused = !!bg.paused;
+    $("bg-state").className = `badge ${bg.finished ? "ok" : bg.paused ? "down" : "warn"}`;
+    $("bg-state").textContent = bg.finished ? "completate" : bg.paused ? "in pausa" : bg.conversation ? "attende la fine della conversazione" : "in corso";
+    $("bg-summary").textContent = `${bg.done} di ${bg.total} pronte · ${bg.progress}%`;
+    $("bg-progress").style.width = `${bg.progress}%`;
+    $("bg-toggle").textContent = bg.paused ? "Riprendi" : "Metti in pausa";
+    $("bg-toggle").hidden = !!bg.finished;
+    $("bg-body").innerHTML = bg.items.map((i, n) => `<tr><td>${fmt.esc(i.title)}<div class="faint" style="font-size:12px">${fmt.esc(i.description)}</div></td>
+      <td class="mono">${Number(i.size_gb).toFixed(1)} GB</td>
+      <td><span class="badge ${BG_BADGE[i.status] || ""}">${BG_STATUS[i.status] || fmt.esc(i.status)}${i.status === "running" ? ` ${i.progress}%` : ""}</span></td>
+      <td style="max-width:320px; font-size:12px" class="dim">${fmt.esc(i.detail || i.message || "")}</td>
+      <td style="text-align:right">${i.status !== "done" && n > 0 ? `<button class="btn sm" type="button" data-bg-first="${fmt.esc(i.id)}">Prima</button>` : ""}</td></tr>`).join("");
+  }
+
   function renderEvents(s) {
     $("events-body").innerHTML = (s.events || []).slice().reverse().map((e) => `
       <tr><td class="mono">${new Date(e.ts).toLocaleString("it-IT")}</td><td><span class="badge ${e.level === "ERROR" ? "down" : e.level === "WARN" ? "warn" : "ok"}">${e.level}</span></td>
@@ -100,12 +119,39 @@
       try { const r = await A.api("PUT", "/api/config", body); A.toast(r.changed.length ? `Salvato: ${r.changed.join(", ")}${r.applying.length ? " — applicazione in corso" : ""}` : "Nessuna modifica"); loadConfig(); }
       catch (err) { A.toast(err.message, true); }
     });
+    $("bg-toggle").addEventListener("click", async () => {
+      const b = $("bg-toggle");
+      b.disabled = true;
+      try { renderBackground(await A.api("POST", `/api/background/${bgPaused ? "resume" : "pause"}`)); }
+      catch (err) { A.toast(err.message, true); }
+      finally { b.disabled = false; }
+    });
+    $("bg-body").addEventListener("click", async (e) => {
+      const b = e.target.closest("[data-bg-first]");
+      if (!b) return;
+      b.disabled = true;
+      try { renderBackground(await A.api("POST", `/api/background/prioritize?step=${encodeURIComponent(b.dataset.bgFirst)}`)); }
+      catch (err) { A.toast(err.message, true); b.disabled = false; }
+    });
+    $("wake-file").addEventListener("change", async (e) => {
+      const f = e.target.files[0];
+      e.target.value = "";
+      if (!f) return;
+      try {
+        if (!/\.onnx$/i.test(f.name)) throw new Error("Scegli un file .onnx");
+        const r = await fetch("/api/setup/wakeword", { method: "POST", body: f, credentials: "same-origin", headers: { "X-Atena-Request": "1", "Content-Type": "application/octet-stream" } });
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(d.detail || `Errore ${r.status}`);
+        $("wake-note").textContent = `Caricato: ${f.name}`;
+        A.toast("Modello «Ehi, Atena» caricato: l'ascolto si riavvia da solo");
+      } catch (err) { A.toast(err.message, true); }
+    });
     $("log-src").addEventListener("change", loadLogs);
     $("log-refresh").addEventListener("click", loadLogs);
     setInterval(() => { if (A.isOn("logs") && $("log-auto").checked) loadLogs(); }, 4000);
   }
 
-  A.tab("overview", { init, onState(s) { renderPhase(s); renderSystem(s.system || {}); renderComponents(s); renderSteps(s); renderEvents(s); if (s.update) renderUpdate(s.update); } });
+  A.tab("overview", { init, onState(s) { renderPhase(s); renderSystem(s.system || {}); renderComponents(s); renderSteps(s); renderBackground(s.background); renderEvents(s); if (s.update) renderUpdate(s.update); } });
   A.tab("config", { load: loadConfig });
   A.tab("logs", { load: loadLogs });
   A.tab("updates", { load: () => A.api("POST", "/api/actions/update-check").then(renderUpdate).catch((e) => A.toast(e.message, true)) });

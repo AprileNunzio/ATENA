@@ -10,7 +10,7 @@ from steps import STEP_BY_ID
 from tasks import background
 
 STEP_TRIGGERS = (
-    ({"ATENA_LLM_MODEL", "ATENA_EMBED_MODEL", "ATENA_LLM_FAST_MODEL"}, ["preflight", "models", "warmup"]),
+    ({"ATENA_LLM_MODEL", "ATENA_EMBED_MODEL", "ATENA_LLM_FAST_MODEL"}, ["preflight", "models", "brain", "warmup"]),
     ({"ATENA_LLM_MODEL", "ATENA_EMBED_MODEL"}, ["services"]),
     ({"GEMINI_API_KEY", "ANTHROPIC_API_KEY", "HOME_ASSISTANT_URL", "HOME_ASSISTANT_TOKEN"}, ["services"]),
     ({"ATENA_KIOSK"}, ["kiosk"]),
@@ -20,10 +20,10 @@ STEP_TRIGGERS = (
     ({"ATENA_MUSIC_ID", "ATENA_EAR"}, ["music"]),
     ({"ATENA_STUDY_FINETUNE"}, ["soup"]),
     ({"ATENA_3D_CONVERT"}, ["convert3d"]),
-    ({"ATENA_COMMERCIAL", "ATENA_UNOFFICIAL_SERVICES"}, ["voice", "ear", "music", "models"]),
+    ({"ATENA_COMMERCIAL", "ATENA_UNOFFICIAL_SERVICES"}, ["voice", "ear", "music", "models", "brain"]),
     ({"ATENA_GPU_DRIVER"}, ["display_driver"]),
     ({"ATENA_SHARES", "ATENA_SMB_PASSWORD"}, ["shares"]),
-    ({"ATENA_OLLAMA_URL"}, ["ollama", "models", "warmup", "services"]),
+    ({"ATENA_OLLAMA_URL"}, ["ollama", "models", "brain", "warmup", "services"]),
 )
 
 

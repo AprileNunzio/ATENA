@@ -51,7 +51,7 @@ EDITABLE_KEYS = {
     "ATENA_MUSIC_ID": "Riconoscimento della musica in ascolto (1/0; invia 10 s di audio a Shazam, servizio non ufficiale: serve anche ATENA_UNOFFICIAL_SERVICES=1)",
     "ATENA_STUDY_FINETUNE": "Consolidamento dello studio nei pesi con Soup (auto = deciso dall'hardware, 1 = sempre, 0 = mai)",
     "ATENA_STUDY_BASE_MODEL": "Modello base per Soup (Hugging Face, es. Qwen/Qwen2.5-1.5B-Instruct)",
-    "ATENA_VOICE": "Voce principale (es. im_nicola, it-IT-DiegoNeural, it_IT-serena-high; si gestisce da Voci)",
+    "ATENA_VOICE": "Voce principale (es. if_sara, im_nicola, it_IT-serena-high; si gestisce da Voci)",
     "ATENA_VOICE_ORDER": "Priorità delle voci (separate da virgola; si gestisce meglio da Voci)",
     "ATENA_VOICE_SPEED": "Velocità della voce (0.6 - 1.6)",
     "ATENA_CAMERAS": "Telecamere e registrazione ad anello (1/0, spento di default)",

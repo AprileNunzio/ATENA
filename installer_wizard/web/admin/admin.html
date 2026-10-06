@@ -95,6 +95,22 @@
 </div>
 </section>
 <section class="tab" id="tab-steps">
+<div class="panel" id="bg-panel">
+<div class="panel-title">Installazioni in background</div>
+<div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:12px">
+<span class="badge" id="bg-state">—</span><span class="dim" id="bg-summary"></span>
+<span style="flex:1"></span>
+<button class="btn sm" id="bg-toggle" type="button">Metti in pausa</button>
+</div>
+<div class="bar" style="margin-bottom:12px"><i id="bg-progress"></i></div>
+<table><thead><tr><th>Componente</th><th>Dimensione</th><th>Stato</th><th>Dettaglio</th><th></th></tr></thead><tbody id="bg-body"></tbody></table>
+<div class="muted-note">Le parti pesanti si installano dopo l'avvio, una alla volta, con priorità bassa, e si fermano mentre parli con Atena. «Prima» sposta un componente in cima alla coda.</div>
+<div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:14px">
+<label class="btn sm" for="wake-file">Carica modello «Ehi, Atena» (.onnx)</label>
+<input type="file" id="wake-file" accept=".onnx" hidden>
+<span class="dim" id="wake-note"></span>
+</div>
+</div>
 <div class="panel">
 <div class="panel-title" data-i18n="admin:steps.title">Step di convergenza</div>
 <table><thead><tr><th>Step</th><th>Stato</th><th>Tentativi</th><th>Durata</th><th>Dettaglio</th><th></th></tr></thead><tbody id="steps-body"></tbody></table>

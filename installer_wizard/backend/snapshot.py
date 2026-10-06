@@ -58,6 +58,8 @@ def full_snapshot(admin: bool) -> dict:
     snap["now_playing"] = music.watcher.current()
     snap["home"] = home.brain.brief()
     snap["selftest"] = getattr(store, "selftest", None)
+    from background import queue
+    snap["background"] = queue.snapshot()
     try:
         from features.sounds.policy import policy as sound_policy
         snap["sounds"] = sound_policy.state()

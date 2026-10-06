@@ -10,7 +10,9 @@
       es.onmessage = (ev) => {
         lastMsg = Date.now();
         onLink && onLink(true);
-        try { onState(JSON.parse(ev.data)); } catch (e) { console.error(e); }
+        let data;
+        try { data = JSON.parse(ev.data); onState(data); } catch (e) { console.error(e); }
+        if (data) global.dispatchEvent(new CustomEvent("atena:state", { detail: data }));
       };
       es.onerror = () => {
         onLink && onLink(false);

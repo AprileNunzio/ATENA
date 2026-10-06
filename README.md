@@ -291,6 +291,46 @@ sudo groupadd -f atena-admin
 sudo usermod -aG atena-admin username
 ```
 
+### Guided first setup and background installations
+
+Atena becomes usable as soon as the essential part is done (system, Docker, security, Ollama with a small
+model, Core and services). Heavy or optional parts (large model, neural voices, Whisper, vision, music
+recognition, Office, 3D, gVisor, Firecracker, Soup) install afterwards, in the background:
+
+- one at a time, by priority (voice, listening, large model, vision, the rest), at low CPU and disk priority;
+- paused automatically while you talk to Atena, with a free-space check before each part;
+- retried with growing back-off when something fails;
+- each part switches on by itself when ready, without restarts.
+
+On port 80 a widget in the bottom-right corner shows the progress; tapping it opens the full queue. It is
+read-only on port 80; pause, resume and «First» (move to the top of the queue) live in the admin panel,
+**Steps** tab. From a terminal: `atenactl background`.
+
+On first boot the display offers **Set up Atena** (`http://<server-ip>/setup`): five screens for name and
+language, hardware profile with the GB to download, voice (with a test playback), Home Assistant and
+Telegram, privacy (shared folders with a generated password shown only once, commercial use, «Hey, Atena»
+model). The wizard:
+
+- answers only from the home network and closes for good once completed (then use the admin panel);
+- from another device asks for a 6-digit code, shown on Atena's screen, in the supervisor log or by
+  `atenactl setup-code`; after 5 wrong codes it locks for 10 minutes;
+- accepts only strictly validated values, because they end up in `atena.env`.
+
+**Headless install**: create `/etc/atena/answers.env` (owner `root`, mode `600`) before the first boot.
+Atena applies it, marks the setup as done and deletes the file.
+
+```bash
+ATENA_USER_NAME=Nunzio
+ATENA_UI_LANG=en
+ATENA_LLM_MODEL=granite3.3:8b
+ATENA_VOICE=if_sara
+ATENA_COMMERCIAL=0
+HOME_ASSISTANT_URL=http://homeassistant.local:8123
+HOME_ASSISTANT_TOKEN=...
+ATENA_TELEGRAM_TOKEN=...
+ATENA_SMB_PASSWORD=at-least-12-chars
+```
+
 Recommended first steps in the panel:
 
 1. **Overview**: check that all components are green.
@@ -1920,6 +1960,8 @@ atenactl status            # phase, components, and steps status
 atenactl update            # checks and applies updates from GitHub immediately
 atenactl repair            # verifies and repairs all components
 atenactl logs install      # installation log (also: supervisor, core, ollama, voice, vision, ear)
+atenactl background        # background installation queue
+atenactl setup-code        # first-setup code for another device
 atenactl version           # installed commit
 ```
 
