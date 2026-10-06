@@ -22,13 +22,20 @@ if [ ! -x "$VENV/bin/pip" ]; then
     python3 -m venv "$VENV"
 fi
 want=$(sha1sum "$REQ" | cut -c1-40)
-if [ "$(cat "$STAMP" 2>/dev/null)" != "$want" ]; then
+have=$(cat "$STAMP" 2>/dev/null || true)
+install_requirements() {
+    flock -w 1800 9 || return 1
+    [ "$(cat "$STAMP" 2>/dev/null || true)" = "$want" ] && return 0
+    "$VENV/bin/pip" install "$@" --disable-pip-version-check --no-input --upgrade pip || return 1
+    "$VENV/bin/pip" install "$@" --disable-pip-version-check --no-input -r "$REQ" || return 1
+    echo "$want" > "$STAMP.tmp" && mv -f "$STAMP.tmp" "$STAMP"
+}
+if [ -z "$have" ] || ! "$VENV/bin/python" -c "import fastapi, uvicorn, httpx, psutil, pam" >/dev/null 2>&1; then
+    echo "Installazione delle librerie Python di Atena, può richiedere alcuni minuti..."
+    install_requirements --progress-bar off 9>"$VENV/.requirements.lock"
+elif [ "$have" != "$want" ]; then
     echo "Aggiornamento librerie in background..."
-    (
-        "$VENV/bin/pip" install -q --upgrade pip
-        "$VENV/bin/pip" install -q -r "$REQ"
-        echo "$want" > "$STAMP"
-    ) &
+    ( install_requirements -q 9>"$VENV/.requirements.lock" || true ) &
 fi
 
 pkill -f 'backend/wizard_server.py' >/dev/null 2>&1 || true

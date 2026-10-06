@@ -64,7 +64,7 @@ systemctl daemon-reload
 systemctl enable atena-supervisor.service >/dev/null
 systemctl restart atena-supervisor.service
 
-for _ in $(seq 1 30); do
+for _ in $(seq 1 120); do
     curl -fs -o /dev/null http://127.0.0.1/healthz && break
     sleep 1
 done
