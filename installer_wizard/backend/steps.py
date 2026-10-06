@@ -46,7 +46,7 @@ STEPS = [
          critical=False),
     Step("gpu", "35-gpu.sh", "Accelerazione GPU", "Runtime NVIDIA per l'inferenza", 2, critical=False),
     Step("security", "40-security.sh", "Scudi di sicurezza", "Firewall e hardening del kernel", 2),
-    Step("ollama", "50-ollama.sh", "Motore neurale", "Runtime di inferenza locale Ollama", 8),
+    Step("ollama", "50-ollama.sh", "Motore neurale", "Runtime di inferenza locale Ollama", 8, critical=False),
     Step("voice", "55-voice.sh", "Voce neurale", "Sintesi vocale italiana offline", 4, critical=False,
          background=True, priority=10, size_gb=1.0),
     Step("bluetooth", "56-bluetooth.sh", "Bluetooth", "Casse, cuffie e microfoni senza fili", 1, critical=False),
