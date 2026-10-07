@@ -63,12 +63,12 @@ def face_options() -> dict:
     hands = choice("ATENA_HANDS", ("auto", "1", "0"), "auto")
     
     model_url = "/static/shared/models/head.glb"
-    active_file = Path("/var/lib/atena/avatars/active.txt")
+    active_file = STATE_DIR / "avatars" / "active.txt"
     if active_file.exists():
         active_name = active_file.read_text().strip()
         if active_name:
             # find first glb/fbx
-            d = Path("/var/lib/atena/avatars") / active_name
+            d = STATE_DIR / "avatars" / active_name
             if d.exists():
                 for f in d.iterdir():
                     if f.suffix in (".glb", ".fbx"):
