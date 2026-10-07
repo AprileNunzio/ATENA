@@ -1,5 +1,21 @@
 {
 "pairs": [
+["- File: {0}", "- File: {0}"],
+["Atena triggers actions:", "Atena triggers actions:"],
+["Avatar installati:", "Installed avatars:"],
+["Caricamento di file .glb per nuovi Avatar", "Loading .glb files for new Avatars"],
+["Crea e Carica File", "Create and Upload File"],
+["Errore durante l'upload", "Upload error"],
+["Gestione degli avatar 3D di Atena. Ogni avatar ha la sua cartella per il file .glb e le sue animazioni.", "Management of Atena's 3D avatars. Each avatar has its own folder for the .glb file and its animations."],
+["Gestione di directory separate per ogni ologramma", "Management of separate directories for each hologram"],
+["Gestisci i tuoi avatar. Ogni avatar ha una sua cartella dedicata per i file .glb e le animazioni.", "Manage your avatars. Each avatar has a dedicated folder for .glb files and animations."],
+["Inserisci nome e seleziona un file", "Enter name and select a file"],
+["Nome Avatar (es. Atena, Michelle)", "Avatar Name (e.g. Atena, Michelle)"],
+["Nome non valido, usa solo lettere e numeri senza spazi", "Invalid name, use only letters and numbers without spaces"],
+["Ologrammi e Avatar", "Holograms and Avatars"],
+["Ologrammi e Avatar 3D", "3D Holograms and Avatars"],
+["Selezione dell'avatar attivo", "Selection of the active avatar"],
+["Vuoi davvero eliminare l'avatar {0}?", "Do you really want to delete the avatar {0}?"],
 [
 "(Modulo Auto-Generato)",
 "(Auto-generated module)"
