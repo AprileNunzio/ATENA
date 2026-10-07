@@ -113,7 +113,7 @@ class DagScheduler:
         node = run.nodes[spec.node_id]
         deadline = self._clock() + spec.retry.deadline_seconds
         feedback = await self._known_dead_ends(spec)
-        with journey.span("dag_node", f"Nodo DAG: {spec.node_id}", f"Azione: {spec.action} · Rischio: {spec.risk.value}", parallel=True) as node_span:
+        with journey.span("dag_node", f"Nodo DAG: {spec.node_id}", f"Tipo: {getattr(spec.kind, 'value', spec.kind)} · Rischio: {spec.risk.value}", parallel=True) as node_span:
             prev_attempt_span = None
             while node.attempts < spec.retry.max_attempts:
                 remaining = deadline - self._clock()
