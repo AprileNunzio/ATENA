@@ -1,0 +1,15 @@
+{
+  "id": "avatars",
+  "name": "Ologrammi e Avatar",
+  "icon": "🧍‍♀️",
+  "category": "assistente",
+  "order": 38,
+  "pinned": true,
+  "panel": "avatars",
+  "description": "Gestione degli avatar 3D di Atena. Ogni avatar ha la sua cartella per il file .glb e le sue animazioni.",
+  "capabilities": [
+    "Caricamento di file .glb per nuovi Avatar",
+    "Gestione di directory separate per ogni ologramma",
+    "Selezione dell'avatar attivo"
+  ]
+}
