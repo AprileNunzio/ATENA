@@ -81,6 +81,12 @@ fi
 
 TTY=0
 if [ -t 1 ] && [ "${TERM:-dumb}" != dumb ]; then TTY=1; fi
+
+FORCE_APT=0
+for arg in "$@"; do
+    if [ "$arg" = "--force-apt" ]; then FORCE_APT=1; fi
+done
+
 if [ "$(locale charmap 2>/dev/null || true)" = UTF-8 ]; then
     G_FULL="█" G_EMPTY="░" G_OK="✓" G_RUN="▶" G_WAIT="○" G_BAD="✗" G_DOT="·" G_SPIN=(⠋ ⠙ ⠹ ⠸ ⠼ ⠴ ⠦ ⠧ ⠇ ⠏) G_PIPE="│"
 else
@@ -429,7 +435,19 @@ die() {
 on_err() { die "${T[stopped]} $CUR (${T[line]} $1)"; }
 cleanup() { if [ "$TTY" = 1 ]; then printf '\033[?25h\033[?7h'; fi; }
 
-[ "$EUID" -eq 0 ] || { echo "${T[root]}" >&2; exit 1; }
+if [ "$EUID" -ne 0 ]; then
+    if [ ! -t 0 ]; then
+        echo -e "\033[31mERRORE: Lo script richiede i permessi di root.\033[0m" >&2
+        echo "Stai eseguendo lo script via pipe. Se usassimo 'sudo' ora," >&2
+        echo "la richiesta di password potrebbe inghiottire parte dello script." >&2
+        echo "Per favore esegui il comando in questo modo:" >&2
+        echo -e "\033[32m  curl -sL <URL> | sudo bash\033[0m" >&2
+        exit 1
+    fi
+    echo -e "\033[33mQuesto script richiede i permessi di root. Richiesta sudo in corso...\033[0m" >&2
+    exec sudo bash "$0" "$@"
+    exit $?
+fi
 command -v apt-get >/dev/null 2>&1 || { echo "${T[debian]}" >&2; exit 1; }
 export DEBIAN_FRONTEND=noninteractive
 
@@ -496,11 +514,41 @@ wait_online() {
 }
 
 wait_apt() {
-    local t0=$EPOCHSECONDS
+    local t0=$EPOCHSECONDS prompted=0 killed=0
     while apt_busy && (( EPOCHSECONDS - t0 < 1800 )); do
+        if pgrep -x unattended-upgr >/dev/null; then
+            if (( FORCE_APT )); then
+                if (( killed == 0 )); then
+                    systemctl stop unattended-upgrades 2>/dev/null || true
+                    pkill -9 -x unattended-upgr || true
+                    pkill -9 -x apt-get || true
+                    pkill -9 -x apt || true
+                    pkill -9 -x dpkg || true
+                    rm -f /var/lib/dpkg/lock* /var/cache/apt/archives/lock*
+                    dpkg --configure -a >>"$LOG" 2>&1 || true
+                    killed=1
+                    continue
+                fi
+            else
+                if [ "$TTY" = 1 ] && (( prompted == 0 )); then
+                    printf '\r\033[K\n%sAggiornamento automatico di Linux in corso, potrebbe richiedere minuti.%s\n' "$C_AMBER" "$C_OFF" >/dev/tty
+                    printf 'Premi [Invio] se vuoi interromperlo forzatamente per installare Atena (o usa --force-apt)\n' >/dev/tty
+                    prompted=1
+                fi
+                if (( prompted == 1 )); then
+                    if read -r -t 3 </dev/tty; then
+                        FORCE_APT=1
+                        continue
+                    fi
+                else
+                    sleep 3
+                fi
+            fi
+        else
+            sleep 3
+        fi
         DETAIL1="${C_AMBER}${T[apt_wait]} $G_DOT $(( EPOCHSECONDS - t0 )) s${C_OFF}" DETAIL2=""
         draw 1
-        sleep 3
     done
 }
 
