@@ -16,10 +16,6 @@ VENDOR = {
     "three.min.js": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js",
     "OrbitControls.js": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js",
     "GLTFLoader.js": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js",
-    "head.glb": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/models/gltf/LeePerrySmith/LeePerrySmith.glb",
-    "face-color.jpg": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/models/gltf/LeePerrySmith/Map-COL.jpg",
-    "face-spec.jpg": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/models/gltf/LeePerrySmith/Map-SPEC.jpg",
-    "face-normal.jpg": "https://cdn.jsdelivr.net/gh/mrdoob/three.js@r128/examples/models/gltf/LeePerrySmith/Infinite-Level_02_Tangent_SmoothUV.jpg",
     **{f"{n}.js": f"https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/{n}.js"
        for n in ("OBJLoader", "MTLLoader", "STLLoader", "PLYLoader", "FBXLoader", "ColladaLoader", "3MFLoader",
                  "AMFLoader", "TDSLoader", "VRMLLoader")},
@@ -66,7 +62,7 @@ def face_options() -> dict:
 
     hands = choice("ATENA_HANDS", ("auto", "1", "0"), "auto")
     
-    model_url = "/vendor/head.glb"
+    model_url = "/static/shared/models/head.glb"
     active_file = Path("/var/lib/atena/avatars/active.txt")
     if active_file.exists():
         active_name = active_file.read_text().strip()

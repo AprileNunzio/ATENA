@@ -35,7 +35,7 @@
         onReady && onReady();
       };
       if (!THREE.GLTFLoader) { done(null); return; }
-      new THREE.GLTFLoader().load(options.model || "/vendor/head.glb", done, undefined, () => done(null));
+      new THREE.GLTFLoader().load(options.model || "/static/shared/models/head.glb", done, undefined, () => done(null));
     }
 
     _staticGeometry(gltf) {
