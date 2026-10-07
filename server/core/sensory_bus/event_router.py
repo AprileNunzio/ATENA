@@ -60,6 +60,10 @@ class SensoryBusCoordinator:
                 if observation.modality in ["vision", "network_packet", "usb_interrupt", "unknown"]:
                     # Fallback al Motore di Esplorazione se il System 1 non ha mappe motorie pronte
                     await babbling_engine.handle_unknown_stimulus(observation, sensory_bus_ref=self)
+                elif observation.modality == "home_assistant":
+                    # FASE 4: Inoltro eventi domotici al motore proattivo (System 2)
+                    from server.core.planner.proactive_engine import proactive_engine
+                    await proactive_engine.analyze_event(observation)
                 else:
                     # Passaggio normale al dispatcher
                     logger.debug(f"Gestione standard System 1 per {observation.modality}")
