@@ -6,8 +6,5 @@
   "order": 38,
   "pinned": true,
   "panel": "avatars",
-  "description": "Gestione degli avatar 3D.",
-  "capabilities": [
-    "Caricamento avatar .glb"
-  ]
+  "description": ""
 }
