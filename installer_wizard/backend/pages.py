@@ -65,8 +65,23 @@ def face_options() -> dict:
         return value if value in options else default
 
     hands = choice("ATENA_HANDS", ("auto", "1", "0"), "auto")
+    
+    model_url = "/vendor/head.glb"
+    active_file = Path("/var/lib/atena/avatars/active.txt")
+    if active_file.exists():
+        active_name = active_file.read_text().strip()
+        if active_name:
+            # find first glb/fbx
+            d = Path("/var/lib/atena/avatars") / active_name
+            if d.exists():
+                for f in d.iterdir():
+                    if f.suffix in (".glb", ".fbx"):
+                        model_url = f"/api/avatars/serve/{active_name}/{f.name}"
+                        break
+
     return {"avatar": choice("ATENA_AVATAR", ("auto", "full", "light"), "auto"),
             "style": "hologram", "color": color("ATENA_FACE_COLOR", "#29e0ff"),
+            "model": model_url,
             "hands": "0" if env.get("ATENA_VISION", "1") == "0" else hands,
             "hands_fps": int(choice("ATENA_HANDS_FPS", ("10", "20", "30"), "20")),
             "hands_count": int(choice("ATENA_HANDS_COUNT", ("1", "2"), "2")),
