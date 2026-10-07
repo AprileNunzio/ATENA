@@ -267,8 +267,13 @@ class Desk:
             ok = bool(value) and (not when or (isinstance(value, dict) and all(value.get(k) == v for k, v in when.items())))
             if ok:
                 current = self.instances.get(key)
-                if not current or current["data"] != value:
-                    self.show(m["id"], value if isinstance(value, dict) else {"value": value}, key=key, ttl=0)
+                last_val = getattr(self, "last_bound", {}).get(key)
+                if not hasattr(self, "last_bound"):
+                    self.last_bound = {}
+                
+                if last_val != value:
+                    self.show(m["id"], value if isinstance(value, dict) else {"value": value}, key=key, ttl=m.get("ttl", 0))
+                    self.last_bound[key] = value
             elif key in self.instances:
                 self.hide(key=key)
 
@@ -293,6 +298,18 @@ class Desk:
                     self.scan()
                 self.sweep_private()
                 self._bindings()
+                
+                admin_present = any(p.get("role") == "admin" for p in getattr(store, "presence", {}).get("people", []))
+                if admin_present and not getattr(self, "last_admin_present", False):
+                    try:
+                        from features.desktop.sources import sun_cycle
+                        if sun_cycle(): self.show("sun_cycle", sun_cycle(), ttl=60)
+                        self.show("system_monitor", {"cpu": True}, ttl=60)
+                        self.show("weather", getattr(store, "weather", {}), ttl=60)
+                    except Exception:
+                        pass
+                self.last_admin_present = admin_present
+                
                 if screens.changed():
                     self.publish()
                 expired = [k for k, i in self.instances.items() if i["expires_at"] and i["expires_at"] <= time.time()]

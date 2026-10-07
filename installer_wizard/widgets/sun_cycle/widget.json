@@ -5,7 +5,6 @@
   "priority": 5,
   "size": "s",
   "tone": "amber",
-  "bind": "sun_cycle",
   "description": "Arco del sole di oggi con alba, tramonto e ore di luce, calcolati dalla posizione della casa.",
   "demo": {
     "sunrise": "07:12",
