@@ -59,15 +59,20 @@ class Agent:
         self.pending: dict | None = None
         self.last_steps: list[dict] = []
 
-    def tools(self) -> str:
-        return registry.describe(level())
+    async def tools(self, request: str) -> str:
+        try:
+            from features.team.router import tool_router
+            relevant_agents = await tool_router.retrieve(request, top_k=7)
+            return registry.describe_for_agents(level(), relevant_agents)
+        except Exception:
+            return registry.describe(level())
 
     async def _decide(self, request: str, steps: list[dict]) -> dict:
         history = "\n".join(f"{i + 1}. {s['tool']}({json.dumps(s['args'], ensure_ascii=False)[:300]}) → {s['result'][:1200]}"
                             for i, s in enumerate(steps))
         prompt = f"Richiesta: {request}\n\n" + (f"Passi già eseguiti:\n{history}\n\nProssima mossa?" if steps else "Prima mossa?")
         reply = await generate(prompt, as_json=True, max_tokens=900, temperature=0.1, kind="deep",
-                               system=RULES.format(tools=self.tools(), files=FILES, team=board.digest()), timeout=240)
+                               system=RULES.format(tools=await self.tools(request), files=FILES, team=board.digest()), timeout=240)
         return reply if isinstance(reply, dict) else {}
 
     async def _execute(self, name: str, args: dict, steps: list[dict]) -> None:
