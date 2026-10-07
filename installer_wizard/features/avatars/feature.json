@@ -4,7 +4,7 @@
   "icon": "🧍‍♀️",
   "category": "assistente",
   "order": 38,
-  "pinned": true,
+  "pinned": false,
   "panel": "avatars",
   "description": ""
 }

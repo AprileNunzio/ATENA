@@ -267,13 +267,8 @@ class Desk:
             ok = bool(value) and (not when or (isinstance(value, dict) and all(value.get(k) == v for k, v in when.items())))
             if ok:
                 current = self.instances.get(key)
-                last_val = getattr(self, "last_bound", {}).get(key)
-                if not hasattr(self, "last_bound"):
-                    self.last_bound = {}
-                
-                if last_val != value:
+                if not current or current["data"] != value:
                     self.show(m["id"], value if isinstance(value, dict) else {"value": value}, key=key, ttl=m.get("ttl", 0))
-                    self.last_bound[key] = value
             elif key in self.instances:
                 self.hide(key=key)
 
