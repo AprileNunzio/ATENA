@@ -50,7 +50,6 @@ from features.ear import api as ear_api
 from features.automations import api as automations_api
 from features.automations.engine import engine as automations_engine
 from features.autonomy import api as autonomy_api
-from features.avatars import api as avatars_api
 from features.capabilities import api as capabilities_api
 from features.habits import api as habits_api
 from features.kiosk import driver as display_driver
@@ -153,7 +152,6 @@ FEATURE_APIS = (
     documents_api,
     ear_api,
     autonomy_api,
-    avatars_api,
     automations_api,
     sounds_api,
     selftest_api,

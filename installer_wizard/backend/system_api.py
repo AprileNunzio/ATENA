@@ -123,7 +123,6 @@ async def logout():
     return resp
 
 
-@public_routes.get("/api/auth/me")
 @admin_routes.get("/api/auth/me")
 async def me(request: Request):
     user = session_user(request)

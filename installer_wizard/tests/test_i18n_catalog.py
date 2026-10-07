@@ -17,7 +17,6 @@ SLOT = re.compile(r"\{\d+\}")
 
 class CatalogTest(unittest.TestCase):
     def test_every_visible_string_is_translated(self):
-        self.maxDiff = None
         known = {p[0] for p in CATALOG["pairs"]} | {p[0] for p in CATALOG["reverse"]} | set(CATALOG["same"])
         missing = sorted(s for s in extract.extract() if s not in known)
         self.assertEqual(missing, [], "add these strings to web/shared/i18n_catalog.json: Italian ones to «pairs» as "
@@ -70,7 +69,7 @@ class RuntimeTranslatorTest(unittest.TestCase):
             script = Path(root) / "run.js"
             script.write_text(RUNNER, encoding="utf-8")
             out = subprocess.run(["node", str(script), str(ROOT / "web" / "shared" / "i18n_catalog.json"),
-                                  str(ROOT / "web" / "shared" / "translate.js")], capture_output=True, text=True, encoding="utf-8", timeout=30)
+                                  str(ROOT / "web" / "shared" / "translate.js")], capture_output=True, text=True, timeout=30)
         self.assertEqual(out.returncode, 0, out.stderr)
         data = json.loads(out.stdout)
         self.assertEqual(data["exact"], "Add printer")

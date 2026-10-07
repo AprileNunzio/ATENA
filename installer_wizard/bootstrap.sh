@@ -11,7 +11,7 @@ STAMP="$VENV/.requirements.sha1"
 LOG_DIR=/var/log/atena
 LOG="$LOG_DIR/bootstrap.log"
 PREREQS=(git curl ca-certificates python3 python3-venv jq)
-WEIGHT=(0 12 16 62 3 7)
+WEIGHT=(0 10 15 45 2 25 3)
 
 case "${LC_ALL:-${LC_MESSAGES:-${LANG:-}}}" in
     it*) UI_LANG=it ;;
@@ -24,7 +24,7 @@ if [ "$UI_LANG" = it ]; then
     T=(
         [title]="Installazione di base" [elapsed]="trascorsi" [total]="Totale" [eta]="fine prevista"
         [s1]="Prerequisiti di sistema" [s2]="Download di Atena" [s3]="Librerie Python"
-        [s4]="Configurazione di base" [s5]="Avvio del Supervisor"
+        [s4]="Configurazione di base" [s5]="Interfaccia grafica (Kiosk)" [s6]="Avvio del Supervisor"
         [repair]="Riparazione dei pacchetti interrotti" [index]="Aggiornamento dell'indice dei pacchetti"
         [present]="già presenti" [package]="pacchetto" [packages]="pacchetti" [of]="di" [left]="mancano" [remaining]="restanti"
         [download]="Scaricamento" [unpack]="Installazione" [objects]="oggetti" [deltas]="Elaborazione delle modifiche"
@@ -53,7 +53,7 @@ else
     T=(
         [title]="Base installation" [elapsed]="elapsed" [total]="Total" [eta]="expected finish"
         [s1]="System prerequisites" [s2]="Downloading Atena" [s3]="Python libraries"
-        [s4]="Base configuration" [s5]="Starting the Supervisor"
+        [s4]="Base configuration" [s5]="Graphical interface (Kiosk)" [s6]="Starting the Supervisor"
         [repair]="Repairing interrupted packages" [index]="Updating the package index"
         [present]="already present" [package]="package" [packages]="packages" [of]="of" [left]="left" [remaining]="remaining"
         [download]="Downloading" [unpack]="Installing" [objects]="objects" [deltas]="Resolving changes"
@@ -102,10 +102,10 @@ COLS=$(tput cols 2>/dev/null || echo 80)
 BAR_W=18 TOTAL_W=28
 if [ "$COLS" -lt 78 ]; then BAR_W=10 TOTAL_W=16; fi
 
-STEP_STATE=(x wait wait wait wait wait)
-STEP_NOTE=("" "" "" "" "" "")
-STEP_T0=(0 0 0 0 0 0)
-STEP_DUR=(0 0 0 0 0 0)
+STEP_STATE=(x wait wait wait wait wait wait)
+STEP_NOTE=("" "" "" "" "" "" "")
+STEP_T0=(0 0 0 0 0 0 0)
+STEP_DUR=(0 0 0 0 0 0 0)
 CUR=0 PCT=0 DETAIL1="" DETAIL2="" DRAWN=0 LAST_DRAW=0 SPIN_I=0 PLAIN_MARK=-1
 START=$EPOCHSECONDS
 SP_LAST_T=0 SP_LAST_B=0 SPEED=0
@@ -155,7 +155,7 @@ clip() {
 
 overall() {
     local _i _p=0
-    for (( _i = 1; _i <= 5; _i++ )); do
+    for (( _i = 1; _i <= 6; _i++ )); do
         if [ "${STEP_STATE[_i]}" = ok ]; then _p=$(( _p + WEIGHT[_i] * 100 ))
         elif (( _i == CUR )); then _p=$(( _p + WEIGHT[_i] * PCT ))
         fi
@@ -196,7 +196,7 @@ render_plain() {
     mark=$(( CUR * 1000 + PCT / 10 * 10 ))
     (( mark == PLAIN_MARK )) && return 0
     PLAIN_MARK=$mark
-    printf '[Atena] %d/5 %s %3d%%  (%s %d%%)\n' "$CUR" "${T[s$CUR]}" "$PCT" "${T[total]}" "$p"
+    printf '[Atena] %d/6 %s %3d%%  (%s %d%%)\n' "$CUR" "${T[s$CUR]}" "$PCT" "${T[total]}" "$p"
 }
 
 draw() {
@@ -213,7 +213,7 @@ draw() {
     fmt_dur dur $(( EPOCHSECONDS - START ))
     lines+=("   ${C_BOLD}${C_CYAN}A.T.E.N.A.${C_OFF}  ${G_DOT}  ${T[title]}   ${C_DIM}${dur} ${T[elapsed]}${C_OFF}")
     lines+=("")
-    for (( i = 1; i <= 5; i++ )); do
+    for (( i = 1; i <= 6; i++ )); do
         case "${STEP_STATE[i]}" in
             ok) icon="${C_GREEN}${G_OK}${C_OFF}" ;;
             run) icon="${C_CYAN}${G_RUN}${C_OFF}" ;;
@@ -258,7 +258,7 @@ step_begin() {
     STEP_STATE[CUR]=run
     STEP_T0[CUR]=$EPOCHSECONDS
     speed_reset
-    printf '\n=== %s %d/5 %s ===\n' "$(date -Is)" "$CUR" "${T[s$CUR]}" >> "$LOG"
+    printf '\n=== %s %d/6 %s ===\n' "$(date -Is)" "$CUR" "${T[s$CUR]}" >> "$LOG"
     draw 1
 }
 
@@ -267,7 +267,7 @@ step_end() {
     STEP_NOTE[CUR]=$1
     STEP_DUR[CUR]=$(( EPOCHSECONDS - STEP_T0[CUR] ))
     PCT=100 DETAIL1="" DETAIL2=""
-    if [ "$TTY" != 1 ]; then printf '[Atena] %d/5 %s %s %s\n' "$CUR" "${T[s$CUR]}" "$G_OK" "$1"; fi
+    if [ "$TTY" != 1 ]; then printf '[Atena] %d/6 %s %s %s\n' "$CUR" "${T[s$CUR]}" "$G_OK" "$1"; fi
     draw 1
 }
 
@@ -737,6 +737,26 @@ check_ports() {
     done
 }
 
+h_kiosk() {
+    local l=$1
+    if [[ "$l" == "@@PROGRESS "* ]]; then
+        local parts=($l)
+        PCT=${parts[1]}
+        DETAIL1="${l#* * }"
+        DETAIL2=""
+    elif [[ "$l" == "@@DETAIL "* ]]; then
+        DETAIL2="${C_DIM}${l#@@DETAIL }${C_OFF}"
+    fi
+}
+
+do_kiosk() {
+    export ATENA_DIR="/opt/Atena"
+    phase "${T[s5]}"
+    stream h_kiosk bash "$ATENA_DIR/scripts/os/steps/20-system.sh" apply || return 1
+    stream h_kiosk bash "$ATENA_DIR/scripts/os/steps/25-kiosk.sh" apply || return 1
+    STEP_RESULT=""
+}
+
 SAFE=0
 do_start() {
     local w body
@@ -805,7 +825,8 @@ git config --global --add safe.directory "$ATENA_DIR" >>"$LOG" 2>&1 || true
 run_step 2 do_download heal_git
 run_step 3 do_python heal_pip
 run_step 4 do_config heal_none
-run_step 5 do_start heal_start
+run_step 5 do_kiosk heal_none
+run_step 6 do_start heal_start
 trap - ERR
 
 IP=$(hostname -I 2>/dev/null | awk '{print $1}')
@@ -813,12 +834,17 @@ fmt_dur total_dur $(( EPOCHSECONDS - START ))
 echo
 if (( SAFE )); then
     echo -e "   ${C_AMBER}!${C_OFF} ${T[safe]}"
+    echo
+    echo -e "   ${T[monitor]}:  ${C_GREEN}http://${IP:-localhost}/${C_OFF}"
+    echo -e "   ${T[admin]}:  ${C_GREEN}http://${IP:-localhost}:8080/${C_OFF}"
+    echo -e "   ${T[live]}:  journalctl -fu atena-supervisor"
+    echo
 else
     echo -e "   ${C_GREEN}${G_OK}${C_OFF} ${T[done]} ${C_DIM}(${total_dur})${C_OFF}"
     echo -e "   ${T[autonomy]}"
+    echo
+    echo -e "   Il sistema si riavvierà tra pochi secondi per avviare l'interfaccia grafica..."
+    echo
+    sleep 3
+    reboot
 fi
-echo
-echo -e "   ${T[monitor]}:  ${C_GREEN}http://${IP:-localhost}/${C_OFF}"
-echo -e "   ${T[admin]}:  ${C_GREEN}http://${IP:-localhost}:8080/${C_OFF}"
-echo -e "   ${T[live]}:  journalctl -fu atena-supervisor"
-echo

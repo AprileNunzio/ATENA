@@ -4,7 +4,6 @@ import asyncio
 from typing import List, Dict, Any, Callable
 from server.features.llm_gateway.gateway import llm_gateway
 from server.features.llm_gateway.contracts import LLMRequest, LLMMessage
-from server.core.telemetry.journey import journey
 
 logger = logging.getLogger("atena.react_loop")
 
@@ -87,56 +86,40 @@ class ReActLoop:
         ]
         trajectory: List[Dict[str, Any]] = []
 
-        prev_step_handle = None
         for iteration in range(1, self.max_iterations + 1):
             logger.info("ReAct iteration %d/%d for task: %s", iteration, self.max_iterations, task[:60])
 
-            with journey.span("reasoning", f"Ciclo ReAct #{iteration}", f"Modello: {override_model or self.model_name}") as iter_span:
-                if prev_step_handle is not None:
-                    journey.back(prev_step_handle, iter_span, f"prossimo ciclo ({iteration})")
-                prev_step_handle = iter_span
-
-                active_model = override_model if override_model else self.model_name
-                response = await llm_gateway.generate_completion(
-                    LLMRequest(
-                        model_name=active_model,
-                        messages=messages,
-                        system_prompt=system_prompt,
-                        temperature=0.2,
-                        component=self.component,
-                    )
+            active_model = override_model if override_model else self.model_name
+            response = await llm_gateway.generate_completion(
+                LLMRequest(
+                    model_name=active_model,
+                    messages=messages,
+                    system_prompt=system_prompt,
+                    temperature=0.2,
+                    component=self.component,
                 )
+            )
 
-                step = self._parse_step(response.content)
-                step["iteration"] = iteration
-                step["raw_response"] = response.content
-                trajectory.append(step)
+            step = self._parse_step(response.content)
+            step["iteration"] = iteration
+            step["raw_response"] = response.content
+            trajectory.append(step)
 
-                thought = step.get("thought", "")
-                if thought:
-                    iter_span.note(f"Pensiero: {thought[:300]}")
+            if step.get("is_final", False):
+                logger.info("ReAct completed in %d iterations", iteration)
+                return {
+                    "success": True,
+                    "answer": step.get("final_answer", response.content),
+                    "trajectory": trajectory,
+                    "iterations": iteration,
+                }
 
-                if step.get("is_final", False):
-                    iter_span.ok(f"Concluso al ciclo {iteration}: {step.get('final_answer', '')[:200]}")
-                    logger.info("ReAct completed in %d iterations", iteration)
-                    return {
-                        "success": True,
-                        "answer": step.get("final_answer", response.content),
-                        "trajectory": trajectory,
-                        "iterations": iteration,
-                    }
+            action = step.get("action", "")
+            action_input = step.get("action_input", {})
+            observation = await self._execute_tool(action, action_input)
 
-                action = step.get("action", "")
-                action_input = step.get("action_input", {})
-                with journey.span("tool", f"Tool: {action}", json.dumps(action_input) if isinstance(action_input, dict) else str(action_input)) as tool_span:
-                    observation = await self._execute_tool(action, action_input)
-                    if str(observation).startswith("ERROR"):
-                        tool_span.fail(str(observation)[:300])
-                    else:
-                        tool_span.ok(str(observation)[:300])
-
-                messages.append(LLMMessage(role="assistant", content=response.content))
-                messages.append(LLMMessage(role="user", content=f"Observation: {observation}"))
+            messages.append(LLMMessage(role="assistant", content=response.content))
+            messages.append(LLMMessage(role="user", content=f"Observation: {observation}"))
 
         logger.warning("ReAct reached max iterations (%d) without conclusion", self.max_iterations)
         last_thought = trajectory[-1].get("thought", "") if trajectory else ""

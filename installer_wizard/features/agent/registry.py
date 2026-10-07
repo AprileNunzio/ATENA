@@ -27,16 +27,8 @@ def available(level: str) -> list[dict]:
 
 
 def describe(level: str) -> str:
-    return describe_for_agents(level, None)
-
-def describe_for_agents(level: str, agents: set[str] | None) -> str:
-    from features.team import roster
     rows = []
     for t in available(level):
-        if agents is not None:
-            owner = roster.owner(t["name"])
-            if owner not in agents:
-                continue
         args = ", ".join(f"{k}: {v}" for k, v in t["args"].items())
         rows.append(f"- {t['name']}({args}): {t['description']}")
     return "\n".join(rows)

@@ -31,11 +31,11 @@ def voice_lines() -> list[str]:
     return [f"{area}: " + "; ".join(f"«{p}»" for p in phrases) for area, phrases in VOICE.items()]
 
 
-def summary(subset_ids: set[str] | None = None) -> str:
+def summary() -> str:
     return ("COSA SAI FARE (le azioni le eseguono gli agenti di Atena, non tu: se il signore le chiede, indicagli la frase giusta).\n"
             + "\n".join(voice_lines()) + f"\n{DEVICES}\n{PRIVACY}\n"
             "LA SQUADRA: ogni funzionalità è un agente indipendente con una priorità (più alta = passa avanti); gli agenti si vedono "
-            "a vicenda e si passano i compiti (p = priorità). Elenco:\n" + roster.team_text(True, subset_ids) + "\n" + board.digest())
+            "a vicenda e si passano i compiti (p = priorità). Elenco:\n" + roster.team_text(True) + "\n" + board.digest())
 
 
 def document() -> dict:

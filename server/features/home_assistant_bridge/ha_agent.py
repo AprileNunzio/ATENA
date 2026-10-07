@@ -71,29 +71,15 @@ class HomeAssistantAgent(BaseAgent):
         )
 
     async def _run_react(self, request: AgentTaskRequest) -> dict:
-        # FASE 3: Estrazione memoria episodica/abitudini dalla Deep Memory
-        # (Si può usare il FailureIndex semantico per evitare errori passati o lo StructureWorkspace per le abitudini)
-        from server.features.deep_memory.composition import deep_memory
-        
-        # Recuperiamo contesto strutturato (preferenze/abitudini)
-        try:
-            ws = deep_memory.workspace("home_habits")
-            habits_context = ws.read_file("preferences.md") or "Nessuna preferenza nota."
-        except Exception:
-            habits_context = "Memoria non accessibile."
-
-        agent_prompt = (
-            "Sei Jarvis, il gestore della Domotica di Atena. Controlli Home Assistant. "
-            "Il tuo compito è capire l'ambiente, decidere il dominio e l'entità corretti "
-            "ed eseguire l'azione con i tool forniti. "
-            f"ABITUDINI DELL'UTENTE E MEMORIA:\n{habits_context}\n"
-            "Le azioni critiche (serrature, allarmi, cancelli, valvole) vengono giudicate da una giuria indipendente. "
-            "Concludi specificando cosa hai fatto."
-        )
-
         return await self._react.run(
             task=request.raw_query,
-            agent_context=agent_prompt,
+            agent_context=(
+                "Sei il gestore della Domotica di Atena. Controlli Home Assistant. "
+                "Il tuo compito è capire l'ambiente, decidere il dominio e l'entità corretti "
+                "ed eseguire l'azione con il tool ha_call_service. "
+                "Le azioni critiche (serrature, allarmi, cancelli, valvole) vengono giudicate da una giuria indipendente. "
+                "Concludi specificando cosa hai fatto."
+            ),
         )
 
     async def authorize(self, domain: str, service: str, entity_id: str) -> str:
@@ -144,35 +130,6 @@ class HomeAssistantAgent(BaseAgent):
             except Exception as e:
                 return f"FAILED: Errore ({e})"
 
-        async def ha_query_topology(query_type: str, target: str = "") -> str:
-            # FASE 2: Utilizzo del Context Graph per spazialità
-            # query_type: 'rooms' (lista stanze), 'devices_in_room' (target = nome_stanza)
-            from server.core.context_graph.graph_client import graph_client
-            
-            snapshot = graph_client.export_snapshot()
-            if query_type == "rooms":
-                rooms = [n.label for n in snapshot.nodes if n.node_type.value == "ROOM" or n.node_type == "ROOM"]
-                return "Stanze: " + ", ".join(rooms) if rooms else "Stanze non modellate nel grafo."
-            elif query_type == "devices_in_room":
-                # Trova ID stanza
-                room_id = None
-                for n in snapshot.nodes:
-                    if target.lower() in n.label.lower():
-                        room_id = n.id
-                        break
-                if not room_id:
-                    return f"Stanza {target} non trovata nel grafo."
-                
-                # Trova entità collegate
-                devices = []
-                for e in snapshot.edges:
-                    if e.target_id == room_id:
-                        for n in snapshot.nodes:
-                            if n.id == e.source_id:
-                                devices.append(n.properties.get('entity_id', n.label))
-                return f"Dispositivi in {target}: " + ", ".join(devices)
-            return "Query type non supportato. Usa 'rooms' o 'devices_in_room'."
-
         loop.register_tool(
             "ha_call_service",
             "Chiama un servizio su Home Assistant (parametri: domain, service, entity_id)",
@@ -182,11 +139,6 @@ class HomeAssistantAgent(BaseAgent):
             "ha_get_states",
             "Ottiene lo stato attuale delle entità principali per capire la situazione della casa",
             ha_get_states,
-        )
-        loop.register_tool(
-            "ha_query_topology",
-            "Ottiene la topologia spaziale della casa dal Context Graph (query_type: 'rooms' o 'devices_in_room', target: nome stanza)",
-            ha_query_topology,
         )
 
         return loop

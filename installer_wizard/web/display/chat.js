@@ -13,7 +13,6 @@
     D.busy = true; D.lastInteraction = Date.now();
     try {
       const d = await fetch("/api/assistant/wake", { method: "POST" }).then((r) => r.json());
-      parseActions(d);
       if (D.mode !== "face") D.setMode("face");
       D.Mood.joy();
       $("you").textContent = "";
@@ -37,21 +36,7 @@
     return true;
   }
 
-  function parseActions(d) {
-    if (!d || !d.reply) return;
-    const tags = [];
-    d.reply = d.reply.replace(/\[AZIONE:\s*([^\]]+)\]/gi, (match, action) => {
-      tags.push(action.trim());
-      return "";
-    }).trim();
-    if (tags.length > 0 && window.AtenaDisplay && window.AtenaDisplay.avatar) {
-       // Qui in futuro si aggancerà il motore 3D per eseguire l'animazione
-       console.log("Atena triggers actions:", tags);
-    }
-  }
-
   function show(text, d) {
-    parseActions(d);
     $("you").textContent = `« ${text} »`;
     if (enrollUi(d)) return;
     const ui = d.ui || { mode: "face" };

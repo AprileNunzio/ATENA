@@ -11,7 +11,7 @@
       "shares"
     ]
   },
-  "description": "Cartella di rete protetta per documenti, siti, modelli 3D, codice e musica. La memoria di Atena non è in rete.",
+  "description": "Un'unica cartella di rete protetta da password, «condivisa», con tutto ciò che Atena crea in sottocartelle ordinate: documenti, siti web, modelli 3D, codice, scambio e musica. La memoria di Atena non è in rete. I nomi iniziano con la data in ordine inverso (AAAAMMGG_nome).",
   "capabilities": [
     "\\\\IP-del-server\\condivisa da Esplora file di Windows, smb://IP/condivisa da Mac e Linux",
     "Sottocartelle: 01 Documenti, 02 Siti web, 03 Modelli 3D, 04 Codice, 05 Scambio, 06 Musica",
