@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Atena Cognitive Flow</title>
+  <style>
+    :root {
+      --bg-dark: #020617;
+      --cyan: #00e5ff;
+      --cyan-glow: rgba(0, 229, 255, 0.4);
+      --green: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.4);
+      --text: #e2e8f0;
+      --font-mono: 'Consolas', 'Courier New', monospace;
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-dark);
+      background-image: 
+        linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      color: var(--text);
+      font-family: var(--font-mono);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .header {
+      padding: 20px;
+      background: rgba(13, 20, 36, 0.8);
+      border-bottom: 1px solid var(--cyan);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 0 20px var(--cyan-glow);
+      z-index: 10;
+    }
+    .header h1 {
+      margin: 0;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--cyan);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .status-dot {
+      width: 12px;
+      height: 12px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 10px var(--green);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.7; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(0.9); opacity: 0.7; }
+    }
+    .controls {
+      display: flex;
+      gap: 10px;
+    }
+    input[type="text"] {
+      padding: 10px 15px;
+      background: rgba(0, 229, 255, 0.05);
+      border: 1px solid var(--cyan);
+      border-radius: 4px;
+      color: white;
+      width: 400px;
+      font-family: var(--font-mono);
+      outline: none;
+    }
+    input[type="text"]:focus {
+      background: rgba(0, 229, 255, 0.1);
+      box-shadow: 0 0 10px var(--cyan-glow);
+    }
+    button {
+      padding: 10px 20px;
+      background: rgba(0, 229, 255, 0.1);
+      border: 1px solid var(--cyan);
+      color: var(--cyan);
+      cursor: pointer;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+    button:hover {
+      background: var(--cyan);
+      color: var(--bg-dark);
+      box-shadow: 0 0 15px var(--cyan);
+    }
+    
+    .canvas {
+      flex: 1;
+      position: relative;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      gap: 50px;
+    }
+    
+    /* Center line */
+    .canvas::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 40px;
+      right: 40px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--cyan) 50%, transparent 50%);
+      background-size: 20px 2px;
+      transform: translateY(-50%);
+      opacity: 0.3;
+      z-index: 0;
+      animation: slide-bg 2s linear infinite;
+    }
+    @keyframes slide-bg {
+      0% { background-position: 0 0; }
+      100% { background-position: 20px 0; }
+    }
+
+    .node {
+      position: relative;
+      z-index: 1;
+      background: rgba(13, 20, 36, 0.95);
+      border: 2px solid var(--cyan);
+      border-radius: 8px;
+      padding: 20px;
+      min-width: 250px;
+      max-width: 350px;
+      box-shadow: 0 0 20px var(--cyan-glow);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+      opacity: 0;
+      transform: translateY(20px) scale(0.9);
+    }
+    @keyframes popIn {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    
+    .node.error {
+      border-color: #ef4444;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+    }
+    .node.error .node-title {
+      color: #ef4444;
+      border-bottom-color: rgba(239, 68, 68, 0.3);
+    }
+
+    .node-title {
+      font-size: 1rem;
+      color: var(--cyan);
+      font-weight: bold;
+      border-bottom: 1px solid rgba(0, 229, 255, 0.3);
+      padding-bottom: 8px;
+      text-transform: uppercase;
+    }
+    
+    .node-content {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: #94a3b8;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .node-content strong {
+      color: white;
+    }
+    
+    /* Scrollbar style */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    ::-webkit-scrollbar-thumb { background: var(--cyan); border-radius: 4px; }
+    
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>
+      <div class="status-dot"></div>
+      Atena Core | Cognitive Analyzer
+    </h1>
+    <div class="controls">
+      <input type="text" id="query-input" placeholder="Invia query per tracciare il flusso..." />
+      <button id="submit-btn">Analizza</button>
+      <button id="clear-btn">Pulisci Tela</button>
+    </div>
+  </div>
+
+  <div class="canvas" id="canvas">
+    <!-- I nodi del flusso appariranno qui -->
+  </div>
+
+  <script>
+    const input = document.getElementById('query-input');
+    const submitBtn = document.getElementById('submit-btn');
+    const clearBtn = document.getElementById('clear-btn');
+    const canvas = document.getElementById('canvas');
+    let isStreaming = false;
+
+    clearBtn.onclick = () => { canvas.innerHTML = ''; };
+
+    input.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        startAnalysis();
+      }
+    });
+    
+    submitBtn.onclick = startAnalysis;
+
+    function addNode(title, text, isError = false) {
+      const node = document.createElement('div');
+      node.className = 'node' + (isError ? ' error' : '');
+      node.innerHTML = `
+        <div class="node-title">${title}</div>
+        <div class="node-content">${text}</div>
+      `;
+      canvas.appendChild(node);
+      canvas.scrollLeft = canvas.scrollWidth;
+    }
+
+    async function startAnalysis() {
+      const query = input.value.trim();
+      if (!query || isStreaming) return;
+
+      isStreaming = true;
+      submitBtn.innerText = "Elaborazione...";
+      submitBtn.style.opacity = "0.5";
+      canvas.innerHTML = '';
+
+      addNode("1. Ingestione Input", `Query ricevuta: <br><strong>"${query}"</strong>`);
+
+      try {
+        const response = await fetch("/api/v1/stream/reasoning", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "text/event-stream" },
+          body: JSON.stringify({ query: query })
+        });
+
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+        let nodeCount = 2;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\\n\\n");
+          buffer = lines.pop();
+
+          for (const block of lines) {
+            if (!block.trim()) continue;
+            const eventLines = block.split("\\n");
+            let eventName = "message";
+            let dataPayload = "";
+
+            for (const line of eventLines) {
+              if (line.startsWith("event:")) eventName = line.substring(6).trim();
+              else if (line.startsWith("data:")) dataPayload = line.substring(5).trim();
+            }
+
+            let data = {};
+            try { data = JSON.parse(dataPayload); } catch(e) { data = { text: dataPayload }; }
+
+            if (eventName === "system1") {
+              addNode(`${nodeCount++}. System 1 (Router)`, `Classificazione rapida completata.<br>Intento rilevato: <strong>${data.intent}</strong><br>Confidenza: ${(data.confidence || 0).toFixed(2)}`);
+            } else if (eventName === "thinking") {
+              // Add or update thinking node
+              let tNode = document.getElementById('thinking-node');
+              if (!tNode) {
+                tNode = document.createElement('div');
+                tNode.className = 'node';
+                tNode.id = 'thinking-node';
+                tNode.innerHTML = `<div class="node-title">${nodeCount++}. System 2 (Reasoning)</div><div class="node-content" id="thinking-text"></div>`;
+                canvas.appendChild(tNode);
+              }
+              const tText = document.getElementById('thinking-text');
+              tText.innerText += (data.chunk || "");
+              tText.scrollTop = tText.scrollHeight;
+              canvas.scrollLeft = canvas.scrollWidth;
+            } else if (eventName === "status") {
+              addNode(`${nodeCount++}. Kernel Status`, `<strong>Legge / Verifica:</strong><br>${data.step || data.text}`);
+            } else if (eventName === "tool_call") {
+              addNode(`${nodeCount++}. Esecuzione Strumento`, `<strong>Strumento:</strong> ${data.tool}<br><pre style="font-size:0.7rem; color:#aaa; margin:5px 0;">${JSON.stringify(data, null, 2)}</pre>`);
+            } else if (eventName === "response") {
+              let rNode = document.getElementById('response-node');
+              if (!rNode) {
+                rNode = document.createElement('div');
+                rNode.className = 'node';
+                rNode.id = 'response-node';
+                rNode.innerHTML = `<div class="node-title">${nodeCount++}. Generazione Output</div><div class="node-content" id="response-text"></div>`;
+                canvas.appendChild(rNode);
+              }
+              const rText = document.getElementById('response-text');
+              rText.innerHTML += (data.chunk || "").replace(/\\n/g, "<br>");
+              rText.scrollTop = rText.scrollHeight;
+              canvas.scrollLeft = canvas.scrollWidth;
+            } else if (eventName === "done") {
+              addNode(`${nodeCount++}. Esecuzione Terminata`, `L'elaborazione si è conclusa con successo.`);
+            }
+          }
+        }
+      } catch (err) {
+        addNode("Errore Critico", err.message, true);
+      } finally {
+        isStreaming = false;
+        submitBtn.innerText = "Analizza";
+        submitBtn.style.opacity = "1";
+      }
+    }
+  </script>
+</body>
+</html>
