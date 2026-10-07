@@ -79,7 +79,7 @@ class HomeAssistantAgent(BaseAgent):
         try:
             ws = deep_memory.workspace("home_habits")
             habits_context = ws.read_file("preferences.md") or "Nessuna preferenza nota."
-        except Exception as e:
+        except Exception:
             habits_context = "Memoria non accessibile."
 
         agent_prompt = (
