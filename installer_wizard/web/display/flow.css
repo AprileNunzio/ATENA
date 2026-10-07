@@ -1,12 +1,14 @@
-.flow-ui { position: fixed; inset: 0; z-index: 1; opacity: 0; pointer-events: none; transition: opacity 0.5s;
+.flow-ui { position: fixed; inset: 0; z-index: 15; opacity: 0; pointer-events: none; transition: opacity 0.5s;
   background: radial-gradient(ellipse at 50% 0%, rgba(41,224,255,0.10), transparent 55%), rgba(3, 8, 18, 0.97);
   display: flex; flex-direction: column; padding: 96px 28px 108px; }
 body.flow .flow-ui { opacity: 1; pointer-events: auto; }
 body.flow #scene, body.flow #core { visibility: hidden; }
+body.flow .desk { opacity: 0; pointer-events: none; }
 body.flow .caption, body.flow .focus-say, body.flow .presence { opacity: 0; pointer-events: none; }
-body.flow header, body.flow .dock, body.flow .dock-note, body.flow .vol-panel, body.flow .flow-back { z-index: 6; }
-
-.flow-back { position: absolute; left: 50%; top: 24px; transform: translateX(-50%); }
+body.flow header { z-index: 20; pointer-events: none; }
+body.flow .dock, body.flow .dock-note, body.flow .vol-panel { z-index: 30; }
+.flow-back { position: absolute; left: 50%; top: 24px; transform: translateX(-50%); z-index: 35; pointer-events: auto; }
+.flow-back button { pointer-events: auto; cursor: pointer; }
 .flow-title { text-align: center; margin-bottom: 10px; }
 .flow-title h2 { margin: 0; font-weight: 600; font-size: 20px; letter-spacing: 0.32em; color: #fff; text-shadow: 0 0 14px rgba(41,224,255,0.5); }
 .flow-title p { margin: 6px 0 0; font-size: 11px; letter-spacing: 0.24em; color: var(--cyan); text-transform: uppercase; }

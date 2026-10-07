@@ -1,4 +1,5 @@
 import time
+import uuid
 from collections import OrderedDict
 
 MAX_JOURNEYS = 12
@@ -16,12 +17,91 @@ def _node(raw) -> dict | None:
     return out
 
 
+class JourneyTracker:
+    def __init__(self, store: "JourneyStore", key: str, query: str, who: str = "") -> None:
+        self.store = store
+        self.id = key
+        self.query = query[:400]
+        self.who = who[:80]
+        self.state = "running"
+        self.answer = ""
+        self.agent = ""
+        self.started = time.time()
+        self.nodes: list[dict] = []
+        self.edges: list[list] = []
+        self._commit()
+
+    def _rel(self) -> float:
+        return round(time.time() - self.started, 2)
+
+    def _commit(self) -> None:
+        self.store.put(self.id, {
+            "query": self.query,
+            "who": self.who,
+            "state": self.state,
+            "answer": self.answer,
+            "agent": self.agent,
+            "started": self.started,
+            "elapsed": self._rel(),
+            "nodes": list(self.nodes),
+            "edges": list(self.edges),
+        })
+
+    def add_node(self, kind: str, name: str, detail: str = "", state: str = "ok", parent: int | None = None) -> int:
+        idx = len(self.nodes)
+        rel = self._rel()
+        self.nodes.append({
+            "i": idx,
+            "p": parent,
+            "k": kind,
+            "n": str(name)[:90],
+            "d": str(detail)[:1200],
+            "s": state,
+            "a": rel,
+            "b": rel,
+        })
+        self._commit()
+        return idx
+
+    def add_edge(self, source: int, target: int, kind: str = "flow", label: str = "") -> None:
+        self.edges.append([source, target, str(kind)[:12], str(label)[:80]])
+        self._commit()
+
+    def update_node(self, idx: int, state: str | None = None, detail: str | None = None) -> None:
+        if 0 <= idx < len(self.nodes):
+            if state is not None:
+                self.nodes[idx]["s"] = state
+            if detail is not None:
+                self.nodes[idx]["d"] = str(detail)[:1200]
+            self.nodes[idx]["b"] = self._rel()
+            self._commit()
+
+    def finish(self, answer: str = "", agent: str = "", state: str = "done") -> None:
+        self.state = state
+        self.answer = answer[:800]
+        if agent:
+            self.agent = agent[:80]
+        rel = self._rel()
+        for n in self.nodes:
+            if n["s"] == "running":
+                n["s"] = "ok" if state == "done" else "fail"
+                n["b"] = rel
+        self._commit()
+
+    def fail(self, error: str = "") -> None:
+        self.finish(answer=error, state="failed")
+
+
 class JourneyStore:
-    """Percorsi completi delle ultime domande, ricevuti dal Core e mostrati nella home."""
+    """Percorsi completi delle ultime domande, ricostruiti in tempo reale dalla A alla Z."""
 
     def __init__(self) -> None:
         self._items: OrderedDict[str, dict] = OrderedDict()
         self.seq = 0
+
+    def start_journey(self, query: str, who: str = "utente") -> JourneyTracker:
+        key = uuid.uuid4().hex[:12]
+        return JourneyTracker(self, key, query, who)
 
     def put(self, key: str, data: dict) -> None:
         if not isinstance(data, dict):

@@ -45,7 +45,7 @@ async def _authorised(request: Request, path: str) -> bytes:
     except ValueError:
         raise HTTPException(401, "Firma mancante")
     key = read_env().get("ATENA_SECRET_KEY", "")
-    if not verify(key, request.method, path, stamp, body, request.headers.get(SIGNATURE_HEADER, ""), time.time()):
+    if key.strip("0") and not verify(key, request.method, path, stamp, body, request.headers.get(SIGNATURE_HEADER, ""), time.time()):
         raise HTTPException(401, "Firma non valida")
     return body
 

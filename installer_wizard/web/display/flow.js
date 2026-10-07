@@ -278,7 +278,23 @@
     base(m);
   };
 
-  D.exitFlow = () => { state.forced = true; try { D.setMode("face"); } finally { state.forced = false; } };
+  D.exitFlow = () => {
+    state.forced = true;
+    try {
+      if (typeof base === "function") base("face");
+      else if (D.setMode) D.setMode("face");
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      state.forced = false;
+    }
+    clearTimeout(state.timer);
+    document.body.classList.remove("flow", "brain", "focus");
+    document.body.classList.add("face");
+    D.mode = "face";
+    if (D.avatar && D.avatar.setMode) D.avatar.setMode("face");
+    if (D.scene && D.scene.setMode) D.scene.setMode("face");
+  };
 
   D.startFlow = () => {
     const btn = $("btn-flow");
@@ -287,7 +303,20 @@
       if (D.mode === "flow") D.exitFlow(); else D.setMode("flow");
     });
     const backBtn = $("flow-back");
-    if (backBtn) backBtn.addEventListener("click", D.exitFlow);
+    if (backBtn) {
+      backBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        D.exitFlow();
+      });
+    }
+    const backWrap = document.querySelector(".flow-back");
+    if (backWrap && backWrap !== backBtn) {
+      backWrap.addEventListener("click", (e) => {
+        e.preventDefault();
+        D.exitFlow();
+      });
+    }
 
     $("flow-tabs").addEventListener("click", (ev) => {
       const b = ev.target.closest(".flow-tab"); if (!b) return;
