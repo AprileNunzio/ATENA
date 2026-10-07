@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from features.brain.assignments import AssignmentError, parse_assignment
 from features.brain.brains import brains, norm
 from features.brain.components import BY_ID as COMPONENTS
+from features.brain.journey import journeys
 from features.brain.keepalive import CHOICES, keep_alive_policy
 from features.brain.residency import apply
 from features.brain.roles import ROLES
@@ -83,3 +84,9 @@ async def keepalive_save(request: Request, user: str = Depends(require_admin)):
 async def brain_trace(request: Request):
     require_display(request)
     return trace.snapshot()
+
+
+@public_routes.get("/api/brain/journey")
+async def brain_journey(request: Request):
+    require_display(request)
+    return journeys.snapshot()

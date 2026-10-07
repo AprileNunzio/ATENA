@@ -167,6 +167,7 @@
   Atena.connectState("/api/stream", (s) => (window.atenaPerf ? window.atenaPerf.measure("stato", () => onState(s)) : onState(s)), (ok) => $("link").classList.toggle("show", !ok));
   D.startBrain();
   D.startMindStream();
+  if (D.startFlow) D.startFlow();
   D.startCamera();
 })();
 

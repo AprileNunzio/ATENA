@@ -6,6 +6,7 @@ from access import is_local
 from config import read_env
 from fastapi import APIRouter, HTTPException, Request
 
+from features.brain.journey import journeys
 from features.brain.trace import trace
 from features.cloud.catalog import is_cloud
 from features.cloud.client import CloudError, complete
@@ -75,6 +76,9 @@ async def bridge_trace(request: Request):
     key, op = str(data.get("call") or "")[:64], str(data.get("op") or "")
     if not key:
         raise HTTPException(400, "Evento non valido")
+    if op == "journey":
+        journeys.put(key, data.get("data") or {})
+        return {"ok": True}
     if op == "begin":
         if len(_external) >= _MAX_EXTERNAL:
             _external.pop(next(iter(_external)))
