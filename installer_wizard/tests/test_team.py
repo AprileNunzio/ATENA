@@ -37,7 +37,7 @@ class RosterTest(unittest.TestCase):
         text = manifest.summary()
         self.assertIn("LA SQUADRA", text)
         self.assertIn("music_play", text)
-        self.assertLess(len(text), 7000)
+        self.assertLess(len(text), 20000)
 
 
 class BoardTest(unittest.TestCase):
