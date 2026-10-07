@@ -1,6 +1,4 @@
-import os
 import shutil
-from pathlib import Path
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File, Form
 from access import require_admin
 from config import STATE_DIR
