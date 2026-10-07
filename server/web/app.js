@@ -206,6 +206,13 @@ async function executeStreamingQuery() {
   responsePanel.classList.remove("active");
   responseContent.textContent = "";
 
+  const flowPanel = document.getElementById("flow-panel");
+  const flowTrack = document.getElementById("flow-track");
+  if (flowPanel && flowTrack) {
+    flowPanel.classList.remove("hidden");
+    flowTrack.innerHTML = "";
+  }
+
   toolsCard.classList.remove("active");
   toolsCard.textContent = "";
 
@@ -268,6 +275,19 @@ async function executeStreamingQuery() {
   }
 }
 
+function addFlowNode(title, content) {
+  const flowTrack = document.getElementById("flow-track");
+  if (!flowTrack) return;
+  const node = document.createElement("div");
+  node.className = "flow-node";
+  node.innerHTML = `
+    <div class="flow-node-title">${title}</div>
+    <div class="flow-node-content">${content.length > 80 ? content.substring(0,80) + '...' : content}</div>
+  `;
+  flowTrack.appendChild(node);
+  flowTrack.parentElement.scrollLeft = flowTrack.parentElement.scrollWidth;
+}
+
 function handleServerEvent(event, rawData, startTime) {
   let data = {};
   try {
@@ -282,11 +302,13 @@ function handleServerEvent(event, rawData, startTime) {
     latencyMetric.textContent = `${elapsed} ms`;
     responsePanel.classList.add("active");
     responseContent.textContent = data.speech_output || "";
+    addFlowNode("Cache Hit", "Recupero immediato dalla memoria semantica (0 inferenze).");
   } else if (event === "system1") {
     const intent = data.intent || "";
     const lat = data.latency_ms || 0;
     strategyMetric.textContent = `System 1: ${intent}`;
     latencyMetric.textContent = `${lat.toFixed(1)} ms`;
+    addFlowNode("System 1 (Reflex)", `Intent: ${intent} | Conf: ${(data.confidence || 0).toFixed(2)}`);
     if (intent === "whiteboard_canvas") {
       openWhiteboardSurface();
     }
@@ -294,15 +316,19 @@ function handleServerEvent(event, rawData, startTime) {
     if (!thinkingPanel.classList.contains("active")) {
       thinkingPanel.classList.add("active");
       thinkingPanel.classList.remove("collapsed");
+      addFlowNode("System 2 (Reasoning)", "Inizio elaborazione latente profonda...");
     }
     thinkingContent.textContent += (data.chunk || "");
     thinkingContent.scrollTop = thinkingContent.scrollHeight;
+  } else if (event === "status") {
+    addFlowNode("Status Update", data.step || data.text || "Aggiornamento stato");
   } else if (event === "response") {
     if (thinkingPanel.classList.contains("active") && !thinkingPanel.classList.contains("collapsed")) {
       thinkingPanel.classList.add("collapsed");
     }
     if (!responsePanel.classList.contains("active")) {
       responsePanel.classList.add("active");
+      addFlowNode("Atena Output", "Generazione risposta finale in corso...");
     }
     responseContent.textContent += (data.chunk || "");
     if (data.surface === "whiteboard") {
@@ -311,12 +337,15 @@ function handleServerEvent(event, rawData, startTime) {
   } else if (event === "tool_call") {
     toolsCard.classList.add("active");
     toolsCard.textContent = JSON.stringify(data, null, 2);
+    addFlowNode("Tool Execution", data.tool || "Esecuzione tool esterno");
   } else if (event === "done") {
     const totalElapsed = (performance.now() - startTime).toFixed(1);
     latencyMetric.textContent = `${totalElapsed} ms`;
+    addFlowNode("Completato", `Elaborazione terminata in ${totalElapsed} ms.`);
     if (!responsePanel.classList.contains("active") && responseContent.textContent) {
       responsePanel.classList.add("active");
     }
   }
 }
+
 
