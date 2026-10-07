@@ -82,6 +82,15 @@ class Agent:
             result = f"NEGATO: {exc}"
         except Exception as exc:
             result = f"ERRORE: {str(exc)[:300]}"
+        
+        if not result.startswith(("ERRORE", "NEGATO")):
+            try:
+                from features.team.router import tool_router
+                from features.team import roster
+                tool_router.learn_success(roster.owner(name), registry.REQUEST.get())
+            except Exception:
+                pass
+                
         steps.append({"tool": name, "args": registry.clean_args(name, args), "result": result})
         store.event("INFO", f"Agente · {name}: {result[:140]}", "agent")
 
