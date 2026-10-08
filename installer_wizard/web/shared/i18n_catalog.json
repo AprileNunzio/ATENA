@@ -11815,6 +11815,46 @@
     [
       "Guida passo-passo",
       "Step-by-step guide"
+    ],
+    [
+      "ATENA vive anche sul tuo PC Windows come assistente digitale, un po' come Gemini su Android: la chiami con la voce (\"Atena…\") o con Ctrl+Alt+Spazio, ti risponde a voce, guarda lo schermo o la webcam quando glielo chiedi e lavora per te: crea cartelle e file, apre documenti e programmi, ti aiuta a scrivere, a creare siti web e a usare AutoCAD o Archicad.",
+      "ATENA also lives on your Windows PC as a digital assistant, a bit like Gemini on Android: call it by voice (\"Atena…\") or with Ctrl+Alt+Space, it answers out loud, looks at the screen or webcam when you ask, and works for you: it creates folders and files, opens documents and apps, helps you write, build websites and use AutoCAD or Archicad."
+    ],
+    [
+      "Assistente vocale sul PC: parola di attivazione «Atena», risposte con la voce neurale di ATENA, interruzione con Esc",
+      "Voice assistant on the PC: wake word «Atena», answers with ATENA's neural voice, Esc to interrupt"
+    ],
+    [
+      "Vede quello che vedi: legge il documento o la pagina su cui lavori e, se serve, guarda lo schermo o la webcam",
+      "Sees what you see: reads the document or page you are working on and, when needed, looks at the screen or webcam"
+    ],
+    [
+      "Lavora per te: crea cartelle e file, apre documenti, app e siti, scrive o incolla testo nel programma aperto",
+      "Works for you: creates folders and files, opens documents, apps and websites, types or pastes text into the open app"
+    ],
+    [
+      "Aiuto ai progetti: siti web pronti in Visual Studio Code, script AutoCAD (.scr/.lsp), guida passo-passo per Archicad",
+      "Project help: websites ready in Visual Studio Code, AutoCAD scripts (.scr/.lsp), step-by-step Archicad guidance"
+    ],
+    [
+      "Sicuro per progetto: scrive solo nelle tue cartelle, non cancella mai, chiede conferma prima di sovrascrivere",
+      "Safe by design: writes only in your folders, never deletes, asks before overwriting"
+    ],
+    [
+      "Controllo remoto dei PC via WinRM/SSH dalla Dashboard, con crittografia End-to-End",
+      "Remote control of PCs via WinRM/SSH from the Dashboard, with End-to-End encryption"
+    ],
+    [
+      "Per utenti esperti: aggiungi PC a mano via WinRM o SSH e controlla se sono online.",
+      "For advanced users: add PCs manually via WinRM or SSH and check whether they are online."
+    ],
+    [
+      "Scarica l'Assistente ATENA per Windows (.ZIP)",
+      "Download the ATENA Assistant for Windows (.ZIP)"
+    ],
+    [
+      "Da installare su ogni PC Windows su cui vuoi ATENA. Lo ZIP contiene già l'indirizzo di questo server.",
+      "Install it on every Windows PC where you want ATENA. The ZIP already contains this server's address."
     ]
   ],
   "reverse": [

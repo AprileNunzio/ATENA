@@ -15,7 +15,7 @@ NODES_FILE = STATE_DIR / "nodes.json"
 PAIR_TTL = 600
 OFFLINE_AFTER = 90
 MAX_NODES = 64
-TYPES = {"satellite": "Satellite audio", "display": "Display", "server": "Server Atena", "esp32": "Microcontrollore",
+TYPES = {"satellite": "Satellite audio", "desktop": "Assistente PC (Windows)", "display": "Display", "server": "Server Atena", "esp32": "Microcontrollore",
          "android": "Android", "sensor": "Sensore", "other": "Altro"}
 COMMANDS = {"identify": "Identificati", "adapt": "Auto-adatta all'hardware", "restart": "Riavvia l'agente", "update": "Aggiorna",
             "reboot": "Riavvia il dispositivo"}

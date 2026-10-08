@@ -9,13 +9,14 @@
     "env": "ATENA_RPA",
     "apply": []
   },
-  "description": "ATENA assume il controllo completo e sicuro della tua infrastruttura di computer (Windows, macOS, Linux, BSD). Invece di richiedere copie e incollature manuali, Atena sfrutta il suo Remote Manager e il Satellite di Contesto locale per leggere automaticamente i documenti a cui stai lavorando e amministrare i dispositivi.",
+  "description": "ATENA vive anche sul tuo PC Windows come assistente digitale, un po' come Gemini su Android: la chiami con la voce (\"Atena…\") o con Ctrl+Alt+Spazio, ti risponde a voce, guarda lo schermo o la webcam quando glielo chiedi e lavora per te: crea cartelle e file, apre documenti e programmi, ti aiuta a scrivere, a creare siti web e a usare AutoCAD o Archicad.",
   "capabilities": [
-    "Crittografia End-to-End (AES-128 Fernet) attiva tra il server e i computer collegati",
-    "Satellite Locale: legge in tempo reale il testo della finestra attiva e genera screenshot",
-    "Supporto universale SysAdmin: Windows (WinRM e SSH), Debian, Ubuntu, macOS, RedHat e FreeBSD",
-    "Capacità amministrative: Controllo stato RAM/Disco, Sincronizzazione, Update OS e Riavvio Servizi",
-    "Mappatura Dinamica senza hardcoding: configura la rete tramite la Dashboard di Controllo"
+    "Assistente vocale sul PC: parola di attivazione «Atena», risposte con la voce neurale di ATENA, interruzione con Esc",
+    "Vede quello che vedi: legge il documento o la pagina su cui lavori e, se serve, guarda lo schermo o la webcam",
+    "Lavora per te: crea cartelle e file, apre documenti, app e siti, scrive o incolla testo nel programma aperto",
+    "Aiuto ai progetti: siti web pronti in Visual Studio Code, script AutoCAD (.scr/.lsp), guida passo-passo per Archicad",
+    "Sicuro per progetto: scrive solo nelle tue cartelle, non cancella mai, chiede conferma prima di sovrascrivere",
+    "Controllo remoto dei PC via WinRM/SSH dalla Dashboard, con crittografia End-to-End"
   ],
   "settings": [
     {
@@ -48,16 +49,16 @@
       "type": "link",
       "default": "/api/v1/computer-control/view.html",
       "button": "Apri la Dashboard dei PC",
-      "help": "Qui vedi l'elenco dei computer collegati, ne aggiungi di nuovi a mano e controlli se sono online."
+      "help": "Per utenti esperti: aggiungi PC a mano via WinRM o SSH e controlla se sono online."
     },
     {
       "key": "ATENA_RPA_DOWNLOAD_LINK",
-      "label": "Scarica il Client Satellite Desktop (.ZIP)",
+      "label": "Scarica l'Assistente ATENA per Windows (.ZIP)",
       "type": "link",
       "default": "/api/rpa/download-client",
-      "button": "Scarica il Client (.ZIP)",
+      "button": "Scarica l'Assistente per Windows",
       "download": true,
-      "help": "Programma da installare su ogni PC che vuoi far vedere ad ATENA (Windows, macOS o Linux)."
+      "help": "Da installare su ogni PC Windows su cui vuoi ATENA. Lo ZIP contiene già l'indirizzo di questo server."
     },
     {
       "key": "ATENA_RPA_NODES",
@@ -70,52 +71,77 @@
   "guide": [
     {
       "title": "Cos'è e a cosa serve (in parole semplici)",
-      "text": "Questa funzione permette ad ATENA di \"vedere\" e gestire gli altri computer di casa o dell'ufficio. Per farlo, su ogni PC si installa un piccolo programma chiamato Client Satellite: è come un ponte sicuro che collega quel computer ad ATENA. Tutti i dati che passano sul ponte sono cifrati, quindi nessun altro sulla rete può leggerli.",
-      "tip": "Non devi installare nulla sul computer dove gira ATENA: il Client va solo sui PC che vuoi controllare."
+      "text": "Con l'Assistente per Windows, ATENA \"vive\" anche sul tuo computer. Compare come una piccola sfera luminosa nell'angolo dello schermo: non disturba, ma è sempre pronta. Puoi chiamarla dicendo \"Atena…\", premendo Ctrl+Alt+Spazio oppure cliccando la sfera per scriverle. Ti risponde a voce, può leggere il documento su cui stai lavorando, guardare lo schermo o la webcam (solo quando glielo chiedi) e fare cose per te: creare cartelle e file, aprire programmi, scrivere testi, preparare un sito web.",
+      "tip": "L'intelligenza resta sul server di ATENA: sul PC gira solo un programma leggero che fa da orecchie, occhi e mani."
     },
     {
       "title": "Prima di iniziare: cosa ti serve",
       "steps": [
-        "Il PC da collegare deve essere sulla stessa rete (stesso Wi-Fi o stesso router) del computer su cui gira ATENA.",
-        "Sul PC da collegare serve Python 3.10 o più recente. Su Windows scaricalo da python.org e, durante l'installazione, metti la spunta su \"Add Python to PATH\" (è molto importante).",
-        "Annota l'indirizzo di questa pagina: lo vedi nella barra in alto del browser (ad esempio 192.168.1.100:8080). Ti servirà tra poco."
+        "Un PC con Windows 10 o 11 nella stessa rete (stesso Wi-Fi o router) del computer su cui gira ATENA.",
+        "Python 3.10 o più recente sul PC Windows. Se non c'è, il programma di avvio apre da solo la pagina di download: durante l'installazione metti la spunta su \"Add Python to PATH\" (molto importante).",
+        "Facoltativi ma consigliati: microfono e altoparlanti (o cuffie) per parlare con ATENA, una webcam se vuoi che possa guardarti."
       ]
     },
     {
-      "title": "Scarica e avvia il Client sul PC da collegare",
+      "title": "Scarica e installa l'assistente",
       "steps": [
-        "Dal PC che vuoi collegare, apri questa stessa pagina e premi il pulsante \"Scarica il Client (.ZIP)\". In alternativa scaricalo qui e copialo sul PC con una chiavetta USB.",
-        "Trova il file ATENA_Satellite_Client.zip nella cartella Download, clic destro → \"Estrai tutto…\" e scegli una cartella (ad esempio Documenti\\ATENA_Client).",
-        "Windows: apri la cartella estratta e fai doppio clic su Start_ATENA_Client.bat. Se compare l'avviso blu \"Windows ha protetto il PC\", premi \"Ulteriori informazioni\" e poi \"Esegui comunque\".",
-        "macOS / Linux: apri il Terminale nella cartella estratta e scrivi: bash Start_ATENA_Client.sh",
-        "La prima volta il Client scarica da solo i componenti necessari: può richiedere uno o due minuti. Poi compare una piccola finestra scura \"ATENA SATELLITE\"."
+        "Dal PC Windows apri questa pagina e premi \"Scarica l'Assistente per Windows\".",
+        "Apri la cartella Download, clic destro su ATENA_Assistente_Windows.zip → \"Estrai tutto…\". Scegli un percorso breve, ad esempio C:/ATENA (i percorsi molto lunghi possono dare errori).",
+        "Nella cartella estratta fai doppio clic su Start_ATENA_Assistente.bat. Se compare l'avviso blu \"Windows ha protetto il PC\", premi \"Ulteriori informazioni\" e poi \"Esegui comunque\".",
+        "La prima volta si apre una finestra nera che prepara i componenti: ci vogliono 1-3 minuti. Le volte successive l'avvio è immediato."
       ],
-      "tip": "Se Windows chiede se consentire l'accesso alla rete a Python, scegli \"Reti private\" e premi \"Consenti\": senza questo permesso ATENA non riesce a raggiungere il PC."
+      "tip": "Se Windows chiede di consentire l'accesso alla rete a Python, scegli \"Reti private\" e premi \"Consenti\"."
     },
     {
-      "title": "Collega il PC ad ATENA",
+      "title": "Collega il PC ad ATENA (con un codice)",
       "steps": [
-        "Nella finestra del Client, nel campo \"IP Server ATENA\", scrivi l'indirizzo che hai annotato prima (ad esempio 192.168.1.100:8080).",
-        "Nel campo \"Nome di questo PC\" scrivi un nome facile da ricordare, senza spazi (ad esempio UFFICIO-1 o PC-SALOTTO).",
-        "Premi \"Associa\". Quando la scritta diventa verde \"● Associato ad ATENA\", il collegamento è fatto.",
-        "Torna qui e premi \"Apri la Dashboard dei PC\": il nuovo computer comparirà nell'elenco."
+        "Sul pannello di amministrazione di ATENA apri Funzionalità → Nodi e server e premi \"+ Aggiungi un nodo\": compare un codice di 6 cifre valido per qualche minuto.",
+        "Nella finestra \"Collega questo PC ad ATENA\" l'indirizzo di ATENA è già compilato. Scrivi il codice e un nome per il PC (ad esempio Studio).",
+        "Lascia la spunta su \"Avvia ATENA all'accensione del PC\" se vuoi che parta sempre da sola, poi premi \"Collega\".",
+        "Compare la sfera luminosa in basso a destra: ATENA è pronta. Il PC appare anche nell'elenco dei Nodi."
       ]
     },
     {
       "title": "Come si usa ogni giorno",
-      "text": "Una volta collegato, puoi parlare con ATENA in chat usando il nome che hai dato al PC. Esempi: \"Quanta RAM sta usando UFFICIO-1?\", \"Controlla lo spazio libero su PC-SALOTTO\", \"Leggi il documento che sto scrivendo\". Il Client deve restare aperto: se lo chiudi, ATENA non vede più quel computer finché non lo riavvii."
+      "steps": [
+        "Per parlare: di' \"Atena\" seguito dalla richiesta, oppure premi Ctrl+Alt+Spazio. Mentre ascolta la sfera pulsa in azzurro, mentre pensa diventa viola, mentre parla diventa verde.",
+        "Per scrivere: clicca la sfera, scrivi nella casella in basso e premi Invio. Il pannello si richiude da solo quando non serve.",
+        "Per interromperla mentre parla: premi Esc. Clic destro sulla sfera per mettere in pausa il microfono, aprire le impostazioni o uscire.",
+        "La sfera si può trascinare dove preferisci: ricorda la posizione."
+      ]
     },
     {
-      "title": "Collegare un PC senza installare il Client (utenti esperti)",
-      "text": "Dalla Dashboard puoi aggiungere un computer anche a mano, indicando IP, utente e password. Su Windows va abilitato WinRM (PowerShell come amministratore: Enable-PSRemoting -Force); su Linux e macOS basta che sia attivo il server SSH. In questo modo ATENA può leggere lo stato del sistema, ma non vede le finestre aperte."
+      "title": "Esempi di cose da chiedere",
+      "steps": [
+        "\"Crea sulla Scrivania una cartella Preventivi 2026 con dentro Clienti e Fornitori\"",
+        "\"Riassumi il documento che sto leggendo\" oppure \"Correggi gli errori del testo che sto scrivendo\"",
+        "\"Scrivi una mail cortese per rimandare la riunione a giovedì\" (ATENA la scrive direttamente nel programma aperto)",
+        "\"Crea un sito web per una pizzeria e aprilo in Visual Studio Code\"",
+        "\"In AutoCAD come faccio un array polare?\" oppure \"Preparami uno script AutoCAD che disegna una griglia 5x5\"",
+        "\"Guarda il mio schermo: cosa sto sbagliando in questo disegno di Archicad?\"",
+        "\"Apri Excel\", \"Apri la cartella Download\", \"Cerca il file contratto\"",
+        "Tutto il resto funziona come sempre: \"Che tempo fa domani?\", \"Accendi la luce dello studio\", \"Metti un po' di musica\"."
+      ]
+    },
+    {
+      "title": "Privacy e sicurezza",
+      "steps": [
+        "Il microfono invia l'audio solo ad ATENA nella tua rete; ATENA si attiva solo quando sente il suo nome. Puoi disattivare l'ascolto continuo nelle impostazioni (resta Ctrl+Alt+Spazio).",
+        "Schermo e webcam vengono usati solo quando la tua richiesta lo richiede: la webcam si accende per un istante e si spegne subito. Puoi vietarla del tutto nelle impostazioni.",
+        "ATENA scrive solo nella tua cartella utente e nelle cartelle di Windows (Documenti, Scrivania, Download…), non cancella mai nulla e chiede conferma prima di sostituire un file esistente.",
+        "Non avvia mai programmi o script da sola: apre solo le app presenti nel menu Start.",
+        "Per scollegare un PC: clic destro sulla sfera → Impostazioni → \"Scollega questo PC\", oppure rimuovilo da Nodi e server."
+      ]
     },
     {
       "title": "Se qualcosa non funziona",
       "steps": [
-        "La finestra del Client si apre e si chiude subito: Python non è installato o manca la spunta \"Add Python to PATH\". Reinstalla Python mettendo la spunta.",
-        "Resta su \"Riprova\" dopo aver premuto Associa: controlla di aver scritto l'indirizzo esattamente come nella barra del browser, numero dopo i due punti compreso.",
-        "Il PC risulta offline nella Dashboard: verifica che il Client sia aperto e che il firewall consenta Python sulle reti private (porta 19999).",
-        "Il download dà errore: aggiorna ATENA all'ultima versione; il messaggio d'errore indica anche la cartella in cui ATENA cerca i file del Client."
+        "La finestra nera si chiude subito o dice che Python non c'è: installa Python da python.org con la spunta \"Add Python to PATH\" e riavvia il file .bat.",
+        "\"Codice di abbinamento non valido o scaduto\": genera un nuovo codice in Nodi e server e scrivilo entro qualche minuto.",
+        "\"ATENA non raggiungibile\": controlla che il PC sia nella stessa rete e che l'indirizzo sia quello di ATENA senza la porta del pannello di amministrazione (ad esempio 192.168.1.100).",
+        "La sfera è grigia o ATENA non ti sente: il servizio di ascolto di ATENA potrebbe essere spento; intanto puoi scriverle cliccando la sfera.",
+        "ATENA sente la propria voce e si interrompe: se usi le casse lascia spenta l'opzione \"Uso le cuffie\".",
+        "Per tutti gli altri problemi trovi il registro in %APPDATA%/ATENA/assistant.log."
       ]
     }
   ]

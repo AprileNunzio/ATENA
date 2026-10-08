@@ -1,76 +1,104 @@
 {
-  "name": "Computer Automation (RPA)",
-  "description": "Robotic Process Automation: desktop mouse, keyboard, and window control for complex legacy software.",
+  "name": "Computer control",
+  "description": "ATENA also lives on your Windows PC as a digital assistant, a bit like Gemini on Android: call it by voice (\"Atena…\") or with Ctrl+Alt+Space, it answers out loud, looks at the screen or webcam when you ask, and works for you: it creates folders and files, opens documents and apps, helps you write, build websites and use AutoCAD or Archicad.",
   "capabilities": [
-    "Simulated keyboard and mouse interactions",
-    "Visual UI element anchoring and OCR",
-    "Multi-application workflow automation"
+    "Voice assistant on the PC: wake word «Atena», answers with ATENA's neural voice, Esc to interrupt",
+    "Sees what you see: reads the document or page you are working on and, when needed, looks at the screen or webcam",
+    "Works for you: creates folders and files, opens documents, apps and websites, types or pastes text into the open app",
+    "Project help: websites ready in Visual Studio Code, AutoCAD scripts (.scr/.lsp), step-by-step Archicad guidance",
+    "Safe by design: writes only in your folders, never deletes, asks before overwriting",
+    "Remote control of PCs via WinRM/SSH from the Dashboard, with End-to-End encryption"
   ],
   "settings": {
-    "ATENA_RPA_DOWNLOAD_LINK": "Download the Desktop Satellite Client (.ZIP)",
+    "ATENA_RPA_DOWNLOAD_LINK": "Download the ATENA Assistant for Windows (.ZIP)",
     "ATENA_RPA_DASHBOARD_LINK": "Remote Control Dashboard (add IP, password and check status)"
   },
   "guide": [
     {
       "title": "What it is and what it's for (in plain words)",
-      "text": "This feature lets ATENA \"see\" and manage the other computers at home or in the office. To do this, you install a small program called the Satellite Client on each PC: it acts as a secure bridge between that computer and ATENA. Everything travelling over the bridge is encrypted, so nobody else on the network can read it.",
-      "tip": "You don't need to install anything on the computer running ATENA: the Client only goes on the PCs you want to control."
+      "text": "With the Windows Assistant, ATENA also \"lives\" on your computer. It appears as a small glowing orb in the corner of the screen: unobtrusive, but always ready. Call it by saying \"Atena…\", pressing Ctrl+Alt+Space, or clicking the orb to type. It answers out loud, can read the document you're working on, look at the screen or webcam (only when you ask) and do things for you: create folders and files, open programs, write text, prepare a website.",
+      "tip": "The intelligence stays on the ATENA server: the PC only runs a light program acting as ears, eyes and hands."
     },
     {
       "title": "Before you start: what you need",
       "steps": [
-        "The PC to connect must be on the same network (same Wi-Fi or router) as the computer running ATENA.",
-        "The PC to connect needs Python 3.10 or newer. On Windows download it from python.org and, during setup, tick \"Add Python to PATH\" (very important).",
-        "Write down the address of this page: you can see it in the browser's address bar (e.g. 192.168.1.100:8080). You'll need it shortly."
+        "A Windows 10 or 11 PC on the same network (same Wi-Fi or router) as the computer running ATENA.",
+        "Python 3.10 or newer on the Windows PC. If missing, the launcher opens the download page itself: during setup tick \"Add Python to PATH\" (very important).",
+        "Optional but recommended: microphone and speakers (or headphones) to talk to ATENA, a webcam if you want it to be able to look at you."
       ]
     },
     {
-      "title": "Download and start the Client on the PC to connect",
+      "title": "Download and install the assistant",
       "steps": [
-        "From the PC you want to connect, open this same page and press \"Download Client (.ZIP)\". Alternatively download it here and copy it to the PC with a USB stick.",
-        "Find ATENA_Satellite_Client.zip in your Downloads folder, right-click → \"Extract All…\" and pick a folder (e.g. Documents\\ATENA_Client).",
-        "Windows: open the extracted folder and double-click Start_ATENA_Client.bat. If the blue \"Windows protected your PC\" warning appears, click \"More info\" and then \"Run anyway\".",
-        "macOS / Linux: open a Terminal in the extracted folder and type: bash Start_ATENA_Client.sh",
-        "The first time, the Client downloads the components it needs by itself: this can take a minute or two. Then a small dark \"ATENA SATELLITE\" window appears."
+        "From the Windows PC open this page and press \"Download the Windows Assistant\".",
+        "Open Downloads, right-click ATENA_Assistente_Windows.zip → \"Extract All…\". Choose a short path, e.g. C:/ATENA (very long paths can cause errors).",
+        "In the extracted folder double-click Start_ATENA_Assistente.bat. If the blue \"Windows protected your PC\" warning appears, click \"More info\" and then \"Run anyway\".",
+        "The first time a black window prepares the components: it takes 1-3 minutes. Later starts are instant."
       ],
-      "tip": "If Windows asks whether to allow Python network access, choose \"Private networks\" and press \"Allow\": without it ATENA cannot reach the PC."
+      "tip": "If Windows asks to allow Python network access, choose \"Private networks\" and press \"Allow\"."
     },
     {
-      "title": "Connect the PC to ATENA",
+      "title": "Connect the PC to ATENA (with a code)",
       "steps": [
-        "In the Client window, in the \"IP Server ATENA\" field, type the address you wrote down (e.g. 192.168.1.100:8080).",
-        "In \"Nome di questo PC\" (this PC's name) type an easy name without spaces (e.g. OFFICE-1 or LIVING-PC).",
-        "Press \"Associa\" (Pair). When the text turns green \"● Associato ad ATENA\", you're connected.",
-        "Come back here and press \"Open PC Dashboard\": the new computer will appear in the list."
+        "In the ATENA admin panel open Features → Nodes and servers and press \"+ Add a node\": a 6-digit code valid for a few minutes appears.",
+        "In the \"Collega questo PC ad ATENA\" window the ATENA address is already filled in. Type the code and a name for the PC (e.g. Studio).",
+        "Keep \"Avvia ATENA all'accensione del PC\" ticked if you want it to always start by itself, then press \"Collega\".",
+        "The glowing orb appears bottom right: ATENA is ready. The PC also shows up in the Nodes list."
       ]
     },
     {
       "title": "Everyday use",
-      "text": "Once connected, you can talk to ATENA in chat using the name you gave the PC. Examples: \"How much RAM is OFFICE-1 using?\", \"Check free disk space on LIVING-PC\", \"Read the document I'm writing\". The Client must stay open: if you close it, ATENA no longer sees that computer until you restart it."
+      "steps": [
+        "To talk: say \"Atena\" followed by your request, or press Ctrl+Alt+Space. While listening the orb pulses blue, while thinking it turns purple, while speaking it turns green.",
+        "To type: click the orb, write in the box at the bottom and press Enter. The panel closes by itself when not needed.",
+        "To interrupt it while speaking: press Esc. Right-click the orb to pause the microphone, open settings or quit.",
+        "You can drag the orb wherever you like: it remembers the position."
+      ]
     },
     {
-      "title": "Connecting a PC without the Client (advanced users)",
-      "text": "From the Dashboard you can also add a computer manually with IP, user and password. On Windows enable WinRM (PowerShell as administrator: Enable-PSRemoting -Force); on Linux and macOS an active SSH server is enough. This way ATENA can read the system status, but cannot see open windows."
+      "title": "Things you can ask",
+      "steps": [
+        "\"Create a folder Quotes 2026 on the Desktop with Clients and Suppliers inside\"",
+        "\"Summarize the document I'm reading\" or \"Fix the mistakes in the text I'm writing\"",
+        "\"Write a polite email to move the meeting to Thursday\" (ATENA types it directly into the open app)",
+        "\"Create a website for a pizzeria and open it in Visual Studio Code\"",
+        "\"In AutoCAD how do I make a polar array?\" or \"Prepare an AutoCAD script that draws a 5x5 grid\"",
+        "\"Look at my screen: what am I doing wrong in this Archicad drawing?\"",
+        "\"Open Excel\", \"Open the Downloads folder\", \"Find the contract file\"",
+        "Everything else works as usual: \"What's the weather tomorrow?\", \"Turn on the studio light\", \"Play some music\"."
+      ]
+    },
+    {
+      "title": "Privacy and security",
+      "steps": [
+        "The microphone sends audio only to ATENA on your network; ATENA wakes only when it hears its name. You can turn off continuous listening in settings (Ctrl+Alt+Space keeps working).",
+        "Screen and webcam are used only when your request needs them: the webcam turns on for an instant and off again. You can forbid it entirely in settings.",
+        "ATENA writes only in your user folder and Windows folders (Documents, Desktop, Downloads…), never deletes anything and asks before replacing an existing file.",
+        "It never starts programs or scripts on its own: it only opens apps from the Start menu.",
+        "To disconnect a PC: right-click the orb → Settings → \"Scollega questo PC\", or remove it from Nodes and servers."
+      ]
     },
     {
       "title": "Troubleshooting",
       "steps": [
-        "The Client window opens and closes immediately: Python is not installed or \"Add Python to PATH\" was not ticked. Reinstall Python with the box ticked.",
-        "It stays on \"Riprova\" (Retry) after pressing Pair: check you typed the address exactly as in the browser bar, including the number after the colon.",
-        "The PC shows as offline in the Dashboard: make sure the Client is open and the firewall allows Python on private networks (port 19999).",
-        "The download fails: update ATENA to the latest version; the error message also shows the folder where ATENA looks for the Client files."
+        "The black window closes immediately or says Python is missing: install Python from python.org with \"Add Python to PATH\" ticked and run the .bat again.",
+        "\"Invalid or expired pairing code\": generate a new code in Nodes and servers and type it within a few minutes.",
+        "\"ATENA not reachable\": check the PC is on the same network and the address is ATENA's without the admin panel port (e.g. 192.168.1.100).",
+        "The orb is grey or ATENA doesn't hear you: ATENA's listening service may be off; meanwhile you can type by clicking the orb.",
+        "ATENA hears its own voice and interrupts itself: with speakers keep \"Uso le cuffie\" off.",
+        "For any other problem the log is in %APPDATA%/ATENA/assistant.log."
       ]
     }
   ],
   "buttons": {
     "ATENA_RPA_DASHBOARD_LINK": "Open PC Dashboard",
-    "ATENA_RPA_DOWNLOAD_LINK": "Download Client (.ZIP)"
+    "ATENA_RPA_DOWNLOAD_LINK": "Download the Windows Assistant"
   },
   "help": {
     "ATENA_RPA_PSK": "No need to change it: it's created automatically. Change it only if you know what you're doing.",
     "ATENA_RPA_AUTO_SYNC": "When on, ATENA periodically checks by itself that connected PCs are on and reachable.",
-    "ATENA_RPA_DASHBOARD_LINK": "Here you see the list of connected computers, add new ones manually and check whether they are online.",
-    "ATENA_RPA_DOWNLOAD_LINK": "Program to install on every PC you want ATENA to see (Windows, macOS or Linux).",
+    "ATENA_RPA_DASHBOARD_LINK": "For advanced users: add PCs manually via WinRM or SSH and check whether they are online.",
+    "ATENA_RPA_DOWNLOAD_LINK": "Install it on every Windows PC where you want ATENA. The ZIP already contains this server's address.",
     "ATENA_RPA_NODES": "Leave empty. Only needed for old installations."
   }
 }

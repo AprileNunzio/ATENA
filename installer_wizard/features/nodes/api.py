@@ -27,8 +27,8 @@ def _limited(ip: str) -> bool:
     return len(recent) >= 5
 
 
-async def _body(request: Request) -> dict:
-    if int(request.headers.get("content-length") or 0) > 16384:
+async def _body(request: Request, limit: int = 16384) -> dict:
+    if int(request.headers.get("content-length") or 0) > limit:
         raise HTTPException(413, "Richiesta troppo grande")
     body = await request.json()
     if not isinstance(body, dict):
@@ -180,6 +180,31 @@ async def node_chat(request: Request):
     from features.chat.api import assistant_chat
     NODE.set(node["id"])
     return await assistant_chat(str(body.get("text", "")), node["id"], str(body.get("lang") or "") or None)
+
+
+def _node(request: Request) -> dict:
+    auth = request.headers.get("authorization", "")
+    try:
+        return registry.authenticate(request.headers.get("x-atena-node", ""), auth.removeprefix("Bearer ").strip())
+    except PermissionError as exc:
+        raise HTTPException(401, str(exc))
+
+
+@public_routes.post("/api/nodes/assist")
+async def node_assist(request: Request):
+    node = _node(request)
+    body = await _body(request, 12 * 1024 * 1024)
+    from features.nodes import desk_assistant
+    NODE.set(node["id"])
+    return await desk_assistant.assist(node, body)
+
+
+@public_routes.post("/api/nodes/tts")
+async def node_tts(request: Request):
+    _node(request)
+    body = await _body(request, 65536)
+    from features.voices.api import tts_response
+    return await tts_response(str(body.get("text", ""))[:3000], str(body.get("lang") or "")[:8] or None)
 
 
 @public_routes.post("/api/nodes/intent")

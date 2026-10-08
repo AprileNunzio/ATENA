@@ -1,19 +1,19 @@
 {
   "name": "Controllo del computer",
-  "description": "ATENA assume il controllo completo e sicuro della tua infrastruttura di computer (Windows, macOS, Linux, BSD). Invece di richiedere copia e incolla manuali, Atena sfrutta il suo Remote Manager e il Satellite di Contesto locale per leggere automaticamente i documenti a cui stai lavorando e amministrare i dispositivi.",
+  "description": "ATENA vive anche sul tuo PC Windows come assistente digitale, un po' come Gemini su Android: la chiami con la voce (\"Atena…\") o con Ctrl+Alt+Spazio, ti risponde a voce, guarda lo schermo o la webcam quando glielo chiedi e lavora per te: crea cartelle e file, apre documenti e programmi, ti aiuta a scrivere, a creare siti web e a usare AutoCAD o Archicad.",
   "capabilities": [
-    "Context Satellite locale: ATENA vede cosa stai scrivendo o leggendo in tempo reale senza dover fare copia-incolla",
-    "Crittografia End-to-End (AES-128 Fernet) tra ATENA e i PC remoti",
-    "Supporto universale nativo: Windows (WinRM/SSH), macOS, Debian, RHEL e FreeBSD",
-    "Capacità SysAdmin: Lettura RAM, Dischi, Riavvio servizi, Uptime, CPU e Utenti attivi",
-    "Deploy e Auto-Update Over-The-Air per i satelliti client",
-    "Gestione flotte tramite Mappatura di Rete e Dashboard di Sincronizzazione"
+    "Assistente vocale sul PC: parola di attivazione «Atena», risposte con la voce neurale di ATENA, interruzione con Esc",
+    "Vede quello che vedi: legge il documento o la pagina su cui lavori e, se serve, guarda lo schermo o la webcam",
+    "Lavora per te: crea cartelle e file, apre documenti, app e siti, scrive o incolla testo nel programma aperto",
+    "Aiuto ai progetti: siti web pronti in Visual Studio Code, script AutoCAD (.scr/.lsp), guida passo-passo per Archicad",
+    "Sicuro per progetto: scrive solo nelle tue cartelle, non cancella mai, chiede conferma prima di sovrascrivere",
+    "Controllo remoto dei PC via WinRM/SSH dalla Dashboard, con crittografia End-to-End"
   ],
   "settings": {
     "ATENA_RPA_PSK": "Chiave PSK per crittografia Satellite E2E (Autogenerata)",
     "ATENA_RPA_AUTO_SYNC": "Ping e Sincronizzazione automatica dei PC in background",
-    "ATENA_RPA_DASHBOARD_LINK": "Dashboard Avanzata (URL per configurare IP, Password e Sync)",
-    "ATENA_RPA_DOWNLOAD_LINK": "Scarica il Client Satellite Desktop (.ZIP)",
+    "ATENA_RPA_DASHBOARD_LINK": "Dashboard Controllo Remoto (aggiungi IP, password e verifica lo stato)",
+    "ATENA_RPA_DOWNLOAD_LINK": "Scarica l'Assistente ATENA per Windows (.ZIP)",
     "ATENA_RPA_NODES": "Compatibilità Nodi Legacy (id separati da virgola)"
   }
 }

@@ -1,13 +1,32 @@
 import os
 import json
-from fastapi import APIRouter, HTTPException
+from pathlib import Path
+
+from fastapi import APIRouter, Depends, HTTPException, Request
+from fastapi.responses import FileResponse, RedirectResponse
 from pydantic import BaseModel
 from typing import Dict, Any
 
 from server.config.env import settings
 from server.features.remote_control.manager import RemoteComputerManager
 
-router = APIRouter(prefix="/api/v1/computer-control", tags=["Computer Control"])
+from access import require_admin, session_user
+
+PREFIX = "/api/v1/computer-control"
+# Le API gestiscono credenziali dei PC: solo con la sessione del pannello di amministrazione
+api = APIRouter(prefix=PREFIX, tags=["Computer Control"], dependencies=[Depends(require_admin)])
+pages = APIRouter(prefix=PREFIX, tags=["Computer Control"])
+HERE = Path(__file__).resolve().parent
+ASSETS = {"view.html": "text/html", "script.js": "application/javascript", "style.css": "text/css"}
+
+
+@pages.get("/{name}")
+async def dashboard_asset(name: str, request: Request):
+    if name not in ASSETS:
+        raise HTTPException(404, "Risorsa sconosciuta")
+    if not session_user(request):
+        return RedirectResponse("/")
+    return FileResponse(HERE / name, media_type=ASSETS[name], headers={"Cache-Control": "no-cache"})
 
 class ComputerPayload(BaseModel):
     name: str
@@ -41,12 +60,12 @@ def _write_config(data: Dict[str, Any]) -> None:
     except Exception:
         raise HTTPException(status_code=500, detail="Impossibile salvare la configurazione.")
 
-@router.get("/list")
+@api.get("/list")
 async def list_computers():
     config = _read_config()
     return {"status": "success", "data": config.get("computers", {})}
 
-@router.post("/add")
+@api.post("/add")
 async def add_computer(payload: ComputerPayload):
     config = _read_config()
     name_upper = payload.name.upper()
@@ -68,7 +87,7 @@ async def add_computer(payload: ComputerPayload):
     _write_config(config)
     return {"status": "success", "message": "PC aggiunto correttamente."}
 
-@router.delete("/remove/{pc_name}")
+@api.delete("/remove/{pc_name}")
 async def remove_computer(pc_name: str):
     config = _read_config()
     name_upper = pc_name.upper()
@@ -79,7 +98,7 @@ async def remove_computer(pc_name: str):
     _write_config(config)
     return {"status": "success", "message": "PC rimosso."}
 
-@router.post("/sync/{pc_name}")
+@api.post("/sync/{pc_name}")
 async def sync_computer(pc_name: str):
     manager = RemoteComputerManager()
     result = await manager.dispatch_command(pc_name, "status")
@@ -87,7 +106,7 @@ async def sync_computer(pc_name: str):
         return {"status": "error", "message": result["message"]}
     return {"status": "success", "data": result.get("data", "Sincronizzazione completata.")}
 
-@router.get("/download-satellite")
+@api.get("/download-satellite")
 async def download_satellite():
     from fastapi.responses import FileResponse
     import glob
@@ -101,3 +120,9 @@ async def download_satellite():
         raise HTTPException(status_code=404, detail="File MSI non ancora compilato sul server.")
         
     return FileResponse(path=msi_files[0], filename="ATENA_Satellite_Setup.msi", media_type="application/x-msi")
+
+
+# prima le API, poi la route generica /{name} delle pagine
+router = APIRouter()
+router.include_router(api)
+router.include_router(pages)

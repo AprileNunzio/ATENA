@@ -1,0 +1,10 @@
+customtkinter>=5.2
+pillow>=10.0
+numpy>=1.26
+sounddevice>=0.4.6
+websockets>=12.0
+mss>=9.0
+opencv-python-headless>=4.8
+uiautomation>=2.0.18
+keyboard>=0.13.5
+pyperclip>=1.8

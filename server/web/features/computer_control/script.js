@@ -125,7 +125,7 @@ const App = {
         try {
             const res = await fetch(`${API_BASE}/add`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Atena-Request': '1' },
                 body: JSON.stringify(payload)
             });
             const json = await res.json();
@@ -143,7 +143,7 @@ const App = {
     removeComputer: async (name) => {
         if (!confirm(`Vuoi davvero rimuovere ${name}?`)) return;
         try {
-            const res = await fetch(`${API_BASE}/remove/${name}`, { method: 'DELETE' });
+            const res = await fetch(`${API_BASE}/remove/${name}`, { method: 'DELETE', headers: { 'X-Atena-Request': '1' } });
             if (res.ok) {
                 UI.showAlert('Rimosso', `Dispositivo ${name} rimosso.`);
                 App.loadComputers();
@@ -159,7 +159,7 @@ const App = {
         statusDiv.innerHTML = `<i class="fas fa-circle text-blue-400 text-[10px] mr-2 animate-pulse"></i> Sincronizzazione in corso...`;
 
         try {
-            const res = await fetch(`${API_BASE}/sync/${name}`, { method: 'POST' });
+            const res = await fetch(`${API_BASE}/sync/${name}`, { method: 'POST', headers: { 'X-Atena-Request': '1' } });
             const json = await res.json();
             icon.classList.remove('fa-spin');
             
