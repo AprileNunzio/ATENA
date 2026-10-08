@@ -61,6 +61,9 @@ step_apply() {
     [ -f "$NATIVE_SRC/Cargo.lock" ] || fail "Sorgenti del core nativo assenti"
     install -d -m 0755 "$NATIVE_HOME"
 
+    progress 5 "Installazione compilatore C (build-essential)"
+    apt_install build-essential
+
     progress 10 "Toolchain Rust $RUST_VERSION verificata (checksum SHA-256)"
     retry 3 5 install_rust || fail "Installazione della toolchain Rust non riuscita"
 
