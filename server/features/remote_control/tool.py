@@ -1,5 +1,4 @@
 import json
-from typing import Dict, Any
 from server.features.remote_control.manager import RemoteComputerManager
 
 # Questa è l'annotazione fittizia/ipotetica che il tuo sistema Agent potrebbe usare
