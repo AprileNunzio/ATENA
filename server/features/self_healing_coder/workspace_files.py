@@ -42,7 +42,6 @@ class WorkspaceFiles:
         return f"File {relative} scritto con successo.{self._track(self._normalise(relative), content)}"
 
     def apply_patch(self, relative: str, patch_text: str) -> str:
-        import diff_match_patch
         full = self.resolve(relative)
         if full not in getattr(self, '_memory_state', {}):
             try:
@@ -52,9 +51,71 @@ class WorkspaceFiles:
                 content = ""
         else:
             content = self._memory_state[full]
-        dmp = diff_match_patch.diff_match_patch()
-        patches = dmp.patch_fromText(patch_text)
-        new_text, _ = dmp.patch_apply(patches, content)
+
+        new_text = content
+        
+        # Try to parse as JSON for AST-based patching
+        import json
+        is_ast_patch = False
+        if patch_text.strip().startswith("{") or patch_text.strip().startswith("["):
+            try:
+                patch_data = json.loads(patch_text)
+                if isinstance(patch_data, dict) and "patches" in patch_data:
+                    patch_data = patch_data["patches"]
+                if isinstance(patch_data, list):
+                    is_ast_patch = True
+                    if relative.endswith(".py"):
+                        import ast
+                        for patch in patch_data:
+                            action = patch.get("action", patch.get("type"))
+                            target = patch.get("target", patch.get("name"))
+                            code = patch.get("code", patch.get("new_body", ""))
+                            
+                            if action in ("replace_function", "replace_class", "replace_method"):
+                                tree = ast.parse(new_text)
+                                node_to_replace = None
+                                
+                                if action == "replace_method" and "." in target:
+                                    cls_name, meth_name = target.split(".", 1)
+                                    for node in tree.body:
+                                        if isinstance(node, ast.ClassDef) and node.name == cls_name:
+                                            for subnode in node.body:
+                                                if isinstance(subnode, (ast.FunctionDef, ast.AsyncFunctionDef)) and subnode.name == meth_name:
+                                                    node_to_replace = subnode
+                                                    break
+                                else:
+                                    for node in tree.body:
+                                        if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)) and getattr(node, "name", "") == target:
+                                            node_to_replace = node
+                                            break
+                                            
+                                if node_to_replace and hasattr(node_to_replace, "lineno") and hasattr(node_to_replace, "end_lineno"):
+                                    lines = new_text.split("\n")
+                                    start_line = node_to_replace.lineno - 1
+                                    if hasattr(node_to_replace, "decorator_list") and node_to_replace.decorator_list:
+                                        start_line = node_to_replace.decorator_list[0].lineno - 1
+                                        
+                                    end_line = node_to_replace.end_lineno
+                                    
+                                    new_lines = lines[:start_line] + code.rstrip("\n").split("\n") + lines[end_line:]
+                                    new_text = "\n".join(new_lines)
+                                else:
+                                    raise ValueError(f"Target '{target}' not found for AST replacement in {relative}")
+                            else:
+                                raise ValueError(f"Unknown AST patch action: {action}")
+                    else:
+                        raise ValueError("AST patching is only supported for .py files")
+            except Exception as e:
+                if is_ast_patch:
+                    raise ValueError(f"Failed to apply AST patch: {e}")
+                is_ast_patch = False
+                
+        if not is_ast_patch:
+            import diff_match_patch
+            dmp = diff_match_patch.diff_match_patch()
+            patches = dmp.patch_fromText(patch_text)
+            new_text, _ = dmp.patch_apply(patches, content)
+            
         if not hasattr(self, '_memory_state'):
             self._memory_state = {}
         self._memory_state[full] = new_text

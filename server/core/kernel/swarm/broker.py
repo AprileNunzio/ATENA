@@ -33,20 +33,38 @@ class SwarmBroker:
             
             if agent.agent_id == "agent_self_healing_coder":
                 architect_agent = await self._select_role(spec, "architect")
+                reviewer_agent = await self._select_role(spec, "reviewer")
                 executor_agent = await self._select_role(spec, "executor")
+                
+                from server.core.kernel.validators.code_validator import CodeValidator
+                validator = CodeValidator()
 
                 await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "architect", "reason": "Planning Phase"})
                 plan_req = self._build_req(node, upstream, feedback, "architect", "")
                 plan_req.preferred_brain = request.preferred_brain
                 plan_res = await architect_agent.execute(plan_req)
 
-                await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "self_healing_coder", "reason": "Code Generation"})
-                code_req = self._build_req(node, upstream, feedback, "coder", plan_res.result_data.get("code", ""))
-                code_req.preferred_brain = request.preferred_brain
-                code_res = await agent.execute(code_req)
-
+                max_retries = 3
+                for attempt in range(max_retries):
+                    await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "self_healing_coder", "reason": "Code Generation"})
+                    code_req = self._build_req(node, upstream, feedback, "coder", plan_res.result_data.get("code", ""))
+                    code_req.preferred_brain = request.preferred_brain
+                    code_res = await agent.execute(code_req)
+                    generated_code = code_res.result_data.get("code", "")
+                    
+                    await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "reviewer", "reason": "Code Validation"})
+                    validation_errors = validator.validate(generated_code)
+                    
+                    if not validation_errors:
+                        break
+                    
+                    # Se ci sono errori, aggiungili al feedback e riprova
+                    feedback_str = " | ".join(validation_errors)
+                    feedback = ErrorPayload(kind="validation_error", message=feedback_str)
+                    await NeuralTelemetry.emit("swarm_reject", "reviewer", {"reason": feedback_str})
+                
                 await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "executor", "reason": "Sandbox Validation"})
-                exec_req = self._build_req(node, upstream, feedback, "executor", code_res.result_data.get("code", ""))
+                exec_req = self._build_req(node, upstream, feedback, "executor", generated_code)
                 exec_req.preferred_brain = request.preferred_brain
                 response = await executor_agent.execute(exec_req)
                 response.agent_id = "agent_self_healing_coder"

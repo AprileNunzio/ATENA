@@ -21,6 +21,12 @@ class PersistentPTY:
         )
         flags = fcntl.fcntl(self.master_fd, fcntl.F_GETFL)
         fcntl.fcntl(self.master_fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
+        
+        # Disabilita l'echo del terminale per leggere solo l'output effettivo
+        try:
+            os.write(self.master_fd, b"stty -echo\n")
+        except OSError:
+            pass
 
     def write_command(self, cmd: str) -> None:
         try:
