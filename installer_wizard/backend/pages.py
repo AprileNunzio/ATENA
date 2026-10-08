@@ -171,16 +171,25 @@ async def feature_asset(fid: str, name: str):
     return FileResponse(path, media_type=ADMIN_TYPES[match.group(2)], headers={"Cache-Control": "no-cache"})
 
 
+def _find_feature_lang(fid: str, lang: str) -> Path | None:
+    for base in (FEATURES_DIR, STATE_DIR / "features"):
+        p = base / fid / "language" / f"{lang}.json"
+        if p.is_file():
+            return p
+        fallback = base / fid / "language" / "it.json"
+        if fallback.is_file():
+            return fallback
+    return None
+
+
 @admin_routes.get("/features/{fid}/language/{lang}.json")
 @public_routes.get("/features/{fid}/language/{lang}.json")
 async def feature_language(fid: str, lang: str):
     if not fid.isidentifier() or lang not in ("it", "en"):
         raise HTTPException(400, "Richiesta non valida")
-    path = FEATURES_DIR / fid / "language" / f"{lang}.json"
-    if not path.is_file():
-        path = FEATURES_DIR / fid / "language" / "it.json"
-    if not path.is_file():
-        raise HTTPException(404, "File lingua non trovato")
+    path = _find_feature_lang(fid, lang)
+    if not path:
+        raise HTTPException(404, "Risorsa sconosciuta")
     return FileResponse(path, media_type="application/json", headers={"Cache-Control": "no-cache"})
 
 
@@ -189,9 +198,7 @@ async def feature_language(fid: str, lang: str):
 async def feature_language_static(fid: str, lang: str):
     if not fid.isidentifier() or lang not in ("it", "en"):
         raise HTTPException(400, "Richiesta non valida")
-    path = FEATURES_DIR / fid / "language" / f"{lang}.json"
-    if not path.is_file():
-        path = FEATURES_DIR / fid / "language" / "it.json"
-    if not path.is_file():
-        raise HTTPException(404, "File lingua non trovato")
+    path = _find_feature_lang(fid, lang)
+    if not path:
+        raise HTTPException(404, "Risorsa sconosciuta")
     return FileResponse(path, media_type="application/json", headers={"Cache-Control": "no-cache"})

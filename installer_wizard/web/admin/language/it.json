@@ -63,19 +63,6 @@
   "global": {
     "reconnect": "Riconnessione al supervisore"
   },
-  "feature": {
-    "automations": "Automazioni",
-    "brain": "Cervello",
-    "music": "Gestione Musica",
-    "laws": "Leggi",
-    "mind": "Mente",
-    "nodes": "Nodi e server",
-    "people": "Persone",
-    "printers": "Stampanti",
-    "nvr": "NVR",
-    "twin": "Gemello digitale",
-    "scene": "Scena e presenza"
-  },
   "printers": {
     "title": "Stampanti",
     "intro": "Stampanti di sistema rilevate in automatico, stampanti di rete, stampanti 3D e incisori laser.",

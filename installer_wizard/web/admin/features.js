@@ -92,7 +92,7 @@
 
     $("feat-grid").innerHTML = list.map((f) => `<div class="fcard ${f.state.enabled ? "on" : "off"}" data-fid="${fmt.esc(f.id)}">
         <div class="hd"><div class="ico">${(f.icon||"").startsWith("fa-") ? `<i class="${fmt.esc(f.icon)}"></i>` : fmt.esc(f.icon)}</div>
-          <div style="flex:1; min-width:0"><div class="nm">${fmt.esc(tName(f))} ${f.new ? `<span class="badge warn">${fmt.esc(tNew)}</span>` : ""}</div>
+          <div style="flex:1; min-width:0"><div class="nm">${fmt.esc(tName(f))} ${f.new ? `<span class="badge ${"warn"}">${fmt.esc(tNew)}</span>` : ""}</div>
           <div class="ct">${fmt.esc(tCategory(f.category))}${f.source === "ai" ? fmt.esc(tSourceAi) : f.source === "user" ? fmt.esc(tSourceUser) : ""}</div></div>
           <button class="pin ${f.pinned ? "on" : ""}" data-pin="${fmt.esc(f.id)}" title="${f.pinned ? fmt.esc(tPinRem) : fmt.esc(tPinAdd)}">${f.pinned ? "★" : "☆"}</button></div>
         <div class="ds">${fmt.esc(tDesc(f))}</div>
