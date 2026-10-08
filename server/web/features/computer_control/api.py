@@ -86,3 +86,18 @@ async def sync_computer(pc_name: str):
     if result["status"] == "error":
         return {"status": "error", "message": result["message"]}
     return {"status": "success", "data": result.get("data", "Sincronizzazione completata.")}
+
+@router.get("/download-satellite")
+async def download_satellite():
+    from fastapi.responses import FileResponse
+    import glob
+    
+    project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../../"))
+    bridge_dir = os.path.join(project_root, "client_satellite", "context_bridge")
+    
+    msi_files = glob.glob(os.path.join(bridge_dir, "dist", "*.msi")) + glob.glob(os.path.join(bridge_dir, "build", "*.msi")) + glob.glob(os.path.join(bridge_dir, "build", "exe.*", "*.msi"))
+    
+    if not msi_files:
+        raise HTTPException(status_code=404, detail="File MSI non ancora compilato sul server.")
+        
+    return FileResponse(path=msi_files[0], filename="ATENA_Satellite_Setup.msi", media_type="application/x-msi")
