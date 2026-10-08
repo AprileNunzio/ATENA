@@ -2,7 +2,7 @@ import os
 import json
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
-from typing import Dict, Any, List
+from typing import Dict, Any
 
 from server.config.env import settings
 from server.features.remote_control.manager import RemoteComputerManager
