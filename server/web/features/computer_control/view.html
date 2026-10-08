@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATENA - Controllo Computer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen">
+    
+    <header class="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fas fa-network-wired text-blue-600 text-2xl"></i>
+                <h1 class="text-xl font-bold text-gray-900">Controllo Computer</h1>
+            </div>
+            <button onclick="UI.openModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors shadow-sm">
+                <i class="fas fa-plus mr-2"></i>Aggiungi PC
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Dashboard Grid -->
+        <div class="mb-8 flex justify-between items-center">
+            <h2 class="text-lg font-semibold text-gray-700">Dispositivi Connessi</h2>
+            <button onclick="App.loadComputers()" class="text-gray-500 hover:text-blue-600 transition-colors">
+                <i class="fas fa-sync-alt"></i> Aggiorna
+            </button>
+        </div>
+        
+        <div id="computers-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Rendered by JS -->
+        </div>
+
+        <!-- Global Alert -->
+        <div id="global-alert" class="fixed bottom-4 right-4 max-w-sm w-full bg-white shadow-lg rounded-lg border-l-4 hidden transform transition-all duration-300">
+            <div class="p-4 flex items-start">
+                <div id="alert-icon" class="mr-3 mt-0.5"></div>
+                <div class="flex-1">
+                    <h3 id="alert-title" class="text-sm font-medium"></h3>
+                    <p id="alert-message" class="text-sm text-gray-500 mt-1"></p>
+                </div>
+                <button onclick="UI.hideAlert()" class="text-gray-400 hover:text-gray-500">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Add Modal -->
+        <div id="add-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden z-50 flex items-center justify-center backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-xl shadow-2xl max-w-lg w-full mx-4 overflow-hidden flex flex-col max-h-[90vh]">
+                <div class="px-6 py-4 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                    <h3 class="text-lg font-semibold text-gray-900">Aggiungi Nuovo Dispositivo</h3>
+                    <button onclick="UI.closeModal()" class="text-gray-400 hover:text-gray-600">
+                        <i class="fas fa-times text-xl"></i>
+                    </button>
+                </div>
+                
+                <div class="p-6 overflow-y-auto">
+                    <form id="add-form" class="space-y-4" onsubmit="App.handleAdd(event)">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nome Identificativo</label>
+                            <input type="text" id="f-name" required placeholder="es. PC_AMMINISTRAZIONE" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm uppercase">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Protocollo / Sistema</label>
+                            <select id="f-protocol" onchange="UI.toggleFormFields()" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+                                <option value="winrm">Windows (WinRM)</option>
+                                <option value="ssh">Windows (OpenSSH)</option>
+                                <option value="linux_ssh">Linux (Debian/Ubuntu)</option>
+                                <option value="rhel_ssh">Linux (RedHat/CentOS)</option>
+                                <option value="mac_ssh">Apple macOS</option>
+                                <option value="bsd_ssh">FreeBSD / TrueNAS</option>
+                                <option value="rest">Microservizio REST (Satellite)</option>
+                            </select>
+                        </div>
+
+                        <div id="group-ip" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Indirizzo IP</label>
+                                <input type="text" id="f-ip" placeholder="192.168.1.10" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                                <input type="text" id="f-user" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm">
+                            </div>
+                        </div>
+
+                        <div id="group-pwd" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                                <input type="password" id="f-pwd" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm">
+                            </div>
+                        </div>
+
+                        <div id="group-key" class="space-y-4 hidden">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Percorso Chiave Privata SSH</label>
+                                <input type="text" id="f-key" placeholder="/root/.ssh/id_rsa" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm">
+                            </div>
+                        </div>
+
+                        <div id="group-rest" class="space-y-4 hidden">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">URL Endpoint</label>
+                                <input type="url" id="f-url" placeholder="http://192.168.1.50:19999" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">PSK / API Key</label>
+                                <input type="password" id="f-apikey" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm sm:text-sm">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="px-6 py-4 border-t border-gray-100 bg-gray-50 flex justify-end space-x-3">
+                    <button type="button" onclick="UI.closeModal()" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">Annulla</button>
+                    <button type="button" onclick="App.handleAdd(event)" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md text-sm font-medium shadow-sm transition-colors">Salva Dispositivo</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
