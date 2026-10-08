@@ -189,25 +189,18 @@ class SelfHealingCoderAgent(BaseAgent):
                 return f"ERROR: {exc}"
 
         async def execute_command(cmd: str) -> str:
-            try:
-                await NeuralTelemetry.emit("agent_thought", self.agent_id, {"thought": f"Avvio esecuzione PTY: {cmd}"})
-                sandbox_runner.execute_pty_command(cmd)
-                await NeuralTelemetry.emit("tool_execution", self.agent_id, {"tool": "execute_command", "status": "success", "detail": cmd})
-                return "Comando inviato al PTY."
-            except Exception as exc:
-                return f"ERROR: {exc}"
+            await NeuralTelemetry.emit("agent_thought", self.agent_id, {"thought": f"Eseguo nella sandbox isolata: {cmd}"})
+            success, stdout, stderr = await sandbox_runner.execute_command(cmd)
+            await NeuralTelemetry.emit("tool_execution", self.agent_id,
+                                       {"tool": "execute_command", "status": "success" if success else "error", "detail": cmd})
+            return sandbox_runner.last_output() if success else f"ERROR: {stderr or stdout}"
 
         async def read_terminal() -> str:
-            try:
-                out = sandbox_runner.read_pty_output()
-                await NeuralTelemetry.emit("tool_execution", self.agent_id, {"tool": "read_terminal", "status": "success", "detail": "Letti bytes dal terminale"})
-                return out
-            except Exception as exc:
-                return f"ERROR: {exc}"
+            return sandbox_runner.last_output()
 
         loop.register_tool("apply_patch", "Applica un unified diff patch a un file", apply_patch)
-        loop.register_tool("execute_command", "Esegue comando nel PTY", execute_command)
-        loop.register_tool("read_terminal_output", "Legge l'output PTY", read_terminal)
+        loop.register_tool("execute_command", "Esegue un comando bash nella sandbox isolata e ne restituisce l'output", execute_command)
+        loop.register_tool("read_terminal_output", "Rilegge l'output dell'ultimo comando eseguito nella sandbox", read_terminal)
 
         return loop
 
