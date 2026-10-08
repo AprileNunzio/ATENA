@@ -13,7 +13,7 @@
     "ATENA_RPA_PSK": "Chiave PSK per crittografia Satellite E2E (Autogenerata)",
     "ATENA_RPA_AUTO_SYNC": "Ping e Sincronizzazione automatica dei PC in background",
     "ATENA_RPA_DASHBOARD_LINK": "Dashboard Avanzata (URL per configurare IP, Password e Sync)",
-    "ATENA_RPA_DOWNLOAD_LINK": "Scarica il Client Satellite Desktop (.MSI Installer)",
+    "ATENA_RPA_DOWNLOAD_LINK": "Scarica il Client Satellite Desktop (.ZIP)",
     "ATENA_RPA_NODES": "Compatibilità Nodi Legacy (id separati da virgola)"
   }
 }

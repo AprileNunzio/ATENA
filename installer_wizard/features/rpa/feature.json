@@ -48,9 +48,9 @@
     },
     {
       "key": "ATENA_RPA_DOWNLOAD_LINK",
-      "label": "Scarica il Client Satellite Desktop (.MSI Installer)",
+      "label": "Scarica il Client Satellite Desktop (.ZIP)",
       "type": "link",
-      "default": "/api/v1/computer-control/download-satellite"
+      "default": "/api/rpa/download-client"
     },
     {
       "key": "ATENA_RPA_NODES",
