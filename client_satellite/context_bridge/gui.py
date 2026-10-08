@@ -1,11 +1,7 @@
-import os
 import sys
 import threading
 import subprocess
 import importlib
-import urllib.request
-import json
-import base64
 
 def _ensure_gui_deps():
     try:
@@ -18,7 +14,6 @@ _ensure_gui_deps()
 
 import customtkinter as ctk
 from main import start_satellite
-from crypto import E2EEncryption
 
 ctk.set_appearance_mode("Dark")
 ctk.set_default_color_theme("blue")
