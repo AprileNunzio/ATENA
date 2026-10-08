@@ -1,11 +1,14 @@
 {
   "id": "rpa",
   "name": "Controllo del computer",
-  "icon": "fa-network-wired",
+  "icon": "💻",
   "category": "assistente",
   "order": 18,
   "panel": "",
-  "toggle": { "env": "ATENA_RPA", "apply": [] },
+  "toggle": {
+    "env": "ATENA_RPA",
+    "apply": []
+  },
   "description": "ATENA assume il controllo completo e sicuro della tua infrastruttura di computer (Windows, macOS, Linux, BSD). Invece di richiedere copie e incollature manuali, Atena sfrutta il suo Remote Manager e il Satellite di Contesto locale per leggere automaticamente i documenti a cui stai lavorando e amministrare i dispositivi.",
   "capabilities": [
     "Crittografia End-to-End (AES-128 Fernet) attiva tra il server e i computer collegati",
@@ -19,7 +22,7 @@
       "key": "ATENA_RPA_PSK",
       "label": "Chiave PSK (Generata automaticamente per la crittografia E2E del Satellite)",
       "type": "text",
-      "default": ""
+      "default": "PiGTww29o8X0o8uYEkDSQEJHjU4ehvHp4LTDvhABvPk="
     },
     {
       "key": "ATENA_RPA_AUTO_SYNC",
@@ -27,27 +30,33 @@
       "type": "select",
       "default": "1",
       "options": [
-        { "value": "1", "label": "Attivata (Consigliato)" },
-        { "value": "0", "label": "Manuale" }
+        {
+          "value": "1",
+          "label": "Attivata (Consigliato)"
+        },
+        {
+          "value": "0",
+          "label": "Manuale"
+        }
       ]
     },
     {
       "key": "ATENA_RPA_DASHBOARD_LINK",
       "label": "Dashboard Controllo Remoto (Aggiungi IP, Password e verifica lo stato)",
-      "type": "text",
-      "default": "http://127.0.0.1:8000/api/v1/computer-control/view.html"
+      "type": "link",
+      "default": "/api/v1/computer-control/view.html"
     },
     {
       "key": "ATENA_RPA_DOWNLOAD_LINK",
       "label": "Scarica il Client Satellite Desktop (.MSI Installer)",
-      "type": "text",
-      "default": "http://127.0.0.1:8000/api/v1/computer-control/download-satellite"
+      "type": "link",
+      "default": "/api/v1/computer-control/download-satellite"
     },
-    { 
-      "key": "ATENA_RPA_NODES", 
-      "label": "Compatibilità Nodi Legacy (id separati da virgola)", 
-      "type": "text", 
-      "default": "" 
+    {
+      "key": "ATENA_RPA_NODES",
+      "label": "Compatibilità Nodi Legacy (id separati da virgola)",
+      "type": "text",
+      "default": ""
     }
   ]
 }

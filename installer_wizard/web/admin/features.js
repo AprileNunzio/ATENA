@@ -122,6 +122,7 @@
       return `<option value="${fmt.esc(val)}" ${String(val) === String(v) ? "selected" : ""}>${fmt.esc(lab || "—")}</option>`; }).join("")}</select>`;
     if (st.type === "bool") return `<label class="switch"><input type="checkbox" ${a} ${v === "1" || v === true ? "checked" : ""}> ${fmt.esc(st.label)}</label>`;
     if (st.type === "color") return `<input ${a} type="color" value="${fmt.esc(v || "#000000")}" style="height:40px; padding:4px">`;
+    if (st.type === "link") return `<a href="${fmt.esc(st.default)}" target="_blank" class="btn" style="display:inline-block; margin-top:5px; text-decoration:none; background:#007bff; color:white; padding:8px 12px; border-radius:4px; font-weight:bold;">${fmt.esc(st.label)}</a>`;
     return `<input ${a} type="${st.type === "secret" ? "password" : st.type === "number" ? "number" : "text"}" step="any" value="${fmt.esc(v)}" placeholder="${fmt.esc(st.placeholder || (st.type === "secret" ? "non impostata" : ""))}" autocomplete="off">`;
   }
 
