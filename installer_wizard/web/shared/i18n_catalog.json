@@ -11667,6 +11667,62 @@
     [
       "🪶 Leggeri (≤ 3 GB)",
       "🪶 Light (≤ 3 GB)"
+    ],
+    [
+      "ATENA assume il controllo completo e sicuro della tua infrastruttura di computer (Windows, macOS, Linux, BSD). Invece di richiedere copie e incollature manuali, Atena sfrutta il suo Remote Manager e il Satellite di Contesto locale per leggere automaticamente i documenti a cui stai lavorando e amministrare i dispositivi.",
+      "ATENA assume il controllo completo e sicuro della tua infrastruttura di computer (Windows, macOS, Linux, BSD). Invece di richiedere copie e incollature manuali, Atena sfrutta il suo Remote Manager e il Satellite di Contesto locale per leggere automaticamente i documenti a cui stai lavorando e amministrare i dispositivi. [EN]"
+    ],
+    [
+      "Attivata (Consigliato)",
+      "Attivata (Consigliato) [EN]"
+    ],
+    [
+      "Capacit amministrative: Controllo stato RAM/Disco, Sincronizzazione, Update OS e Riavvio Servizi",
+      "Capacit amministrative: Controllo stato RAM/Disco, Sincronizzazione, Update OS e Riavvio Servizi [EN]"
+    ],
+    [
+      "Chiave PSK (Generata automaticamente per la crittografia E2E del Satellite)",
+      "Chiave PSK (Generata automaticamente per la crittografia E2E del Satellite) [EN]"
+    ],
+    [
+      "Compatibilit Nodi Legacy (id separati da virgola)",
+      "Compatibilit Nodi Legacy (id separati da virgola) [EN]"
+    ],
+    [
+      "Crittografia End-to-End (AES-128 Fernet) attiva tra il server e i computer collegati",
+      "Crittografia End-to-End (AES-128 Fernet) attiva tra il server e i computer collegati [EN]"
+    ],
+    [
+      "Dashboard Controllo Remoto (Aggiungi IP, Password e verifica lo stato)",
+      "Dashboard Controllo Remoto (Aggiungi IP, Password e verifica lo stato) [EN]"
+    ],
+    [
+      "Manuale",
+      "Manuale [EN]"
+    ],
+    [
+      "Mappatura Dinamica senza hardcoding: configura la rete tramite la Dashboard di Controllo",
+      "Mappatura Dinamica senza hardcoding: configura la rete tramite la Dashboard di Controllo [EN]"
+    ],
+    [
+      "Ping e Sincronizzazione automatica dei PC in background",
+      "Ping e Sincronizzazione automatica dei PC in background [EN]"
+    ],
+    [
+      "Satellite Locale: legge in tempo reale il testo della finestra attiva e genera screenshot",
+      "Satellite Locale: legge in tempo reale il testo della finestra attiva e genera screenshot [EN]"
+    ],
+    [
+      "Supporto universale SysAdmin: Windows (WinRM e SSH), Debian, Ubuntu, macOS, RedHat e FreeBSD",
+      "Supporto universale SysAdmin: Windows (WinRM e SSH), Debian, Ubuntu, macOS, RedHat e FreeBSD [EN]"
+    ],
+    [
+      "Capacità amministrative: Controllo stato RAM/Disco, Sincronizzazione, Update OS e Riavvio Servizi",
+      "Capacità amministrative: Controllo stato RAM/Disco, Sincronizzazione, Update OS e Riavvio Servizi [EN]"
+    ],
+    [
+      "Compatibilità Nodi Legacy (id separati da virgola)",
+      "Compatibilità Nodi Legacy (id separati da virgola) [EN]"
     ]
   ],
   "reverse": [

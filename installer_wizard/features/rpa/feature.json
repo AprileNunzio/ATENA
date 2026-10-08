@@ -11,7 +11,7 @@
     "Crittografia End-to-End (AES-128 Fernet) attiva tra il server e i computer collegati",
     "Satellite Locale: legge in tempo reale il testo della finestra attiva e genera screenshot",
     "Supporto universale SysAdmin: Windows (WinRM e SSH), Debian, Ubuntu, macOS, RedHat e FreeBSD",
-    "Capacit amministrative: Controllo stato RAM/Disco, Sincronizzazione, Update OS e Riavvio Servizi",
+    "Capacità amministrative: Controllo stato RAM/Disco, Sincronizzazione, Update OS e Riavvio Servizi",
     "Mappatura Dinamica senza hardcoding: configura la rete tramite la Dashboard di Controllo"
   ],
   "settings": [
@@ -39,7 +39,7 @@
     },
     { 
       "key": "ATENA_RPA_NODES", 
-      "label": "Compatibilit Nodi Legacy (id separati da virgola)", 
+      "label": "Compatibilità Nodi Legacy (id separati da virgola)", 
       "type": "text", 
       "default": "" 
     }
