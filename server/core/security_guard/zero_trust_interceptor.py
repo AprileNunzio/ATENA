@@ -28,6 +28,11 @@ class ZeroTrustMiddleware(BaseHTTPMiddleware):
             or path.startswith("/web")
             or path.startswith("/api/v1/stream")
             or path.startswith("/api/v1/onboarding")
+            or path.startswith("/api/v1/weather")
+            or path.startswith("/api/v1/presence")
+            or path.startswith("/api/v1/system")
+            or path.startswith("/api/v1/privacy")
+            or path.startswith("/api/v1/cognitive")
             or request.method == "OPTIONS"
         ):
             return await call_next(request)

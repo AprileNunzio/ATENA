@@ -1,0 +1,268 @@
+.cognitive-flow-panel {
+  display: none;
+  background: rgba(10, 15, 29, 0.95);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInFlow 0.3s ease-out;
+}
+
+.cognitive-flow-panel.active {
+  display: block;
+}
+
+@keyframes fadeInFlow {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cognitive-flow-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cognitive-flow-title {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #38bdf8;
+  text-transform: uppercase;
+}
+
+.flow-pulse-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.flow-controls-top {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.flow-btn-mini {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #cbd5e1;
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.flow-btn-mini:hover {
+  background: rgba(0, 240, 255, 0.2);
+  border-color: #00f0ff;
+  color: #fff;
+}
+
+.cognitive-flow-track {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  overflow-x: auto;
+  padding: 1rem 0.5rem;
+  scroll-behavior: smooth;
+}
+
+.cognitive-flow-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cognitive-flow-track::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
+  border-radius: 4px;
+}
+
+.cognitive-flow-track::-webkit-scrollbar-thumb {
+  background: rgba(0, 240, 255, 0.3);
+  border-radius: 4px;
+}
+
+.flow-node-card {
+  flex: 0 0 auto;
+  min-width: 200px;
+  max-width: 260px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.flow-node-card:hover {
+  border-color: #00f0ff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 240, 255, 0.15);
+}
+
+.flow-node-card.selected {
+  border-color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
+}
+
+.flow-node-card.state-ok {
+  border-left: 4px solid #10b981;
+}
+
+.flow-node-card.state-running {
+  border-left: 4px solid #00f0ff;
+  animation: pulseRunning 1.5s infinite;
+}
+
+@keyframes pulseRunning {
+  0%, 100% { border-color: #00f0ff; }
+  50% { border-color: #38bdf8; }
+}
+
+.flow-node-card.state-fail {
+  border-left: 4px solid #ef4444;
+}
+
+.flow-node-card.state-fallback {
+  border-left: 4px solid #f59e0b;
+}
+
+.flow-node-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.flow-node-kind {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #94a3b8;
+}
+
+.flow-node-badge {
+  font-size: 0.62rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.flow-node-badge.ok {
+  background: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+}
+
+.flow-node-badge.running {
+  background: rgba(0, 240, 255, 0.2);
+  color: #38bdf8;
+}
+
+.flow-node-badge.fail {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+}
+
+.flow-node-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #f1f5f9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0.3rem;
+}
+
+.flow-node-timing {
+  font-size: 0.7rem;
+  color: #64748b;
+  font-family: monospace;
+}
+
+.flow-connector {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  color: #38bdf8;
+  opacity: 0.6;
+  font-size: 1.1rem;
+}
+
+.flow-connector.fallback {
+  color: #f59e0b;
+}
+
+.flow-inspector {
+  margin-top: 1rem;
+  background: rgba(2, 6, 23, 0.9);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+  animation: fadeInFlow 0.2s ease-in;
+}
+
+.flow-inspector-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.flow-inspector-title {
+  color: #38bdf8;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.flow-inspector-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.flow-thought-box {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 0.75rem;
+  color: #e2e8f0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  max-height: 220px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 768px) {
+  .flow-node-card {
+    min-width: 170px;
+    max-width: 210px;
+    padding: 0.6rem;
+  }
+}

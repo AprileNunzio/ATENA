@@ -1,17 +1,10 @@
-import { I18nManager } from './shared/i18n/manager.js';
-const i18n = new I18nManager();
-window.i18n = i18n;
-
-document.addEventListener('DOMContentLoaded', async () => {
-  await i18n.setLanguage('it', ['dashboard']);
-  const langSelect = document.getElementById('lang-selector');
-  if(langSelect) {
-    langSelect.value = 'it';
-    langSelect.addEventListener('change', async (e) => {
-      await i18n.setLanguage(e.target.value, ['dashboard']);
-    });
-  }
-});
+import { WeatherBackdropManager } from "./features/weather_backdrop/weather.js";
+import { CognitiveFlowViewer } from "./features/cognitive_flow/flow.js";
+import { WidgetPrivacyController } from "./features/privacy_controller/privacy.js";
+import { ProximityWidgetsManager } from "./features/proximity_widgets/proximity.js";
+import { AudioControlsManager } from "./features/audio_controls/audio.js";
+import { BrainModalManager } from "./features/brain_modal/brain.js";
+import { SettingsModalManager } from "./features/settings_modal/settings.js";
 
 const queryInput = document.getElementById("query-input");
 const submitBtn = document.getElementById("submit-btn");
@@ -39,6 +32,29 @@ let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
 let shapes = [];
+
+const weatherManager = new WeatherBackdropManager();
+const cognitiveFlow = new CognitiveFlowViewer();
+const privacyController = new WidgetPrivacyController();
+privacyController.registerWidget("widget-network", {
+  maxExposureSeconds: 45,
+  isPersonal: true,
+  title: "Rete & IP",
+});
+const proximityManager = new ProximityWidgetsManager("proximity-shelf", privacyController);
+const audioControls = new AudioControlsManager();
+const brainModal = new BrainModalManager();
+const settingsModal = new SettingsModalManager();
+
+window.proximityManager = proximityManager;
+window.cognitiveFlow = cognitiveFlow;
+
+const presenceBadge = document.getElementById("presence-live-status");
+if (presenceBadge) {
+  presenceBadge.addEventListener("click", () => {
+    proximityManager.toggleMockPresence();
+  });
+}
 
 function initWhiteboard() {
   if (!whiteboardCanvas || !ctx) return;
@@ -70,7 +86,7 @@ function drawWhiteboardGrid() {
 
 function redrawShapes() {
   drawWhiteboardGrid();
-  shapes.forEach(s => {
+  shapes.forEach((s) => {
     if (s.type === "box") {
       ctx.fillStyle = "rgba(0, 240, 255, 0.12)";
       ctx.strokeStyle = "#00f0ff";
@@ -126,8 +142,8 @@ if (whiteboardCanvas) {
 
 if (wbBtnBox) {
   wbBtnBox.addEventListener("click", () => {
-    const rx = 40 + (shapes.length * 50) % 600;
-    const ry = 50 + (shapes.length * 35) % 200;
+    const rx = 40 + ((shapes.length * 50) % 600);
+    const ry = 50 + ((shapes.length * 35) % 200);
     shapes.push({ type: "box", x: rx, y: ry, w: 160, h: 50, label: `Service #${shapes.length + 1}` });
     redrawShapes();
     wbStatus.textContent = `Aggiunto componente architetturale #${shapes.length}`;
@@ -138,7 +154,7 @@ if (wbBtnArrow) {
   wbBtnArrow.addEventListener("click", () => {
     shapes.push({ type: "arrow", x1: 60, y1: 100, x2: 240, y2: 100 });
     redrawShapes();
-    wbStatus.textContent = i18n.translate('dashboard', 'dynamic.whiteboard_traced');
+    wbStatus.textContent = "Connessione logica tracciata";
   });
 }
 
@@ -146,7 +162,7 @@ if (wbBtnClear) {
   wbBtnClear.addEventListener("click", () => {
     shapes = [];
     drawWhiteboardGrid();
-    wbStatus.textContent = i18n.translate('dashboard', 'dynamic.whiteboard_cleared');
+    wbStatus.textContent = "Lavagna pulita";
   });
 }
 
@@ -169,47 +185,54 @@ function openWhiteboardSurface() {
   }
 }
 
-chips.forEach(chip => {
+chips.forEach((chip) => {
   chip.addEventListener("click", () => {
     queryInput.value = chip.dataset.prompt || chip.innerText;
     executeStreamingQuery();
   });
 });
 
-thinkingHeader.addEventListener("click", () => {
-  thinkingPanel.classList.toggle("collapsed");
-});
+if (thinkingHeader) {
+  thinkingHeader.addEventListener("click", () => {
+    thinkingPanel.classList.toggle("collapsed");
+  });
+}
 
-submitBtn.addEventListener("click", () => {
-  executeStreamingQuery();
-});
-
-queryInput.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && !e.shiftKey) {
-    e.preventDefault();
+if (submitBtn) {
+  submitBtn.addEventListener("click", () => {
     executeStreamingQuery();
-  }
-});
+  });
+}
+
+if (queryInput) {
+  queryInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      executeStreamingQuery();
+    }
+  });
+}
 
 async function executeStreamingQuery() {
   const query = queryInput.value.trim();
   if (!query || isStreaming) return;
 
   isStreaming = true;
+  proximityManager.setPrecedence(true);
   submitBtn.disabled = true;
   submitBtn.style.opacity = "0.5";
 
   thinkingPanel.classList.remove("collapsed");
   thinkingPanel.classList.remove("active");
   thinkingContent.textContent = "";
-  
+
   responsePanel.classList.remove("active");
   responseContent.textContent = "";
 
   toolsCard.classList.remove("active");
   toolsCard.textContent = "";
 
-  strategyMetric.textContent = i18n.translate('dashboard', 'dynamic.processing');
+  strategyMetric.textContent = "Elaborazione in corso...";
   latencyMetric.textContent = "--";
 
   const startTime = performance.now();
@@ -219,9 +242,9 @@ async function executeStreamingQuery() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Accept": "text/event-stream"
+        Accept: "text/event-stream",
       },
-      body: JSON.stringify({ query: query })
+      body: JSON.stringify({ query }),
     });
 
     if (!response.ok) {
@@ -265,6 +288,7 @@ async function executeStreamingQuery() {
     isStreaming = false;
     submitBtn.disabled = false;
     submitBtn.style.opacity = "1";
+    proximityManager.setPrecedence(false);
   }
 }
 
@@ -278,10 +302,11 @@ function handleServerEvent(event, rawData, startTime) {
 
   if (event === "cache_hit") {
     const elapsed = (performance.now() - startTime).toFixed(1);
-    strategyMetric.textContent = i18n.translate('dashboard', 'dynamic.semantic_fast_path');
+    strategyMetric.textContent = "Semantic Fast-Path Cache";
     latencyMetric.textContent = `${elapsed} ms`;
     responsePanel.classList.add("active");
     responseContent.textContent = data.speech_output || "";
+    audioControls.speak(data.speech_output || "");
   } else if (event === "system1") {
     const intent = data.intent || "";
     const lat = data.latency_ms || 0;
@@ -290,12 +315,14 @@ function handleServerEvent(event, rawData, startTime) {
     if (intent === "whiteboard_canvas") {
       openWhiteboardSurface();
     }
+  } else if (event === "journey_snapshot") {
+    cognitiveFlow.updateFromSnapshot(data);
   } else if (event === "thinking") {
     if (!thinkingPanel.classList.contains("active")) {
       thinkingPanel.classList.add("active");
       thinkingPanel.classList.remove("collapsed");
     }
-    thinkingContent.textContent += (data.chunk || "");
+    thinkingContent.textContent += data.chunk || "";
     thinkingContent.scrollTop = thinkingContent.scrollHeight;
   } else if (event === "response") {
     if (thinkingPanel.classList.contains("active") && !thinkingPanel.classList.contains("collapsed")) {
@@ -304,7 +331,7 @@ function handleServerEvent(event, rawData, startTime) {
     if (!responsePanel.classList.contains("active")) {
       responsePanel.classList.add("active");
     }
-    responseContent.textContent += (data.chunk || "");
+    responseContent.textContent += data.chunk || "";
     if (data.surface === "whiteboard") {
       openWhiteboardSurface();
     }
@@ -317,6 +344,6 @@ function handleServerEvent(event, rawData, startTime) {
     if (!responsePanel.classList.contains("active") && responseContent.textContent) {
       responsePanel.classList.add("active");
     }
+    audioControls.speak(responseContent.textContent);
   }
 }
-

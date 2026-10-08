@@ -16,8 +16,17 @@ from server.core.orchestrator.system1_router import system1_router, System1Inten
 from server.core.reasoning.system2_engine import system2_engine
 from server.core.onboarding.hardware_detector import hardware_detector
 from server.core.onboarding.setup_wizard import onboarding_wizard, OnboardingConfig
+from server.core.telemetry.journey import journey
+from server.features.weather.weather_controller import weather_router
+from server.features.presence_privacy.presence_controller import presence_router, system_router, privacy_router
+from server.features.cognitive_flow.flow_controller import flow_router
 
 router = APIRouter(prefix="/api/v1")
+router.include_router(weather_router)
+router.include_router(presence_router)
+router.include_router(system_router)
+router.include_router(privacy_router)
+router.include_router(flow_router)
 
 class AuthExchangeRequest(BaseModel):
     client_id: str
@@ -71,6 +80,9 @@ async def _stream_reasoning_generator(query: str, context: Dict[str, Any]) -> As
             biometric_score=0.95,
             context_override=context,
         )
+        active_j = journey.active()
+        if active_j:
+            yield f"event: journey_snapshot\ndata: {json.dumps(active_j.snapshot())}\n\n"
         yield f"event: response\ndata: {json.dumps({'chunk': res.speech_output, 'surface': res.result_data.get('surface'), 'action': res.result_data.get('action')})}\n\n"
         await semantic_cache.record_success(query, {
             "agent_id": res.agent_id,
@@ -80,7 +92,10 @@ async def _stream_reasoning_generator(query: str, context: Dict[str, Any]) -> As
         yield f"event: done\ndata: {json.dumps({'status': 'completed', 'source': decision.intent.value})}\n\n"
         return
 
+    j = journey.begin(query, "web_user")
+    j.step("router", "System 1 Router", f"Intent: {decision.intent.value}", "ok")
     yield f"event: status\ndata: {json.dumps({'step': 'system2_activated'})}\n\n"
+    yield f"event: journey_snapshot\ndata: {json.dumps(j.snapshot())}\n\n"
     accumulated_thinking = ""
     accumulated_response = ""
 
@@ -94,7 +109,11 @@ async def _stream_reasoning_generator(query: str, context: Dict[str, Any]) -> As
         elif chunk.chunk_type == "status":
             yield f"event: status\ndata: {json.dumps({'step': chunk.content})}\n\n"
 
+    if accumulated_thinking:
+        j.step("reasoning", "System 2 Latent Reasoning", accumulated_thinking[:400], "ok")
     if accumulated_response:
+        j.finish("ok", accumulated_response, "system2_latent_engine")
+        yield f"event: journey_snapshot\ndata: {json.dumps(j.snapshot())}\n\n"
         await semantic_cache.record_success(query, {
             "agent_id": "system2_latent_engine",
             "speech_output": accumulated_response,

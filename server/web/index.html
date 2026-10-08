@@ -1,89 +1,282 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Atena Dual-Brain Cognitive Orchestrator</title>
+  <title>Atena Autonomous Cognitive Orchestrator</title>
   <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/features/weather_backdrop/weather.css">
+  <link rel="stylesheet" href="/static/features/cognitive_flow/flow.css">
+  <link rel="stylesheet" href="/static/features/privacy_controller/privacy.css">
+  <link rel="stylesheet" href="/static/features/proximity_widgets/proximity.css">
+  <link rel="stylesheet" href="/static/features/audio_controls/audio.css">
+  <link rel="stylesheet" href="/static/features/brain_modal/brain.css">
+  <link rel="stylesheet" href="/static/features/settings_modal/settings.css">
+  <link rel="stylesheet" href="/static/features/layout/layout.css">
 </head>
 <body>
-  <div class="container">
+  <div id="weather-backdrop" class="weather-backdrop"></div>
+  <div id="weather-badge" class="weather-badge-floating">
+    <span class="weather-indicator-dot"></span>
+    <span>Meteo Ambientale...</span>
+  </div>
+
+  <div class="container" style="position:relative; z-index:1;">
     <header>
       <div class="brand">
         <div class="reactor">
           <div class="reactor-inner"></div>
         </div>
         <div>
-          <h1 data-i18n="dashboard:ui.title">A.T.E.N.A. <span>DUAL-BRAIN &amp; SURFACE</span></h1>
+          <h1 data-i18n="dashboard:ui.title">A.T.E.N.A. <span>COGNITIVE ORCHESTRATOR</span></h1>
         </div>
       </div>
       <div class="badges">
         <div class="badge success">FAST-PATH (0ms)</div>
         <div class="badge active">SYSTEM 1 (&lt;50ms)</div>
         <div class="badge">SYSTEM 2 LATENT</div>
-        <div class="badge info">CANVAS SURFACE</div>
-        
+        <div id="presence-live-status" class="badge info" style="cursor:pointer;" title="Stato rilevamento proprietario">Presenza: Inizializzazione...</div>
         <select id="lang-selector" style="margin-left:auto; background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--border-color); border-radius:4px; padding:0.25rem;">
-          <option value="en">EN</option>
           <option value="it">IT</option>
+          <option value="en">EN</option>
         </select>
       </div>
     </header>
 
-    <div class="input-card">
-      <div class="input-row">
-        <input type="text" id="query-input" data-i18n-placeholder="dashboard:ui.input_placeholder" placeholder="Scrivi un prompt per Atena o per lo Swarm..." autocomplete="off">
-        <button id="submit-btn" data-i18n="dashboard:ui.send_button">ESECUZIONE</button>
-      </div>
-      <div class="quick-prompts">
-        <div class="chip" data-i18n="dashboard:chips.chip_1" data-prompt="Organize my music library">Organize my music library</div>
-        <div class="chip" data-i18n="dashboard:chips.chip_2" data-prompt="Deploy a MySQL server">Deploy a MySQL server</div>
-        <div class="chip" data-i18n="dashboard:chips.chip_3" data-prompt="Open architecture whiteboard">Open architecture whiteboard</div>
-      </div>
-      <div class="status-bar">
-        <span><span data-i18n="dashboard:ui.metrics_strategy">Strategy:</span> <b id="metric-strategy">Pronto</b></span>
-        <span><span data-i18n="dashboard:ui.metrics_latency">Latency:</span> <b id="metric-latency">0 ms</b></span>
-      </div>
-    </div>
-
-    <div id="whiteboard-surface" class="whiteboard-surface">
-      <div class="whiteboard-header">
-        <div class="whiteboard-title">
-          <div class="pulse-dot-green"></div>
-          <span data-i18n="dashboard:ui.whiteboard_title">LAVAGNA INTERATTIVA COLLABORATIVA</span>
+    <div class="workspace-layout">
+      <aside class="sidebar-left-actions">
+        <div id="btn-show-brain" class="nav-action-card">
+          <div class="nav-action-header">
+            <span class="nav-action-icon">&#129504;</span>
+            <span class="nav-action-title">Mostra il Cervello</span>
+          </div>
+          <span class="nav-action-desc">Visualizza il Knowledge Graph e le sinapsi attive</span>
         </div>
-        <div class="whiteboard-controls">
-          <button id="wb-btn-box" class="wb-tool-btn">+ Blocco</button>
-          <button id="wb-btn-arrow" class="wb-tool-btn">+ Connessione</button>
-          <button id="wb-btn-clear" class="wb-tool-btn">Pulisci</button>
-          <button id="wb-btn-close" class="wb-tool-btn">Chiudi</button>
-        </div>
-      </div>
-      <canvas id="whiteboard-canvas" width="900" height="400"></canvas>
-      <div class="whiteboard-footer">
-        <span id="wb-status">Sessione attiva – Sincronizzazione in tempo reale con Atena</span>
-      </div>
-    </div>
 
-    <div id="thinking-panel" class="panel-thinking">
-      <div id="thinking-header" class="thinking-header">
-        <div class="thinking-title">
-          <div class="pulse-dot"></div>
-          <span data-i18n="dashboard:ui.thinking_title">SYSTEM 2 - RAGIONAMENTO LOGICO LATENTE</span>
+        <div id="btn-cognitive-flow" class="nav-action-card">
+          <div class="nav-action-header">
+            <span class="nav-action-icon">&#9889;</span>
+            <span class="nav-action-title">Flusso Logico Cognitivo</span>
+          </div>
+          <span class="nav-action-desc">Tracciamento orizzontale di elaborazione e pensieri AI</span>
         </div>
-        <div class="toggle-icon">[+/-]</div>
-      </div>
-      <div id="thinking-content" class="thinking-content"></div>
-    </div>
 
-    <div id="response-panel" class="panel-response">
-      <div class="response-header">
-        <div class="response-title" data-i18n="dashboard:ui.response_title">RISPOSTA ATENA</div>
-      </div>
-      <div id="response-content" class="response-content"></div>
-      <div id="tools-card" class="tools-card"></div>
+        <div id="btn-settings" class="nav-action-card">
+          <div class="nav-action-header">
+            <span class="nav-action-icon">&#9881;</span>
+            <span class="nav-action-title">Impostazioni</span>
+          </div>
+          <span class="nav-action-desc">Policy Zero-Trust, timer privacy e diagnostica</span>
+        </div>
+      </aside>
+
+      <main class="main-chat-area">
+        <section id="proximity-shelf" class="proximity-shelf">
+          <div id="widget-health" class="proximity-widget-card">
+            <div class="proximity-card-header">
+              <div class="proximity-card-title">&#10084; Salute del Sistema</div>
+              <span id="metric-agents-count" class="proximity-presence-badge">8 Agenti</span>
+            </div>
+            <div class="widget-content proximity-metrics-grid">
+              <div class="metric-box">
+                <div class="metric-label">CPU Carico</div>
+                <div id="metric-cpu-val" class="metric-value">--%</div>
+                <div class="metric-bar"><div id="metric-cpu-bar" class="metric-bar-fill" style="width:0%"></div></div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-label">RAM Utilizzata</div>
+                <div id="metric-ram-val" class="metric-value">--%</div>
+                <div class="metric-bar"><div id="metric-ram-bar" class="metric-bar-fill" style="width:0%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="widget-network" class="proximity-widget-card">
+            <div class="proximity-card-header">
+              <div class="proximity-card-title">&#127760; Rete &amp; IP</div>
+              <span id="widget-network-privacy-timer" class="privacy-timer-badge">Scadenza: 45s</span>
+            </div>
+            <div class="widget-content proximity-metrics-grid">
+              <div class="metric-box">
+                <div class="metric-label">Indirizzo IP Locale</div>
+                <div id="metric-ip-val" class="metric-value">--</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-label">Zero-Trust Gate</div>
+                <div class="metric-value" style="color:#10b981">ATTIVO</div>
+              </div>
+            </div>
+          </div>
+
+          <div id="widget-power" class="proximity-widget-card">
+            <div class="proximity-card-header">
+              <div class="proximity-card-title">&#9889; Consumi Energetici</div>
+              <span id="metric-power-mode" class="proximity-presence-badge">DINAMICO</span>
+            </div>
+            <div class="widget-content proximity-metrics-grid">
+              <div class="metric-box">
+                <div class="metric-label">Potenza Stimata</div>
+                <div id="metric-watts-val" class="metric-value">-- W</div>
+              </div>
+              <div class="metric-box">
+                <div class="metric-label">Efficienza Termica</div>
+                <div class="metric-value" style="color:#38bdf8">OTTIMALE</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="cognitive-flow-panel" class="cognitive-flow-panel">
+          <div class="cognitive-flow-header">
+            <div class="cognitive-flow-title">
+              <div class="flow-pulse-dot"></div>
+              <span>Flusso Logico Cognitivo (System 1 &amp; 2 Pipeline)</span>
+            </div>
+            <div class="flow-controls-top">
+              <button id="flow-close-btn" class="flow-btn-mini">Nascondi</button>
+            </div>
+          </div>
+          <div id="cognitive-flow-track" class="cognitive-flow-track"></div>
+          <div id="flow-inspector" class="flow-inspector" style="display:none;">
+            <div class="flow-inspector-head">
+              <div id="flow-inspector-title" class="flow-inspector-title">Dettaglio Pensiero Cognitivo</div>
+              <button id="flow-inspector-close" class="flow-inspector-close">&times;</button>
+            </div>
+            <div id="flow-thought-box" class="flow-thought-box"></div>
+          </div>
+        </section>
+
+        <div class="input-card">
+          <div class="input-row">
+            <input type="text" id="query-input" data-i18n-placeholder="dashboard:ui.input_placeholder" placeholder="Scrivi un prompt per Atena o per lo Swarm..." autocomplete="off">
+            <button id="submit-btn" data-i18n="dashboard:ui.send_button">ESECUZIONE</button>
+          </div>
+          <div class="quick-prompts">
+            <div class="chip" data-prompt="Organize my music library">Organize my music library</div>
+            <div class="chip" data-prompt="Deploy a MySQL server">Deploy a MySQL server</div>
+            <div class="chip" data-prompt="Open architecture whiteboard">Open architecture whiteboard</div>
+          </div>
+          <div class="status-bar">
+            <span><span>Strategy:</span> <b id="metric-strategy">Pronto</b></span>
+            <span><span>Latency:</span> <b id="metric-latency">0 ms</b></span>
+          </div>
+        </div>
+
+        <div id="whiteboard-surface" class="whiteboard-surface">
+          <div class="whiteboard-header">
+            <div class="whiteboard-title">
+              <div class="pulse-dot-green"></div>
+              <span>LAVAGNA INTERATTIVA COLLABORATIVA</span>
+            </div>
+            <div class="whiteboard-controls">
+              <button id="wb-btn-box" class="wb-tool-btn">+ Blocco</button>
+              <button id="wb-btn-arrow" class="wb-tool-btn">+ Connessione</button>
+              <button id="wb-btn-clear" class="wb-tool-btn">Pulisci</button>
+              <button id="wb-btn-close" class="wb-tool-btn">Chiudi</button>
+            </div>
+          </div>
+          <canvas id="whiteboard-canvas" width="900" height="400"></canvas>
+          <div class="whiteboard-footer">
+            <span id="wb-status">Sessione attiva – Sincronizzazione in tempo reale con Atena</span>
+          </div>
+        </div>
+
+        <div id="thinking-panel" class="panel-thinking">
+          <div id="thinking-header" class="thinking-header">
+            <div class="thinking-title">
+              <div class="pulse-dot"></div>
+              <span>SYSTEM 2 - RAGIONAMENTO LOGICO LATENTE</span>
+            </div>
+            <div class="toggle-icon">[+/-]</div>
+          </div>
+          <div id="thinking-content" class="thinking-content"></div>
+        </div>
+
+        <div id="response-panel" class="panel-response">
+          <div class="response-header">
+            <div class="response-title">RISPOSTA ATENA</div>
+          </div>
+          <div id="response-content" class="response-content"></div>
+          <div id="tools-card" class="tools-card"></div>
+        </div>
+      </main>
+
+      <aside class="sidebar-right-actions">
+        <div class="audio-btn-card">
+          <div class="audio-btn-header">
+            <div class="audio-btn-title">&#127908; Microfono</div>
+          </div>
+          <button id="btn-mic" class="audio-action-btn">
+            <span>&#127908;</span>
+            <span>Attiva Microfono</span>
+          </button>
+          <div class="audio-visualizer-bar-group">
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+            <div class="audio-bar"></div>
+          </div>
+          <div id="mic-status-label" class="audio-status-text">In attesa di comando vocale</div>
+        </div>
+
+        <div class="audio-btn-card">
+          <div class="audio-btn-header">
+            <div class="audio-btn-title">&#128266; Altoparlanti</div>
+          </div>
+          <button id="btn-speaker" class="audio-action-btn">
+            <span>&#128266;</span>
+            <span>Altoparlante Attivo</span>
+          </button>
+          <div id="speaker-status-label" class="audio-status-text">Audio vocale abilitato</div>
+        </div>
+      </aside>
     </div>
   </div>
+
+  <div id="brain-modal-overlay" class="brain-modal-overlay">
+    <div class="brain-modal-card">
+      <div class="brain-modal-header">
+        <div class="brain-modal-title">&#129504; Atena Brain - Knowledge Graph &amp; Synapses</div>
+        <button id="brain-modal-close" class="flow-btn-mini">&times;</button>
+      </div>
+      <div class="brain-modal-body">
+        <canvas id="brain-network-canvas" class="brain-canvas-network"></canvas>
+      </div>
+      <div class="brain-modal-footer">
+        <span id="brain-stats-label">Sincronizzazione in tempo reale con Context Graph</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="settings-modal-overlay" class="settings-modal-overlay">
+    <div class="settings-modal-card">
+      <div class="settings-modal-header">
+        <div class="settings-modal-title">&#9881; Impostazioni Sistema Atena</div>
+        <button id="settings-modal-close" class="flow-btn-mini">&times;</button>
+      </div>
+      <div class="settings-modal-body">
+        <div class="setting-group">
+          <label class="setting-label">Tempo Max Esposizione Widget Privacy (secondi)</label>
+          <span class="setting-desc">Tempo massimo in cui le informazioni personali rimangono visibili senza ri-autenticazione.</span>
+          <input type="number" id="setting-exposure-time" class="setting-input" value="45" min="10" max="300">
+        </div>
+        <div class="setting-group">
+          <label class="setting-label">Simulazione Sensore Presenza Proprietario</label>
+          <span class="setting-desc">Simula l'avvicinamento del proprietario e la verifica biometrica viso/voce.</span>
+          <button id="btn-toggle-presence-sim" class="audio-action-btn" style="align-self:flex-start;">
+            <span>&#128100;</span>
+            <span>Alterna Presenza Proprietario</span>
+          </button>
+        </div>
+        <div class="setting-group">
+          <label class="setting-label">Sicurezza Zero-Trust &amp; Crittografia</label>
+          <span class="setting-desc">Stato: Interceptor JWT attivo | Mascheramento automatico dati sensibili.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script type="module" src="/static/app.js"></script>
 </body>
 </html>

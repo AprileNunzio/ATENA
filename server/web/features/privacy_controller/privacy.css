@@ -1,0 +1,66 @@
+.privacy-shield-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.privacy-blurred {
+  filter: blur(10px) grayscale(80%);
+  user-select: none;
+  pointer-events: none;
+  transition: filter 0.35s ease;
+}
+
+.privacy-shield-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 25;
+  background: rgba(3, 7, 18, 0.88);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  text-align: center;
+  border-radius: inherit;
+  border: 1px dashed rgba(239, 68, 68, 0.4);
+  animation: privacyFade 0.25s ease-out;
+}
+
+@keyframes privacyFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.privacy-shield-icon {
+  font-size: 1.5rem;
+  color: #f87171;
+  margin-bottom: 0.4rem;
+}
+
+.privacy-shield-text {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #fca5a5;
+  letter-spacing: 0.02em;
+  margin-bottom: 0.25rem;
+}
+
+.privacy-shield-sub {
+  font-size: 0.7rem;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+.privacy-timer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #f87171;
+  font-size: 0.68rem;
+  font-family: monospace;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+}
