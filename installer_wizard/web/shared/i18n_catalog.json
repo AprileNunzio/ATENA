@@ -12103,6 +12103,26 @@
     [
       "Lingua dell'interfaccia del display e del pannello (it, en, fr)",
       "Interface language of the display and the panel (it, en, fr)"
+    ],
+    [
+      "Livello automatico del microfono",
+      "Automatic microphone level"
+    ],
+    [
+      "Automatico: ATENA misura la tua voce e, se il microfono è troppo alto o distorce, attiva da sola il controllo del volume del browser che abbassa il microfono nel sistema. Sì: sempre attivo. No: mai.",
+      "Automatic: ATENA measures your voice and, if the microphone is too loud or distorts, it turns on the browser volume control by itself, which lowers the microphone in the system. Yes: always on. No: never."
+    ],
+    [
+      "Automatico (consigliato)",
+      "Automatic (recommended)"
+    ],
+    [
+      "Sì, sempre",
+      "Yes, always"
+    ],
+    [
+      "No, mai",
+      "No, never"
     ]
   ],
   "reverse": [
@@ -12500,7 +12520,8 @@
     "wk-text wk-faint",
     "Microphone",
     "Sandbox",
-    "language preference not saved"
+    "language preference not saved",
+    "Preferenza del livello del microfono non salvata"
   ],
   "fr": [
     [
@@ -12638,6 +12659,14 @@
     [
       "Auto-riparazione: {0}",
       "Auto-réparation : {0}"
+    ],
+    [
+      "Automatico (consigliato)",
+      "Automatique (recommandé)"
+    ],
+    [
+      "Automatico: ATENA misura la tua voce e, se il microfono è troppo alto o distorce, attiva da sola il controllo del volume del browser che abbassa il microfono nel sistema. Sì: sempre attivo. No: mai.",
+      "Automatique : ATENA mesure votre voix et, si le microphone est trop fort ou sature, elle active d'elle-même le contrôle du volume du navigateur, qui baisse le microphone dans le système. Oui : toujours actif. Non : jamais."
     ],
     [
       "Automazioni a più stadi: inneschi, condizioni, azioni, rami, attese, webhook (1/0)",
@@ -13240,6 +13269,10 @@
       "Langue non prise en charge"
     ],
     [
+      "Livello automatico del microfono",
+      "Niveau automatique du microphone"
+    ],
+    [
       "Livello vocale obiettivo dell'autolivellamento (0.03 - 0.2)",
       "Niveau vocal cible du nivellement automatique (0.03 - 0.2)"
     ],
@@ -13350,6 +13383,10 @@
     [
       "Nel cloud",
       "Dans le cloud"
+    ],
+    [
+      "No, mai",
+      "Non, jamais"
     ],
     [
       "Nome dell'assistente (predefinito A.T.E.N.A.)",
@@ -13714,6 +13751,10 @@
     [
       "Suono mentre pensa ed elabora (1/0)",
       "Son pendant la réflexion et le traitement (1/0)"
+    ],
+    [
+      "Sì, sempre",
+      "Oui, toujours"
     ],
     [
       "Telecamere e registrazione ad anello (1/0, spento di default)",

@@ -9,7 +9,7 @@ from pathlib import Path
 log = logging.getLogger("atena.ear")
 
 NAME = "atena"
-WAKE_RE = re.compile(r"\b((?:hey|ehi|ei|ok|okay)[\s,]+)?(atena|athena|attena|atenna|aténa|athéna|hatena)\b[\s,.!?:;-]*", re.I)
+WAKE_RE = re.compile(r"\b((?:hey|hei|hej|ehi|ehy|eh|ei|e|hi|ok|okay)[\s,]+)?(atena|athena|attena|atenna|aténa|athéna|hatena|atèna|athèna)\b[\s,.!?:;-]*", re.I)
 NOT_NAMES = frozenset({"catena", "arena", "avena", "antenna", "atenei", "ateneo"})
 LEARN_FILE = Path(os.environ.get("ATENA_EAR_LEARN", "/var/lib/atena/ear_learning.json"))
 PEOPLE_DIR = Path(os.environ.get("ATENA_PEOPLE_DIR", "/var/lib/atena/people"))
@@ -72,18 +72,27 @@ class Learner:
             return exact.start(), exact.end(), None
         tokens = list(TOKEN_RE.finditer(text))
         window = tokens[:2] if self.data.get("strict") else tokens[:4]
-        for m in window:
-            word = _plain(m.group())
-            if len(word) < 4 or len(word) > 9 or word in NOT_NAMES:
-                continue
-            learned = self.data["variants"].get(word, 0)
-            dist = _lev(word, NAME)
-            if dist <= 1 or learned >= 2 or (dist == 2 and learned >= 1):
-                end = m.end()
-                while end < len(text) and text[end] in " ,.!?:;-":
-                    end += 1
-                return m.start(), end, word
+        for i, m in enumerate(window):
+            candidates = [(_plain(m.group()), m)]
+            if i + 1 < len(window) and len(m.group()) <= 3:
+                candidates.append((_plain(m.group()) + _plain(window[i + 1].group()), window[i + 1]))
+            for word, last in candidates:
+                if self._sounds_like_name(word):
+                    return m.start(), self._skip_punctuation(text, last.end()), word
         return None
+
+    def _sounds_like_name(self, word: str) -> bool:
+        if len(word) < 4 or len(word) > 9 or word in NOT_NAMES:
+            return False
+        learned = self.data["variants"].get(word, 0)
+        dist = _lev(word, NAME)
+        return dist <= 1 or learned >= 2 or (dist == 2 and learned >= 1)
+
+    @staticmethod
+    def _skip_punctuation(text: str, end: int) -> int:
+        while end < len(text) and text[end] in " ,.!?:;-":
+            end += 1
+        return end
 
     def on_wake(self, variant, ms: int) -> None:
         s = self.data["stats"]

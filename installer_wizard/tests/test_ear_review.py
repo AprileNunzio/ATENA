@@ -15,7 +15,7 @@ if str(EAR) not in sys.path:
 import recorder
 import review_metrics as metrics
 import tuning as tuning_module
-from wakegain import WakeGain
+from autolevel import AutoLevel
 
 HAS_WAKE = lambda text: "atena" in text.lower()
 
@@ -172,25 +172,59 @@ class RecorderTest(unittest.TestCase):
         self.assertEqual(recorder.listing(), [])
 
 
-class WakeGainTest(unittest.TestCase):
+class AutoLevelTest(unittest.TestCase):
+    @staticmethod
+    def tone(level: float) -> np.ndarray:
+        return (np.sin(np.arange(480) * 0.3) * level).astype(np.float32)
+
+    @staticmethod
+    def rms(frame: np.ndarray) -> float:
+        return float(np.sqrt(np.mean(frame * frame)))
+
     def test_amplifies_weak_voice_but_not_silence(self):
-        gain = WakeGain()
-        voice = (np.sin(np.arange(480) * 0.3) * 0.01).astype(np.float32)
+        level = AutoLevel()
+        voice = self.tone(0.01)
         for _ in range(40):
-            out = gain.apply(voice, 0.007, 0.001)
+            out = level.apply(voice, self.rms(voice), 0.001)
         self.assertGreater(float(np.abs(out).max()), float(np.abs(voice).max()) * 4)
-        quiet = WakeGain()
+        quiet = AutoLevel()
         hiss = (np.random.default_rng(1).standard_normal(480) * 0.001).astype(np.float32)
         for _ in range(40):
             out = quiet.apply(hiss, 0.001, 0.001)
         self.assertTrue(np.array_equal(out, hiss))
 
+    def test_attenuates_a_microphone_that_is_too_loud(self):
+        level = AutoLevel()
+        loud = self.tone(0.6)
+        for _ in range(40):
+            out = level.apply(loud, self.rms(loud), 0.001)
+        self.assertLess(float(np.abs(out).max()), 0.3)
+
     def test_never_clips_beyond_full_scale(self):
-        gain = WakeGain()
+        level = AutoLevel()
         loud = np.ones(480, dtype=np.float32) * 0.5
         for _ in range(20):
-            out = gain.apply(loud, 0.5, 0.001)
+            out = level.apply(loud, 0.5, 0.001)
         self.assertLessEqual(float(np.abs(out).max()), 1.0)
+
+    def test_clipping_voice_asks_once_to_lower_the_microphone(self):
+        level = AutoLevel()
+        clipped = np.clip(self.tone(1.6), -1.0, 1.0)
+        advice = []
+        for _ in range(400):
+            level.apply(clipped, self.rms(clipped), 0.001)
+            advice.append(level.take_advice())
+        self.assertEqual([a for a in advice if a], ["lower"])
+        self.assertEqual(level.status()["advice"], "lower")
+
+    def test_a_good_level_gives_no_advice_to_act_on(self):
+        level = AutoLevel()
+        voice = self.tone(0.08)
+        advice = []
+        for _ in range(400):
+            level.apply(voice, self.rms(voice), 0.001)
+            advice.append(level.take_advice())
+        self.assertEqual([a for a in advice if a], ["ok"])
 
 
 if __name__ == "__main__":

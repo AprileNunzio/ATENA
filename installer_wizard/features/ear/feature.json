@@ -280,20 +280,25 @@
     },
     {
       "key": "ATENA_MIC_AGC",
-      "label": "Controllo automatico del volume del browser",
+      "label": "Livello automatico del microfono",
       "type": "select",
-      "default": "0",
+      "default": "auto",
       "apply": [],
       "options": [
         {
+          "value": "auto",
+          "label": "Automatico (consigliato)"
+        },
+        {
           "value": "1",
-          "label": "Sì"
+          "label": "Sì, sempre"
         },
         {
           "value": "0",
-          "label": "No (consigliato: Atena amplifica da sola)"
+          "label": "No, mai"
         }
-      ]
+      ],
+      "help": "Automatico: ATENA misura la tua voce e, se il microfono è troppo alto o distorce, attiva da sola il controllo del volume del browser che abbassa il microfono nel sistema. Sì: sempre attivo. No: mai."
     },
     {
       "key": "ATENA_EAR_RECORD",

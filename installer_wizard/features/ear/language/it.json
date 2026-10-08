@@ -32,7 +32,7 @@
     "ATENA_EAR_CONVERSATION_S": "Durata della conversazione continua dopo una risposta, in secondi (5 - 120)",
     "ATENA_MIC_EC": "Cancellazione dell'eco del browser",
     "ATENA_MIC_NS": "Riduzione del rumore del browser",
-    "ATENA_MIC_AGC": "Controllo automatico del volume del browser",
+    "ATENA_MIC_AGC": "Livello automatico del microfono",
     "ATENA_EAR_RECORD": "Registra la voce a blocchi per imparare (solo sul tuo server)",
     "ATENA_EAR_RECORD_CHUNK": "Durata di ogni blocco registrato, in secondi (20 - 300)",
     "ATENA_EAR_RECORD_HOURS": "Conserva le registrazioni al massimo (ore, 1 - 168)",
@@ -49,5 +49,8 @@
     "ATENA_VOICE_MARGIN": "Distacco minimo dalla seconda voce più simile (0 - 0,5)",
     "ATENA_VOICE_TWIN_SIM": "Due voci sono «simili» oltre questa somiglianza (0,2 - 0,95)",
     "ATENA_VOICE_TWIN_MARGIN": "Distacco richiesto tra voci simili, per esempio gemelli (0 - 0,6)"
+  },
+  "help": {
+    "ATENA_MIC_AGC": "Automatico: ATENA misura la tua voce e, se il microfono è troppo alto o distorce, attiva da sola il controllo del volume del browser che abbassa il microfono nel sistema. Sì: sempre attivo. No: mai."
   }
 }

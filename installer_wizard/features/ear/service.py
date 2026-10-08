@@ -21,8 +21,8 @@ from music import MusicTap
 from recorder import Recorder, write_chunk
 from reviewer import Reviewer, activity
 from voiceprint import ENROLLED_AT, Voiceprints
-from wakegain import WakeGain
 from wakeword import WakeWord
+from autolevel import AutoLevel
 
 log = logging.getLogger("atena.ear")
 
@@ -85,7 +85,7 @@ class Session:
         self.music = MusicTap()
         self.profile = enhance.NoiseProfile()
         self.wake = WakeWord()
-        self.wakegain = WakeGain()
+        self.autolevel = AutoLevel()
         self.recorder = Recorder(secrets.token_hex(3))
         self.page: dict = {}
         self.opened = time.time()
@@ -122,6 +122,11 @@ class Session:
     async def _frame(self, frame: np.ndarray) -> None:
         now = time.time()
         rms = float(np.sqrt(np.mean(frame * frame)) + 1e-9)
+        leveled = self.autolevel.apply(frame, rms, self.noise)
+        advice = self.autolevel.take_advice()
+        if advice:
+            LINK["mic_level"] = advice
+            await self.send(type="mic_level", advice=advice)
         self.music.feed(frame, rms, self.noise, self.mode == "idle" and not self.atena_speaking, now)
         threshold = max(self.noise * 3.2, 0.010)
         voiced = rms > threshold
@@ -144,7 +149,7 @@ class Session:
                 await self.send(type="barge")
                 await self._instant_wake()
             return
-        if self.mode == "idle" and self.enroll is None and self.wake.feed(self.wakegain.apply(frame, rms, self.noise)):
+        if self.mode == "idle" and self.enroll is None and self.wake.feed(leveled):
             await self._instant_wake()
         if self.mode == "listening" and now > self.listen_until and (not self.in_speech or now > self.listen_until + 6):
             await self._listen_timeout()

@@ -8,6 +8,10 @@
   ],
   "settings": {
     "ATENA_WAKE_WORD": "Wake word",
-    "ATENA_STT_ENGINE": "STT Engine"
+    "ATENA_STT_ENGINE": "STT Engine",
+    "ATENA_MIC_AGC": "Automatic microphone level"
+  },
+  "help": {
+    "ATENA_MIC_AGC": "Automatic: ATENA measures your voice and, if the microphone is too loud or distorts, it turns on the browser volume control by itself, which lowers the microphone in the system. Yes: always on. No: never."
   }
 }

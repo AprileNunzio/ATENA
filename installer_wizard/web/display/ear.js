@@ -5,6 +5,9 @@
   const stats = { opens: 0, msgs: 0, sends: 0, mic: 0, made: 0 };
   const PAGE = Math.random().toString(36).slice(2, 8);
   const OPT_IN = "atena-remote-mic";
+  const AUTO_AGC = "atena-mic-agc";
+  let autoLevel = false, agcOn = false;
+  const agcLearned = () => { try { return localStorage.getItem(AUTO_AGC) === "1"; } catch (e) { return false; } };
   const optedIn = () => { try { return localStorage.getItem(OPT_IN) === "1"; } catch (e) { return false; } };
   const secure = () => window.isSecureContext && !!navigator.mediaDevices;
   const micAllowed = () => D.local || (secure() && optedIn());
@@ -56,13 +59,15 @@
   }
 
   async function micConstraints() {
-    let tune = { echoCancellation: true, noiseSuppression: false, autoGainControl: false };
+    let tune = { echoCancellation: true, noiseSuppression: false, autoGainControl: false, autoLevel: true };
     try {
       const r = await withTimeout(fetch("/api/ear/config", { cache: "no-store" }), 3000, "configurazione del microfono");
       if (r.ok) tune = await r.json();
     } catch (e) { console.warn("Configurazione del microfono non letta, uso i valori predefiniti", e); }
+    autoLevel = !!tune.autoLevel;
+    agcOn = !!tune.autoGainControl || (autoLevel && agcLearned());
     return { deviceId: "default", channelCount: 1, echoCancellation: !!tune.echoCancellation,
-      noiseSuppression: !!tune.noiseSuppression, autoGainControl: !!tune.autoGainControl };
+      noiseSuppression: !!tune.noiseSuppression, autoGainControl: agcOn };
   }
 
   async function openMic() {
@@ -171,6 +176,7 @@
       else if (ev.type === "state") { setState(ev.state); document.body.classList.toggle("conversing", !!ev.conversation); }
       else if (ev.type === "wake") { D.lastInteraction = Date.now(); D.pingActivity(true); setState("listening"); if (D.mode === "brain") D.setMode("face"); }
       else if (ev.type === "barge") { if (D.hush) D.hush(); }
+      else if (ev.type === "mic_level") micLevelAdvice(ev.advice);
       else if (ev.type === "wake_only") D.greetWake();
       else if (ev.type === "conversation_end") document.body.classList.remove("conversing");
       else if (ev.type === "enroll_progress") D.Enroll.progress(ev);
@@ -211,6 +217,12 @@
     if (!secure()) { setState("off", offReason()); return; }
     try { localStorage.setItem(OPT_IN, "1"); } catch (e) {}
     await activate();
+  }
+
+  function micLevelAdvice(advice) {
+    if (advice !== "lower" || !autoLevel || agcOn) return;
+    try { localStorage.setItem(AUTO_AGC, "1"); } catch (e) { console.warn("Preferenza del livello del microfono non salvata", e); }
+    restartMic();
   }
 
   async function restartMic() {

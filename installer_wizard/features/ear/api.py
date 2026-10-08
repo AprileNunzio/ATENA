@@ -24,8 +24,9 @@ def on(key: str, default: str) -> bool:
 @public_routes.get("/api/ear/config")
 async def ear_config(request: Request):
     require_display(request, "Solo dal display")
+    agc = env_get("ATENA_MIC_AGC", "auto").strip().lower()
     return {"echoCancellation": on("ATENA_MIC_EC", "1"), "noiseSuppression": on("ATENA_MIC_NS", "0"),
-            "autoGainControl": on("ATENA_MIC_AGC", "0")}
+            "autoGainControl": agc in ("1", "on", "yes", "true"), "autoLevel": agc == "auto"}
 
 
 @admin_routes.get("/api/ear/review")

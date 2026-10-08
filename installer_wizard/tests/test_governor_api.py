@@ -66,9 +66,10 @@ class GovernorApiTest(unittest.TestCase):
         self.assertEqual(self.stranger.get("/api/ear/config").status_code, 401)
         self.client_is_local = True
         config = self.display.get("/api/ear/config").json()
-        self.assertEqual(set(config), {"echoCancellation", "noiseSuppression", "autoGainControl"})
+        self.assertEqual(set(config), {"echoCancellation", "noiseSuppression", "autoGainControl", "autoLevel"})
         self.assertTrue(config["echoCancellation"])
         self.assertFalse(config["noiseSuppression"])
+        self.assertTrue(config["autoLevel"])
 
     def test_cron_automation_round_trip(self):
         spec = {"name": "Cron CI", "triggers": [{"type": "cron", "expr": "*/5 * * * *"}], "actions": [{"type": "log", "text": "x"}]}

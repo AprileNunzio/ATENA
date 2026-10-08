@@ -31,6 +31,18 @@ class WakeNameTest(unittest.TestCase):
                 start, end, _ = learner.find_wake(text)
                 self.assertEqual(text[end:], "accendi la luce")
 
+    def test_split_name_and_more_greetings_wake_and_leave_the_command(self):
+        learner = learner_module.Learner()
+        for text in ("a tena, accendi la luce", "Ate na accendi la luce", "Hei Atena accendi la luce",
+                     "E Atena, accendi la luce", "Eh atena accendi la luce"):
+            with self.subTest(text=text):
+                found = learner.find_wake(text)
+                self.assertIsNotNone(found)
+                self.assertEqual(text[found[1]:], "accendi la luce")
+        for text in ("la tenda è rotta", "e la catena del cancello"):
+            with self.subTest(text=text):
+                self.assertIsNone(learner.find_wake(text))
+
     def test_close_mishearing_wakes_but_common_words_do_not(self):
         learner = learner_module.Learner()
         self.assertIsNotNone(learner.find_wake("Atene accendi la luce"))
