@@ -80,13 +80,21 @@ class OrchestratorDispatcher:
         
         from server.features.project_workspace.manager import project_manager
         sanitized_query = project_manager.process_query(sanitized_query, speaker_id)
-        if "progetto attuale è stato chiuso" in sanitized_query or "current project has been closed" in sanitized_query:
+        if sanitized_query.startswith("System command:") or "progetto attuale è stato chiuso" in sanitized_query or "current project has been closed" in sanitized_query:
+            # Map common internal system commands to user-friendly speech output
+            speech = sanitized_query
+            lang = (context_override or {}).get("reply_language", "it")
+            if "showing projects list" in sanitized_query:
+                speech = "Ecco la lista dei progetti aperti sul tuo schermo." if lang.startswith("it") else "Here is the list of open projects on your screen."
+            elif "closed" in sanitized_query:
+                speech = "Il progetto è stato chiuso." if lang.startswith("it") else "The project has been closed."
+                
             return AgentTaskResponse(
                 task_id=f"tsk_sys_{uuid.uuid4().hex[:8]}",
                 agent_id="system_core",
                 status="SUCCESS",
-                speech_output=sanitized_query,
-                result_data={"closed": True}
+                speech_output=speech,
+                result_data={"system_command": True}
             )
 
         journey.begin(sanitized_query, speaker_id or "user")
