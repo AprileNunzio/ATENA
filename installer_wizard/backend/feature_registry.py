@@ -31,7 +31,7 @@ CATEGORIES = {
     "altro": "Altro",
 }
 _ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{1,40}$")
-_SETTING_TYPES = {"text", "select", "color", "secret", "number", "bool"}
+_SETTING_TYPES = {"text", "select", "color", "secret", "number", "bool", "link"}
 
 
 
