@@ -10,6 +10,9 @@ from features.models3d import generator, library
 AVATAR = {
     "azioni": ["saluto", "annuisce", "disaccordo", "inchino", "cappello", "togli_cappello", "ascolto", "pensa",
                "balla", "canta"],
+    "corpo": ["cammina", "corre", "ombrello", "chiudi_ombrello", "applaude", "pollice_su", "indica", "mani_fianchi",
+              "braccia_conserte", "stiracchia", "capelli", "orologio", "spallucce", "cuore", "bacio", "freddo",
+              "sorpresa", "triste", "furtivo"],
     "micro": ["blink", "microsorriso", "sopracciglio", "sussulto", "annuisce_lieve"],
     "espressioni": ["neutral", "smile", "sad", "cry", "surprise", "disagree", "angry", "doubt", "think"],
     "inquadrature": ["intera", "mezzo", "primo_piano"],
@@ -53,7 +56,7 @@ async def move_widget(id: str, screen=None) -> str:
     return f"widget {id} assegnato allo schermo {screen}"
 
 
-@tool("avatar", "comanda l'ologramma 3D: action (macro o micro), express (emozione), shot (inquadratura), "
+@tool("avatar", "comanda l'avatar 3D: action (azione, corpo o micro), express (emozione), shot (inquadratura), "
       "accessory + state (true/false), color (#rrggbb)",
       {"action": "es. saluto", "express": "es. smile", "shot": "es. primo_piano", "accessory": "hat|glasses|headphones",
        "state": "true/false", "color": "#rrggbb"})

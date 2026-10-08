@@ -60,6 +60,8 @@ Models installed manually are shown with "license unknown" until the administrat
 - **MediaPipe** Tasks Vision and hand landmarker model, Google, Apache-2.0.
 - **Lee Perry-Smith head scan** used by the holographic face, by Lee Perry-Smith / Infinite Realities,
   [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), distributed with the three.js examples.
+- **Michelle** character and **X Bot** animations (idle, walk, run, agree, head shake, sad, sneak, samba) used by the
+  animated 3D character: Adobe Mixamo assets, royalty-free, downloaded at runtime from the three.js examples (MIT).
 - **Wikimedia Commons images** shown on the whiteboard and in presentations: only files under CC0, public domain, CC BY
   or CC BY-SA are used, and each one is captioned with its author and license (also in PDF exports).
 - **Wikipedia text** returned by web search: CC BY-SA 4.0, with source links.

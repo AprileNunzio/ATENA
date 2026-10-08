@@ -8,7 +8,7 @@
   });
   let lib3d = null;
   const LIB_3D = [
-    "/vendor/three.min.js", "/vendor/OrbitControls.js", "/vendor/GLTFLoader.js",
+    "/vendor/three.min.js", "/vendor/OrbitControls.js", "/vendor/GLTFLoader.js", "/vendor/RoomEnvironment.js",
     ...["common", "brain"].map((m) => `/static/display/scene/${m}.js`),
     ...[
       "rig/Landmarks", "rig/Shapes", "rig/MeshRig", "rig/NativeRig", "rig/Visemes",
@@ -17,6 +17,8 @@
       "accessories/Accessory", "accessories/Hat", "accessories/Glasses", "accessories/Headphones",
       "Director", "HoloAvatar",
     ].map((m) => `/static/display/scene/holo/${m}.js`),
+    ...["Bones", "Retarget", "Motion", "Poses", "Gestures", "Umbrella", "Rain", "Life", "Actions", "CharacterAvatar"]
+      .map((m) => `/static/display/scene/character/` + m + ".js"),
     "/static/display/scene/scene.js"
   ];
   const load3D = () => lib3d || (lib3d = LIB_3D.reduce((p, src) => p.then(() => loadScript(src)), Promise.resolve()));
@@ -33,7 +35,7 @@
     try {
       await load3D();
       const scene = D.scene = new Atena3D.AtenaScene($("scene"), { onSelect: D.showNode, onHover: D.hoverNode,
-        faceOptions: { color: FACE.color },
+        faceOptions: { color: FACE.color, style: FACE.style },
         onFaceReady: () => look.auto && AtenaAvatar.watchFps(() => scene.frames, look.info, (fps) => {
           console.warn(`3D a ${fps} fps: passo al nucleo leggero`);
           const swap = () => (D.busy || D.isSpeaking() ? setTimeout(swap, 3000) : location.reload());
@@ -43,6 +45,7 @@
       D.avatar = window.atenaAvatar = scene;
       window.atenaScene = scene;
       scene.setMode(D.mode);
+      if (D.weather) scene.setWeather(D.weather);
       D.applyStage();
       D.refreshBrain(false);
     } catch (err) {

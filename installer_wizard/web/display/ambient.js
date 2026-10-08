@@ -89,6 +89,8 @@
       const changed = JSON.stringify(next) !== JSON.stringify(scene) || d.day !== day;
       scene = next; day = d.day !== false; wind = Number(d.wind) || 0;
       document.body.dataset.weather = d.icon || "";
+      D.weather = d.icon || "";
+      if (D.scene && D.scene.setWeather) D.scene.setWeather(D.weather);
       if (changed) build();
     } catch (err) {
       console.info("Meteo di sfondo non disponibile", err);

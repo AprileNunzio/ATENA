@@ -21,6 +21,9 @@ VENDOR = {
                  "AMFLoader", "TDSLoader", "VRMLLoader")},
     **{f"{n}.js": f"https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/{d}/{n}.js"
        for d, n in (("libs", "fflate.min"), ("libs", "chevrotain.min"), ("curves", "NURBSCurve"), ("curves", "NURBSUtils"))},
+    "RoomEnvironment.js": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/environments/RoomEnvironment.js",
+    "Michelle.glb": "https://raw.githubusercontent.com/mrdoob/three.js/r170/examples/models/gltf/Michelle.glb",
+    "Xbot.glb": "https://raw.githubusercontent.com/mrdoob/three.js/r170/examples/models/gltf/Xbot.glb",
     "occt-import-js.js": "https://cdn.jsdelivr.net/npm/occt-import-js@0.0.22/dist/occt-import-js.js",
     "occt-import-js.wasm": "https://cdn.jsdelivr.net/npm/occt-import-js@0.0.22/dist/occt-import-js.wasm",
     "vision_bundle.mjs": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs",
@@ -75,7 +78,7 @@ def face_options() -> dict:
                         break
 
     return {"avatar": choice("ATENA_AVATAR", ("auto", "full", "light"), "auto"),
-            "style": "hologram", "color": color("ATENA_FACE_COLOR", "#29e0ff"),
+            "style": choice("ATENA_AVATAR_STYLE", ("character", "hologram"), "character"), "color": color("ATENA_FACE_COLOR", "#29e0ff"),
             "model": model_url,
             "hands": "0" if env.get("ATENA_VISION", "1") == "0" else hands,
             "hands_fps": int(choice("ATENA_HANDS_FPS", ("10", "20", "30"), "20")),

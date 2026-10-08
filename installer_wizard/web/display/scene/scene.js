@@ -21,8 +21,7 @@
       if (handlers.face === false) {
         this.face = null;
       } else {
-        this.face = new HoloFace(this.scene, () => handlers.onFaceReady && handlers.onFaceReady(),
-                                 handlers.faceOptions || {});
+        this.face = this._makeFace(handlers);
       }
       this.brain = new HoloBrain(this.scene);
       this.mode = "face";
@@ -38,6 +37,14 @@
       global.addEventListener("resize", () => this.resize());
       this.resize();
       this.renderer.setAnimationLoop(() => this._frame());
+    }
+    _makeFace(handlers) {
+      const opts = handlers.faceOptions || {}, ready = () => handlers.onFaceReady && handlers.onFaceReady();
+      if (opts.style !== "character" || !J.CharacterAvatar) return new HoloFace(this.scene, ready, opts);
+      return new J.CharacterAvatar(this.scene, ready, { ...opts, renderer: this.renderer, onFail: () => {
+        this.face = new HoloFace(this.scene, ready, opts);
+        this.setMode(this.mode, true);
+      } });
     }
     resize() {
       const w = global.innerWidth, h = global.innerHeight;
@@ -90,6 +97,7 @@
     dance(on) { if (this.face && this.face.dance) this.face.dance(on); }
     toggleAccessory(name, state) { if (this.face && this.face.toggleAccessory) this.face.toggleAccessory(name, state); }
     setVoice(bands) { if (this.face && this.face.setVoice) this.face.setVoice(bands); }
+    setWeather(icon) { if (this.face && this.face.setWeather) this.face.setWeather(icon); }
     direct(text) { if (this.face && this.face.direct) this.face.direct(text); }
     _pick(e) {
       if (this.mode !== "brain" || !this.brain.neurons) return null;

@@ -12423,6 +12423,30 @@
     [
       "Nessuna chiamata da quando Atena è stata avviata.",
       "No calls since Atena was started."
+    ],
+    [
+      "Personaggio 3D animato a figura intera (oppure ologramma wireframe o nucleo leggero, scelto in base al dispositivo). Cammina, gesticola mentre parla, saluta, balla con la musica e apre l'ombrello quando piove; dietro scorre il meteo di oggi.",
+      "Animated full-body 3D character (or wireframe hologram or lightweight core, chosen per device). Walks, gestures while talking, waves, dances to music and opens an umbrella when it rains, against a live weather backdrop."
+    ],
+    [
+      "Personaggio 3D animato oppure ologramma wireframe, colore personalizzabile",
+      "Animated 3D character or wireframe hologram, customizable color"
+    ],
+    [
+      "Balla con la musica, ombrello quando piove, sfondo meteo",
+      "Dances to music, umbrella when it rains, weather backdrop"
+    ],
+    [
+      "Stile del 3D",
+      "3D style"
+    ],
+    [
+      "Personaggio 3D animato",
+      "Animated 3D character"
+    ],
+    [
+      "Ologramma wireframe del volto",
+      "Wireframe face hologram"
     ]
   ],
   "reverse": [
@@ -12823,7 +12847,16 @@
     "language preference not saved",
     "Preferenza del livello del microfono non salvata",
     "salvataggio non riuscito ({0})",
-    "Addestramento vocale non salvato"
+    "Addestramento vocale non salvato",
+    "Actions",
+    "Bones",
+    "Gestures",
+    "Life",
+    "Motion",
+    "Poses",
+    "Rain",
+    "Retarget",
+    "Umbrella"
   ],
   "fr": [
     [
@@ -24465,6 +24498,30 @@
     [
       "🪶 Leggeri (≤ 3 GB)",
       "🪶 Légers (≤ 3 Go)"
+    ],
+    [
+      "Personaggio 3D animato a figura intera (oppure ologramma wireframe o nucleo leggero, scelto in base al dispositivo). Cammina, gesticola mentre parla, saluta, balla con la musica e apre l'ombrello quando piove; dietro scorre il meteo di oggi.",
+      "Personnage 3D animé en pied (ou hologramme filaire ou noyau léger, choisi selon l'appareil). Il marche, fait des gestes en parlant, salue, danse sur la musique et ouvre un parapluie quand il pleut, devant la météo du jour."
+    ],
+    [
+      "Personaggio 3D animato oppure ologramma wireframe, colore personalizzabile",
+      "Personnage 3D animé ou hologramme filaire, couleur personnalisable"
+    ],
+    [
+      "Balla con la musica, ombrello quando piove, sfondo meteo",
+      "Danse sur la musique, parapluie quand il pleut, fond météo"
+    ],
+    [
+      "Stile del 3D",
+      "Style 3D"
+    ],
+    [
+      "Personaggio 3D animato",
+      "Personnage 3D animé"
+    ],
+    [
+      "Ologramma wireframe del volto",
+      "Hologramme filaire du visage"
     ]
   ]
 }

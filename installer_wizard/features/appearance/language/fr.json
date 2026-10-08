@@ -1,13 +1,14 @@
 {
-  "name": "Apparition de l'assistant",
-  "description": "Hologramme 3D du visage en style filaire holographique (ou noyau lumineux, à choisir en fonction de l'appareil). Il montre généralement son visage ; en tournant de côté, vous pouvez voir plus. Dansez sur la musique et le temps d'aujourd'hui s'écoule derrière.",
+  "name": "Apparence de l'assistant",
+  "description": "Personnage 3D animé en pied (ou hologramme filaire ou noyau léger, choisi selon l'appareil). Il marche, fait des gestes en parlant, salue, danse sur la musique et ouvre un parapluie quand il pleut, devant la météo du jour.",
   "capabilities": [
     "Choix automatique pour chaque écran",
-    "Hologramme filaire bleu clair, couleur personnalisable",
-    "Danse sur la musique, fond météo"
+    "Personnage 3D animé ou hologramme filaire, couleur personnalisable",
+    "Danse sur la musique, parapluie quand il pleut, fond météo"
   ],
   "settings": {
-    "ATENA_AVATAR": "j'attends",
+    "ATENA_AVATAR": "Apparence",
+    "ATENA_AVATAR_STYLE": "Style 3D",
     "ATENA_FACE_COLOR": "Couleur de l'hologramme"
   }
 }
