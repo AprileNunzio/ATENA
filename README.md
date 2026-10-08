@@ -76,6 +76,12 @@ Atena is not a simple Python script, but a **Distributed and Autonomous Operatin
 
 Version 4 connects the frameworks Atena already had into closed loops. Every item below is covered by automated tests.
 
+### Recent Improvements (October 2026)
+- **Collaborator Architecture & Neural Swarm**: Core upgraded with a Collaborator-style architecture, Swarm broker, PTY, VFS, and Neural Telemetry. Features self-healing capabilities for code and isolated workspace sandbox runners.
+- **Advanced Orchestrator & Project Mode**: Introduced multi-project routing, auto-context routing, and a dedicated Project Mode with a bantering coworker persona and forced LLM language match.
+- **People & Installer Wizard Overhaul**: Restyled the people management panel into two distinct sections with a new photo gallery, optimized nightly processing, cognitive intent classification, and fully synchronized i18n logic.
+- **Control Deck & UI Enhancements**: Implemented a new Neural Analysis Flow and Project Widget for the Control Deck. Refined the weather backdrop, fixed French language discovery, and optimized proximity precedence logic.
+
 ### Autonomy without unsafe shortcuts
 - **Zero-shot skills** (`server/features/skill_synthesis/`): when no agent can handle a request, Atena writes the tool, tests it
   in the sandbox and answers with the verified result. Offline tools must run in a **microVM**, networked tools in at least a
