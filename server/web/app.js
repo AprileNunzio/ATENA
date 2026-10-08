@@ -358,7 +358,7 @@ function handleServerEvent(event, rawData, startTime) {
     if (!responsePanel.classList.contains("active")) {
       responsePanel.classList.add("active");
     }
-    responseContent.textContent += data.chunk || "";
+    if(data.chunk) { responseContent.textContent += data.chunk; } if(data.widget_html) { const w = document.createElement("div"); w.style.marginTop = "1rem"; w.innerHTML = data.widget_html; responseContent.appendChild(w); }
     if (data.surface === "whiteboard") {
       openWhiteboardSurface();
     }

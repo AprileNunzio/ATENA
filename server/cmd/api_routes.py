@@ -83,7 +83,7 @@ async def _stream_reasoning_generator(query: str, context: Dict[str, Any]) -> As
         active_j = journey.active()
         if active_j:
             yield f"event: journey_snapshot\ndata: {json.dumps(active_j.snapshot())}\n\n"
-        yield f"event: response\ndata: {json.dumps({'chunk': res.speech_output, 'surface': res.result_data.get('surface'), 'action': res.result_data.get('action')})}\n\n"
+        yield f"event: response\ndata: {json.dumps({'chunk': res.speech_output, 'surface': res.result_data.get('surface'), 'action': res.result_data.get('action'), 'widget_html': res.result_data.get('widget_html')})}\n\n"
         await semantic_cache.record_success(query, {
             "agent_id": res.agent_id,
             "speech_output": res.speech_output,

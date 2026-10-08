@@ -47,6 +47,14 @@ class ServerSettings(BaseSettings):
     CONSENSUS_CRITICAL_TIMEOUT_SECONDS: float = 45.0
     BRAIN_ROUTES_PATH: str = "/run/atena/brain/routes.json"
     ATENA_SUPERVISOR_URL: str = "http://127.0.0.1:8080"
+    
+    # Proxmox Configuration
+    PROXMOX_HOST: str = ""
+    PROXMOX_USER: str = ""
+    PROXMOX_PASSWORD: str = ""
+    PROXMOX_TOKEN_ID: str = ""
+    PROXMOX_TOKEN_SECRET: str = ""
+    PROXMOX_VERIFY_SSL: bool = False
 
     model_config = SettingsConfigDict(
         env_file=".env", env_file_encoding="utf-8", extra="ignore"
