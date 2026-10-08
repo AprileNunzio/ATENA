@@ -106,6 +106,7 @@
         <div class="nd-cmd">curl -sL ${fmt.esc(server)}/nodes/agent.py -o atena-node.py
 sudo python3 atena-node.py --server ${fmt.esc(server)} --code ${fmt.esc(r.code)} --name "Cucina" --type satellite --install</div>
         <div class="nd-sub">Cambia nome e tipo a piacere (satellite, display, server, sensor). Con --install l'agente parte da solo a ogni accensione.</div>
+        <div class="nd-sub" style="margin-top:10px">PC Windows: nell'Assistente ATENA scrivi l'indirizzo ${fmt.esc(data.master.ip || location.hostname)}, premi «Verifica» e controlla che l'impronta sia ${r.ca_fingerprint ? `<b class="mono">${fmt.esc(r.ca_fingerprint)}</b>` : "quella del certificato di ATENA (HTTPS non ancora attivo)"}, poi inserisci il codice.</div>
         <div class="nd-sub" style="margin-top:10px">Oppure, senza codice: il nodo trova Atena da sola nella rete e tu lo approvi qui confrontando il codice che mostra.</div>
         <div class="nd-cmd">curl -sL ${fmt.esc(server)}/nodes/agent.py -o atena-node.py
 sudo python3 atena-node.py --join --name "Cucina" --type satellite --install</div>

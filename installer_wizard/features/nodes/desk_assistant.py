@@ -1,5 +1,3 @@
-"""Cervello dell'assistente desktop: traduce una richiesta fatta su un PC satellite in una risposta
-parlata più un elenco chiuso di azioni che il satellite esegue localmente (mai comandi di shell)."""
 import base64
 import binascii
 import json
@@ -22,8 +20,17 @@ ACTIONS = {
     "read_file": "{path}: legge un file di testo e te lo rimanda per continuare",
     "list_folder": "{path}: elenca il contenuto di una cartella e te lo rimanda",
     "search_files": "{query, folder?}: cerca file per nome e ti rimanda i risultati",
+    "run_powershell": "{command}: esegue un comando PowerShell sul PC; l'utente vede e conferma il comando esatto; "
+                      "ricevi l'output",
+    "run_script": "{path}: esegue uno script .ps1, .bat, .cmd o .py che si trova nelle cartelle consentite; ricevi l'output",
+    "ssh": "{host, user, port?, command}: esegue un comando su un altro computer via SSH con chiave; ricevi l'output",
+    "window": "{op: focus|minimize|maximize|restore, title}: gestisce una finestra aperta cercandola per titolo o programma",
+    "show_desktop": "{}: riduce tutte le finestre e mostra il desktop",
+    "press_keys": "{keys}: preme una combinazione di tasti nel programma attivo (es. ctrl+s, alt+tab, f5)",
 }
-FOLLOWUP = {"read_file", "list_folder", "search_files"}
+FOLLOWUP = {"read_file", "list_folder", "search_files", "run_powershell", "run_script", "ssh"}
+TEXT_FIELDS = ("path", "name", "url", "query", "folder", "host", "user", "op", "title", "keys")
+LEVELS = {"allow": "consentito", "ask": "chiedi conferma", "deny": "VIETATO"}
 MAX_CONTENT = 400_000
 MAX_CONTEXT = 6000
 
@@ -53,6 +60,9 @@ Regole:
   timer, notizie, chiacchiere, cultura generale): in quel caso lascia actions vuoto e reply vuoto.
 - Usa percorsi assoluti costruiti dalle cartelle dell'utente indicate sotto. Se l'utente non dice dove, usa Documenti.
 - Non cancellare mai nulla. Non sovrascrivere file esistenti se non richiesto esplicitamente ("overwrite": true).
+- Preferisci sempre le azioni specifiche. Usa run_powershell, run_script o ssh solo quando servono davvero, con
+  comandi di sola lettura se possibile, e spiega in "reply" cosa fa il comando. Mai comandi distruttivi o che
+  scaricano ed eseguono codice, a meno che l'utente non lo chieda esplicitamente con parole sue.
 - Per "aiutami a scrivere" nel programma aperto usa type_text; per testi lunghi da conservare crea un file.
 - Progetti web: crea la cartella del progetto con index.html, style.css, script.js completi e funzionanti,
   poi open_app "Visual Studio Code" con path la cartella (se l'utente non ha VS Code, apri index.html).
@@ -80,6 +90,10 @@ def _env_block(env: dict, context: dict) -> str:
         lines.append("Applicazioni rilevanti installate: " + ", ".join(str(a)[:40] for a in apps[:60]))
     if context.get("window"):
         lines.append(f"Finestra su cui l'utente sta lavorando: «{str(context['window'])[:200]}» ({str(context.get('app') or '')[:60]})")
+    permissions = env.get("permissions") if isinstance(env.get("permissions"), dict) else {}
+    if permissions:
+        lines.append("Permessi dell'utente (non proporre mai azioni VIETATE): " + ", ".join(
+            f"{str(k)[:24]}={LEVELS.get(str(v), 'sconosciuto')}" for k, v in list(permissions.items())[:30]))
     return "\n".join(lines)
 
 
@@ -109,10 +123,12 @@ def _clean(raw) -> dict:
         if not isinstance(a, dict) or a.get("type") not in ACTIONS:
             continue
         clean = {"type": a["type"]}
-        for key in ("path", "name", "url", "query", "folder"):
+        for key in TEXT_FIELDS:
             if isinstance(a.get(key), str):
                 clean[key] = a[key][:1000]
-        for key in ("content", "text"):
+        if isinstance(a.get("port"), int) and 1 <= a["port"] <= 65535:
+            clean["port"] = a["port"]
+        for key in ("content", "text", "command"):
             if isinstance(a.get(key), str):
                 clean[key] = a[key][:MAX_CONTENT]
         clean["overwrite"] = bool(a.get("overwrite"))

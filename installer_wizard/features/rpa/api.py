@@ -8,7 +8,7 @@ from fastapi.responses import StreamingResponse
 admin_routes = APIRouter(tags=["RPA"])
 public_routes = APIRouter(tags=["RPA"])
 
-_SKIP_DIRS = {"__pycache__", "build", "dist", ".venv"}
+_SKIP_DIRS = {"__pycache__", "build", "dist", ".venv", "tests"}
 _KEEP = (".py", ".bat", ".sh", "requirements.txt")
 
 # features/rpa -> features -> installer_wizard -> radice del progetto

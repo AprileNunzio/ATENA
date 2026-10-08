@@ -143,7 +143,8 @@ async def nodes_reject(node_id: str, user: str = Depends(require_admin)):
 @admin_routes.post("/api/nodes/pairing-code")
 async def nodes_code(user: str = Depends(require_admin)):
     store.event("INFO", f"Codice di abbinamento nodi generato da {user}", "nodes")
-    return registry.new_code()
+    from features.nodes import trust
+    return {**registry.new_code(), "ca_fingerprint": trust.ca_fingerprint()}
 
 
 @admin_routes.put("/api/nodes/{node_id}")
