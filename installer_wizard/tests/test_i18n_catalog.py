@@ -23,8 +23,14 @@ class CatalogTest(unittest.TestCase):
         self.assertEqual(missing, [], "add these strings to web/shared/i18n_catalog.json: Italian ones to «pairs» as "
                                       "[italian, english], English ones to «reverse» as [english, italian]")
 
+    def test_every_visible_string_has_french(self):
+        self.maxDiff = None
+        french = {p[0] for p in CATALOG["fr"]} | set(CATALOG["same"])
+        missing = sorted(s for s in extract.extract() if s not in french)
+        self.assertEqual(missing, [], "add these strings to «fr» in web/shared/i18n_catalog.json as [source, french]")
+
     def test_placeholders_match(self):
-        for it, en in CATALOG["pairs"] + CATALOG["reverse"]:
+        for it, en in CATALOG["pairs"] + CATALOG["reverse"] + CATALOG["fr"]:
             with self.subTest(it=it):
                 self.assertEqual(sorted(SLOT.findall(it)), sorted(SLOT.findall(en)))
 
