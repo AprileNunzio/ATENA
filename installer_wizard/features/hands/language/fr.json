@@ -1,0 +1,16 @@
+{
+  "name": "Contrôles avec vos mains",
+  "description": "Contrôlez les widgets avec vos mains devant la webcam : pincez pour saisir, faites glisser, jetez sur le côté pour changer d'écran, deux mains pour zoomer. Il n'est automatiquement activé que si le GPU d'affichage peut gérer la reconnaissance sans ralentir la page.",
+  "capabilities": [
+    "Pincez pour saisir et faire glisser les widgets",
+    "Lancer latéral pour les déplacer vers un autre moniteur",
+    "Zoomer à deux mains",
+    "Test du GPU d'affichage : s'éteint automatiquement s'il est trop lent",
+    "Il s'arrête s'il ralentit la page"
+  ],
+  "settings": {
+    "ATENA_HANDS_FPS": "Analyse par seconde avec une main en vue",
+    "ATENA_HANDS_COUNT": "Des mains reconnues",
+    "ATENA_HANDS_MAX_MS": "Temps maximum d'analyse (il s'éteint automatiquement au-delà)"
+  }
+}

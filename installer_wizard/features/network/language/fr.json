@@ -1,0 +1,10 @@
+{
+  "name": "Explorateur de réseau",
+  "description": "Découvre, étudie et classe les appareils de votre réseau domestique et apprend leurs habitudes.",
+  "capabilities": [
+    "Scannez toutes les 10 minutes",
+    "Reconnaissance du type d'appareil",
+    "Nouveaux appareils signalés"
+  ],
+  "settings": {}
+}

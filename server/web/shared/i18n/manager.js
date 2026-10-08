@@ -6,10 +6,24 @@ export class I18nManager {
     #defaultLang;
     #supportedLangs;
 
-    constructor(defaultLang = 'en', supportedLangs = ['en', 'it']) {
+    constructor(defaultLang = 'en', supportedLangs = null) {
         this.#defaultLang = defaultLang;
         this.#currentLang = defaultLang;
-        this.#supportedLangs = new Set(supportedLangs);
+        this.#supportedLangs = supportedLangs ? new Set(supportedLangs) : null;
+    }
+
+    async discoverLanguages() {
+        try {
+            const res = await fetch('/api/v1/i18n/languages');
+            if (res.ok) {
+                const data = await res.json();
+                if (Array.isArray(data.languages) && data.languages.length) {
+                    this.#supportedLangs = new Set(data.languages);
+                    return data.languages;
+                }
+            }
+        } catch (_) {}
+        return this.#supportedLangs ? Array.from(this.#supportedLangs) : ['it', 'en'];
     }
 
     #validateInputs(feature, lang) {
@@ -23,8 +37,8 @@ export class I18nManager {
             throw new SecurityViolationError('Invalid language identifier');
         }
 
-        if (!this.#supportedLangs.has(lang)) {
-            throw new SecurityViolationError('Unsupported language code');
+        if (this.#supportedLangs && !this.#supportedLangs.has(lang)) {
+            this.#supportedLangs.add(lang);
         }
     }
 
@@ -84,8 +98,12 @@ export class I18nManager {
     }
 
     async setLanguage(lang, activeFeatures = []) {
-        if (!this.#supportedLangs.has(lang)) {
+        const strictPattern = /^[a-zA-Z0-9_-]+$/;
+        if (!strictPattern.test(lang)) {
             throw new SecurityViolationError('Unsupported language code');
+        }
+        if (this.#supportedLangs) {
+            this.#supportedLangs.add(lang);
         }
 
         this.#currentLang = lang;

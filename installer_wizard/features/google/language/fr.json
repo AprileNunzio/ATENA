@@ -1,0 +1,16 @@
+{
+  "name": "Google",
+  "description": "Chaque personne connecte son compte Google : agenda, courrier, choses à faire, carnet d'adresses, Drive et notes, affichés uniquement à ceux qu'Athena reconnaît.",
+  "capabilities": [
+    "Un compte Google pour chaque personne, des tokens cryptés",
+    "Confidentialité : donnée uniquement aux personnes reconnues, les e-mails ne sont pas lus à haute voix devant les autres",
+    "Calendrier : engagements, nouveaux rendez-vous avec avertissements superposés, annulation, « quand je suis libre »",
+    "Gmail : non lu, recherche par expéditeur ou par sujet, \"lisez-moi le dernier e-mail\"",
+    "Tâches : «rappelle-moi de…», liste avec les retards, «j'ai fait…»",
+    "Contacts, Drive et Keep (espace de travail)",
+    "Rappels personnels avant chaque rendez-vous"
+  ],
+  "settings": {
+    "ATENA_GOOGLE_REMIND_MIN": "Prévenez-moi avant un rendez-vous (minutes, 0 = jamais)"
+  }
+}

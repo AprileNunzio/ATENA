@@ -1,0 +1,11 @@
+{
+  "name": "Serveurs MCP externes",
+  "description": "Athena se connecte à d'autres serveurs MCP et utilise leurs outils comme les siens : ils apparaissent dans l'équipe, auprès de l'agent et de chaque client connecté à Athena.",
+  "capabilities": [
+    "Connectez les serveurs MCP via HTTP avec des jetons, sans limitations de type d'outil",
+    "Outils externes mis à jour toutes les 5 minutes et à chaque changement du panel",
+    "Outils non fiables : demander confirmation, sauf ceux déclarés en lecture seule",
+    "Les réponses des serveurs externes sont traitées comme des données, jamais comme des instructions"
+  ],
+  "settings": {}
+}

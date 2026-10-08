@@ -1,0 +1,13 @@
+{
+  "name": "Conseil",
+  "description": "Un tableau comme à l'école : vous dites « ouvrir le tableau en plein écran » et Athena devient un widget sur le tableau, où vous écrivez et dessinez ensemble pour des calculs, des équations et des raisonnements.",
+  "capabilities": [
+    "Il s'ouvre vocalement, même en plein écran ; le contenu reste enregistré même après la fermeture",
+    "Vous écrivez et dessinez avec votre doigt, votre souris ou votre stylo ; Athéna écrit en bleu, comme une camarade de classe",
+    "Calculs et équations du premier degré résolus étape par étape : « calculer 12 pour (3 plus 4) », « résoudre 2x + 3 = 11 »",
+    "Explications et raisonnements écrits au tableau : \"expliquez-moi la photosynthèse au tableau\"",
+    "Athéna regarde le tableau et vérifie ce que tu as écrit : «vérifie ce que j'ai écrit»",
+    "Autres commandes : «écrire sur le tableau…», «annuler», «effacer le tableau», «fermer le tableau»"
+  ],
+  "settings": {}
+}

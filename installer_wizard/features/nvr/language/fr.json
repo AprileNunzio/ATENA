@@ -1,0 +1,11 @@
+{
+  "name": "NVR",
+  "description": "Enregistreur vidéo réseau : archivez les événements des caméras externes et des moteurs NVR via MQTT, recherche en langage naturel, conservation et alertes.",
+  "capabilities": [
+    "Archives des événements de mouvement des caméras d'Athena",
+    "Reçoit les événements des moteurs NVR externes via MQTT (personnes, véhicules, animaux, colis, plaques d'immatriculation)",
+    "Recherchez «personne dans le jardin hier» ou «voiture aujourd'hui»",
+    "Publiez des événements et des alertes sur le bus Athena pour les widgets et les automatisations"
+  ],
+  "settings": {}
+}

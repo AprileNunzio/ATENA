@@ -1,0 +1,12 @@
+{
+  "name": "Scène et présence",
+  "description": "Graphique spatial de la maison : pièces, meubles et zones avec coordonnées, objets vus par les caméras et fusion du visage, de la voix et du tracker en une seule estimation de présence.",
+  "capabilities": [
+    "Se souvient de l'endroit où vous avez vu les objets pour la dernière fois (table de cuisine, étagère d'entrée...) même avec les coordonnées en mètres",
+    "Répond \"où est ton portefeuille?\" et \"est-ce que tout est prêt à partir ?\"",
+    "Profils de préparation : liste des objets qui doivent se trouver dans une zone ou à proximité de l'entrée",
+    "Il fusionne le visage (avec preuve de vitalité), la voix reconnue et le tracker Home Assistant en une probabilité de présence par personne",
+    "Démarrez la prédiction de la commande à l'heure d'arrivée, et non sur un capteur individuel"
+  ],
+  "settings": {}
+}

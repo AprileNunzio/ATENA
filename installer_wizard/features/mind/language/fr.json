@@ -1,0 +1,11 @@
+{
+  "name": "Esprit",
+  "description": "Après chaque échange, Athena évalue la phrase, décide ce qu'elle doit conserver en mémoire à long ou à court terme, s'il faut rappeler un widget ou un algorithme et quelles idées envoyer à l'étude.",
+  "capabilities": [
+    "Évaluez chaque phrase : pertinence, importance, mémorisation et confiance que vous lui parlerez",
+    "Mémoire à long terme pour des faits durables, abréviation de contexte",
+    "Journal de décision",
+    "Connectez la conversation, les widgets, les algorithmes et l'étude"
+  ],
+  "settings": {}
+}

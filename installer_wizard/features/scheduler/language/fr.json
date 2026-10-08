@@ -1,0 +1,21 @@
+{
+  "name": "Planificateur et services continus",
+  "description": "Maintient toujours les services d'arrière-plan en vie (les redémarre s'ils s'arrêtent ou se bloquent) et exécute des crons : expressions cron, reprenant les exécutions manquées lors de l'arrêt d'Athena et état qui survit aux redémarrages.",
+  "capabilities": [
+    "Redémarrage automatique des services d'arrière-plan avec attente croissante",
+    "Détection des services bloqués via beat",
+    "Cron à 5 champs (*/15 8-18 * * 1-5, @daily, @hourly) avec jours et mois par nom",
+    "Courses manquées récupérées : ignorer, récupérer une fois ou récupérer toutes",
+    "État des planificateurs enregistrés sur disque : les intervalles ne repartent pas de zéro",
+    "Exécutions à venir répertoriées"
+  ],
+  "settings": {
+    "ATENA_LOOPS_BACKOFF_MAX": "Attente maximale avant de redémarrer un service défaillant, en secondes (5 - 600)",
+    "ATENA_LOOPS_STALE_FACTOR": "Un service est bloqué après combien de fois son battement normal (2 - 20)",
+    "ATENA_SCHED_PERSIST": "Mémoriser les exécutions après un redémarrage",
+    "ATENA_SCHED_MISFIRE": "Si Athéna était éteinte lors d'un automatisme",
+    "ATENA_SCHED_GRACE_MIN": "Récupérer uniquement si l'échec est plus récent que (minutes, 0 = ne jamais récupérer)",
+    "ATENA_SCHED_MAX_CATCHUP": "Nombre maximal d'exécutions récupérées pour chaque déclencheur (1 - 50)",
+    "ATENA_SCHED_JITTER_S": "Décalage aléatoire des temps pour ne pas les déclencher tous en même temps, en secondes (0 - 300)"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Actes",
+  "description": "Athena fait vraiment ce que vous demandez : fichiers, sites Web, dossiers partagés, recherche d'appareils, vitesse de connexion, mises à jour, programmes et calculs vérifiés.",
+  "capabilities": [
+    "Créez des fichiers et des sites Web publiés sur votre réseau domestique",
+    "Dossiers partagés PME",
+    "Trouver un appareil sur le réseau et son IP",
+    "Test de vitesse Internet",
+    "Vérification et installation des mises à jour",
+    "Calculs de mots avec des résultats vérifiés",
+    "Diagnostics avec commandes en lecture seule lorsqu'une compétence est manquante"
+  ],
+  "settings": {}
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Lois",
+  "description": "Les lois fondamentales et hiérarchiques qu'Athéna et chacun de ses agents ou nœuds doivent toujours respecter. Les quatre lois fondamentales ne peuvent être modifiées ou supprimées ; ci-dessous vous pouvez ajouter vos règles, toujours obligatoires.",
+  "capabilities": [
+    "Quatre lois fondamentales immuables (Loi Zéro, Première, Deuxième, Troisième)",
+    "Règles personnelles supplémentaires, toujours respectées",
+    "Injecté dans la tête de chaque raisonnement du cerveau, local et cloud"
+  ],
+  "settings": {}
+}

@@ -1,0 +1,29 @@
+{
+  "name": "Sons et effets",
+  "description": "Effets sonores pendant qu'Athena écoute, réfléchit et traite, sons de notification et d'alarme, fond ambiant ; temps de silence, ne pas déranger et volumes de nuit.",
+  "capabilities": [
+    "Activation, demande reçue, erreur",
+    "Cycle discret pendant la réflexion, qui devient « élaboration » si la réponse est tardive",
+    "Notifications, rappels, alarmes et sonnette (les alarmes sonnent également silencieusement)",
+    "Contexte : réacteur, espace lointain, pluie, vagues, laboratoire ; diminue en parlant ou en écoutant",
+    "Heures silencieuses pendant des jours, ne pas déranger par la voix (« ne pas déranger pendant une heure », « mode nuit jusqu'à demain matin »)",
+    "La nuit : effets atténués ou assourdis, fond désactivé, voix plus basse",
+    "Trois thèmes timbraux, tous synthétisés en direct sans fichiers à télécharger",
+    "Peut être utilisé dans les automatismes comme action « Son »"
+  ],
+  "settings": {
+    "ATENA_SOUNDS_VOLUME": "Volume des effets (0 - 100)",
+    "ATENA_SOUNDS_THEME": "Thème sonore",
+    "ATENA_SOUNDS_FEEDBACK": "Sons d’activation et de demande",
+    "ATENA_SOUNDS_THINKING": "Je joue pendant qu'il réfléchit et traite",
+    "ATENA_SOUNDS_NOTIFY": "Sons de notification",
+    "ATENA_SOUNDS_AMBIENT": "Arrière-plan",
+    "ATENA_SOUNDS_AMBIENT_VOLUME": "Volume de fond (0 - 100)",
+    "ATENA_QUIET_MODE": "Pendant les périodes calmes",
+    "ATENA_QUIET_START": "Silence de (HH:MM)",
+    "ATENA_QUIET_END": "Silence jusqu'à (HH:MM)",
+    "ATENA_QUIET_DAYS": "Nuits silencieuses",
+    "ATENA_QUIET_VOICE": "Volume de la voix en silence (0 - 100)",
+    "ATENA_QUIET_EFFECTS": "Volume des effets atténués (0 - 100)"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "name": "Gestion de la musique",
+  "description": "Votre Spotify local : bibliothèque, playlists, mix, recherche, paroles, Chromecast et DLNA, liens partagés, application téléphonique et reconnaissance ambiante.",
+  "capabilities": [
+    "Bibliothèque avec tri automatique",
+    "Listes de lecture normales et intelligentes",
+    "Mix et radio infinie",
+    "Écran Chromecast, DLNA et Athena",
+    "Liens partagés à l'expiration",
+    "Serveur compatible avec les applications musicales",
+    "Reconnaissance environnementale"
+  ],
+  "settings": {
+    "ATENA_MUSIC_ORGANIZE": "Triez vous-même les fichiers placés dans « À trier »",
+    "ATENA_MUSIC_SCAN_MIN": "Contrôle de la bibliothèque",
+    "ATENA_MUSIC_COVERS": "Rechercher en ligne des pochettes et des données manquantes (album, année, genre)",
+    "ATENA_MUSIC_LYRICS": "Téléchargez les paroles et enregistrez-les à côté des chansons (.lrc)",
+    "ATENA_MUSIC_CAST": "Rechercher des Chromecast, des téléviseurs et des enceintes DLNA",
+    "ATENA_MUSIC_RADIO": "Radio infinie quand la file d'attente se termine",
+    "ATENA_MUSIC_CROSSFADE": "Fondu entre les chansons",
+    "ATENA_MUSIC_TRANSCODE": "Conversion de formats non pris en charge",
+    "ATENA_MUSIC_TRANSCODE_KBPS": "Qualité des conversions",
+    "ATENA_MUSIC_SHARE_LINKS": "Autoriser les liens partagés",
+    "ATENA_MUSIC_SHARE_HOURS": "Durée des liens partagés",
+    "ATENA_MUSIC_HISTORY_DAYS": "Historique d'écoute préservé",
+    "ATENA_MUSIC_VOICE": "Commandes vocales pour la musique",
+    "ATENA_MUSIC_IDENTIFY": "Reconnaître les chansons sans données par le son (envoyer 12 secondes d'audio au service de reconnaissance)",
+    "ATENA_MUSIC_TAGS": "Écrivez les données manquantes dans les fichiers (titre, artiste, album, année, genre)",
+    "ATENA_MUSIC_RENAME": "Donnez les noms complets des fichiers : numéro - artiste - titre (année)"
+  }
+}

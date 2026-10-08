@@ -1,0 +1,11 @@
+{
+  "name": "Spotify",
+  "description": "Connectez votre compte : lorsque vous êtes devant l'écran, la chanson en cours de lecture apparaît sous forme de widget.",
+  "capabilities": [
+    "Chanson, artiste, reprise et progression",
+    "Seulement quand il te voit (ou toujours)"
+  ],
+  "settings": {
+    "ATENA_SPOTIFY_WHEN": "Quand montrer la chanson"
+  }
+}

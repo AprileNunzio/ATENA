@@ -1,0 +1,13 @@
+{
+  "name": "Algorithmes",
+  "description": "Calculs, conversions et procédures comme algorithmes Python vérifiés : Athena les écrit une seule fois, les garde en mémoire et les réutilise en quelques millisecondes.",
+  "capabilities": [
+    "Calculatrice, pourcentages et TVA, conversions, dates",
+    "Nouveaux algorithmes écrits par Athena",
+    "Vérification et tests de code dans un environnement isolé",
+    "Statistiques d'utilisation"
+  ],
+  "settings": {
+    "ATENA_SKILLS_GENERATE": "Athena écrit elle-même de nouveaux algorithmes"
+  }
+}

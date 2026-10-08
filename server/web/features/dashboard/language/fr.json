@@ -1,0 +1,28 @@
+{
+  "ui": {
+    "title": "Orchestrateur cognitif Athena",
+    "subtitle": "Système agent avancé v2.0",
+    "input_placeholder": "Écrivez une invite pour Athéna ou l'Essaim...",
+    "send_button": "Envoyer la commande",
+    "thinking_title": "Athéna raisonne (Système 2)...",
+    "response_title": "Exécution et réponse",
+    "tools_title": "Outils dynamiques utilisés",
+    "whiteboard_title": "Tableau blanc interactif",
+    "metrics_strategy": "Stratégie:",
+    "metrics_latency": "Latence:"
+  },
+  "chips": {
+    "chip_1": "Organiser ma bibliothèque musicale",
+    "chip_2": "Déployer un serveur MySQL",
+    "chip_3": "Ouvrez le tableau blanc architectural"
+  },
+  "dynamic": {
+    "whiteboard_added": "Composant architectural ajouté #{count}",
+    "whiteboard_traced": "Connexion gRPC/WebSocket tracée",
+    "whiteboard_cleared": "Table rase",
+    "processing": "Traitement en cours...",
+    "error_connection": "Erreur de connexion ou d'inférence : {err}",
+    "semantic_fast_path": "Sémantique Fast-Path (0 ms)",
+    "system1": "Système 1 : {intention}"
+  }
+}

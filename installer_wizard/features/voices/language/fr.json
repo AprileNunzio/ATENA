@@ -1,0 +1,20 @@
+{
+  "name": "Voix",
+  "description": "Plus de 600 voix dans plus de 60 langues (une trentaine en italien) : choisissez, écoutez et téléchargez ; mettez-les en ordre. Athéna répond dans la langue que vous lui parlez ou celle que vous lui demandez (« parle-moi en anglais », « apprends-moi l'allemand ») et décharge toute seule la voix qui lui manque.",
+  "capabilities": [
+    "Voix neuronales Kokoro (9 langues)",
+    "Catalogue Piper complet, téléchargeable",
+    "Voix naturelles en ligne (Microsoft Edge)",
+    "Voix préférée pour chaque langue",
+    "Téléchargement automatique de nouvelles langues",
+    "Ordre de priorité",
+    "Aperçu de chaque entrée"
+  ],
+  "settings": {
+    "ATENA_VOICE_SPEED": "Vitesse de la voix (0,6 - 1,6)",
+    "ATENA_VOICE_PITCH": "Ton de la voix (-6 bas … +6 haut)",
+    "ATENA_VOICE_VOLUME": "Volume de la voix (0,4 - 2,0)",
+    "ATENA_VOICE_ONLINE": "Inscriptions en ligne",
+    "ATENA_VOICE_AUTO_DOWNLOAD": "Téléchargez vous-même de nouvelles voix linguistiques"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Accueil (Assistant à domicile)",
+  "description": "Atena étudie toute la maison depuis Home Assistant : pièces, étages, appareils Zigbee, Thread, Matter, Wi-Fi, Z-Wave et Bluetooth avec modèles et capacités. Il les commande vocalement en quelques millisecondes et sait dans quelles pièces il y a du mouvement ou de la présence.",
+  "capabilities": [
+    "Etude automatique des pièces, des appareils, des modèles et des protocoles",
+    "Base de données locale toujours mise à jour en temps réel",
+    "Commandes vocales instantanées (lumières, couleurs, volets, climatisation, TV, scènes...)",
+    "Déplacement et présence par pièce",
+    "Température, humidité, portes et fenêtres ouvertes",
+    "Confirmation de serrures, alarmes, portails et garages",
+    "Apprend de nouvelles phrases et s'en souvient"
+  ],
+  "settings": {
+    "HOME_ASSISTANT_URL": "Adresse de l'assistant à domicile",
+    "HOME_ASSISTANT_TOKEN": "Jeton d'accès longue durée",
+    "ATENA_HOME_ROOM": "Pièce où se trouve Athéna",
+    "ATENA_HOME_MOTION_MIN": "Minutes d'occupation après le dernier mouvement",
+    "ATENA_HOME_CONFIRM": "Demander une confirmation pour les serrures, alarmes, portails et garages",
+    "HOME_ASSISTANT_VERIFY_SSL": "Vérifiez le certificat HTTPS"
+  }
+}

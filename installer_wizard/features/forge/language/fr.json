@@ -1,0 +1,11 @@
+{
+  "name": "La Forge d'Athéna",
+  "description": "Athena crée elle-même de nouveaux outils (en combinant ceux existants), des widgets et des fonctionnalités : dès qu'ils sont créés, ils sont disponibles pour elle, pour les autres agents et pour chaque client MCP connecté.",
+  "capabilities": [
+    "Nouveaux outils sous forme de séquences d'outils existants, avec paramètres et confirmations hérités des étapes",
+    "Afficher le widget avec titre, valeur, texte et listes",
+    "De nouvelles fonctionnalités qui deviennent immédiatement des agents d'équipe",
+    "Suppression uniquement de ce qu'il a créé, toujours avec confirmation"
+  ],
+  "settings": {}
+}

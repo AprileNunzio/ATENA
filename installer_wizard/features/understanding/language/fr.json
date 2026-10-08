@@ -1,0 +1,13 @@
+{
+  "name": "Comprendre les commandes",
+  "description": "Avant d'exécuter une commande, Athéna lit la phrase entière, regarde les widgets ouverts et les conversations précédentes, compare les fonctions qui pourraient la concerner et, si deux semblent également probables, elle raisonne avec le modèle avant de choisir.",
+  "capabilities": [
+    "Chaque fonction (tableau blanc, caméras, musique, maison) attribue une note à la phrase : la plus convaincante gagne, pas la première qui lui ressemble.",
+    "Contexte : widgets ouverts, dernier sujet de conversation et références telles que \"et maintenant 5 par 5 ?\"",
+    "Si deux fonctions sont proches, le modèle décide en lisant la phrase et la conversation, et explique pourquoi",
+    "Chaque décision est enregistrée et consultable dans le panel (/api/understanding)"
+  ],
+  "settings": {
+    "ATENA_UNDERSTANDING_LLM": "Raisonner avec le modèle dans les cas douteux"
+  }
+}

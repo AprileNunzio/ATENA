@@ -1,0 +1,26 @@
+{
+  "name": "Caméras",
+  "description": "Une fonctionnalité pour les caméras webcam, infrarouge et réseau : visualisation en direct de toutes les sources, recherche et modèles pour les marques les plus courantes, test de connexion, options pour chaque caméra (nom, pièce, rotation, miroir, douceur), commandes de la webcam (luminosité, contraste, exposition), photos et clips, alerte de mouvement et enregistrement par sonnerie. Enregistrement désactivé par défaut : doit être activé avec l'accord de la personne filmée.",
+  "capabilities": [
+    "Webcams locales, capteurs infrarouges et caméras réseau (RTSP, ONVIF, Hikvision) dans une seule vue en direct",
+    "Recherche automatique de réseau (ports ONVIF et RTSP) et modèles pour Hikvision, Dahua, Reolink, Tapo, Foscam, Axis et autres",
+    "Test de connexion avec diagnostic d'erreur (mot de passe, chemin, port, réseau)",
+    "Options de la caméra : nom, pièce, rotation, miroir, fluidité, résolution, favori, masqué",
+    "Les contrôles de la webcam (luminosité, contraste, exposition, balance) sont réinitialisés à chaque lancement",
+    "Photos à la demande et en mouvement, archivage avec aperçu, téléchargement et suppression",
+    "Alerte de mouvement avec sensibilité réglable et journal des événements",
+    "Inscription en boucle (5/15/60 minutes) avec identifiants cryptés, consentement obligatoire et indicateur visible",
+    "Configuration automatique de l'émetteur infrarouge en un clic",
+    "Avec la voix : « ouvre la webcam du salon en plein écran », « prends une photo depuis l'entrée », « préviens-moi si quelque chose bouge dans le jardin »",
+    "Tout ce qui manque (ffmpeg, v4l-utils, outil émetteur infrarouge) s'installe et se configure tout seul, sans intervention"
+  ],
+  "settings": {
+    "ATENA_LIVECAM_FPS": "Fluidité de l'image en direct",
+    "ATENA_LIVECAM_WIDTH": "Largeur de l'image en direct",
+    "ATENA_LIVECAM_MAX": "Caméras live contemporaines",
+    "ATENA_CAMERAS_MOTION_EVERY": "Contrôle de mouvement tous les",
+    "ATENA_CAMERAS_MOTION_COOLDOWN": "Pause entre deux alertes de mouvement",
+    "ATENA_CAMERAS_PHOTOS_MAX": "Photos stockées par l'appareil photo",
+    "ATENA_IR_AUTO": "Configurez vous-même l'émetteur infrarouge si l'image est dans l'obscurité"
+  }
+}

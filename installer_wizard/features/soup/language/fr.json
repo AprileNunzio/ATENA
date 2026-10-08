@@ -1,0 +1,12 @@
+{
+  "name": "Consolidation en poids (Soupe)",
+  "description": "La nuit, il transfère ce qu'il a étudié dans les poids d'un modèle personnel (LoRA). Expérimental : nécessite un GPU adapté.",
+  "capabilities": [
+    "Ensemble de données du presse-papiers",
+    "Entraînement de nuit",
+    "Modèle «athena-studio» à Ollama"
+  ],
+  "settings": {
+    "ATENA_STUDY_BASE_MODEL": "Modèle de base (Hugging Face)"
+  }
+}

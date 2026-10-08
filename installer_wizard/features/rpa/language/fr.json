@@ -1,0 +1,14 @@
+{
+  "name": "Contrôle informatique",
+  "description": "Athéna utilise un ordinateur connecté comme le ferait une personne : elle trouve les éléments sur l'écran avec sa vision, bouge la souris, écrit et vérifie à partir des pixels que l'action a pris effet, réessayant toute seule si ce n'est pas le cas.",
+  "capabilities": [
+    "Coordonnées absolues en pixels des éléments de l'interface, obtenues à partir de la capture d'écran",
+    "Souris, clavier et molette simulés comme de vrais périphériques matériels (uinput)",
+    "Chaque action est vérifiée en comparant les pixels avant et après ; si rien ne change, réessayez sur un autre élément",
+    "Rejet des zones lisses : on ne clique pas sur une étiquette inventée par un modèle",
+    "Le nœud se connecte en sortie : aucun port ouvert ; activation explicite pour chaque nœud"
+  ],
+  "settings": {
+    "ATENA_RPA_NODES": "Nœuds vérifiables (identifiants séparés par des virgules)"
+  }
+}

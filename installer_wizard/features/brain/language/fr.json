@@ -1,0 +1,14 @@
+{
+  "name": "Cerveau",
+  "description": "Le cerveau d'Athena en un seul endroit : modèles sur le serveur et les services cloud (OpenAI, Claude, Gemini, Grok, Mistral, DeepSeek et autres), mixés par ordre de priorité, le modèle utilisé étant toujours visible.",
+  "capabilities": [
+    "Modèle en usage toujours visible, avec origine et heures",
+    "Listes de priorités mixtes locales et cloud",
+    "22 services cloud avec des listes de modèles réelles et mises à jour",
+    "Clés chiffrées sur disque",
+    "Mode cloud uniquement, sans Ollama",
+    "Catalogue local avec évaluation du matériel et téléchargements",
+    "Routage automatique entre conversation et raisonnement"
+  ],
+  "settings": {}
+}

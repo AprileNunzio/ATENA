@@ -1,0 +1,11 @@
+{
+  "name": "Télégramme",
+  "description": "Parlez à Athéna depuis n'importe où : texte, voix et photo ; notifications d'arrivées, d'échecs et de récurrences.",
+  "capabilities": [
+    "Couplage avec le code",
+    "Chat texte et vocal",
+    "Notifications de photos",
+    "Commandes de gestion"
+  ],
+  "settings": {}
+}

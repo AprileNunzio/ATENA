@@ -1,0 +1,13 @@
+{
+  "name": "Jumeau numérique",
+  "description": "Avant d'exécuter une commande pour la maison, Athena la simule sur une copie de l'état actuel et rejette les actions qui violent les règles de sécurité.",
+  "capabilities": [
+    "Simulez chaque commande, automatisation et prédiction avant de l'envoyer à Home Assistant",
+    "Arrête les caméras avec l'alarme armée, les portes s'ouvrent lorsque l'alarme est active, les vannes s'ouvrent lorsque la maison est vide et les commandes contradictoires",
+    "Avertit si vous allumez la climatisation avec une fenêtre ouverte ou armez l'alarme avec un accès ouvert",
+    "Corrige le plan en supprimant uniquement les actions conflictuelles et exécute le reste"
+  ],
+  "settings": {
+    "ATENA_TWIN": "Mode"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Modèles 3D",
+  "description": "Athena crée des objets 3D à la demande (« créez-moi un marteau 3D ») et ouvre n'importe quel fichier 3D dans un widget pour le faire pivoter avec la souris, les doigts ou les mains devant la webcam.",
+  "capabilities": [
+    "Génération à partir d'une phrase : GLB en couleur, STL en millimètres pour l'impression, OBJ avec matériaux",
+    "Visionneuse : glTF/GLB, OBJ+MTL, STL, 3MF, AMF, PLY, FBX, DAE, 3DS, VRML, DXF, STEP/STP, IGES/IGS, BREP",
+    "Conversion de serveur : BLEND et USD/USDZ avec Blender, DWG avec LibreDWG",
+    "Commandes : « montre-moi le modèle du marteau », « quels modèles as-tu », « ferme le modèle »"
+  ],
+  "settings": {}
+}

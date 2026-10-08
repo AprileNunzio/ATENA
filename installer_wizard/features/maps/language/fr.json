@@ -1,0 +1,25 @@
+{
+  "name": "Cartes",
+  "description": "Itinéraires, horaires de circulation et avertissements de départ : l'itinéraire pour se rendre au travail des personnes devant l'écran le matin et l'itinéraire pour se rendre aux rendez-vous dans l'agenda.",
+  "capabilities": [
+    "\"Comment puis-je arriver à...\", \"Combien de temps me faut-il pour me rendre au travail ?\"",
+    "Circulation et transports publics avec la clé Google Maps (sans : OpenStreetMap)",
+    "Lieux enregistrés vocalement : travail, salle de sport, école…",
+    "Itinéraire vers le travail de chacun, à partir de sa carte, lorsqu'il la voit le matin",
+    "Mémoriser les rendez-vous avec un lieu et quand partir",
+    "Quand sortir pour les bus, trains et vols : temps avec le trafic prévu à l'heure de départ, avance et marge obtenues à partir de l'historique",
+    "Mettez à jour les conseils si le trafic change et indiquez quand il est temps de sortir"
+  ],
+  "settings": {
+    "ATENA_MAPS_MODE": "Support par défaut",
+    "ATENA_MAPS_TRIPS": "Indiquez-moi quand sortir pour des rendez-vous avec un lieu et pour les bus, trains et vols",
+    "ATENA_MAPS_WISE": "Marge de sécurité calculée à partir de l'historique temporel (trafic variable)",
+    "ATENA_MAPS_MARGIN_MIN": "Marge supplémentaire minimale sur le temps de trajet, en minutes (0 - 60)",
+    "ATENA_MAPS_BUFFER_BUS": "Arrivez tôt pour un autocar (minutes)",
+    "ATENA_MAPS_BUFFER_TRAIN": "Arrivez tôt pour un train (minutes)",
+    "ATENA_MAPS_BUFFER_FLIGHT": "Arriver tôt pour un vol (minutes)",
+    "ATENA_MAPS_BUFFER_EVENT": "Paiement d'avance pour d'autres rendez-vous (minutes)",
+    "ATENA_MAPS_HEADSUP_MIN": "Premier avertissement combien de minutes avant l'heure de sortie (10 - 720)",
+    "ATENA_MAPS_EVENT_HOURS": "Consultez le planning des prochaines heures (1 - 48)"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Personnes",
+  "description": "Registre complet : visages, relations, anniversaires, préférences et habitudes de chaque personne.",
+  "capabilities": [
+    "Enregistrement automatique du visage",
+    "Anniversaires et jours fériés",
+    "Rapports",
+    "Habitudes"
+  ],
+  "settings": {}
+}

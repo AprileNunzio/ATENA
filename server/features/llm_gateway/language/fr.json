@@ -1,0 +1,11 @@
+{
+  "errors": {
+    "all_providers_failed": "Tous les fournisseurs de la chaîne ont échoué. Utiliser une solution de repli déterministe.",
+    "ollama_unavailable": "Aucun modèle Ollama disponible",
+    "empty_response": "réponse vide",
+    "model_unavailable": "Modèle {model} non disponible : {exc}"
+  },
+  "fallback": {
+    "synthetic_response": "Accusé de réception Athena Core reçu pour : '{query}'. Fonctionnement en mode autonome déterministe. (Dernière erreur : {erreur})"
+  }
+}

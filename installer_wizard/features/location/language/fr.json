@@ -1,0 +1,11 @@
+{
+  "name": "Position",
+  "description": "Où se trouve Athena, pour la météo et les services locaux : GPS du téléphone, afficheur, réseaux Wi-Fi et points d'accès du domicile, position indiquée par vos soins ; Adresse IP uniquement en dernier recours.",
+  "capabilities": [
+    "Localisation depuis votre téléphone via Telegram",
+    "Point d'accès à la maison → BeaconDB",
+    "Consensus entre plusieurs services IP",
+    "«J'habite à Naples» dit verbalement"
+  ],
+  "settings": {}
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Mises à jour automatiques",
+  "description": "Athena se met à jour depuis GitHub, recherche la nouvelle version et revient en arrière si quelque chose ne va pas.",
+  "capabilities": [
+    "Contrôle périodique",
+    "Vérification et restauration automatiques"
+  ],
+  "settings": {
+    "ATENA_UPDATE_INTERVAL_MIN": "Vérifiez toutes les (minutes)",
+    "ATENA_UPDATE_BRANCH": "Branche GitHub"
+  }
+}

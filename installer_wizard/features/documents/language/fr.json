@@ -1,0 +1,14 @@
+{
+  "name": "Documents de bureau",
+  "description": "Atena prépare des documents professionnels pour Microsoft Office, LibreOffice et OpenOffice : Word, Excel, PowerPoint, ODT, ODS, ODP et PDF, avec des thèmes graphiques, polices, couleurs, tableaux, graphiques et indicateurs modernes. Pour les projets, créez un dossier avec des sous-dossiers, plusieurs documents liés et un index.",
+  "capabilities": [
+    "Word et ODT : page de garde, styles de titre, numéros d'en-tête et de page, tableaux avec totaux, graphiques, indicateurs, encadrés, citations, liens",
+    "Excel et ODS : colonnes saisies (devise, pourcentage, dates), formules, totaux, filtres, en-têtes figés, graphiques natifs",
+    "PowerPoint et ODP : diapositives 16:9 avec page de couverture, sections, deux colonnes, tableaux, graphiques natifs, indicateurs et notes du présentateur",
+    "PDF à partir de n'importe quel document, aperçu à l'écran",
+    "Projets : dossier avec sous-dossiers, documents générés en parallèle et connectés avec des liens relatifs, document d'index",
+    "Sept thèmes graphiques (moderne, corporate, élégant, vivant, minimal, nature, tech) ou couleurs et polices de votre choix",
+    "Sauvegarde dans «01 Documents» avec les noms AAAAMMJJ_titre"
+  ],
+  "settings": {}
+}

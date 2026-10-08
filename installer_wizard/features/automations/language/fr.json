@@ -1,0 +1,14 @@
+{
+  "name": "Automatisations",
+  "description": "Moteur d'automatisation à plusieurs étapes : plusieurs déclencheurs, conditions imbriquées, actions ramifiées, attentes, répétitions, parallèles, confirmations vocales, variables et trace étape par étape de chaque exécution.",
+  "capabilities": [
+    "Déclencheurs : heures et jours, intervalles, lever et coucher du soleil avec mouvement, changements d'état de l'appareil (également seuils et durée), présences, phrases dites à Athena, événements (e-mail, agenda, défauts, démarrage), expressions, webhooks",
+    "Conditions ET/OU/NON imbriquées : plages horaires, états avec durée, présences, jour/nuit, heures de silence, expressions",
+    "Actions : appareils Home Assistant, voix, notifications (affichage, voix, télégramme, e-mail), widgets, hologramme, sons, agent avec outils, e-mail, requêtes Web, événements",
+    "Contrôle de flux : if/else, choix entre plusieurs cas, branches parallèles, répétitions (heures, while, jusqu'à), attente de l'heure, de l'état, de l'événement ou de l'expression, confirmation vocale oui/non",
+    "Variables par exécution et globales, expressions {{ … }}, mode simple/redémarrage/file d'attente/parallèle, pause minimale entre les exécutions",
+    "Concevoir avec des mots (« créer une automatisation qui… ») avec vérification automatique, modèles prêts à l'emploi, import/export",
+    "Historique avec trace de chaque étape, durée et erreurs ; Exécutions stoppables en cours"
+  ],
+  "settings": {}
+}

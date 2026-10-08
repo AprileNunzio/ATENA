@@ -1,0 +1,13 @@
+{
+  "status": {
+    "initializing": "Initialisation de l'environnement Sandbox",
+    "ready": "Prêt pour le bac à sable",
+    "terminated": "Bac à sable terminé"
+  },
+  "errors": {
+    "isolation_breach": "Critique : violation d'isolement détectée.",
+    "timeout": "Le délai d'exécution a expiré.",
+    "wasm_unavailable": "Environnement Wasm non disponible",
+    "wasm_missing": "Bibliothèque Wasmtime non installée. Bac à sable désactivé."
+  }
+}

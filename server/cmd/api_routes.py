@@ -262,6 +262,18 @@ async def receive_camera_feed(payload: CameraFeedPayload) -> Dict[str, Any]:
         "bus_event_id": obs.id
     }
 
+@router.get("/i18n/languages")
+async def get_supported_languages() -> Dict[str, Any]:
+    from server.shared.i18n.config import discover_languages
+    from pathlib import Path
+    server_langs = set(discover_languages("server"))
+    installer_path = Path("installer_wizard")
+    if installer_path.exists():
+        for p in installer_path.rglob("*.json"):
+            if p.parent.name == "language":
+                server_langs.add(p.stem)
+    return {"languages": sorted(server_langs), "default": "it"}
+
 @router.websocket("/ws/stream")
 async def websocket_stream_endpoint(websocket: WebSocket) -> None:
     await websocket.accept()

@@ -1,0 +1,13 @@
+{
+  "name": "Bluetooth",
+  "description": "Enceintes, casques, microphones et écouteurs Bluetooth : appairage, ordre de préférence sortie et microphone, profil audio et reconnexion automatique. Avec des écouteurs, vous pouvez parler à Athéna depuis une autre pièce.",
+  "capabilities": [
+    "Rechercher et associer des appareils",
+    "Ordre de préférence pour la sortie audio et le microphone",
+    "Profil de haute qualité ou casque avec microphone",
+    "Basculez automatiquement vers votre appareil préféré",
+    "Reconnexion des appareils connus",
+    "Installation automatique lorsque vous connectez un lecteur flash"
+  ],
+  "settings": {}
+}

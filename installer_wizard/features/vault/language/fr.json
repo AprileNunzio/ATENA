@@ -1,0 +1,14 @@
+{
+  "name": "Effacer la mémoire et le journal",
+  "description": "La mémoire d'Athena dans des fichiers texte lisibles, stockés uniquement sur le serveur (pas en ligne) pour des raisons de confidentialité : fichiers de personnes, faits, habitudes, automatisations et un journal pour chaque jour. Les corrections apportées aux fichiers sont remises en mémoire.",
+  "capabilities": [
+    "Personnes/<Nom>.md : données personnelles, goûts, habitudes et ce qu'Atena sait (la santé et les documents restent privés)",
+    "Mémoire/Faits généraux.md, Accueil/Habits.md, Automations.md",
+    "Agenda/AAAA/MM/AAAA-MM-JJ.md : qui était là, demandes, automatismes, ce qu'ils ont appris, situations inhabituelles, tests, avec résumé du soir",
+    "Modifications des fichiers : supprimer, corriger ou ajouter des lignes dans « Ce que je sais » rafraîchit la mémoire",
+    "Oralement : « que s'est-il passé aujourd'hui », « lis-moi le journal d'hier »"
+  ],
+  "settings": {
+    "ATENA_VAULT_DIR": "Dossier personnalisé (vide = /var/lib/atena/memoria, sur serveur uniquement)"
+  }
+}

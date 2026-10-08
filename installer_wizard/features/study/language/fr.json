@@ -1,0 +1,10 @@
+{
+  "name": "Étude indépendante",
+  "description": "Au repos, Athéna étudie les sujets que vous choisissez ou découvrez lors de conversations, du plus élémentaire au plus expert, et utilise ce qu'elle apprend dans ses réponses.",
+  "capabilities": [
+    "Leçons tirées de sources réelles",
+    "Examens de révision et de niveau",
+    "Binaire → ternaire → mémoire cosinus"
+  ],
+  "settings": {}
+}

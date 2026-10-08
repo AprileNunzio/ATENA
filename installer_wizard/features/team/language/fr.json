@@ -1,0 +1,12 @@
+{
+  "name": "Équipe d'agents",
+  "description": "Chaque fonctionnalité d'Athena est un agent indépendant avec sa propre priorité : il connaît ses propres outils et paramètres, voit ce que font les autres et peut leur transmettre des demandes, en équipe.",
+  "capabilities": [
+    "Un agent pour chaque fonctionnalité, avec priorité (les lois et la sécurité passent avant la musique)",
+    "Tableau blanc partagé : ce que fait chaque agent et les derniers messages entre agents",
+    "Messages et délégations entre agents, avec les mêmes confirmations que l'action originale",
+    "Chaque agent décrit à n'importe quel modèle ce qu'il peut faire, ses paramètres et ses outils",
+    "Modifier les paramètres d'un agent vocalement, après confirmation"
+  ],
+  "settings": {}
+}

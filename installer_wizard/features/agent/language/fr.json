@@ -1,0 +1,17 @@
+{
+  "name": "Agent avec des outils",
+  "description": "Athena réfléchit étape par étape et utilise de vrais outils jusqu'à ce que la tâche soit terminée : enchaîne même les requêtes du type \"crée-moi un marteau 3D et envoie-le par email à Marco\".",
+  "capabilities": [
+    "Fichiers et dossiers : créer, lire, écrire, copier, déplacer, compresser, rechercher ; les suppressions vont à la poubelle",
+    "Affichage : ouvre, ferme et déplace les widgets entre les moniteurs",
+    "Musique : recherchez et écoutez des chansons sur Chromecast, DLNA et affichage, contrôlez le volume et la chanson ; caméras en direct également en plein écran",
+    "Hologramme : actions, expressions, plans, accessoires et couleur",
+    "Modèles 3D : concevez-les, affichez-les et attachez-les",
+    "E-mails avec pièces jointes (Gmail connecté ou SMTP) et dossiers partagés SMB",
+    "Terminal et pages Web (accès complet)",
+    "Confirmer vocalement avant les emails, les suppressions, les commandes qui modifient le système et l'écriture en dehors du classeur"
+  ],
+  "settings": {
+    "ATENA_AGENT_ACCESS": "Niveau d'accès"
+  }
+}

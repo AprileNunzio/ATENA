@@ -1,0 +1,32 @@
+{
+  "name": "Vision et visages",
+  "description": "Webcam et reconnaissance faciale locale : qui est dans la maison, salutations personnalisées, nouvelles personnes ajoutées par elles-mêmes.",
+  "capabilities": [
+    "Reconnaissance faciale hors ligne",
+    "Participation en temps réel",
+    "Invités inscrits seuls",
+    "Filtre de réflexion (miroirs et verre)",
+    "Objets dans votre main",
+    "Lire des étiquettes et des textes",
+    "Réparation guidée via webcam avec des cerveaux qui voient",
+    "Webcams double capteur (couleur + infrarouge) reconnues dès la connexion, sans redémarrage",
+    "Anti-photo et anti-écran avec infrarouge",
+    "Jumeaux et visages similaires se distinguant par une marge plus sévère, sans mélanger leurs échantillons",
+    "La reconnaissance s'améliore d'elle-même : différents échantillons, seuils par personne, infrarouge"
+  ],
+  "settings": {
+    "ATENA_IR_MODE": "Capteur infrarouge (webcam à double capteur)",
+    "ATENA_LIVENESS": "Contrôle anti-photo et anti-écran (nécessite infrarouge)",
+    "ATENA_LIVENESS_MIN": "Score minimum pour considérer un visage vivant (0,1 - 0,95)",
+    "ATENA_CAMERA_RES": "Résolution de la webcam",
+    "ATENA_CAMERA_RGB": "Webcam couleur : automatique ou chemin (par exemple /dev/video0)",
+    "ATENA_CAMERA_IR": "Capteur infrarouge : automatique, désactivé ou chemin (par exemple /dev/video2)",
+    "ATENA_FACE_AUTOIMPROVE": "La reconnaissance faciale s'améliore d'elle-même avec le temps",
+    "ATENA_FACE_ADAPTIVE": "Seuil de reconnaissance calculé pour chaque personne",
+    "ATENA_FACE_THRESHOLD": "Seuil de similarité des visages (0,2 - 0,8)",
+    "ATENA_FACE_MARGIN": "Distance minimale de la deuxième personne la plus similaire (0 - 0,4)",
+    "ATENA_FACE_TWIN_SIM": "Deux personnes sont « similaires » au-delà de cette similitude (0,3 - 0,95)",
+    "ATENA_FACE_TWIN_MARGIN": "Séparation requise entre personnes similaires, par exemple des jumeaux (0 - 0,5)",
+    "ATENA_FACE_IR_WEIGHT": "Poids infrarouge en reconnaissance (0 - 0,8)"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Autonomie",
+  "description": "Athena travaille seule : elle réalise les tâches programmées, vérifie et diagnostique les pannes, apprend ce qu'elle ne savait pas faire et vous envoie la synthèse chaque soir. Les actions sensibles attendent toujours votre approbation.",
+  "capabilities": [
+    "Tâches programmées verbalement : « chaque matin à 8h envoie-moi la météo par email », « chaque vendredi copie les projets dans le dossier SMB »",
+    "Horaires : tous les jours, en semaine, en semaine, le week-end, toutes les N minutes/heures, une fois, quand il vous voit arriver, au démarrage",
+    "Pilote automatique toutes les 30 minutes : diagnostic des composants défaillants, étude des demandes non satisfaites, synthèse du soir",
+    "Approbations : les e-mails, les annulations et les commandes système restent dans la file d'attente jusqu'à ce que vous disiez \"approuver\" ou approuvez depuis le panneau",
+    "Journal de tout ce qu'il fait seul, notifications affichées et Telegram"
+  ],
+  "settings": {}
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Afficher le son",
+  "description": "Affichage des haut-parleurs, écouteurs et microphones : appareil utilisé, volume et sourdine, mis à jour en temps réel.",
+  "capabilities": [
+    "Appareils audio en temps réel",
+    "Volume et sourdine",
+    "Profils de carte son"
+  ],
+  "settings": {}
+}

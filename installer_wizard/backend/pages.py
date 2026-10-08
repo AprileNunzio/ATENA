@@ -182,10 +182,30 @@ def _find_feature_lang(fid: str, lang: str) -> Path | None:
     return None
 
 
+def _discover_all_languages() -> list[str]:
+    langs = set()
+    for base in (FEATURES_DIR, STATE_DIR / "features"):
+        if base.exists():
+            for p in base.rglob("*.json"):
+                if p.parent.name == "language":
+                    langs.add(p.stem)
+    admin_lang_dir = WEB_DIR / "admin" / "language"
+    if admin_lang_dir.exists():
+        for p in admin_lang_dir.glob("*.json"):
+            langs.add(p.stem)
+    return sorted(langs) if langs else ["it", "en"]
+
+
+@admin_routes.get("/i18n/languages")
+@public_routes.get("/i18n/languages")
+async def list_i18n_languages():
+    return {"languages": _discover_all_languages(), "default": "it"}
+
+
 @admin_routes.get("/features/{fid}/language/{lang}.json")
 @public_routes.get("/features/{fid}/language/{lang}.json")
 async def feature_language(fid: str, lang: str):
-    if not fid.isidentifier() or lang not in ("it", "en"):
+    if not fid.isidentifier() or not lang.isalnum() or len(lang) > 10:
         raise HTTPException(400, "Richiesta non valida")
     path = _find_feature_lang(fid, lang)
     if not path:
@@ -196,7 +216,7 @@ async def feature_language(fid: str, lang: str):
 @admin_routes.get("/static/{fid}/language/{lang}.json")
 @public_routes.get("/static/{fid}/language/{lang}.json")
 async def feature_language_static(fid: str, lang: str):
-    if not fid.isidentifier() or lang not in ("it", "en"):
+    if not fid.isidentifier() or not lang.isalnum() or len(lang) > 10:
         raise HTTPException(400, "Richiesta non valida")
     path = _find_feature_lang(fid, lang)
     if not path:

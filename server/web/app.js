@@ -5,6 +5,10 @@ import { ProximityWidgetsManager } from "./features/proximity_widgets/proximity.
 import { AudioControlsManager } from "./features/audio_controls/audio.js";
 import { BrainModalManager } from "./features/brain_modal/brain.js";
 import { SettingsModalManager } from "./features/settings_modal/settings.js";
+import { I18nManager } from "./shared/i18n/manager.js";
+
+const i18n = new I18nManager();
+window.i18n = i18n;
 
 const queryInput = document.getElementById("query-input");
 const submitBtn = document.getElementById("submit-btn");
@@ -55,6 +59,29 @@ if (presenceBadge) {
     proximityManager.toggleMockPresence();
   });
 }
+
+const langSelector = document.getElementById("lang-selector");
+async function initLocalization() {
+  const availableLangs = await i18n.discoverLanguages();
+  if (langSelector) {
+    langSelector.innerHTML = "";
+    availableLangs.forEach((l) => {
+      const opt = document.createElement("option");
+      opt.value = l;
+      opt.textContent = l.toUpperCase();
+      langSelector.appendChild(opt);
+    });
+    const saved = localStorage.getItem("atena_ui_lang") || "it";
+    langSelector.value = availableLangs.includes(saved) ? saved : (availableLangs[0] || "it");
+    await i18n.setLanguage(langSelector.value, ["dashboard"]);
+    langSelector.addEventListener("change", async (e) => {
+      const chosen = e.target.value;
+      localStorage.setItem("atena_ui_lang", chosen);
+      await i18n.setLanguage(chosen, ["dashboard"]);
+    });
+  }
+}
+initLocalization();
 
 function initWhiteboard() {
   if (!whiteboardCanvas || !ctx) return;

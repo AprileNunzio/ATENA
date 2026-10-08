@@ -1,0 +1,10 @@
+{
+  "name": "La capacité d'Athéna",
+  "description": "Athena dit à chaque cerveau connecté (local ou cloud) tout ce qu'il sait faire et avec quelles phrases lui demander, donc aucun modèle ne répond \"Je ne peux pas\" pour quelque chose qu'Athena fait réellement.",
+  "capabilities": [
+    "Liste mise à jour de la musique, des caméras, des widgets et des outils d'agent inclus dans les instructions de chaque modèle",
+    "Page de données /api/capabilities (panel) avec des phrases et des outils dans un format lisible par n'importe quel LLM",
+    "Outils d'agent pour la musique, les périphériques réseau et les caméras en direct"
+  ],
+  "settings": {}
+}

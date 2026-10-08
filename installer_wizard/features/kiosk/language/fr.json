@@ -1,0 +1,14 @@
+{
+  "name": "Afficher",
+  "description": "Écran dédié à Athéna en mode kiosque, sécurisé et toujours allumé.",
+  "capabilities": [
+    "Chrome dédié",
+    "Redémarrage automatique",
+    "Pas de popups ni de traducteurs",
+    "Pilote vidéo NVIDIA officiel lorsque la carte le supporte, avec vérification après redémarrage et retour automatique au pilote gratuit"
+  ],
+  "settings": {
+    "ATENA_GPU_DRIVER": "Pilotes vidéo",
+    "ATENA_GPU_DRIVER_REBOOT": "Redémarrez pour activer le pilote"
+  }
+}

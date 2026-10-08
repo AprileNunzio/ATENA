@@ -1,0 +1,15 @@
+{
+  "welcome": {
+    "title": "Bienvenue à Athéna",
+    "description": "Commençons par configurer vos préférences.",
+    "start_button": "Commencer"
+  },
+  "errors": {
+    "setup_failed": "Impossible de terminer la configuration initiale. Essayer à nouveau.",
+    "pull_failed": "Impossible de télécharger le modèle : {model}"
+  },
+  "status": {
+    "completed": "Configuration terminée avec succès",
+    "skipped": "Modèle déjà présent, téléchargement ignoré"
+  }
+}

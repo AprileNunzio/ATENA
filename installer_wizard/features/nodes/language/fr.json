@@ -1,0 +1,11 @@
+{
+  "name": "Nœuds et serveurs",
+  "description": "Le serveur principal et tous les nœuds Athena (satellites audio, écrans, autres serveurs, microcontrôleurs) : statut en temps réel, appairage et commandes sécurisés.",
+  "capabilities": [
+    "Statut du serveur principal et de ses sous-systèmes",
+    "Appairage de nœuds avec code à usage unique et jeton personnel",
+    "En ligne, dernier contact et ressources de chaque nœud",
+    "Nom, chambre, commandes à distance et révocation"
+  ],
+  "settings": {}
+}

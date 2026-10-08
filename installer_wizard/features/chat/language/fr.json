@@ -1,0 +1,13 @@
+{
+  "name": "Parlez à Athéna",
+  "description": "Testez la conversation avec l'assistante, avec le modèle qui a répondu et les horaires.",
+  "capabilities": [
+    "Chat textuel",
+    "Montrer quel cerveau a répondu",
+    "Délais de réponse"
+  ],
+  "settings": {
+    "ATENA_ADDRESSEE_THRESHOLD": "Dans quelle mesure devez-vous être sûr de lui parler avant de répondre (0,2 timide - 0,95 prudent)",
+    "ATENA_ADDRESSEE_ALONE": "Plus de confiance lorsqu'on est seul dans la pièce (0 - 1)"
+  }
+}

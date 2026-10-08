@@ -1,0 +1,6 @@
+{
+  "name": "imprimantes",
+  "description": "Gestion des imprimantes, des périphériques USB, réseau et CNC",
+  "capabilities": [],
+  "settings": {}
+}

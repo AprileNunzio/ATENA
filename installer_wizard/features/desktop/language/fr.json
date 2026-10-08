@@ -1,0 +1,16 @@
+{
+  "name": "Bureau des widgets",
+  "description": "L'écran est un bureau : chaque information est un widget indépendant qui apparaît en cas de besoin (musique, météo, alertes, alarmes), par ordre de priorité.",
+  "capabilities": [
+    "Widgets découverts dans les dossiers",
+    "Priorités modifiables",
+    "Alarmes en plein écran",
+    "Testez chaque widget du panneau",
+    "Fermeture automatique des données personnelles"
+  ],
+  "settings": {
+    "ATENA_PRIVACY_AUTOCLOSE": "Fermez les widgets contenant des données personnelles lorsque vous êtes absent",
+    "ATENA_PRIVACY_AWAY_S": "Après combien de temps tu es parti",
+    "ATENA_PRIVACY_VOICE_S": "Fermez les données personnelles ouvertes par la voix après"
+  }
+}

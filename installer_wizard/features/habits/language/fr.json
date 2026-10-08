@@ -1,0 +1,16 @@
+{
+  "name": "Habitudes",
+  "description": "Athéna observe la façon dont elle utilise la maison, reconnaît les habitudes récurrentes et les propose comme automatisations ; signale également des situations inhabituelles lorsqu'il n'y a personne.",
+  "capabilities": [
+    "Enregistre les lumières, les prises, les volets, les thermostats, les supports et les serrures actionnés manuellement (pas ceux déplacés par les automatismes)",
+    "Chaque nuit cherche la régularité : à la même heure (tous les jours, en semaine ou le week-end), au coucher du soleil, à l'arrivée de quelqu'un",
+    "Il suggère verbalement lorsqu'il est présent : «Monsieur, j'ai remarqué que... Voulez-vous que je m'en occupe ?» — oui, non, plus tard",
+    "Créez vous-même une automatisation acceptée, avec les bonnes conditions (présence, obscurité)",
+    "Situations inhabituelles : porte, fenêtre ou mouvement à un moment inopiné et maison vide → alerte vocale, alarme et Télégramme"
+  ],
+  "settings": {
+    "ATENA_HABITS_CONFIDENCE": "Quelle doit être la régularité d'une habitude pour le proposer",
+    "ATENA_HABITS_ASK": "Propositions verbalement",
+    "ATENA_HABITS_ANOMALIES": "Alertes pour situations inhabituelles"
+  }
+}

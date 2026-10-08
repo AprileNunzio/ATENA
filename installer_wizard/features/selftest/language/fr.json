@@ -1,0 +1,17 @@
+{
+  "name": "Essai",
+  "description": "Athena teste vraiment ses fonctionnalités tous les soirs et après chaque mise à jour ; si une mise à jour casse quelque chose d'essentiel, elle revient automatiquement à la version précédente et vous en informe.",
+  "capabilities": [
+    "13 tests réels : superviseur et panel, composants, conversation, voix, automatismes, cerveau, affichage, écoute, vision, accueil, sons, espace, mises à jour",
+    "Chaque nuit (03h30) et cinq minutes après chaque mise à jour",
+    "Revient automatiquement à la version précédente si un test essentiel précédemment réussi échoue",
+    "Avis sur Telegram et sur l'affichage de ce qui est cassé ou qui fonctionne à nouveau",
+    "Les mises à jour ne sont installées que si elles ont réussi les tests sur GitHub",
+    "À voix haute : « faites le test »"
+  ],
+  "settings": {
+    "ATENA_SELFTEST_AT": "Heure du test de nuit (HH:MM)",
+    "ATENA_SELFTEST_ROLLBACK": "Si une mise à jour casse quelque chose d'essentiel",
+    "ATENA_UPDATE_REQUIRE_CI": "Mises à jour de GitHub"
+  }
+}

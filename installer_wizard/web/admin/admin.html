@@ -42,8 +42,6 @@
 <a id="logout"><span class="ic">⎋</span><span class="lb" data-i18n="admin:nav.logout">Esci</span></a>
 <div style="padding: 10px 12px; margin-bottom: 12px;">
 <select id="lang-selector" style="width: 100%; background: rgba(41, 224, 255, 0.06); color: var(--text-dim); border: 1px solid var(--line); border-radius: 6px; padding: 6px; font-size: 13px; cursor: pointer; outline: none; appearance: none; text-align: center;">
-<option value="en">EN</option>
-<option value="it">IT</option>
 </select>
 </div></nav>
 <div class="content">
@@ -201,13 +199,24 @@
   window.i18n = new I18nManager();
 
   document.addEventListener('DOMContentLoaded', async () => {
-    const savedLang = localStorage.getItem('atena_admin_lang') || 'it';
-    await window.i18n.setLanguage(savedLang, ['admin']);
-    document.documentElement.lang = savedLang;
-    window.dispatchEvent(new CustomEvent('atena-i18n', { detail: savedLang }));
     const langSelect = document.getElementById('lang-selector');
+    const availableLangs = await window.i18n.discoverLanguages();
     if (langSelect) {
-      langSelect.value = savedLang;
+      langSelect.innerHTML = '';
+      availableLangs.forEach((l) => {
+        const opt = document.createElement('option');
+        opt.value = l;
+        opt.textContent = l.toUpperCase();
+        langSelect.appendChild(opt);
+      });
+    }
+    const savedLang = localStorage.getItem('atena_admin_lang') || 'it';
+    const activeLang = availableLangs.includes(savedLang) ? savedLang : (availableLangs[0] || 'it');
+    await window.i18n.setLanguage(activeLang, ['admin']);
+    document.documentElement.lang = activeLang;
+    window.dispatchEvent(new CustomEvent('atena-i18n', { detail: activeLang }));
+    if (langSelect) {
+      langSelect.value = activeLang;
       langSelect.addEventListener('change', async (e) => {
         await window.i18n.setLanguage(e.target.value, ['admin']);
         document.documentElement.lang = e.target.value;

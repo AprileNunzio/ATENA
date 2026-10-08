@@ -1,0 +1,23 @@
+{
+  "name": "Gestion des ressources",
+  "description": "Il mesure le poids des fonctions et des widgets, tient une statistique de consommation et adapte Athena à l'appareil : il retarde le travail de base lorsque le système est sous charge et fait tourner l'écran plus légèrement sur les PC plus anciens.",
+  "capabilities": [
+    "Pression du système provenant du processeur, de la mémoire, du swap et de la charge, avec hystérésis",
+    "Travaux en arrière-plan et crons reportés (non supprimés) en cas de besoin",
+    "Classe d'appareil (faible, moyenne, élevée) détectée par le matériel et modifiable",
+    "Base de données des coûts par composant, avec estimation basée sur la taille du contenu",
+    "L'écran apprend combien chaque appareil résiste et monte ou descend de lui-même",
+    "Limite de widgets actifs par appareil, avec priorité à celui rappelé"
+  ],
+  "settings": {
+    "ATENA_GOV_CLASS": "Classe d'appareil",
+    "ATENA_GOV_QUALITY": "Qualité graphique de l'affichage",
+    "ATENA_GOV_MAX_WIDGETS": "Widgets actifs ensemble (0 = automatique)",
+    "ATENA_GOV_CLIENT_REPORT": "Les écrans envoient leurs propres mesures de fluidité",
+    "ATENA_GOV_SAMPLE_S": "Toutes les combien de secondes pour mesurer le système (1 - 30)",
+    "ATENA_GOV_PRESSURE_ENTER": "Système sous contrainte au-dessus de cette pression (30 - 100)",
+    "ATENA_GOV_PRESSURE_EXIT": "Revient à la normale sous cette pression (10 - 99)",
+    "ATENA_GOV_DEFER_MAX_MIN": "Les travaux fondamentaux peuvent être reportés jusqu'à un maximum (minutes, 0 = jamais)",
+    "ATENA_GOV_RETENTION_DAYS": "Conserver les statistiques pendant (jours, 1 - 365)"
+  }
+}
