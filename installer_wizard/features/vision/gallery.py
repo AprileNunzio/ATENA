@@ -137,6 +137,39 @@ class Gallery:
         (d / "meta.json").write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
         self.reload()
 
+    def merge(self, source: str, target: str, name: str) -> dict:
+        src, dst = FACES / slugify(source), FACES / slugify(target)
+        if src == dst:
+            raise ValueError("Un volto non può essere unito a se stesso")
+        if not src.is_dir():
+            raise FileNotFoundError(f"Volto {source} non trovato")
+        dst.mkdir(parents=True, exist_ok=True)
+        try:
+            meta = json.loads((dst / "meta.json").read_text(encoding="utf-8"))
+        except FileNotFoundError:
+            meta = {"name": name, "enrolled_at": time.time(), "auto": False}
+        for file, counter in (("embeddings.npy", "samples"), ("embeddings_ir.npy", "samples_ir")):
+            incoming = _load_rows(src / file)
+            if incoming is None:
+                continue
+            merged = emb.merge(_load_rows(dst / file), incoming, MAX_SAMPLES)
+            np.save(dst / file, merged.astype(np.float32))
+            meta[counter] = len(merged)
+        photos = dst / "photos"
+        photos.mkdir(parents=True, exist_ok=True)
+        if (src / "photo.jpg").is_file():
+            shutil.copy2(src / "photo.jpg", photos / f"merged_{src.name}_{int(time.time())}.jpg")
+            if not (dst / "photo.jpg").is_file():
+                shutil.copy2(src / "photo.jpg", dst / "photo.jpg")
+        for photo in (src / "photos").glob("*.jpg") if (src / "photos").is_dir() else ():
+            shutil.copy2(photo, photos / f"merged_{src.name}_{photo.name}")
+        meta.update(name=name, auto=False, updated=time.time(), merged_from=sorted({*meta.get("merged_from", []), src.name}))
+        (dst / "meta.json").write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+        shutil.rmtree(src)
+        self.reload()
+        log.info("Volto %s unito a %s (%d campioni)", src.name, dst.name, meta.get("samples", 0))
+        return {**meta, "slug": dst.name}
+
     def rename(self, slug: str, name: str) -> dict | None:
         d = FACES / slug
         try:

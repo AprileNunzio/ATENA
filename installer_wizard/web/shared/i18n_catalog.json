@@ -12123,6 +12123,14 @@
     [
       "No, mai",
       "No, never"
+    ],
+    [
+      "Un volto non può essere associato a se stesso",
+      "A face cannot be associated with itself"
+    ],
+    [
+      "Destinazione non valida",
+      "Invalid destination"
     ]
   ],
   "reverse": [
@@ -12947,6 +12955,10 @@
     [
       "Dati non validi",
       "Données non valides"
+    ],
+    [
+      "Destinazione non valida",
+      "Destination non valide"
     ],
     [
       "Display kiosk (1/0)",
@@ -13839,6 +13851,10 @@
     [
       "Un momento: sto ancora parlando",
       "Un instant : je parle encore"
+    ],
+    [
+      "Un volto non può essere associato a se stesso",
+      "Un visage ne peut pas être associé à lui-même"
     ],
     [
       "URL Home Assistant",

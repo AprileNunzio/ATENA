@@ -1,8 +1,6 @@
-import json
 import os
 import re
 import shutil
-import time
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
@@ -11,7 +9,7 @@ from access import require_admin
 from config import DEMO, STATE_DIR
 from core_client import core
 from features.chat import voice_id
-from features.people import people
+from features.people import faces, people
 from features.vision.proxy import vision_proxy
 from features.voices.catalog import VOICES
 from state import store
@@ -39,26 +37,6 @@ def is_scanned_unnamed(p: dict) -> bool:
     return False
 
 
-def get_person_quality_pct(slug: str) -> int:
-    clean = people.slugify(slug)
-    d = FACES / clean
-    if not d.is_dir():
-        return 75
-    meta_path = d / "meta.json"
-    if meta_path.is_file():
-        try:
-            m = json.loads(meta_path.read_text(encoding="utf-8"))
-            if "quality_pct" in m:
-                return int(m["quality_pct"])
-            samples = m.get("samples", 1)
-            ir = m.get("samples_ir", 0)
-            from features.vision.gallery import quality_percent
-            return quality_percent(samples, ir)
-        except Exception:
-            pass
-    return 75
-
-
 async def sync_person_neuron(slug: str) -> None:
     p = people.get(slug)
     if not p:
@@ -70,10 +48,12 @@ async def sync_person_neuron(slug: str) -> None:
 
 @admin_routes.get("/api/people")
 async def admin_people_list(_: str = Depends(require_admin)):
+    for slug in faces.sync_gallery(FACES):
+        store.event("INFO", f"Volto rilevato aggiunto a Persone: {slug}", "people")
     plist = people.all_profiles()
     for p in plist:
         p["is_scanned"] = is_scanned_unnamed(p)
-        p["quality_pct"] = get_person_quality_pct(p["slug"])
+        p["quality_pct"] = faces.quality(FACES, p["slug"])
     return {"people": plist, "roles": people.ROLES, "voices": VOICES}
 
 
@@ -95,7 +75,7 @@ async def admin_person(slug: str, _: str = Depends(require_admin)):
     p["sessions"] = p.get("sessions", [])[-50:]
     p["voiceprint"] = voice_id.status(slug)
     p["is_scanned"] = is_scanned_unnamed(p)
-    p["quality_pct"] = get_person_quality_pct(slug)
+    p["quality_pct"] = faces.quality(FACES, slug)
     return p
 
 
@@ -145,60 +125,14 @@ async def admin_person_delete(slug: str, user: str = Depends(require_admin)):
 
 @admin_routes.post("/api/people/{from_slug}/associate")
 async def admin_person_associate(from_slug: str, request: Request, user: str = Depends(require_admin)):
-    body = await request.json()
-    to_slug = str(body.get("to_slug", "")).strip()
+    to_slug = str((await request.json()).get("to_slug", "")).strip()
     if not to_slug:
         raise HTTPException(400, "Destinatario mancante")
-    target = people.get(to_slug)
-    if not target:
-        raise HTTPException(404, "Persona di destinazione non trovata")
-
-    clean_from = people.slugify(from_slug)
-    clean_to = people.slugify(to_slug)
-    src = FACES / clean_from
-    dst = FACES / clean_to
-    dst.mkdir(parents=True, exist_ok=True)
-    dst_photos = dst / "photos"
-    dst_photos.mkdir(parents=True, exist_ok=True)
-
-    if src.is_dir():
-        if (src / "photo.jpg").is_file():
-            try:
-                shutil.copy(src / "photo.jpg", dst_photos / f"scan_{int(time.time())}.jpg")
-            except OSError:
-                pass
-        if (src / "photos").is_dir():
-            for ph in (src / "photos").glob("*.jpg"):
-                try:
-                    shutil.copy(ph, dst_photos / f"merged_{ph.name}")
-                except OSError:
-                    pass
-        try:
-            import numpy as np
-            if (src / "embeddings.npy").is_file() and (dst / "embeddings.npy").is_file():
-                s_emb = np.load(src / "embeddings.npy")
-                d_emb = np.load(dst / "embeddings.npy")
-                merged = np.vstack([d_emb, s_emb])[:40]
-                np.save(dst / "embeddings.npy", merged)
-        except Exception:
-            pass
-        shutil.rmtree(src, ignore_errors=True)
-
-    source_p = people.load(from_slug)
-    if source_p:
-        t_sessions = target.get("sessions", []) + source_p.get("sessions", [])
-        target["sessions"] = sorted(t_sessions, key=lambda s: s[0])[-500:]
-        target_stats = target.setdefault("stats", {"visits": 0, "total_seconds": 0})
-        s_stats = source_p.get("stats", {})
-        target_stats["visits"] = target_stats.get("visits", 0) + s_stats.get("visits", 0)
-        target_stats["total_seconds"] = target_stats.get("total_seconds", 0) + s_stats.get("total_seconds", 0)
-        people.save(target)
-
-    people.delete(from_slug)
+    target = await faces.associate(from_slug, to_slug)
     from features.vision.nightly import optimize_person
-    opt = optimize_person(clean_to)
+    opt = optimize_person(people.slugify(to_slug))
     store.event("INFO", f"Volto scansionato {from_slug} associato a {target['name']} da {user}", "people")
-    return {"ok": True, "target": people.get(to_slug), "optimization": opt}
+    return {"ok": True, "target": target, "optimization": opt}
 
 
 @admin_routes.get("/api/people/{slug}/photos")
@@ -219,7 +153,7 @@ async def admin_person_photos(slug: str, _: str = Depends(require_admin)):
             "is_primary": True,
             "url": f"/api/vision/people/{clean}/photo.jpg",
             "created_at": stat.st_mtime,
-            "quality_pct": get_person_quality_pct(clean),
+            "quality_pct": faces.quality(FACES, clean),
         })
     for f in sorted(photos_dir.glob("*.jpg"), key=lambda p: -p.stat().st_mtime):
         stat = f.stat()
@@ -229,7 +163,7 @@ async def admin_person_photos(slug: str, _: str = Depends(require_admin)):
             "is_primary": False,
             "url": f"/api/people/{clean}/photos/{f.name}",
             "created_at": stat.st_mtime,
-            "quality_pct": get_person_quality_pct(clean),
+            "quality_pct": faces.quality(FACES, clean),
         })
     return {"photos": items}
 

@@ -450,6 +450,20 @@ async def rename(slug: str, request: Request):
     return person
 
 
+@app.post("/people/{slug}/merge")
+async def merge(slug: str, request: Request):
+    body = await request.json()
+    target, name = str(body.get("into", "")).strip(), str(body.get("name", "")).strip()
+    if not target or not name or len(name) > 80:
+        raise HTTPException(400, "Destinazione non valida")
+    try:
+        return await asyncio.to_thread(gallery.merge, slug, target, name)
+    except FileNotFoundError as exc:
+        raise HTTPException(404, str(exc))
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+
+
 @app.delete("/people/{slug}")
 async def forget(slug: str):
     if not gallery.delete(slugify(slug)):
