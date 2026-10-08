@@ -56,8 +56,16 @@ class ProjectWorkspaceManager:
 
     def process_query(self, query: str, user_id: str) -> str:
         lower = query.lower()
-        start_triggers = ["nuovo progetto", "crea un progetto", "lavoriamo a un progetto", "creami un sito web", "sviluppiamo", "creami un'app"]
-        close_triggers = ["chiudi il progetto", "esci dal progetto", "termina il progetto"]
+        start_triggers = [
+            "nuovo progetto", "crea un progetto", "lavoriamo a un progetto", "creami un sito web", "sviluppiamo", "creami un'app",
+            "new project", "create a project", "let's work on a project", "create a website", "let's develop", "create an app",
+            "build a website", "build an app", "nuevo proyecto", "crear un proyecto", "crear un sitio web"
+        ]
+        close_triggers = [
+            "chiudi il progetto", "esci dal progetto", "termina il progetto",
+            "close project", "exit project", "terminate project", "end project",
+            "cerrar proyecto", "salir del proyecto", "terminar proyecto"
+        ]
 
         state = self.get_active(user_id)
 
@@ -65,11 +73,12 @@ class ProjectWorkspaceManager:
             state.is_active = False
             self.save(user_id, state)
             self._notify_widget(None)
-            return "Comando di sistema: il progetto attuale è stato chiuso con successo."
+            return "System command: the current project has been closed successfully. / Comando di sistema: il progetto attuale è stato chiuso con successo."
 
         if any(t in lower for t in start_triggers):
-            name = "Nuovo Progetto"
-            if "sito web" in lower: name = "Progetto Sito Web"
+            name = "Nuovo Progetto / New Project"
+            if "sito web" in lower or "website" in lower or "sitio web" in lower: 
+                name = "Progetto Web / Web Project"
             state = ProjectState(
                 project_id=uuid.uuid4().hex,
                 name=name,

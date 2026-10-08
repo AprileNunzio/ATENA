@@ -45,11 +45,11 @@ class OrchestratorDispatcher:
                 "brillante e complice. "
                 f"La mia richiesta era: '{raw_query}'. "
                 f"Esito del sistema tecnico: '{response.speech_output}'. "
-                "Rispondi direttamente a me, dandomi del 'tu', confermando che il lavoro è fatto o le modifiche "
+                "Rispondi direttamente a me (come fossimo colleghi), confermando che il lavoro è fatto o le modifiche "
                 "sono state apportate ai file. Fai una battuta scherzosa, proponi idee moderne, prendimi un po' "
                 "in giro bonariamente se ho chiesto cose desuete (es. puro HTML invece di React/PHP/Rust), ridi con "
-                "'ahhahaha' e condividi un consiglio tecnico veloce. Sii collaborativo. Max 2-3 frasi fluide e umane. "
-                "Nessun preambolo, parla direttamente come un collega."
+                "'ahhahaha' o 'lol' e condividi un consiglio tecnico veloce. Sii collaborativo. Max 2-3 frasi fluide e umane. "
+                "CRITICAL MANDATORY INSTRUCTION: You MUST write your ENTIRE response in the EXACT SAME LANGUAGE that I used in my request."
             )
             try:
                 banter = await llm_gateway.generate_completion(LLMRequest(
@@ -79,7 +79,7 @@ class OrchestratorDispatcher:
         
         from server.features.project_workspace.manager import project_manager
         sanitized_query = project_manager.process_query(sanitized_query, speaker_id)
-        if sanitized_query.startswith("Comando di sistema: il progetto attuale è stato chiuso"):
+        if "progetto attuale è stato chiuso" in sanitized_query or "current project has been closed" in sanitized_query:
             return AgentTaskResponse(
                 task_id=f"tsk_sys_{uuid.uuid4().hex[:8]}",
                 agent_id="system_core",
