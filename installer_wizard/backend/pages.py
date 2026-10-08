@@ -9,7 +9,7 @@ from fastapi.responses import FileResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 from access import NO_CACHE
-from config import FEATURES_DIR, ATENA_DIR, STATE_DIR, WEB_DIR, read_env
+from config import FEATURES_DIR, ATENA_DIR, STATE_DIR, UI_LANGUAGES, WEB_DIR, read_env
 
 VENDOR_DIR = STATE_DIR / "vendor"
 VENDOR = {
@@ -101,8 +101,8 @@ def admin_parts() -> dict[str, str]:
 
 
 def ui_language() -> str:
-    value = read_env().get("ATENA_UI_LANG", "it")
-    return value if value in ("it", "en") else "it"
+    value = read_env().get("ATENA_UI_LANG", "")
+    return value if value in UI_LANGUAGES else ""
 
 
 def render(html: str) -> Response:

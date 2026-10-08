@@ -100,12 +100,36 @@ code { display: block; margin-top: 8px; padding: 10px 12px; border-radius: 10px;
       tech: "Technical details",
       steps: { disk: "Disk space", apt: "Package manager", network: "Internet connection", code: "Atena files",
                python: "Python libraries", system: "System files", ports: "Network ports", service: "Starting Atena" }
+    },
+    fr: {
+      title: "Atena est en mode sans échec",
+      titleOk: "Atena fonctionne à nouveau",
+      reasons: {
+        missing_library: "Il manque certaines bibliothèques dont Atena a besoin pour démarrer.",
+        broken_code: "Certains fichiers d'Atena sont endommagés ou incomplets.",
+        system: "Un problème du système empêche Atena de démarrer.",
+        unknown: "Atena n'a pas pu démarrer normalement."
+      },
+      calm: "Vos données sont en sécurité. Atena peut se réparer toute seule : il suffit d'un geste.",
+      repair: "Réparer maintenant", repairing: "Réparation en cours…", retry: "Réessayer la réparation",
+      started: "Réparation lancée, suivez les étapes ci-dessus.",
+      busy: "Une réparation est déjà en cours.", wait: "Attendez quelques secondes avant de réessayer.",
+      unavailable: "La réparation automatique n'est pas disponible : utilisez la commande ci-dessous.",
+      offline: "Atena ne répond pas, nouvelle tentative…",
+      done: "Réparation terminée, redémarrage d'Atena…",
+      failed: "Certains problèmes doivent être résolus à la main : lisez les étapes en rouge.",
+      tech: "Détails techniques",
+      steps: { disk: "Espace disque", apt: "Gestionnaire de paquets", network: "Connexion à Internet", code: "Fichiers d'Atena",
+               python: "Bibliothèques Python", system: "Fichiers système", ports: "Ports réseau", service: "Démarrage d'Atena" }
     }
   };
   const ICON = { ok: "✓", fixed: "✓", failed: "✗", running: "◌", pending: "·", skipped: "–" };
   const $ = (id) => document.getElementById(id);
   const browser = (navigator.language || "it").slice(0, 2);
-  let T = TEXT[browser] || TEXT.en;
+  let saved = "";
+  try { saved = localStorage.getItem("atena_ui_lang") || ""; } catch (e) { saved = ""; }
+  const pick = (server) => [saved, server, browser].find((code) => TEXT[code]) || "en";
+  let T = TEXT[pick("")];
   let lastState = "";
 
   const say = (text, bad) => { $("msg").textContent = text || ""; $("msg").className = bad ? "msg bad" : "msg"; };
@@ -135,8 +159,9 @@ code { display: block; margin-top: 8px; padding: 10px 12px; border-radius: 10px;
   }
 
   function render(data) {
-    T = TEXT[browser] || TEXT[data.lang] || TEXT.en;
-    document.documentElement.lang = TEXT[browser] ? browser : (TEXT[data.lang] ? data.lang : "en");
+    const lang = pick(data.lang);
+    T = TEXT[lang];
+    document.documentElement.lang = lang;
     $("title").textContent = T.title;
     $("lead").textContent = `${T.reasons[data.reason] || T.reasons.unknown} ${T.calm}`;
     $("tech").textContent = T.tech;

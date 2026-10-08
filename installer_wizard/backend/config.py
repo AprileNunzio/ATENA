@@ -29,6 +29,7 @@ CORE_URL = os.environ.get("ATENA_CORE_URL", "http://127.0.0.1:8443")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 
 VERSION = "4.0.0"
+UI_LANGUAGES = {"it": "Italiano", "en": "English", "fr": "Français"}
 
 for _d in (ETC_DIR, STATE_DIR, LOG_DIR):
     _d.mkdir(parents=True, exist_ok=True)
@@ -43,7 +44,7 @@ EDITABLE_KEYS = {
     "ATENA_OLLAMA_URL": "Server Ollama (vuoto = locale; es. http://192.168.1.50:11434 per usare un altro server)",
     "ATENA_ASSISTANT_NAME": "Nome dell'assistente (predefinito A.T.E.N.A.)",
     "ATENA_USER_NAME": "Nome dell'utente principale (come Atena ti chiama)",
-    "ATENA_UI_LANG": "Lingua dell'interfaccia del display e del pannello (it, en)",
+    "ATENA_UI_LANG": "Lingua dell'interfaccia del display e del pannello (it, en, fr)",
     "ATENA_LOCATION": "Posizione predefinita (nome; si imposta meglio da Audio e posizione)",
     "ATENA_LOCATION_MODE": "Posizione: auto (display/Wi-Fi più precisi) o fixed (sempre la predefinita)",
     "ATENA_LOCATION_LAT": "Latitudine della posizione predefinita",

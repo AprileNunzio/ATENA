@@ -1,6 +1,7 @@
 (function (global) {
   "use strict";
-  const LANGS = ["it", "en"];
+  const LANGS = ["it", "en", "fr"];
+  const TABLES = { en: "pairs", fr: "fr", it: "reverse" };
   const ATTRS = ["placeholder", "title", "aria-label", "alt"];
   const SKIP = new Set(["SCRIPT", "STYLE", "TEXTAREA", "CODE", "PRE", "NOSCRIPT"]);
   const state = { lang: "it", exact: new Map(), patterns: [], ready: false, observer: null };
@@ -41,7 +42,7 @@
       for (const p of state.patterns) {
         const m = p.re.exec(norm);
         if (m) {
-          out = p.target.replace(/\{(\d+)\}/g, (all, n) => { const i = p.order.indexOf(Number(n)); return i >= 0 ? m[i + 1] : all; });
+          out = p.target.replace(/\{(\d+)\}/g, (all, n) => { const i = p.order.indexOf(Number(n)); return i >= 0 ? translate(m[i + 1]) : all; });
           break;
         }
       }
@@ -56,24 +57,30 @@
   }
 
   function textNode(node) {
-    if (skipped(node.parentElement) || node.__jt === node.nodeValue) return;
-    const next = translate(node.nodeValue);
+    if (skipped(node.parentElement)) return;
+    if (node.__jt !== node.nodeValue) node.__src = node.nodeValue;
+    const next = translate(node.__src);
     if (next !== node.nodeValue) node.nodeValue = next;
     node.__jt = node.nodeValue;
+  }
+
+  function localized(el, key, current, apply) {
+    el.__src = el.__src || {};
+    el.__jt = el.__jt || {};
+    if (el.__jt[key] !== current) el.__src[key] = current;
+    const next = translate(el.__src[key]);
+    if (next !== current) apply(next);
+    el.__jt[key] = next;
   }
 
   function element(el) {
     if (skipped(el)) return;
     for (const name of ATTRS) {
       const value = el.getAttribute(name);
-      if (value) {
-        const next = translate(value);
-        if (next !== value) el.setAttribute(name, next);
-      }
+      if (value) localized(el, name, value, (next) => el.setAttribute(name, next));
     }
     if (el.tagName === "INPUT" && (el.type === "button" || el.type === "submit") && el.value) {
-      const next = translate(el.value);
-      if (next !== el.value) el.value = next;
+      localized(el, "value", el.value, (next) => { el.value = next; });
     }
   }
 
@@ -102,31 +109,47 @@
     state.observer.observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS });
   }
 
+  async function load(lang) {
+    const v = global.ATENA_ASSET_V ? `?v=${global.ATENA_ASSET_V}` : "";
+    const data = await (await fetch(`/static/shared/i18n_catalog.json${v}`, { cache: "force-cache" })).json();
+    const built = build(data[TABLES[lang]] || [], lang);
+    state.lang = lang;
+    state.exact = built.exact;
+    state.patterns = built.patterns;
+    state.ready = true;
+    document.documentElement.lang = lang;
+    walk(document.body);
+    document.dispatchEvent(new CustomEvent("atena-translated", { detail: lang }));
+  }
+
   async function start(lang) {
     state.lang = lang || pick();
     document.documentElement.lang = state.lang;
     try {
-      const v = global.ATENA_ASSET_V ? `?v=${global.ATENA_ASSET_V}` : "";
-      const data = await (await fetch(`/static/shared/i18n_catalog.json${v}`, { cache: "force-cache" })).json();
-      const built = build(state.lang === "en" ? data.pairs || [] : data.reverse || [], state.lang);
-      state.exact = built.exact;
-      state.patterns = built.patterns;
-      state.ready = true;
-      walk(document.body);
+      await load(state.lang);
       observe();
-      document.dispatchEvent(new CustomEvent("atena-translated", { detail: state.lang }));
     } catch (e) {
       console.warn("i18n catalog unavailable", e);
     }
   }
 
+  function remember(lang) {
+    try { localStorage.setItem("atena_ui_lang", lang); } catch (e) { console.warn("language preference not saved", e); }
+  }
+
+  async function switchTo(lang) {
+    if (!LANGS.includes(lang) || lang === state.lang) return;
+    remember(lang);
+    await load(lang);
+  }
+
   function setLanguage(lang) {
     if (!LANGS.includes(lang)) return;
-    try { localStorage.setItem("atena_ui_lang", lang); } catch (e) { return; }
+    remember(lang);
     location.reload();
   }
 
-  global.AtenaI18n = { start, setLanguage, translate, language: () => state.lang, languages: LANGS };
+  global.AtenaI18n = { start, setLanguage, switchTo, translate, language: () => state.lang, languages: LANGS };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", () => start());
   else start();
 })(window);

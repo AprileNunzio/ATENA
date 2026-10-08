@@ -4,6 +4,9 @@ import sys
 from html.parser import HTMLParser
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from python_strings import status_strings  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 ATTRS = ("placeholder", "title", "aria-label", "alt", "data-confirm")
 SKIP_TAGS = {"script", "style", "code", "pre", "svg", "math"}
@@ -152,8 +155,10 @@ def extract() -> dict[str, list[str]]:
         elif path.suffix == ".js":
             strings = from_js(text)
         elif path.suffix == ".py":
-            rel_path = str(path.relative_to(ROOT))
+            rel_path = path.relative_to(ROOT).as_posix()
             strings = from_python(text) + (from_dict_block(text, DICT_BLOCKS[rel_path]) if rel_path in DICT_BLOCKS else [])
+            if rel_path.startswith("backend/"):
+                strings += [s for s in status_strings(text) if s not in strings]
         else:
             try:
                 data = json.loads(text)
@@ -162,7 +167,7 @@ def extract() -> dict[str, list[str]]:
             strings = from_manifest(data) if path.name == "feature.json" else [normal(str(data.get(k))) for k in ("name", "description") if data.get(k)]
         for s in strings:
             catalog.setdefault(s, [])
-            rel = str(path.relative_to(ROOT))
+            rel = path.relative_to(ROOT).as_posix()
             if rel not in catalog[s]:
                 catalog[s].append(rel)
     return catalog

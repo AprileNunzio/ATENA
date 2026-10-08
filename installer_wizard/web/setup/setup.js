@@ -62,9 +62,13 @@
   }
 
   function render() {
-    radio($("langs"), Object.entries(info.languages), "lang", (_, label) => {
+    const shown = window.AtenaI18n ? window.AtenaI18n.language() : "";
+    choice.lang = shown in info.languages ? shown : (info.current.lang in info.languages ? info.current.lang : "it");
+    radio($("langs"), Object.entries(info.languages), "lang", (value, label) => {
       const b = el("button", null, label);
       b.type = "button";
+      b.dataset.noI18n = "";
+      b.addEventListener("click", () => { if (window.AtenaI18n) window.AtenaI18n.switchTo(value); });
       return b;
     });
 
@@ -130,7 +134,6 @@
     });
 
     $("name").value = info.current.name || "";
-    choice.lang = info.current.lang in info.languages ? info.current.lang : "it";
     if (info.code) {
       $("local-code-value").textContent = info.code;
       $("local-code").hidden = false;

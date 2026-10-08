@@ -82,14 +82,18 @@ def clear() -> None:
 
 def ui_lang() -> str:
     try:
-        for line in ENV_FILE.read_text(encoding="utf-8").splitlines():
-            if line.startswith("ATENA_UI_LANG="):
-                value = line.split("=", 1)[1].strip()
-                if re.fullmatch(r"[a-z]{2}", value):
-                    return value
-    except OSError:
-        pass
-    return "it"
+        lines = ENV_FILE.read_text(encoding="utf-8").splitlines()
+    except FileNotFoundError:
+        return ""
+    except OSError as exc:
+        log.warning("Lingua dell'interfaccia non leggibile da %s: %s", ENV_FILE, exc)
+        return ""
+    for line in lines:
+        if line.startswith("ATENA_UI_LANG="):
+            value = line.split("=", 1)[1].strip()
+            if re.fullmatch(r"[a-z]{2}", value):
+                return value
+    return ""
 
 
 def repair_running() -> bool:

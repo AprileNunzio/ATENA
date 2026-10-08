@@ -11855,6 +11855,254 @@
     [
       "Da installare su ogni PC Windows su cui vuoi ATENA. Lo ZIP contiene già l'indirizzo di questo server.",
       "Install it on every Windows PC where you want ATENA. The ZIP already contains this server's address."
+    ],
+    [
+      "Accelerazione GPU",
+      "GPU acceleration"
+    ],
+    [
+      "Addestramento con Soup (solo con GPU adatta)",
+      "Training with Soup (only with a suitable GPU)"
+    ],
+    [
+      "Aggiornamenti di sicurezza e log",
+      "Security updates and logs"
+    ],
+    [
+      "Aggiornamento annullato",
+      "Update cancelled"
+    ],
+    [
+      "Analisi del sistema",
+      "System analysis"
+    ],
+    [
+      "Attivazione neurale",
+      "Neural activation"
+    ],
+    [
+      "Auto-riparazione: {0}",
+      "Self-repair: {0}"
+    ],
+    [
+      "Avvio…",
+      "Starting…"
+    ],
+    [
+      "Blender e LibreDWG per aprire BLEND, USD e DWG",
+      "Blender and LibreDWG to open BLEND, USD and DWG"
+    ],
+    [
+      "Caricamento delle reti in memoria",
+      "Loading the networks into memory"
+    ],
+    [
+      "Cartelle visibili da Windows e Mac, memoria con password",
+      "Folders visible from Windows and Mac, password-protected memory"
+    ],
+    [
+      "Cerco una versione più recente online…",
+      "Looking for a newer version online…"
+    ],
+    [
+      "Cervello potente",
+      "Powerful brain"
+    ],
+    [
+      "Compilazione dell'orchestratore cognitivo",
+      "Building the cognitive orchestrator"
+    ],
+    [
+      "Completato",
+      "Completed"
+    ],
+    [
+      "Componenti di sistema",
+      "System components"
+    ],
+    [
+      "Condivisioni di rete",
+      "Network shares"
+    ],
+    [
+      "Consolidamento dello studio",
+      "Study consolidation"
+    ],
+    [
+      "Core, memoria vettoriale e agenti",
+      "Core, vector memory and agents"
+    ],
+    [
+      "Display olografico",
+      "Holographic display"
+    ],
+    [
+      "Docker Engine e isolamento dei servizi",
+      "Docker Engine and service isolation"
+    ],
+    [
+      "Download del nuovo firmware cognitivo…",
+      "Downloading the new cognitive firmware…"
+    ],
+    [
+      "Driver NVIDIA ufficiale per il display, con ritorno automatico",
+      "Official NVIDIA driver for the display, with automatic fallback"
+    ],
+    [
+      "Errore interno del supervisore: {0}",
+      "Internal supervisor error: {0}"
+    ],
+    [
+      "Esecuzione protetta del codice generato, senza rete e senza accesso al sistema",
+      "Protected execution of generated code, with no network and no system access"
+    ],
+    [
+      "Firewall e hardening del kernel",
+      "Firewall and kernel hardening"
+    ],
+    [
+      "Hardware, rete e scelta delle reti neurali",
+      "Hardware, network and choice of neural networks"
+    ],
+    [
+      "In background dopo l'avvio",
+      "In the background after start"
+    ],
+    [
+      "Inizializzazione del supervisore…",
+      "Initialising the supervisor…"
+    ],
+    [
+      "Isolamento gVisor",
+      "gVisor isolation"
+    ],
+    [
+      "Isolamento hardware della sandbox, attivo solo dove la virtualizzazione KVM è disponibile",
+      "Hardware isolation of the sandbox, active only where KVM virtualisation is available"
+    ],
+    [
+      "Kernel in spazio utente per la sandbox, scaricato in background",
+      "User-space kernel for the sandbox, downloaded in the background"
+    ],
+    [
+      "LibreOffice, caratteri e librerie per documenti Office, ODF e PDF",
+      "LibreOffice, fonts and libraries for Office, ODF and PDF documents"
+    ],
+    [
+      "Manutenzione autonoma",
+      "Autonomous maintenance"
+    ],
+    [
+      "Message broker e proxy di uscita della sandbox in Rust, con ritorno automatico a Python",
+      "Message broker and sandbox egress proxy in Rust, with automatic fallback to Python"
+    ],
+    [
+      "Micro-VM Firecracker",
+      "Firecracker micro-VM"
+    ],
+    [
+      "Modello linguistico per il ragionamento profondo",
+      "Language model for deep reasoning"
+    ],
+    [
+      "Modello linguistico veloce e memoria semantica",
+      "Fast language model and semantic memory"
+    ],
+    [
+      "Motore container",
+      "Container engine"
+    ],
+    [
+      "Non riuscito",
+      "Failed"
+    ],
+    [
+      "Nuovo tentativo automatico tra {0} minuti (tentativo {1}); verifico anche se esistono correzioni su GitHub",
+      "Automatic retry in {0} minutes (attempt {1}); I am also checking GitHub for fixes"
+    ],
+    [
+      "Operativo",
+      "Operational"
+    ],
+    [
+      "Reti neurali essenziali",
+      "Essential neural networks"
+    ],
+    [
+      "Riavvio del supervisore sulla nuova versione…",
+      "Restarting the supervisor on the new version…"
+    ],
+    [
+      "Riconoscimento del parlato e parola \"Atena\"",
+      "Speech recognition and the word \"Atena\""
+    ],
+    [
+      "Riconoscimento facciale locale dalla webcam",
+      "Local face recognition from the webcam"
+    ],
+    [
+      "Runtime NVIDIA per l'inferenza",
+      "NVIDIA runtime for inference"
+    ],
+    [
+      "Runtime di inferenza locale Ollama",
+      "Local Ollama inference runtime"
+    ],
+    [
+      "Runtime, interfaccia grafica, voce",
+      "Runtime, graphical interface, voice"
+    ],
+    [
+      "Sandbox isolata",
+      "Isolated sandbox"
+    ],
+    [
+      "Scudi di sicurezza",
+      "Security shields"
+    ],
+    [
+      "Servizi cognitivi",
+      "Cognitive services"
+    ],
+    [
+      "Servono {0} GB liberi, disponibili {1} GB",
+      "{0} GB free needed, {1} GB available"
+    ],
+    [
+      "Sessione kiosk dedicata e sicura",
+      "Dedicated, secure kiosk session"
+    ],
+    [
+      "Sintesi vocale italiana offline",
+      "Offline Italian speech synthesis"
+    ],
+    [
+      "Su richiesta",
+      "On request"
+    ],
+    [
+      "Tutti i sistemi operativi",
+      "All systems operational"
+    ],
+    [
+      "Ufficio",
+      "Office"
+    ],
+    [
+      "Verifica: {0}",
+      "Checking: {0}"
+    ],
+    [
+      "Verifica…",
+      "Checking…"
+    ],
+    [
+      "Voce neurale",
+      "Neural voice"
+    ],
+    [
+      "Lingua dell'interfaccia del display e del pannello (it, en, fr)",
+      "Interface language of the display and the panel (it, en, fr)"
     ]
   ],
   "reverse": [
@@ -12251,6 +12499,1417 @@
     "wk-sub wk-faint",
     "wk-text wk-faint",
     "Microphone",
-    "Sandbox"
+    "Sandbox",
+    "language preference not saved"
+  ],
+  "fr": [
+    [
+      "Abitudini: osserva la casa e propone automazioni (1/0)",
+      "Habitudes : observe la maison et propose des automatisations (1/0)"
+    ],
+    [
+      "Abitudini: proposte a voce (1/0)",
+      "Habitudes : propositions à voix haute (1/0)"
+    ],
+    [
+      "Abitudini: regolarità minima per proporre (0.6, 0.7, 0.8)",
+      "Habitudes : régularité minimale pour proposer (0.6, 0.7, 0.8)"
+    ],
+    [
+      "Accelerazione GPU",
+      "Accélération GPU"
+    ],
+    [
+      "Accesso dell'agente (completo = tutto il server con conferma per le azioni delicate, standard = solo /srv/atena e modelli 3D)",
+      "Accès de l'agent (complet = tout le serveur avec confirmation pour les actions sensibles, standard = uniquement /srv/atena et modèles 3D)"
+    ],
+    [
+      "Accesso richiesto",
+      "Connexion requise"
+    ],
+    [
+      "Addestramento con Soup (solo con GPU adatta)",
+      "Entraînement avec Soup (uniquement avec un GPU adapté)"
+    ],
+    [
+      "Agente con strumenti: file, widget, ologramma, 3D, email, SMB, terminale (1/0)",
+      "Agent avec outils : fichiers, widgets, hologramme, 3D, e-mail, SMB, terminal (1/0)"
+    ],
+    [
+      "Aggiornamenti automatici (1/0)",
+      "Mises à jour automatiques (1/0)"
+    ],
+    [
+      "Aggiornamenti di sicurezza e log",
+      "Mises à jour de sécurité et journaux"
+    ],
+    [
+      "Aggiornamento annullato",
+      "Mise à jour annulée"
+    ],
+    [
+      "Aggiornamento in corso",
+      "Mise à jour en cours"
+    ],
+    [
+      "Algoritmi riutilizzabili per calcoli e conversioni (1/0)",
+      "Algorithmes réutilisables pour calculs et conversions (1/0)"
+    ],
+    [
+      "Altro",
+      "Autre"
+    ],
+    [
+      "Amplificazione massima del microfono per il campo lontano (2 - 80)",
+      "Amplification maximale du microphone en champ lointain (2 - 80)"
+    ],
+    [
+      "Analisi del sistema",
+      "Analyse du système"
+    ],
+    [
+      "Annotala ora: per sicurezza non la mostrerò più.",
+      "Notez-la maintenant : par sécurité, je ne l'afficherai plus."
+    ],
+    [
+      "API key Anthropic Claude (fallback)",
+      "Clé API Anthropic Claude (secours)"
+    ],
+    [
+      "API key Google Gemini (fallback)",
+      "Clé API Google Gemini (secours)"
+    ],
+    [
+      "Archiviazione",
+      "Stockage"
+    ],
+    [
+      "Ascolta",
+      "Écouter"
+    ],
+    [
+      "Ascolto vocale",
+      "Écoute vocale"
+    ],
+    [
+      "Ascolto vocale con parola \"Atena\" (1/0)",
+      "Écoute vocale avec le mot \"Atena\" (1/0)"
+    ],
+    [
+      "Aspetto dell'assistente (auto = in base al dispositivo, full = ologramma 3D con volto, light = nucleo leggero)",
+      "Apparence de l'assistante (auto = selon l'appareil, full = hologramme 3D avec visage, light = noyau léger)"
+    ],
+    [
+      "Assistente",
+      "Assistante"
+    ],
+    [
+      "Atena operativa",
+      "Atena opérationnelle"
+    ],
+    [
+      "Atena scrive da sola nuovi algoritmi quando servono (1/0)",
+      "Atena écrit elle-même de nouveaux algorithmes quand il le faut (1/0)"
+    ],
+    [
+      "Atena · Prima configurazione",
+      "Atena · Première configuration"
+    ],
+    [
+      "Atena · Schermo",
+      "Atena · Écran"
+    ],
+    [
+      "Atena è al completo",
+      "Atena est au complet"
+    ],
+    [
+      "Atena è già pronta: queste parti si aggiungono da sole, senza riavvii.",
+      "Atena est déjà prête : ces parties s'ajoutent toutes seules, sans redémarrage."
+    ],
+    [
+      "Attivazione neurale",
+      "Activation neuronale"
+    ],
+    [
+      "Auto-riparazione in corso",
+      "Auto-réparation en cours"
+    ],
+    [
+      "Auto-riparazione: {0}",
+      "Auto-réparation : {0}"
+    ],
+    [
+      "Automazioni a più stadi: inneschi, condizioni, azioni, rami, attese, webhook (1/0)",
+      "Automatisations à plusieurs étapes : déclencheurs, conditions, actions, branches, attentes, webhooks (1/0)"
+    ],
+    [
+      "Autonomia: compiti programmati, autopilota (diagnosi, studio, riepilogo serale) e approvazioni (1/0)",
+      "Autonomie : tâches planifiées, pilote automatique (diagnostic, étude, résumé du soir) et approbations (1/0)"
+    ],
+    [
+      "Avanti",
+      "Suivant"
+    ],
+    [
+      "Avanzamento",
+      "Progression"
+    ],
+    [
+      "Avvio dei sistemi",
+      "Démarrage des systèmes"
+    ],
+    [
+      "Avvio…",
+      "Démarrage…"
+    ],
+    [
+      "Avvisi di situazioni insolite con casa vuota (1/0)",
+      "Alertes de situations inhabituelles quand la maison est vide (1/0)"
+    ],
+    [
+      "Azione sconosciuta",
+      "Action inconnue"
+    ],
+    [
+      "Bastano due minuti, anche mentre l'installazione continua",
+      "Deux minutes suffisent, même pendant que l'installation continue"
+    ],
+    [
+      "Blender e LibreDWG per aprire BLEND, USD e DWG",
+      "Blender et LibreDWG pour ouvrir BLEND, USD et DWG"
+    ],
+    [
+      "Bot Telegram attivo (1/0)",
+      "Bot Telegram actif (1/0)"
+    ],
+    [
+      "Brano, artista e album della musica in ascolto",
+      "Titre, artiste et album de la musique en cours d'écoute"
+    ],
+    [
+      "Carica il file .onnx (facoltativo)",
+      "Téléversez le fichier .onnx (facultatif)"
+    ],
+    [
+      "Caricamento delle reti in memoria",
+      "Chargement des réseaux en mémoire"
+    ],
+    [
+      "Cartella condivisa Samba «condivisa» con le creazioni di Atena, protetta da password (1/0)",
+      "Dossier partagé Samba «condivisa» avec les créations d'Atena, protégé par mot de passe (1/0)"
+    ],
+    [
+      "Cartella della memoria in chiaro (vuoto = /var/lib/atena/memoria, solo sul server)",
+      "Dossier de la mémoire en clair (vide = /var/lib/atena/memoria, uniquement sur le serveur)"
+    ],
+    [
+      "Cartelle condivise in rete",
+      "Dossiers partagés en réseau"
+    ],
+    [
+      "Cartelle visibili da Windows e Mac, memoria con password",
+      "Dossiers visibles depuis Windows et Mac, mémoire protégée par mot de passe"
+    ],
+    [
+      "Casa e persone",
+      "Maison et personnes"
+    ],
+    [
+      "Casa e servizi",
+      "Maison et services"
+    ],
+    [
+      "Casa: chiedi conferma per serrature, allarme, cancelli e garage (1/0)",
+      "Maison : demander confirmation pour serrures, alarme, portails et garage (1/0)"
+    ],
+    [
+      "Casa: collegamento a Home Assistant attivo (1/0)",
+      "Maison : connexion à Home Assistant active (1/0)"
+    ],
+    [
+      "Casa: minuti dopo l'ultimo movimento in cui una stanza resta occupata (default 5)",
+      "Maison : minutes après le dernier mouvement pendant lesquelles une pièce reste occupée (défaut 5)"
+    ],
+    [
+      "Casa: stanza in cui si trova Atena (nome dell'area di Home Assistant)",
+      "Maison : pièce où se trouve Atena (nom de la zone Home Assistant)"
+    ],
+    [
+      "Casse, cuffie e microfoni senza fili",
+      "Enceintes, casques et microphones sans fil"
+    ],
+    [
+      "Cerco una versione più recente online…",
+      "Je cherche une version plus récente en ligne…"
+    ],
+    [
+      "Cervello",
+      "Cerveau"
+    ],
+    [
+      "Cervello potente",
+      "Cerveau puissant"
+    ],
+    [
+      "Cervello potente: modello per il ragionamento (Ollama; vuoto = automatico)",
+      "Cerveau puissant : modèle pour le raisonnement (Ollama ; vide = automatique)"
+    ],
+    [
+      "Cervello veloce: modello per la conversazione (Ollama; vuoto = automatico)",
+      "Cerveau rapide : modèle pour la conversation (Ollama ; vide = automatique)"
+    ],
+    [
+      "Chiave API",
+      "Clé API"
+    ],
+    [
+      "Chiave API per il servizio STT online",
+      "Clé API du service STT en ligne"
+    ],
+    [
+      "Chiave del servizio cloud non valida",
+      "Clé du service cloud non valide"
+    ],
+    [
+      "circa {0} min",
+      "environ {0} min"
+    ],
+    [
+      "circa {0} ore",
+      "environ {0} heures"
+    ],
+    [
+      "Codice di 6 cifre",
+      "Code à 6 chiffres"
+    ],
+    [
+      "Codice di configurazione non valido",
+      "Code de configuration non valide"
+    ],
+    [
+      "Codice di sicurezza",
+      "Code de sécurité"
+    ],
+    [
+      "Collaudo notturno e dopo ogni aggiornamento (1/0)",
+      "Test automatique nocturne et après chaque mise à jour (1/0)"
+    ],
+    [
+      "Colore dell'ologramma (colore, es. #29e0ff)",
+      "Couleur de l'hologramme (couleur, ex. #29e0ff)"
+    ],
+    [
+      "Comandi con le mani davanti alla webcam (auto = solo se la GPU del display li regge, 1 = sempre, 0 = mai)",
+      "Commandes gestuelles devant la webcam (auto = seulement si le GPU de l'écran le permet, 1 = toujours, 0 = jamais)"
+    ],
+    [
+      "Comandi con le mani: analisi al secondo con una mano in vista (10/20/30)",
+      "Commandes gestuelles : analyses par seconde avec une main visible (10/20/30)"
+    ],
+    [
+      "Comandi con le mani: in automatico si spengono se un'analisi supera questi millisecondi (30/50/90)",
+      "Commandes gestuelles : en automatique, elles s'arrêtent si une analyse dépasse ces millisecondes (30/50/90)"
+    ],
+    [
+      "Comandi con le mani: mani riconosciute (1/2)",
+      "Commandes gestuelles : mains reconnues (1/2)"
+    ],
+    [
+      "Come ti chiami?",
+      "Comment vous appelez-vous ?"
+    ],
+    [
+      "Compilazione dell'orchestratore cognitivo",
+      "Compilation de l'orchestrateur cognitif"
+    ],
+    [
+      "Completa",
+      "Terminer"
+    ],
+    [
+      "Completato",
+      "Terminé"
+    ],
+    [
+      "Componente sconosciuto",
+      "Composant inconnu"
+    ],
+    [
+      "Componenti di sistema",
+      "Composants du système"
+    ],
+    [
+      "Comunicazione",
+      "Communication"
+    ],
+    [
+      "Condivisioni di rete",
+      "Partages réseau"
+    ],
+    [
+      "Configura Atena",
+      "Configurer Atena"
+    ],
+    [
+      "Connessione al supervisore",
+      "Connexion au superviseur"
+    ],
+    [
+      "Conoscenza",
+      "Connaissances"
+    ],
+    [
+      "Consentito solo in locale",
+      "Autorisé uniquement en local"
+    ],
+    [
+      "Consigliato",
+      "Recommandé"
+    ],
+    [
+      "Consolidamento dello studio",
+      "Consolidation de l'étude"
+    ],
+    [
+      "Consolidamento dello studio nei pesi con Soup (auto = deciso dall'hardware, 1 = sempre, 0 = mai)",
+      "Consolidation de l'étude dans les poids avec Soup (auto = décidé par le matériel, 1 = toujours, 0 = jamais)"
+    ],
+    [
+      "Controllo aggiornamenti ogni N minuti (default 5)",
+      "Vérification des mises à jour toutes les N minutes (défaut 5)"
+    ],
+    [
+      "Conversione 3D",
+      "Conversion 3D"
+    ],
+    [
+      "Conversione 3D sul server: Blender per BLEND/USD/USDZ e LibreDWG per DWG (auto = se c'è spazio, 1 = sì, 0 = no)",
+      "Conversion 3D sur le serveur : Blender pour BLEND/USD/USDZ et LibreDWG pour DWG (auto = s'il y a de la place, 1 = oui, 0 = non)"
+    ],
+    [
+      "Copia",
+      "Copier"
+    ],
+    [
+      "Copiata",
+      "Copiée"
+    ],
+    [
+      "Core nativo",
+      "Cœur natif"
+    ],
+    [
+      "Core, memoria vettoriale e agenti",
+      "Cœur, mémoire vectorielle et agents"
+    ],
+    [
+      "Cosa vuoi usare da subito?",
+      "Que voulez-vous utiliser tout de suite ?"
+    ],
+    [
+      "Credenziali non valide o utente non autorizzato",
+      "Identifiants non valides ou utilisateur non autorisé"
+    ],
+    [
+      "Creo una password robusta e te la mostro una sola volta.",
+      "Je crée un mot de passe robuste et je vous le montre une seule fois."
+    ],
+    [
+      "Dati non validi",
+      "Données non valides"
+    ],
+    [
+      "Display kiosk (1/0)",
+      "Écran kiosque (1/0)"
+    ],
+    [
+      "Display olografico",
+      "Écran holographique"
+    ],
+    [
+      "Docker Engine e isolamento dei servizi",
+      "Docker Engine et isolation des services"
+    ],
+    [
+      "Documenti Office e LibreOffice: Word, Excel, PowerPoint, ODT, ODS, ODP, PDF e progetti (1/0)",
+      "Documents Office et LibreOffice : Word, Excel, PowerPoint, ODT, ODS, ODP, PDF et projets (1/0)"
+    ],
+    [
+      "dopo l'avvio",
+      "après le démarrage"
+    ],
+    [
+      "Dove deve pensare il mio cervello?",
+      "Où mon cerveau doit-il réfléchir ?"
+    ],
+    [
+      "Download del nuovo firmware cognitivo…",
+      "Téléchargement du nouveau firmware cognitif…"
+    ],
+    [
+      "Driver NVIDIA ufficiale per il display, con ritorno automatico",
+      "Pilote NVIDIA officiel pour l'écran, avec retour automatique"
+    ],
+    [
+      "Driver video",
+      "Pilote vidéo"
+    ],
+    [
+      "Driver video del display: auto (NVIDIA ufficiale se adatto), nouveau (libero)",
+      "Pilote vidéo de l'écran : auto (NVIDIA officiel si adapté), nouveau (libre)"
+    ],
+    [
+      "Email in uscita: mittente (vuoto = utente SMTP)",
+      "E-mail sortant : expéditeur (vide = utilisateur SMTP)"
+    ],
+    [
+      "Email in uscita: password SMTP (per Gmail una password per le app)",
+      "E-mail sortant : mot de passe SMTP (pour Gmail, un mot de passe d'application)"
+    ],
+    [
+      "Email in uscita: porta SMTP (587 STARTTLS, 465 SSL)",
+      "E-mail sortant : port SMTP (587 STARTTLS, 465 SSL)"
+    ],
+    [
+      "Email in uscita: server SMTP (es. smtp.gmail.com; vuoto = usa Gmail collegato)",
+      "E-mail sortant : serveur SMTP (ex. smtp.gmail.com ; vide = utiliser le Gmail connecté)"
+    ],
+    [
+      "Email in uscita: utente SMTP",
+      "E-mail sortant : utilisateur SMTP"
+    ],
+    [
+      "Errore interno del supervisore: {0}",
+      "Erreur interne du superviseur : {0}"
+    ],
+    [
+      "Esecuzione protetta del codice generato, senza rete e senza accesso al sistema",
+      "Exécution protégée du code généré, sans réseau et sans accès au système"
+    ],
+    [
+      "Esploratore della rete locale (1/0)",
+      "Explorateur du réseau local (1/0)"
+    ],
+    [
+      "Facoltativo: collega i servizi che usi già. Puoi lasciare tutto vuoto.",
+      "Facultatif : connectez les services que vous utilisez déjà. Vous pouvez tout laisser vide."
+    ],
+    [
+      "Fiducia aggiuntiva quando sei solo nella stanza (0 - 1)",
+      "Confiance supplémentaire quand vous êtes seul dans la pièce (0 - 1)"
+    ],
+    [
+      "Filtro anti-TV ed estranei: rispondi solo alle voci registrate (1/0)",
+      "Filtre anti-TV et étrangers : ne répondre qu'aux voix enregistrées (1/0)"
+    ],
+    [
+      "Finestra di ascolto continuo dopo una risposta (secondi, default 8)",
+      "Fenêtre d'écoute continue après une réponse (secondes, défaut 8)"
+    ],
+    [
+      "Firewall e hardening del kernel",
+      "Pare-feu et durcissement du noyau"
+    ],
+    [
+      "Fornitore STT online (deepgram, groq, openai, gemini)",
+      "Fournisseur STT en ligne (deepgram, groq, openai, gemini)"
+    ],
+    [
+      "Funzionalità sconosciuta",
+      "Fonctionnalité inconnue"
+    ],
+    [
+      "Google: avviso sul display N minuti prima di ogni appuntamento (0 = mai)",
+      "Google : avis sur l'écran N minutes avant chaque rendez-vous (0 = jamais)"
+    ],
+    [
+      "Google: Client ID OAuth (App desktop, console.cloud.google.com)",
+      "Google : Client ID OAuth (application de bureau, console.cloud.google.com)"
+    ],
+    [
+      "Google: Client Secret OAuth",
+      "Google : Client Secret OAuth"
+    ],
+    [
+      "Google: connettori Calendar, Gmail, Tasks, Contatti, Drive, Keep attivi (1/0)",
+      "Google : connecteurs Agenda, Gmail, Tâches, Contacts, Drive, Keep actifs (1/0)"
+    ],
+    [
+      "Google: servizi da collegare (calendar,gmail,tasks,contacts,drive,keep)",
+      "Google : services à connecter (calendar,gmail,tasks,contacts,drive,keep)"
+    ],
+    [
+      "Hardware, rete e scelta delle reti neurali",
+      "Matériel, réseau et choix des réseaux neuronaux"
+    ],
+    [
+      "Ho salvato le tue scelte. Le parti più pesanti continuano a installarsi in background: puoi seguirle dal widget in basso.",
+      "J'ai enregistré vos choix. Les parties les plus lourdes continuent de s'installer en arrière-plan : vous pouvez les suivre depuis le widget en bas."
+    ],
+    [
+      "Ho trovato {0} GB di memoria, {1} processori e {2} GB liberi sul disco.",
+      "J'ai trouvé {0} Go de mémoire, {1} processeurs et {2} Go libres sur le disque."
+    ],
+    [
+      "Ho trovato {0} GB di memoria, {1} processori, una scheda video e {2} GB liberi sul disco.",
+      "J'ai trouvé {0} Go de mémoire, {1} processeurs, une carte graphique et {2} Go libres sur le disque."
+    ],
+    [
+      "Home Assistant: verifica il certificato HTTPS (1/0; 0 per certificati autofirmati)",
+      "Home Assistant : vérifier le certificat HTTPS (1/0 ; 0 pour les certificats auto-signés)"
+    ],
+    [
+      "Il codice è di 6 cifre",
+      "Le code comporte 6 chiffres"
+    ],
+    [
+      "Il file non è un modello ONNX valido",
+      "Le fichier n'est pas un modèle ONNX valide"
+    ],
+    [
+      "Il modello deve essere un file .onnx tra 1 KB e 20 MB",
+      "Le modèle doit être un fichier .onnx entre 1 Ko et 20 Mo"
+    ],
+    [
+      "Il nome può contenere solo lettere e trattini, senza spazi",
+      "Le nom ne peut contenir que des lettres et des tirets, sans espaces"
+    ],
+    [
+      "Il tuo nome, senza spazi",
+      "Votre nom, sans espaces"
+    ],
+    [
+      "In attesa",
+      "En attente"
+    ],
+    [
+      "in attesa",
+      "en attente"
+    ],
+    [
+      "In attesa della prima diagnosi…",
+      "En attente du premier diagnostic…"
+    ],
+    [
+      "In background dopo l'avvio",
+      "En arrière-plan après le démarrage"
+    ],
+    [
+      "in coda",
+      "en file d'attente"
+    ],
+    [
+      "Indica l'indirizzo del computer con Ollama",
+      "Indiquez l'adresse de l'ordinateur avec Ollama"
+    ],
+    [
+      "Indica l'indirizzo del computer con Ollama, ad esempio 192.168.1.20",
+      "Indiquez l'adresse de l'ordinateur avec Ollama, par exemple 192.168.1.20"
+    ],
+    [
+      "Indica l'indirizzo del server Ollama",
+      "Indiquez l'adresse du serveur Ollama"
+    ],
+    [
+      "Indietro",
+      "Retour"
+    ],
+    [
+      "Indirizzo del computer con Ollama",
+      "Adresse de l'ordinateur avec Ollama"
+    ],
+    [
+      "Indirizzo del server Ollama non valido",
+      "Adresse du serveur Ollama non valide"
+    ],
+    [
+      "Indirizzo di Home Assistant",
+      "Adresse de Home Assistant"
+    ],
+    [
+      "Indirizzo di Home Assistant non valido",
+      "Adresse de Home Assistant non valide"
+    ],
+    [
+      "Indirizzo o token di Home Assistant non validi",
+      "Adresse ou jeton Home Assistant non valides"
+    ],
+    [
+      "Inizializzazione del supervisore…",
+      "Initialisation du superviseur…"
+    ],
+    [
+      "Inizio subito con un modello piccolo e veloce; quello scelto si scarica in background e prende il suo posto da solo.",
+      "Je commence tout de suite avec un modèle petit et rapide ; celui que vous choisissez se télécharge en arrière-plan et prend sa place tout seul."
+    ],
+    [
+      "Installa solo versioni con i test superati su GitHub (1/0)",
+      "Installer uniquement les versions dont les tests ont réussi sur GitHub (1/0)"
+    ],
+    [
+      "Installazione di Atena OS",
+      "Installation d'Atena OS"
+    ],
+    [
+      "Installazione sconosciuta",
+      "Installation inconnue"
+    ],
+    [
+      "Installazioni in background",
+      "Installations en arrière-plan"
+    ],
+    [
+      "Installazioni in pausa",
+      "Installations en pause"
+    ],
+    [
+      "Installo solo quello che scegli. Il resto lo aggiungo quando me lo chiedi, anche a voce.",
+      "J'installe uniquement ce que vous choisissez. J'ajoute le reste quand vous me le demandez, même à voix haute."
+    ],
+    [
+      "Instradamento tra cervello veloce e potente (auto, 1 = sempre, 0 = un solo cervello)",
+      "Routage entre cerveau rapide et puissant (auto, 1 = toujours, 0 = un seul cerveau)"
+    ],
+    [
+      "Intervento automatico in corso",
+      "Intervention automatique en cours"
+    ],
+    [
+      "Invia il modello come file binario",
+      "Envoyez le modèle sous forme de fichier binaire"
+    ],
+    [
+      "Isolamento gVisor",
+      "Isolation gVisor"
+    ],
+    [
+      "Isolamento hardware della sandbox, attivo solo dove la virtualizzazione KVM è disponibile",
+      "Isolation matérielle de la sandbox, active uniquement là où la virtualisation KVM est disponible"
+    ],
+    [
+      "Kernel in spazio utente per la sandbox, scaricato in background",
+      "Noyau en espace utilisateur pour la sandbox, téléchargé en arrière-plan"
+    ],
+    [
+      "La chiave API non sembra valida",
+      "La clé API ne semble pas valide"
+    ],
+    [
+      "La chiave resta cifrata su questo computer. Le conversazioni passano dal servizio che scegli.",
+      "La clé reste chiffrée sur cet ordinateur. Les conversations passent par le service que vous choisissez."
+    ],
+    [
+      "La configurazione guidata è disponibile solo dalla rete di casa",
+      "La configuration guidée n'est disponible que depuis le réseau de la maison"
+    ],
+    [
+      "La prima configurazione è disponibile solo dalla rete di casa",
+      "La première configuration n'est disponible que depuis le réseau de la maison"
+    ],
+    [
+      "La prima configurazione è già stata completata: usa il pannello di amministrazione",
+      "La première configuration est déjà terminée : utilisez le panneau d'administration"
+    ],
+    [
+      "Latitudine della posizione predefinita",
+      "Latitude de la position par défaut"
+    ],
+    [
+      "Leggero e veloce anche su computer piccoli. Serve una chiave API.",
+      "Léger et rapide même sur de petits ordinateurs. Nécessite une clé API."
+    ],
+    [
+      "LibreOffice, caratteri e librerie per documenti Office, ODF e PDF",
+      "LibreOffice, polices et bibliothèques pour documents Office, ODF et PDF"
+    ],
+    [
+      "Lingua",
+      "Langue"
+    ],
+    [
+      "Lingua dell'interfaccia del display e del pannello (it, en)",
+      "Langue de l'interface de l'écran et du panneau (it, en)"
+    ],
+    [
+      "Lingua dell'interfaccia del display e del pannello (it, en, fr)",
+      "Langue de l'interface de l'écran et du panneau (it, en, fr)"
+    ],
+    [
+      "Lingua non supportata",
+      "Langue non prise en charge"
+    ],
+    [
+      "Livello vocale obiettivo dell'autolivellamento (0.03 - 0.2)",
+      "Niveau vocal cible du nivellement automatique (0.03 - 0.2)"
+    ],
+    [
+      "Longitudine della posizione predefinita",
+      "Longitude de la position par défaut"
+    ],
+    [
+      "Manutenzione autonoma",
+      "Maintenance autonome"
+    ],
+    [
+      "Maps: chiave Google Maps Platform (Routes API) per traffico e mezzi; vuota = OpenStreetMap",
+      "Maps : clé Google Maps Platform (Routes API) pour le trafic et les transports ; vide = OpenStreetMap"
+    ],
+    [
+      "Maps: indicazioni, tempi e avvisi di viaggio (1/0)",
+      "Maps : itinéraires, temps et alertes de trajet (1/0)"
+    ],
+    [
+      "Maps: mezzo predefinito (drive, walk, bike, transit, moto)",
+      "Maps : moyen de transport par défaut (drive, walk, bike, transit, moto)"
+    ],
+    [
+      "Maps: ore in anticipo in cui guardare gli appuntamenti con un luogo (default 4)",
+      "Maps : heures à l'avance pour examiner les rendez-vous avec un lieu (défaut 4)"
+    ],
+    [
+      "Memoria",
+      "Mémoire"
+    ],
+    [
+      "Memoria compressa",
+      "Mémoire compressée"
+    ],
+    [
+      "Memoria di scorta compressa in RAM per Raspberry Pi e computer piccoli",
+      "Mémoire de réserve compressée en RAM pour Raspberry Pi et petits ordinateurs"
+    ],
+    [
+      "Memoria in file leggibili e diario giornaliero (1/0)",
+      "Mémoire dans des fichiers lisibles et journal quotidien (1/0)"
+    ],
+    [
+      "meno di 2 min",
+      "moins de 2 min"
+    ],
+    [
+      "Mentre finisco di installarmi, scegliamo insieme come lavorare. Puoi cambiare tutto anche dopo dal pannello di amministrazione.",
+      "Pendant que je termine mon installation, choisissons ensemble comment travailler. Vous pourrez tout changer plus tard depuis le panneau d'administration."
+    ],
+    [
+      "Message broker e proxy di uscita della sandbox in Rust, con ritorno automatico a Python",
+      "Message broker et proxy de sortie de la sandbox en Rust, avec retour automatique à Python"
+    ],
+    [
+      "Micro-VM Firecracker",
+      "Micro-VM Firecracker"
+    ],
+    [
+      "Modalità del cervello non valida",
+      "Mode du cerveau non valide"
+    ],
+    [
+      "Modalità di ascolto: offline (locale privato, default), online (cloud alta precisione) o hybrid",
+      "Mode d'écoute : offline (local privé, défaut), online (cloud haute précision) ou hybrid"
+    ],
+    [
+      "Modello base per Soup (Hugging Face, es. Qwen/Qwen2.5-1.5B-Instruct)",
+      "Modèle de base pour Soup (Hugging Face, ex. Qwen/Qwen2.5-1.5B-Instruct)"
+    ],
+    [
+      "Modello di ascolto offline (vuoto = automatico; base, small, medium, large-v3-turbo)",
+      "Modèle d'écoute hors ligne (vide = automatique ; base, small, medium, large-v3-turbo)"
+    ],
+    [
+      "Modello di embedding (Ollama)",
+      "Modèle d'embedding (Ollama)"
+    ],
+    [
+      "Modello linguistico per il ragionamento profondo",
+      "Modèle de langage pour le raisonnement approfondi"
+    ],
+    [
+      "Modello linguistico veloce e memoria semantica",
+      "Modèle de langage rapide et mémoire sémantique"
+    ],
+    [
+      "Modello «Ehi, Atena»",
+      "Modèle «Hé, Atena»"
+    ],
+    [
+      "Modello «Ehi, Atena» già presente: caricane uno nuovo se vuoi",
+      "Modèle «Hé, Atena» déjà présent : téléversez-en un nouveau si vous le souhaitez"
+    ],
+    [
+      "Motore container",
+      "Moteur de conteneurs"
+    ],
+    [
+      "Motore di pulizia audio e dereverberazione (auto, deepfilternet, spectral)",
+      "Moteur de nettoyage audio et de déréverbération (auto, deepfilternet, spectral)"
+    ],
+    [
+      "Motore neurale",
+      "Moteur neuronal"
+    ],
+    [
+      "Nel cloud",
+      "Dans le cloud"
+    ],
+    [
+      "Nome dell'assistente (predefinito A.T.E.N.A.)",
+      "Nom de l'assistante (par défaut A.T.E.N.A.)"
+    ],
+    [
+      "Nome dell'utente principale (come Atena ti chiama)",
+      "Nom de l'utilisateur principal (comme Atena vous appelle)"
+    ],
+    [
+      "Non installo da sola componenti con licenza non commerciale.",
+      "Je n'installe pas de moi-même de composants sous licence non commerciale."
+    ],
+    [
+      "Non riuscito",
+      "Échec"
+    ],
+    [
+      "Notti di silenzio: all, weekdays, weekend",
+      "Nuits de silence : all, weekdays, weekend"
+    ],
+    [
+      "nuovo tentativo",
+      "nouvelle tentative"
+    ],
+    [
+      "Nuovo tentativo automatico tra {0} minuti (tentativo {1}); verifico anche se esistono correzioni su GitHub",
+      "Nouvelle tentative automatique dans {0} minutes (tentative {1}) ; je vérifie aussi s'il existe des correctifs sur GitHub"
+    ],
+    [
+      "Operativo",
+      "Opérationnel"
+    ],
+    [
+      "oppure chiedi ad Atena di spostarlo.",
+      "ou demandez à Atena de le déplacer."
+    ],
+    [
+      "Ora del collaudo notturno HH:MM",
+      "Heure du test automatique nocturne HH:MM"
+    ],
+    [
+      "Orari di silenzio: soft (attenua), mute (solo allarmi), off",
+      "Horaires de silence : soft (atténue), mute (alarmes uniquement), off"
+    ],
+    [
+      "Pacchetti",
+      "Paquets"
+    ],
+    [
+      "Pacchetto non valido",
+      "Paquet non valide"
+    ],
+    [
+      "Pacchetto sconosciuto o non rimovibile",
+      "Paquet inconnu ou non supprimable"
+    ],
+    [
+      "Password dell'utente atena-share per la cartella condivisa",
+      "Mot de passe de l'utilisateur atena-share pour le dossier partagé"
+    ],
+    [
+      "Password delle cartelle condivise (utente",
+      "Mot de passe des dossiers partagés (utilisateur"
+    ],
+    [
+      "Password delle condivisioni non valida (almeno 12 caratteri, nessuno spazio)",
+      "Mot de passe des partages non valide (au moins 12 caractères, aucun espace)"
+    ],
+    [
+      "Per Home Assistant servono sia l'indirizzo sia il token",
+      "Home Assistant nécessite à la fois l'adresse et le jeton"
+    ],
+    [
+      "Percezione",
+      "Perception"
+    ],
+    [
+      "Piacere, sono Atena",
+      "Enchantée, je suis Atena"
+    ],
+    [
+      "Posizione predefinita (nome; si imposta meglio da Audio e posizione)",
+      "Position par défaut (nom ; à régler de préférence depuis Audio et position)"
+    ],
+    [
+      "Posizione: auto (display/Wi-Fi più precisi) o fixed (sempre la predefinita)",
+      "Position : auto (écran/Wi-Fi plus précis) ou fixed (toujours celle par défaut)"
+    ],
+    [
+      "Preparazione del prossimo componente",
+      "Préparation du composant suivant"
+    ],
+    [
+      "Priorità dei modelli per il ragionamento (separati da virgola; vuoto = automatico)",
+      "Priorité des modèles pour le raisonnement (séparés par des virgules ; vide = automatique)"
+    ],
+    [
+      "Priorità dei modelli per la conversazione (separati da virgola; vuoto = automatico)",
+      "Priorité des modèles pour la conversation (séparés par des virgules ; vide = automatique)"
+    ],
+    [
+      "Priorità delle voci (separate da virgola; si gestisce meglio da Voci)",
+      "Priorité des voix (séparées par des virgules ; à gérer de préférence depuis Voix)"
+    ],
+    [
+      "Privacy e sicurezza",
+      "Confidentialité et sécurité"
+    ],
+    [
+      "Processore",
+      "Processeur"
+    ],
+    [
+      "Profilo",
+      "Profil"
+    ],
+    [
+      "Profilo non valido",
+      "Profil non valide"
+    ],
+    [
+      "Qualcosa non ha funzionato, riprova",
+      "Quelque chose n'a pas fonctionné, réessayez"
+    ],
+    [
+      "Quando ti riconosce mostra meteo, promemoria e riepilogo Google nei widget (1/0)",
+      "Quand elle vous reconnaît, elle affiche la météo, les rappels et le résumé Google dans les widgets (1/0)"
+    ],
+    [
+      "Ramo GitHub",
+      "Branche GitHub"
+    ],
+    [
+      "Rete ↓ / ↑",
+      "Réseau ↓ / ↑"
+    ],
+    [
+      "Reti neurali essenziali",
+      "Réseaux neuronaux essentiels"
+    ],
+    [
+      "Riavvio del supervisore sulla nuova versione…",
+      "Redémarrage du superviseur sur la nouvelle version…"
+    ],
+    [
+      "Riavvio per attivare il driver video: night (alle 04:15) o now",
+      "Redémarrage pour activer le pilote vidéo : night (à 04:15) ou now"
+    ],
+    [
+      "Richiesta non valida",
+      "Requête non valide"
+    ],
+    [
+      "Riconnessione al supervisore",
+      "Reconnexion au superviseur"
+    ],
+    [
+      "Riconosce la lingua in cui parli (1/0; 0 = ascolta solo l'italiano)",
+      "Reconnaît la langue dans laquelle vous parlez (1/0 ; 0 = écoute uniquement l'italien)"
+    ],
+    [
+      "Riconoscimento del parlato e parola \"Atena\"",
+      "Reconnaissance de la parole et du mot \"Atena\""
+    ],
+    [
+      "Riconoscimento della musica in ascolto (1/0; invia 10 s di audio a Shazam, servizio non ufficiale: serve anche ATENA_UNOFFICIAL_SERVICES=1)",
+      "Reconnaissance de la musique en cours d'écoute (1/0 ; envoie 10 s d'audio à Shazam, service non officiel : ATENA_UNOFFICIAL_SERVICES=1 est aussi nécessaire)"
+    ],
+    [
+      "Riconoscimento facciale locale dalla webcam",
+      "Reconnaissance faciale locale depuis la webcam"
+    ],
+    [
+      "Riconoscimento musicale",
+      "Reconnaissance musicale"
+    ],
+    [
+      "Riprendo quando finisci di parlare",
+      "Je reprends quand vous avez fini de parler"
+    ],
+    [
+      "Risorsa non disponibile",
+      "Ressource non disponible"
+    ],
+    [
+      "Risorsa sconosciuta",
+      "Ressource inconnue"
+    ],
+    [
+      "Runtime di inferenza locale Ollama",
+      "Runtime d'inférence locale Ollama"
+    ],
+    [
+      "Runtime NVIDIA per l'inferenza",
+      "Runtime NVIDIA pour l'inférence"
+    ],
+    [
+      "Runtime, interfaccia grafica, voce",
+      "Runtime, interface graphique, voix"
+    ],
+    [
+      "Salta",
+      "Passer"
+    ],
+    [
+      "Sandbox isolata",
+      "Sandbox isolée"
+    ],
+    [
+      "Scarica da solo la voce di una lingua nuova quando serve (1/0)",
+      "Télécharge elle-même la voix d'une nouvelle langue quand il le faut (1/0)"
+    ],
+    [
+      "Scegli la mia voce",
+      "Choisissez ma voix"
+    ],
+    [
+      "Scegli un servizio cloud",
+      "Choisissez un service cloud"
+    ],
+    [
+      "Scelta del cervello non valida",
+      "Choix du cerveau non valide"
+    ],
+    [
+      "Scudi di sicurezza",
+      "Boucliers de sécurité"
+    ],
+    [
+      "Senza modello ti riconosco lo stesso, ascoltando il mio nome.",
+      "Même sans modèle, je vous reconnais en écoutant mon nom."
+    ],
+    [
+      "Sequenza di attivazione",
+      "Séquence d'activation"
+    ],
+    [
+      "serve spazio",
+      "il faut de l'espace"
+    ],
+    [
+      "Server Ollama (vuoto = locale; es. http://192.168.1.50:11434 per usare un altro server)",
+      "Serveur Ollama (vide = local ; ex. http://192.168.1.50:11434 pour utiliser un autre serveur)"
+    ],
+    [
+      "Servizi cognitivi",
+      "Services cognitifs"
+    ],
+    [
+      "Servizi non ufficiali (riconoscimento Shazam, voci online di Edge): 1 = li attivo accettandone i termini sotto la mia responsabilità, 0 = mai",
+      "Services non officiels (reconnaissance Shazam, voix en ligne d'Edge) : 1 = je les active en acceptant leurs conditions sous ma responsabilité, 0 = jamais"
+    ],
+    [
+      "Servizio",
+      "Service"
+    ],
+    [
+      "Servizio cloud non valido",
+      "Service cloud non valide"
+    ],
+    [
+      "Servono {0} GB liberi, disponibili {1} GB",
+      "Il faut {0} Go libres, {1} Go disponibles"
+    ],
+    [
+      "Sessione kiosk dedicata e sicura",
+      "Session kiosque dédiée et sécurisée"
+    ],
+    [
+      "Silenzio dalle HH:MM",
+      "Silence à partir de HH:MM"
+    ],
+    [
+      "Silenzio fino alle HH:MM",
+      "Silence jusqu'à HH:MM"
+    ],
+    [
+      "Sintesi vocale italiana offline",
+      "Synthèse vocale italienne hors ligne"
+    ],
+    [
+      "Sistema",
+      "Système"
+    ],
+    [
+      "Soglia per decidere se gli stai parlando (0.2 - 0.95)",
+      "Seuil pour décider si vous lui parlez (0.2 - 0.95)"
+    ],
+    [
+      "Sorgente sconosciuta",
+      "Source inconnue"
+    ],
+    [
+      "Sottofondo (none, reactor, space, rain, ocean, lab)",
+      "Fond sonore (none, reactor, space, rain, ocean, lab)"
+    ],
+    [
+      "Sottosistemi",
+      "Sous-systèmes"
+    ],
+    [
+      "Spotify attivo (1/0)",
+      "Spotify actif (1/0)"
+    ],
+    [
+      "Spotify: Client ID dell'app (developer.spotify.com)",
+      "Spotify : Client ID de l'application (developer.spotify.com)"
+    ],
+    [
+      "Spotify: Client Secret dell'app",
+      "Spotify : Client Secret de l'application"
+    ],
+    [
+      "Spotify: quando mostrare il brano (present = se ti vede, always = sempre)",
+      "Spotify : quand afficher le morceau (present = si elle vous voit, always = toujours)"
+    ],
+    [
+      "Stai configurando Atena da un altro dispositivo. Inserisci il codice di 6 cifre che vedi sullo schermo di Atena oppure con il comando",
+      "Vous configurez Atena depuis un autre appareil. Saisissez le code à 6 chiffres affiché sur l'écran d'Atena ou donné par la commande"
+    ],
+    [
+      "Step sconosciuto",
+      "Étape inconnue"
+    ],
+    [
+      "Su questo computer",
+      "Sur cet ordinateur"
+    ],
+    [
+      "Su questo computer non installo nulla del cervello: uso quello della tua rete.",
+      "Je n'installe rien du cerveau sur cet ordinateur : j'utilise celui de votre réseau."
+    ],
+    [
+      "Su richiesta",
+      "Sur demande"
+    ],
+    [
+      "Su un altro computer della rete",
+      "Sur un autre ordinateur du réseau"
+    ],
+    [
+      "Suoni di attivazione e richiesta (1/0)",
+      "Sons d'activation et de requête (1/0)"
+    ],
+    [
+      "Suoni di notifica (1/0)",
+      "Sons de notification (1/0)"
+    ],
+    [
+      "Suoni ed effetti (1/0)",
+      "Sons et effets (1/0)"
+    ],
+    [
+      "Suoni: tema (atena, soft, classic)",
+      "Sons : thème (atena, soft, classic)"
+    ],
+    [
+      "Suoni: volume degli effetti 0-100",
+      "Sons : volume des effets 0-100"
+    ],
+    [
+      "Suono mentre pensa ed elabora (1/0)",
+      "Son pendant la réflexion et le traitement (1/0)"
+    ],
+    [
+      "Telecamere e registrazione ad anello (1/0, spento di default)",
+      "Caméras et enregistrement en boucle (1/0, désactivé par défaut)"
+    ],
+    [
+      "Telemetria",
+      "Télémétrie"
+    ],
+    [
+      "Temperatura",
+      "Température"
+    ],
+    [
+      "Tempo di fase",
+      "Temps de phase"
+    ],
+    [
+      "Tocca il pulsante per ascoltarla. Se la voce non è ancora installata, la potrai ascoltare tra poco.",
+      "Touchez le bouton pour l'écouter. Si la voix n'est pas encore installée, vous pourrez l'écouter dans un instant."
+    ],
+    [
+      "Token del bot Telegram",
+      "Jeton du bot Telegram"
+    ],
+    [
+      "Token del bot Telegram (da @BotFather)",
+      "Jeton du bot Telegram (depuis @BotFather)"
+    ],
+    [
+      "Token di accesso di Home Assistant",
+      "Jeton d'accès Home Assistant"
+    ],
+    [
+      "Token di Telegram non valido",
+      "Jeton Telegram non valide"
+    ],
+    [
+      "Token Home Assistant",
+      "Jeton Home Assistant"
+    ],
+    [
+      "Tono della voce in semitoni (-6 grave, +6 acuto)",
+      "Hauteur de la voix en demi-tons (-6 grave, +6 aigu)"
+    ],
+    [
+      "Torna alla versione precedente se un aggiornamento rompe una funzione essenziale (1/0)",
+      "Revenir à la version précédente si une mise à jour casse une fonction essentielle (1/0)"
+    ],
+    [
+      "Trascina qui un widget dal bordo dell'altro schermo,",
+      "Faites glisser ici un widget depuis le bord de l'autre écran,"
+    ],
+    [
+      "Troppi tentativi: riprova tra qualche minuto",
+      "Trop de tentatives : réessayez dans quelques minutes"
+    ],
+    [
+      "Tutte le parti sono installate",
+      "Toutes les parties sont installées"
+    ],
+    [
+      "Tutti i sistemi operativi",
+      "Tous les systèmes sont opérationnels"
+    ],
+    [
+      "Tutti i sistemi sono operativi",
+      "Tous les systèmes sont opérationnels"
+    ],
+    [
+      "Tutto pronto",
+      "Tout est prêt"
+    ],
+    [
+      "Tutto resta in casa. Servono spazio e memoria per i modelli.",
+      "Tout reste à la maison. Les modèles demandent de l'espace et de la mémoire."
+    ],
+    [
+      "Ufficio",
+      "Bureautique"
+    ],
+    [
+      "Un momento: sto ancora parlando",
+      "Un instant : je parle encore"
+    ],
+    [
+      "URL Home Assistant",
+      "URL Home Assistant"
+    ],
+    [
+      "Uso commerciale (1 = Atena è usata in un'attività: non installa da sola componenti con licenza non commerciale e li segnala con un avviso; 0 = uso personale)",
+      "Usage commercial (1 = Atena est utilisée dans une entreprise : elle n'installe pas d'elle-même de composants sous licence non commerciale et les signale par un avertissement ; 0 = usage personnel)"
+    ],
+    [
+      "Uso in un'attività commerciale",
+      "Utilisation dans une activité commerciale"
+    ],
+    [
+      "Uso Ollama già installato su un altro PC di casa.",
+      "J'utilise Ollama déjà installé sur un autre PC de la maison."
+    ],
+    [
+      "Vai ad Atena",
+      "Aller à Atena"
+    ],
+    [
+      "Velocità della voce (0.6 - 1.6)",
+      "Vitesse de la voix (0.6 - 1.6)"
+    ],
+    [
+      "Verifica",
+      "Vérifier"
+    ],
+    [
+      "Verifica: {0}",
+      "Vérification : {0}"
+    ],
+    [
+      "Verifica…",
+      "Vérification…"
+    ],
+    [
+      "Visione",
+      "Vision"
+    ],
+    [
+      "Voce",
+      "Voix"
+    ],
+    [
+      "Voce neurale",
+      "Voix neuronale"
+    ],
+    [
+      "Voce non ancora installata: la potrai ascoltare tra poco",
+      "Voix pas encore installée : vous pourrez l'écouter dans un instant"
+    ],
+    [
+      "Voce non disponibile",
+      "Voix non disponible"
+    ],
+    [
+      "Voce preferita per ogni lingua (es. en:am_michael,de:de_DE-thorsten-medium; si gestisce da Voci)",
+      "Voix préférée pour chaque langue (ex. en:am_michael,de:de_DE-thorsten-medium ; à gérer depuis Voix)"
+    ],
+    [
+      "Voce principale (es. if_sara, im_nicola, it_IT-serena-high; si gestisce da Voci)",
+      "Voix principale (ex. if_sara, im_nicola, it_IT-serena-high ; à gérer depuis Voix)"
+    ],
+    [
+      "Voci neurali online di Edge (1 = sì, 0 = mai; servizio non ufficiale: serve anche ATENA_UNOFFICIAL_SERVICES=1)",
+      "Voix neuronales en ligne d'Edge (1 = oui, 0 = jamais ; service non officiel : ATENA_UNOFFICIAL_SERVICES=1 est aussi nécessaire)"
+    ],
+    [
+      "Volume degli effetti in silenzio attenuato 0-100",
+      "Volume des effets en silence atténué 0-100"
+    ],
+    [
+      "Volume del sottofondo 0-100",
+      "Volume du fond sonore 0-100"
+    ],
+    [
+      "Volume della voce (0.4 - 2.0)",
+      "Volume de la voix (0.4 - 2.0)"
+    ],
+    [
+      "Volume della voce in silenzio 0-100",
+      "Volume de la voix en silence 0-100"
+    ],
+    [
+      "Vuoi configurarmi dal telefono? Apri questa pagina sulla rete di casa e inserisci il codice",
+      "Voulez-vous me configurer depuis votre téléphone ? Ouvrez cette page sur le réseau de la maison et saisissez le code"
+    ],
+    [
+      "Webcam e riconoscimento facciale (1/0)",
+      "Webcam et reconnaissance faciale (1/0)"
+    ],
+    [
+      "{0} di {1} pronte",
+      "{0} sur {1} prêtes"
+    ],
+    [
+      "{0} di {1} pronte · {2} GB in tutto",
+      "{0} sur {1} prêtes · {2} Go au total"
+    ],
+    [
+      "{0} di {1} pronte · {2} GB in tutto · in pausa",
+      "{0} sur {1} prêtes · {2} Go au total · en pause"
+    ],
+    [
+      "{0} — nuovo tentativo automatico tra {1}",
+      "{0} — nouvelle tentative automatique dans {1}"
+    ],
+    [
+      "{0}% · {1} core",
+      "{0} % · {1} cœurs"
+    ]
   ]
 }

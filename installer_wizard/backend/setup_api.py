@@ -13,7 +13,7 @@ from fastapi.responses import JSONResponse, RedirectResponse, Response
 
 import machine
 from access import NO_CACHE, is_local, require_admin
-from config import DEMO, ETC_DIR, STATE_DIR, read_env
+from config import DEMO, ETC_DIR, STATE_DIR, UI_LANGUAGES, read_env
 from state import store
 
 SETUP_FILE = STATE_DIR / "setup.json"
@@ -39,7 +39,7 @@ VOICE_CHOICES = {
     "it_IT-paola-medium": "Paola — femminile, veloce",
     "im_nicola": "Nicola — maschile, naturale",
 }
-LANGS = {"it": "Italiano", "en": "English"}
+LANGS = UI_LANGUAGES
 
 NAME_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ-]{0,39}")
 HA_URL_RE = re.compile(r"https?://[A-Za-z0-9.-]{1,253}(:\d{1,5})?(/[A-Za-z0-9._~/-]{0,200})?")

@@ -41,7 +41,7 @@ RUNNER = r"""
 const fs = require("fs");
 const catalog = JSON.parse(fs.readFileSync(process.argv[2], "utf8"));
 const results = {};
-for (const lang of ["en", "it"]) {
+for (const lang of ["en", "it", "fr"]) {
   const g = { localStorage: { getItem: () => null, setItem() {} }, navigator: { language: lang }, ATENA_UI_LANG: lang,
     document: { readyState: "complete", documentElement: { lang }, body: null, addEventListener() {}, dispatchEvent() {} },
     fetch: async () => ({ json: async () => catalog }), CustomEvent: function () {} };
@@ -58,6 +58,9 @@ setTimeout(() => {
     pattern: t("en", "Pagina 3 di 9 · 120 modelli totali"),
     reverse: t("it", "Autonomous checking off"),
     untouched: t("en", "Mario Rossi"),
+    french: t("fr", "Analisi del sistema"),
+    nestedEn: t("en", "Verifica: Analisi del sistema"),
+    nestedFr: t("fr", "Verifica: Analisi del sistema"),
   }));
 }, 50);
 """
@@ -78,6 +81,9 @@ class RuntimeTranslatorTest(unittest.TestCase):
         self.assertEqual(data["pattern"], "Page 3 of 9 · 120 models in total")
         self.assertEqual(data["reverse"], "Valutazione automatica disattivata")
         self.assertEqual(data["untouched"], "Mario Rossi")
+        self.assertEqual(data["french"], "Analyse du système")
+        self.assertEqual(data["nestedEn"], "Checking: System analysis")
+        self.assertEqual(data["nestedFr"], "Vérification : Analyse du système")
 
 
 if __name__ == "__main__":
