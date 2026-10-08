@@ -16,6 +16,7 @@ from server.core.kernel.application.run_state import DagRun
 from server.core.kernel.domain.dag import ExecutionDag
 from server.core.kernel.domain.node import NodeSpec, NodeState, RiskLevel
 from server.core.kernel.domain.outcome import ErrorPayload, NodeResult
+from server.core.telemetry.journey import journey
 
 logger = logging.getLogger("atena.kernel.scheduler")
 
@@ -112,22 +113,33 @@ class DagScheduler:
         node = run.nodes[spec.node_id]
         deadline = self._clock() + spec.retry.deadline_seconds
         feedback = await self._known_dead_ends(spec)
-        while node.attempts < spec.retry.max_attempts:
-            remaining = deadline - self._clock()
-            if remaining <= 0:
-                node.error = ErrorPayload("deadline", f"node exceeded {spec.retry.deadline_seconds:g}s")
-                break
-            node.attempts += 1
-            await self._move(run, spec.node_id, NodeState.RUNNING)
-            feedback = await self._attempt(run, spec, feedback, remaining)
-            if feedback is None:
-                self._remember_resolution(node)
-                await self._move(run, spec.node_id, NodeState.ACCEPTED)
-                return
-            node.error = feedback
-            await self._remember_failure(spec, node, feedback)
-            await self._move(run, spec.node_id, NodeState.HEALING)
-        await self._move(run, spec.node_id, NodeState.FAILED)
+        with journey.span("dag_node", f"Nodo DAG: {spec.node_id}", f"Tipo: {getattr(spec.kind, 'value', spec.kind)} · Rischio: {spec.risk.value}", parallel=True) as node_span:
+            prev_attempt_span = None
+            while node.attempts < spec.retry.max_attempts:
+                remaining = deadline - self._clock()
+                if remaining <= 0:
+                    node.error = ErrorPayload("deadline", f"node exceeded {spec.retry.deadline_seconds:g}s")
+                    break
+                node.attempts += 1
+                with journey.span("attempt", f"Tentativo #{node.attempts}", f"Budget: {remaining:.1f}s") as attempt_span:
+                    if prev_attempt_span is not None:
+                        journey.back(prev_attempt_span, attempt_span, f"auto-guarigione (tentativo #{node.attempts})")
+                    prev_attempt_span = attempt_span
+
+                    await self._move(run, spec.node_id, NodeState.RUNNING)
+                    feedback = await self._attempt(run, spec, feedback, remaining)
+                    if feedback is None:
+                        self._remember_resolution(node)
+                        await self._move(run, spec.node_id, NodeState.ACCEPTED)
+                        attempt_span.ok("Completato e validato")
+                        node_span.ok(f"Riuscito al tentativo #{node.attempts}")
+                        return
+                    node.error = feedback
+                    attempt_span.fail(f"{feedback.kind}: {feedback.message}")
+                    await self._remember_failure(spec, node, feedback)
+                    await self._move(run, spec.node_id, NodeState.HEALING)
+            await self._move(run, spec.node_id, NodeState.FAILED)
+            node_span.fail(f"Fallito dopo {node.attempts} tentativi")
 
     async def _attempt(
         self, run: DagRun, spec: NodeSpec, feedback: Optional[ErrorPayload], budget: float

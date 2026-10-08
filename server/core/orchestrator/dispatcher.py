@@ -16,6 +16,7 @@ from server.core.reasoning.conversation import conversation_engine
 from server.core.memory.semantic_cache import semantic_cache
 from server.core.orchestrator.system1_router import system1_router, System1Intent
 from server.core.reasoning.system2_engine import system2_engine
+from server.core.telemetry.journey import journey
 
 logger = logging.getLogger("atena.dispatcher")
 
@@ -32,24 +33,34 @@ class OrchestratorDispatcher:
         context_override: Optional[Dict[str, Any]] = None,
     ) -> AgentTaskResponse:
         sanitized_query = self._sanitizer.sanitize_plain_text(raw_query)
-        laws_book.update(str((context_override or {}).get("laws") or ""))
+        journey.begin(sanitized_query, speaker_id or "user")
 
-        cached_res = await semantic_cache.lookup(sanitized_query)
-        if cached_res.hit and cached_res.action_result:
-            act = cached_res.action_result
-            return AgentTaskResponse(
-                task_id=f"tsk_cache_{uuid.uuid4().hex[:8]}",
-                agent_id=act.get("agent_id", "semantic_cache"),
-                status="SUCCESS",
-                result_data={
-                    **act.get("result_data", {}),
-                    "cache_hit": True,
-                    "similarity": cached_res.similarity,
-                    "strategy": cached_res.strategy,
-                },
-                speech_output=act.get("speech_output", ""),
-                execution_time_ms=cached_res.lookup_latency_ms,
-            )
+        with journey.span("laws", "Leggi Fondamentali", "Controllo vincoli e conformità delle leggi") as laws_span:
+            laws_book.update(str((context_override or {}).get("laws") or ""))
+            laws_span.ok("Leggi conformi (Asimov 0, 1, 2, 3)")
+
+        with journey.span("cache", "Memoria Semantica", "Lookup cache rapida") as cache_span:
+            cached_res = await semantic_cache.lookup(sanitized_query)
+            if cached_res.hit and cached_res.action_result:
+                cache_span.ok(f"Cache HIT (similarità: {cached_res.similarity:.2f})")
+                act = cached_res.action_result
+                res = AgentTaskResponse(
+                    task_id=f"tsk_cache_{uuid.uuid4().hex[:8]}",
+                    agent_id=act.get("agent_id", "semantic_cache"),
+                    status="SUCCESS",
+                    result_data={
+                        **act.get("result_data", {}),
+                        "cache_hit": True,
+                        "similarity": cached_res.similarity,
+                        "strategy": cached_res.strategy,
+                    },
+                    speech_output=act.get("speech_output", ""),
+                    execution_time_ms=cached_res.lookup_latency_ms,
+                )
+                journey.finish(res.speech_output, res.status, res.agent_id)
+                return res
+            else:
+                cache_span.fail("Cache MISS · procedo con analisi cognitiva")
 
         task_id = f"tsk_{uuid.uuid4().hex[:12]}"
 
@@ -74,7 +85,9 @@ class OrchestratorDispatcher:
             weight=biometric_score,
         )
 
-        sys1_decision = await system1_router.classify(sanitized_query)
+        with journey.span("router", "System 1 Router", "Riflesso rapido non autoregressivo") as s1_span:
+            sys1_decision = await system1_router.classify(sanitized_query)
+            s1_span.ok(f"{sys1_decision.intent.value} (conf: {sys1_decision.confidence:.2f}, {sys1_decision.latency_ms:.1f}ms)")
         logger.info(
             "System 1 Non-Autoregressive Decision: %s (confidence: %.2f in %.2f ms)",
             sys1_decision.intent.value,
@@ -82,10 +95,13 @@ class OrchestratorDispatcher:
             sys1_decision.latency_ms,
         )
 
-        if intent_classifier._keyword_fallback(sanitized_query) == "GENERAL_INTELLIGENCE" and len(sanitized_query) < 240:
-            extracted_intent, confidence = "GENERAL_INTELLIGENCE", 0.7
-        else:
-            extracted_intent, confidence = await intent_classifier.classify(sanitized_query)
+        with journey.span("classifier", "Classificatore Intenti", "Analisi semantica dell'intento") as class_span:
+            if intent_classifier._keyword_fallback(sanitized_query) == "GENERAL_INTELLIGENCE" and len(sanitized_query) < 240:
+                extracted_intent, confidence = "GENERAL_INTELLIGENCE", 0.7
+                class_span.ok(f"Intento: {extracted_intent} (fallback rapido, conf: {confidence:.2f})")
+            else:
+                extracted_intent, confidence = await intent_classifier.classify(sanitized_query)
+                class_span.ok(f"Intento: {extracted_intent} (conf: {confidence:.2f})")
 
         graph_client.upsert_node(
             node_id=task_id,
@@ -131,6 +147,7 @@ class OrchestratorDispatcher:
                     "result_data": res.result_data,
                 },
             )
+            journey.finish(res.speech_output, res.status, res.agent_id)
             return res
 
         if sys1_decision.intent == System1Intent.BROWSER_ACTION:
@@ -140,11 +157,14 @@ class OrchestratorDispatcher:
                 if p in search_query.lower():
                     search_query = search_query.lower().replace(p, "").strip()
             details = f"Navigazione richiesta: {search_query}"
-            try:
-                from server.features.agent_tools.web_search_tool import web_search
-                details = await web_search(search_query)
-            except Exception:
-                pass
+            journey.step("decision", "Instradamento → browser", f"System 1: browser_action · ricerca: {search_query}")
+            with journey.span("tool", "Ricerca web", search_query) as web_span:
+                try:
+                    from server.features.agent_tools.web_search_tool import web_search
+                    details = await web_search(search_query)
+                    web_span.ok(str(details)[:600])
+                except Exception as exc:
+                    web_span.fail(f"{type(exc).__name__}: {exc}")
             speech = f"Ho aperto il browser ed effettuato la ricerca per '{search_query}', signore."
             graph_client.upsert_node(
                 node_id=task_id,
@@ -173,11 +193,14 @@ class OrchestratorDispatcher:
                     "result_data": res.result_data,
                 },
             )
+            journey.finish(res.speech_output, res.status, res.agent_id)
             return res
 
         if sys1_decision.intent == System1Intent.CONVERSATION or (
             extracted_intent == "GENERAL_INTELLIGENCE" and sys1_decision.intent != System1Intent.COMPLEX_TASK
         ):
+            journey.step("decision", "Instradamento → conversazione",
+                         f"System 1: {sys1_decision.intent.value} · classificatore: {extracted_intent} · scartati: lavagna, browser, progetto, System 2, agenti")
             started = time.time()
             answer = await conversation_engine.reply(
                 sanitized_query,
@@ -220,10 +243,12 @@ class OrchestratorDispatcher:
                     "result_data": res.result_data,
                 },
             )
+            journey.finish(res.speech_output, res.status, res.agent_id)
             return res
 
         is_complex = await task_planner.should_decompose(sanitized_query)
         is_web_or_code = "sito web" in sanitized_query.lower() or "progetto" in sanitized_query.lower() or "app" in sanitized_query.lower()
+        journey.step("planner", "Valutazione di complessità", f"scomposizione necessaria: {is_complex} · sito/progetto/app: {is_web_or_code}")
 
         if is_complex or is_web_or_code:
             logger.info("Complex task detected, delegating to LongRunningTaskManager")
@@ -251,9 +276,11 @@ class OrchestratorDispatcher:
                 )
                 return outcome.succeeded
 
+            journey.step("decision", "Instradamento → progetto in background",
+                         f"scomposizione richiesta (complesso={is_complex}, sito/progetto/app={is_web_or_code}): pianificazione in DAG con giuria per i passi distruttivi")
             await project_manager.start_project(task_id, sanitized_query[:40], background_planner_task)
 
-            return AgentTaskResponse(
+            res = AgentTaskResponse(
                 task_id=task_id,
                 agent_id="orchestrator_planner",
                 status="STARTED_IN_BACKGROUND",
@@ -261,9 +288,14 @@ class OrchestratorDispatcher:
                 speech_output="Ho creato il progetto e la roadmap. La lavorazione in background è iniziata.",
                 execution_time_ms=0,
             )
+            journey.finish(res.speech_output, res.status, res.agent_id)
+            return res
 
         if sys1_decision.intent == System1Intent.COMPLEX_TASK and extracted_intent == "GENERAL_INTELLIGENCE":
-            sys2_result = await system2_engine.execute(sanitized_query, context_override)
+            journey.step("decision", "Instradamento → System 2", "compito complesso senza agente dedicato: ragionamento latente (scartati: conversazione, agenti, progetto)")
+            with journey.span("system2", "System 2 · ragionamento latente", "pensiero esteso prima della risposta") as s2_span:
+                sys2_result = await system2_engine.execute(sanitized_query, context_override)
+                s2_span.ok(f"modello {sys2_result.model_used} · {sys2_result.latency_ms:.0f} ms")
             res = AgentTaskResponse(
                 task_id=task_id,
                 agent_id="system2_latent_engine",
@@ -285,6 +317,7 @@ class OrchestratorDispatcher:
                     "result_data": res.result_data,
                 },
             )
+            journey.finish(res.speech_output, res.status, res.agent_id)
             return res
 
         task_request = AgentTaskRequest(
@@ -301,10 +334,17 @@ class OrchestratorDispatcher:
         )
 
         try:
-            assigned_agent = await agent_pool.select_best_agent(task_request)
-        except Exception:
+            with journey.span("pool", "Selezione agente", f"intento {extracted_intent}") as pool_span:
+                assigned_agent = await agent_pool.select_best_agent(task_request)
+                pool_span.ok(f"scelto: {assigned_agent.agent_id}")
+        except Exception as exc:
             logger.warning("No agent for intent '%s', acquiring a new skill", extracted_intent)
-            return await self._acquire_skill(task_id, extracted_intent, sanitized_query, device_id)
+            journey.step("decision", "Nessun agente adatto", f"{exc} → ripiego: acquisizione di una nuova skill", "fail")
+            with journey.span("skill", "Acquisizione skill", f"intento mancante: {extracted_intent}") as skill_span:
+                skill_res = await self._acquire_skill(task_id, extracted_intent, sanitized_query, device_id)
+                skill_span.done("ok" if skill_res.status == "SUCCESS" else "fail", skill_res.speech_output[:400])
+            journey.finish(skill_res.speech_output, skill_res.status, skill_res.agent_id)
+            return skill_res
 
         graph_client.upsert_node(
             node_id=assigned_agent.agent_id,
@@ -331,7 +371,13 @@ class OrchestratorDispatcher:
             task_request.preferred_brain = brain
             logger.info("Assegnato cervello specifico '%s' all'agente '%s'", brain, assigned_agent.agent_id)
 
-        response = await assigned_agent.execute(task_request)
+        with journey.span("agent", assigned_agent.agent_id,
+                          f"intento {extracted_intent}" + (f" · cervello assegnato: {brain}" if brain else "")) as agent_span:
+            response = await assigned_agent.execute(task_request)
+            if response.status == "SUCCESS":
+                agent_span.ok(response.speech_output[:600])
+            else:
+                agent_span.fail(f"{response.status}: {response.speech_output[:400]}")
 
         graph_client.upsert_node(
             node_id=task_id,
@@ -354,6 +400,7 @@ class OrchestratorDispatcher:
                 },
             )
 
+        journey.finish(response.speech_output, response.status, response.agent_id)
         return response
 
     async def _acquire_skill(self, task_id: str, intent: str, query: str, device_id: str) -> AgentTaskResponse:

@@ -1,0 +1,10 @@
+{
+  "id": "avatars",
+  "name": "Ologrammi e Avatar",
+  "icon": "🧍‍♀️",
+  "category": "assistente",
+  "order": 38,
+  "pinned": false,
+  "panel": "avatars",
+  "description": ""
+}

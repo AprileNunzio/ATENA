@@ -71,8 +71,8 @@ def one_line(agent_id: str, compact: bool = False) -> str:
     return f"- {agent_id} «{p['name']}» p{p['priority']}{off}: {about}" + (f" Strumenti: {tool_names}." if tool_names else "") + doing
 
 
-def team_text(compact: bool = False) -> str:
-    return "\n".join(one_line(i, compact) for i in ids())
+def team_text(compact: bool = False, subset_ids: set[str] | None = None) -> str:
+    return "\n".join(one_line(i, compact) for i in ids() if subset_ids is None or i in subset_ids)
 
 
 def document() -> dict:

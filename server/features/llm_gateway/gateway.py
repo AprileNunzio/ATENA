@@ -216,6 +216,29 @@ class LLMGateway:
         elapsed = (time.time() - start_time) * 1000
         user_query = request.messages[-1].content if request.messages else ""
         content_msg = global_translator.translate(self._module_path, "fallback.synthetic_response", query=user_query, error=error)
+        
+        # SELF-HEALING: Se l'errore riguarda una mancata connessione a Ollama, emettiamo un allarme di sistema.
+        if "connection attempts failed" in error.lower() or "ollama" in error.lower():
+            try:
+                import asyncio
+                from server.core.event_sourcing.universal_space import UniversalObservation
+                from server.core.sensory_bus.event_router import sensory_bus
+                
+                obs = UniversalObservation(
+                    modality="system_alert",
+                    source_id="llm_gateway",
+                    raw_data={"alert_type": "service_down", "service": "ollama"}
+                )
+                
+                # Eseguiamo il push nel bus senza bloccare o usare await (se siamo in contesto sincrono/asincrono ambiguo)
+                try:
+                    loop = asyncio.get_running_loop()
+                    loop.create_task(sensory_bus.push_observation(obs))
+                except RuntimeError:
+                    pass # Se non c'è loop, niente self-healing asincrono (ma fastapi ha il loop)
+            except Exception as e:
+                logger.error(f"Errore nel trigger di self-healing: {e}")
+
         return LLMResponse(
             content=content_msg,
             model_used=SYNTHETIC_MODEL,
