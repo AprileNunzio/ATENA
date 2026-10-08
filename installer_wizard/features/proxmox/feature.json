@@ -1,0 +1,61 @@
+{
+  "id": "proxmox",
+  "name": "Gestione Proxmox",
+  "icon": "🖥️",
+  "category": "sistema",
+  "order": 175,
+  "panel": "proxmox",
+  "description": "Atena si integra nativamente con il tuo hypervisor Proxmox VE per amministrare, monitorare e diagnosticare container LXC e macchine virtuali. L'agente SysOps può eseguire richieste complesse mostrando dashboard dinamiche.",
+  "toggle": {
+    "env": "ATENA_PROXMOX",
+    "apply": []
+  },
+  "requires": {
+    "env": [
+      "PROXMOX_HOST"
+    ]
+  },
+  "capabilities": [
+    "Amministrazione completa (Avvio, spegnimento, backup) di VM e LXC",
+    "Monitoraggio delle risorse hardware, CPU e RAM",
+    "Risoluzione autonoma di problemi (ReAct SysOps)",
+    "Generazione di widget interattivi HTML sulle statistiche del cluster",
+    "Autenticazione sicura tramite User/Password o API Token"
+  ],
+  "settings": [
+    {
+      "key": "PROXMOX_HOST",
+      "label": "Indirizzo Host Proxmox",
+      "type": "text",
+      "placeholder": "es. 192.168.1.100 o proxmox.local"
+    },
+    {
+      "key": "PROXMOX_USER",
+      "label": "Utente Proxmox",
+      "type": "text",
+      "placeholder": "es. root@pam"
+    },
+    {
+      "key": "PROXMOX_PASSWORD",
+      "label": "Password (lascia vuoto se usi Token)",
+      "type": "secret"
+    },
+    {
+      "key": "PROXMOX_TOKEN_ID",
+      "label": "Token ID (opzionale)",
+      "type": "text",
+      "placeholder": "es. utente@pam!token1"
+    },
+    {
+      "key": "PROXMOX_TOKEN_SECRET",
+      "label": "Token Secret",
+      "type": "secret"
+    },
+    {
+      "key": "PROXMOX_VERIFY_SSL",
+      "label": "Verifica SSL",
+      "type": "bool",
+      "default": "0"
+    }
+  ]
+}
