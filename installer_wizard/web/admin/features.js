@@ -29,6 +29,16 @@
     return st.label || st.key;
   };
 
+  const tButton = (f, st) => {
+    try { return window.i18n.translate(f.id, "buttons." + st.key); } catch (_) {}
+    return st.button || st.label;
+  };
+
+  const tHelp = (f, st) => {
+    try { return window.i18n.translate(f.id, "help." + st.key); } catch (_) {}
+    return st.help;
+  };
+
   const getModeLabel = (m) => {
     try { return window.i18n.translate("admin", "features_ui.mode_" + m); } catch (_) {
       return MODE_LABEL[m] || m;
@@ -116,14 +126,33 @@
       ${modeSelect(f, "data-fmode")}<button class="pin ${f.pinned ? "on" : ""}" data-bpin="1" title="Menu laterale">${f.pinned ? "★" : "☆"}</button>`;
   };
 
-  function settingInput(st, v) {
+  function settingInput(st, v, f) {
     const a = `data-fk="${fmt.esc(st.key)}"`;
     if (st.type === "select") return `<select ${a}>${(st.options || []).map((o) => { const val = typeof o === "object" ? o.value : o, lab = typeof o === "object" ? o.label : o;
       return `<option value="${fmt.esc(val)}" ${String(val) === String(v) ? "selected" : ""}>${fmt.esc(lab || "—")}</option>`; }).join("")}</select>`;
     if (st.type === "bool") return `<label class="switch"><input type="checkbox" ${a} ${v === "1" || v === true ? "checked" : ""}> ${fmt.esc(st.label)}</label>`;
     if (st.type === "color") return `<input ${a} type="color" value="${fmt.esc(v || "#000000")}" style="height:40px; padding:4px">`;
-    if (st.type === "link") return `<a href="${fmt.esc(st.default)}" target="_blank" class="btn" style="display:inline-block; margin-top:5px; text-decoration:none; background:#007bff; color:white; padding:8px 12px; border-radius:4px; font-weight:bold;">${fmt.esc(st.label)}</a>`;
+    if (st.type === "link") return `<a href="${fmt.esc(st.default)}" ${st.download ? "download" : 'target="_blank" rel="noopener"'} class="btn primary link-btn">${st.download ? "⬇ " : "↗ "}${fmt.esc(tButton(f, st))}</a>`;
     return `<input ${a} type="${st.type === "secret" ? "password" : st.type === "number" ? "number" : "text"}" step="any" value="${fmt.esc(v)}" placeholder="${fmt.esc(st.placeholder || (st.type === "secret" ? "non impostata" : ""))}" autocomplete="off">`;
+  }
+
+  const tGuide = (f, path, fallback) => {
+    try { return window.i18n.translate(f.id, "guide." + path); } catch (_) {}
+    return fallback;
+  };
+
+  function renderGuide(f) {
+    const guide = Array.isArray(f.guide) ? f.guide : [];
+    if (!guide.length) return "";
+    let tTitle = "Guida passo-passo";
+    try { tTitle = window.i18n.translate("admin", "features_ui.guide"); } catch (_) {}
+    return `<div class="panel-title" style="margin-top:22px">${fmt.esc(tTitle)}</div>
+      <div class="feat-guide">${guide.map((g, i) => `<details ${i === 0 ? "open" : ""}>
+        <summary><span class="num">${i + 1}</span>${fmt.esc(tGuide(f, `${i}.title`, g.title || ""))}</summary>
+        ${g.text ? `<p>${fmt.esc(tGuide(f, `${i}.text`, g.text))}</p>` : ""}
+        ${(g.steps || []).length ? `<ol>${g.steps.map((x, j) => `<li>${fmt.esc(tGuide(f, `${i}.steps.${j}`, x))}</li>`).join("")}</ol>` : ""}
+        ${g.tip ? `<div class="tip">💡 ${fmt.esc(tGuide(f, `${i}.tip`, g.tip))}</div>` : ""}
+      </details>`).join("")}</div>`;
   }
 
   function renderFeaturePage(f) {
@@ -146,7 +175,8 @@
       ${f.capabilities.length ? `<div class="panel-title" style="margin-top:20px">${fmt.esc(tWhat)}</div><div class="caps">${f.capabilities.map((c, i) => `<span>${fmt.esc(tCap(f, i, c))}</span>`).join("")}</div>` : ""}
       ${f.settings.length ? `<div class="panel-title" style="margin-top:22px">${fmt.esc(tSet)} <span class="saved" id="f-saved">✓ ${fmt.esc(tSaved)}</span></div>
         <div class="form-grid">${f.settings.map((st) => st.type === "bool" ? `<div>${settingInput(st, f.values[st.key])}</div>`
-          : `<div><label>${fmt.esc(tSetting(f, st))}</label>${settingInput(st, f.values[st.key])}</div>`).join("")}</div>` : ""}
+          : `<div><label>${fmt.esc(tSetting(f, st))}</label>${settingInput(st, f.values[st.key], f)}${st.help ? `<div class="faint set-help">${fmt.esc(tHelp(f, st))}</div>` : ""}</div>`).join("")}</div>` : ""}
+      ${renderGuide(f)}
       ${f.panel ? `<div class="actions" style="margin-top:20px"><button class="btn primary" data-fpanel="${fmt.esc(f.panel)}">${fmt.esc(tFull)}</button></div>` : ""}`;
   }
 

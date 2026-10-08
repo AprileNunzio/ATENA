@@ -149,7 +149,8 @@ class AtenaAssistant(ctk.CTk):
             self.btn_connect.configure(state="normal", text="Riprova")
 
     def _start_backend(self):
-        t = threading.Thread(target=start_satellite, daemon=True)
+        # In ascolto sulla LAN: ATENA contatta il satellite su <ip-locale>:19999 (traffico cifrato con la PSK)
+        t = threading.Thread(target=start_satellite, kwargs={"host": "0.0.0.0"}, daemon=True)
         t.start()
 
 if __name__ == "__main__":

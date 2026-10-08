@@ -101,6 +101,7 @@ from features.vision import api as vision_api
 from features.vision.nightly import loop as nightly_biometrics_loop
 from features.whiteboard import api as whiteboard_api
 from features.printers import api as printers_api
+from features.rpa import api as rpa_api
 from features.nvr import api as nvr_api
 from features.nvr.service import nvr as nvr_service
 from features.scene import api as scene_api
@@ -169,6 +170,7 @@ FEATURE_APIS = (
     whiteboard_api,
     understanding_api,
     printers_api,
+    rpa_api,
     nvr_api,
     twin_api,
     scene_api,

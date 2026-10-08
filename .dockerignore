@@ -5,6 +5,10 @@
 client_apk
 client_web
 client_satellite
+!client_satellite/context_bridge
+client_satellite/context_bridge/build
+client_satellite/context_bridge/dist
+client_satellite/context_bridge/*.egg-info
 data
 installer_wizard/venv
 *.log

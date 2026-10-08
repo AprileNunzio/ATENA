@@ -6,5 +6,71 @@
     "Visual UI element anchoring and OCR",
     "Multi-application workflow automation"
   ],
-  "settings": {}
+  "settings": {
+    "ATENA_RPA_DOWNLOAD_LINK": "Download the Desktop Satellite Client (.ZIP)",
+    "ATENA_RPA_DASHBOARD_LINK": "Remote Control Dashboard (add IP, password and check status)"
+  },
+  "guide": [
+    {
+      "title": "What it is and what it's for (in plain words)",
+      "text": "This feature lets ATENA \"see\" and manage the other computers at home or in the office. To do this, you install a small program called the Satellite Client on each PC: it acts as a secure bridge between that computer and ATENA. Everything travelling over the bridge is encrypted, so nobody else on the network can read it.",
+      "tip": "You don't need to install anything on the computer running ATENA: the Client only goes on the PCs you want to control."
+    },
+    {
+      "title": "Before you start: what you need",
+      "steps": [
+        "The PC to connect must be on the same network (same Wi-Fi or router) as the computer running ATENA.",
+        "The PC to connect needs Python 3.10 or newer. On Windows download it from python.org and, during setup, tick \"Add Python to PATH\" (very important).",
+        "Write down the address of this page: you can see it in the browser's address bar (e.g. 192.168.1.100:8080). You'll need it shortly."
+      ]
+    },
+    {
+      "title": "Download and start the Client on the PC to connect",
+      "steps": [
+        "From the PC you want to connect, open this same page and press \"Download Client (.ZIP)\". Alternatively download it here and copy it to the PC with a USB stick.",
+        "Find ATENA_Satellite_Client.zip in your Downloads folder, right-click → \"Extract All…\" and pick a folder (e.g. Documents\\ATENA_Client).",
+        "Windows: open the extracted folder and double-click Start_ATENA_Client.bat. If the blue \"Windows protected your PC\" warning appears, click \"More info\" and then \"Run anyway\".",
+        "macOS / Linux: open a Terminal in the extracted folder and type: bash Start_ATENA_Client.sh",
+        "The first time, the Client downloads the components it needs by itself: this can take a minute or two. Then a small dark \"ATENA SATELLITE\" window appears."
+      ],
+      "tip": "If Windows asks whether to allow Python network access, choose \"Private networks\" and press \"Allow\": without it ATENA cannot reach the PC."
+    },
+    {
+      "title": "Connect the PC to ATENA",
+      "steps": [
+        "In the Client window, in the \"IP Server ATENA\" field, type the address you wrote down (e.g. 192.168.1.100:8080).",
+        "In \"Nome di questo PC\" (this PC's name) type an easy name without spaces (e.g. OFFICE-1 or LIVING-PC).",
+        "Press \"Associa\" (Pair). When the text turns green \"● Associato ad ATENA\", you're connected.",
+        "Come back here and press \"Open PC Dashboard\": the new computer will appear in the list."
+      ]
+    },
+    {
+      "title": "Everyday use",
+      "text": "Once connected, you can talk to ATENA in chat using the name you gave the PC. Examples: \"How much RAM is OFFICE-1 using?\", \"Check free disk space on LIVING-PC\", \"Read the document I'm writing\". The Client must stay open: if you close it, ATENA no longer sees that computer until you restart it."
+    },
+    {
+      "title": "Connecting a PC without the Client (advanced users)",
+      "text": "From the Dashboard you can also add a computer manually with IP, user and password. On Windows enable WinRM (PowerShell as administrator: Enable-PSRemoting -Force); on Linux and macOS an active SSH server is enough. This way ATENA can read the system status, but cannot see open windows."
+    },
+    {
+      "title": "Troubleshooting",
+      "steps": [
+        "The Client window opens and closes immediately: Python is not installed or \"Add Python to PATH\" was not ticked. Reinstall Python with the box ticked.",
+        "It stays on \"Riprova\" (Retry) after pressing Pair: check you typed the address exactly as in the browser bar, including the number after the colon.",
+        "The PC shows as offline in the Dashboard: make sure the Client is open and the firewall allows Python on private networks (port 19999).",
+        "The download fails: update ATENA to the latest version; the error message also shows the folder where ATENA looks for the Client files."
+      ]
+    }
+  ],
+  "buttons": {
+    "ATENA_RPA_DASHBOARD_LINK": "Open PC Dashboard",
+    "ATENA_RPA_DOWNLOAD_LINK": "Download Client (.ZIP)"
+  },
+  "help": {
+    "ATENA_RPA_PSK": "No need to change it: it's created automatically. Change it only if you know what you're doing.",
+    "ATENA_RPA_AUTO_SYNC": "When on, ATENA periodically checks by itself that connected PCs are on and reachable.",
+    "ATENA_RPA_DASHBOARD_LINK": "Here you see the list of connected computers, add new ones manually and check whether they are online.",
+    "ATENA_RPA_DOWNLOAD_LINK": "Program to install on every PC you want ATENA to see (Windows, macOS or Linux).",
+    "ATENA_RPA_NODES": "Leave empty. Only needed for old installations."
+  }
 }

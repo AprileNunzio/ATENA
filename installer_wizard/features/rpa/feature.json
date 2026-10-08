@@ -22,7 +22,8 @@
       "key": "ATENA_RPA_PSK",
       "label": "Chiave PSK (Generata automaticamente per la crittografia E2E del Satellite)",
       "type": "text",
-      "default": "PiGTww29o8X0o8uYEkDSQEJHjU4ehvHp4LTDvhABvPk="
+      "default": "PiGTww29o8X0o8uYEkDSQEJHjU4ehvHp4LTDvhABvPk=",
+      "help": "Non serve modificarla: viene creata in automatico. Cambiala solo se sai cosa stai facendo."
     },
     {
       "key": "ATENA_RPA_AUTO_SYNC",
@@ -38,25 +39,84 @@
           "value": "0",
           "label": "Manuale"
         }
-      ]
+      ],
+      "help": "Se attiva, ATENA controlla da sola ogni tanto che i PC collegati siano accesi e raggiungibili."
     },
     {
       "key": "ATENA_RPA_DASHBOARD_LINK",
       "label": "Dashboard Controllo Remoto (Aggiungi IP, Password e verifica lo stato)",
       "type": "link",
-      "default": "/api/v1/computer-control/view.html"
+      "default": "/api/v1/computer-control/view.html",
+      "button": "Apri la Dashboard dei PC",
+      "help": "Qui vedi l'elenco dei computer collegati, ne aggiungi di nuovi a mano e controlli se sono online."
     },
     {
       "key": "ATENA_RPA_DOWNLOAD_LINK",
       "label": "Scarica il Client Satellite Desktop (.ZIP)",
       "type": "link",
-      "default": "/api/rpa/download-client"
+      "default": "/api/rpa/download-client",
+      "button": "Scarica il Client (.ZIP)",
+      "download": true,
+      "help": "Programma da installare su ogni PC che vuoi far vedere ad ATENA (Windows, macOS o Linux)."
     },
     {
       "key": "ATENA_RPA_NODES",
       "label": "Compatibilità Nodi Legacy (id separati da virgola)",
       "type": "text",
-      "default": ""
+      "default": "",
+      "help": "Lascia vuoto. Serve solo per vecchie installazioni."
+    }
+  ],
+  "guide": [
+    {
+      "title": "Cos'è e a cosa serve (in parole semplici)",
+      "text": "Questa funzione permette ad ATENA di \"vedere\" e gestire gli altri computer di casa o dell'ufficio. Per farlo, su ogni PC si installa un piccolo programma chiamato Client Satellite: è come un ponte sicuro che collega quel computer ad ATENA. Tutti i dati che passano sul ponte sono cifrati, quindi nessun altro sulla rete può leggerli.",
+      "tip": "Non devi installare nulla sul computer dove gira ATENA: il Client va solo sui PC che vuoi controllare."
+    },
+    {
+      "title": "Prima di iniziare: cosa ti serve",
+      "steps": [
+        "Il PC da collegare deve essere sulla stessa rete (stesso Wi-Fi o stesso router) del computer su cui gira ATENA.",
+        "Sul PC da collegare serve Python 3.10 o più recente. Su Windows scaricalo da python.org e, durante l'installazione, metti la spunta su \"Add Python to PATH\" (è molto importante).",
+        "Annota l'indirizzo di questa pagina: lo vedi nella barra in alto del browser (ad esempio 192.168.1.100:8080). Ti servirà tra poco."
+      ]
+    },
+    {
+      "title": "Scarica e avvia il Client sul PC da collegare",
+      "steps": [
+        "Dal PC che vuoi collegare, apri questa stessa pagina e premi il pulsante \"Scarica il Client (.ZIP)\". In alternativa scaricalo qui e copialo sul PC con una chiavetta USB.",
+        "Trova il file ATENA_Satellite_Client.zip nella cartella Download, clic destro → \"Estrai tutto…\" e scegli una cartella (ad esempio Documenti\\ATENA_Client).",
+        "Windows: apri la cartella estratta e fai doppio clic su Start_ATENA_Client.bat. Se compare l'avviso blu \"Windows ha protetto il PC\", premi \"Ulteriori informazioni\" e poi \"Esegui comunque\".",
+        "macOS / Linux: apri il Terminale nella cartella estratta e scrivi: bash Start_ATENA_Client.sh",
+        "La prima volta il Client scarica da solo i componenti necessari: può richiedere uno o due minuti. Poi compare una piccola finestra scura \"ATENA SATELLITE\"."
+      ],
+      "tip": "Se Windows chiede se consentire l'accesso alla rete a Python, scegli \"Reti private\" e premi \"Consenti\": senza questo permesso ATENA non riesce a raggiungere il PC."
+    },
+    {
+      "title": "Collega il PC ad ATENA",
+      "steps": [
+        "Nella finestra del Client, nel campo \"IP Server ATENA\", scrivi l'indirizzo che hai annotato prima (ad esempio 192.168.1.100:8080).",
+        "Nel campo \"Nome di questo PC\" scrivi un nome facile da ricordare, senza spazi (ad esempio UFFICIO-1 o PC-SALOTTO).",
+        "Premi \"Associa\". Quando la scritta diventa verde \"● Associato ad ATENA\", il collegamento è fatto.",
+        "Torna qui e premi \"Apri la Dashboard dei PC\": il nuovo computer comparirà nell'elenco."
+      ]
+    },
+    {
+      "title": "Come si usa ogni giorno",
+      "text": "Una volta collegato, puoi parlare con ATENA in chat usando il nome che hai dato al PC. Esempi: \"Quanta RAM sta usando UFFICIO-1?\", \"Controlla lo spazio libero su PC-SALOTTO\", \"Leggi il documento che sto scrivendo\". Il Client deve restare aperto: se lo chiudi, ATENA non vede più quel computer finché non lo riavvii."
+    },
+    {
+      "title": "Collegare un PC senza installare il Client (utenti esperti)",
+      "text": "Dalla Dashboard puoi aggiungere un computer anche a mano, indicando IP, utente e password. Su Windows va abilitato WinRM (PowerShell come amministratore: Enable-PSRemoting -Force); su Linux e macOS basta che sia attivo il server SSH. In questo modo ATENA può leggere lo stato del sistema, ma non vede le finestre aperte."
+    },
+    {
+      "title": "Se qualcosa non funziona",
+      "steps": [
+        "La finestra del Client si apre e si chiude subito: Python non è installato o manca la spunta \"Add Python to PATH\". Reinstalla Python mettendo la spunta.",
+        "Resta su \"Riprova\" dopo aver premuto Associa: controlla di aver scritto l'indirizzo esattamente come nella barra del browser, numero dopo i due punti compreso.",
+        "Il PC risulta offline nella Dashboard: verifica che il Client sia aperto e che il firewall consenta Python sulle reti private (porta 19999).",
+        "Il download dà errore: aggiorna ATENA all'ultima versione; il messaggio d'errore indica anche la cartella in cui ATENA cerca i file del Client."
+      ]
     }
   ]
 }
