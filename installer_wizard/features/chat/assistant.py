@@ -5,19 +5,14 @@ import httpx
 from state import store
 
 from features.actions import router as actions
+from features.brain import stages
 from features.brain.llm import BrainUnavailable
 from features.chat import code
 from features.chat import context as request_context
 from features.chat.compose import compose_generic
 from features.chat.intents import detect_intent
-from features.chat.skills.camera import camera_skill
-from features.chat.skills.music import music_skill
-from features.chat.skills.network import network_skill
-from features.chat.skills.people import introduce_skill, person_info_skill, vision_skill
-from features.chat.skills.place import place_skill
-from features.chat.skills.system import system_skill, time_skill
-from features.chat.skills.voices import voices_skill
-from features.chat.skills.weather import weather_skill
+from features.chat.skill_dispatch import run_skill
+from features.chat.skills.people import person_info_skill
 from features.chat.templates import remember_template
 from features.understanding import router as understanding
 
@@ -29,7 +24,8 @@ PERSONAL = {"gservices", "vault", "documents", "maps", "vision", "livecam"}
 
 async def _agent(text: str, started: float) -> dict:
     from features.agent import commands as agent_cmd
-    speech, ui = await agent_cmd.answer(text)
+    async with stages.stage("agent", "Agente con strumenti"):
+        speech, ui = await agent_cmd.answer(text)
     return {"reply": speech, "ui": ui, "intent": "agent", "agent": "agente · strumenti",
             "elapsed_ms": int((time.time() - started) * 1000)}
 
@@ -39,7 +35,8 @@ async def _connect(text: str, started: float, only: tuple | None = None, skip: t
         if (only and connector not in only) or connector in skip:
             continue
         try:
-            speech, ui = await importlib.import_module(module).answer(text)
+            async with stages.attempt("tool", f"Connettore · {connector}", misses=(LookupError,)):
+                speech, ui = await importlib.import_module(module).answer(text)
         except LookupError:
             continue
         except Exception as exc:
@@ -60,7 +57,10 @@ async def _connect(text: str, started: float, only: tuple | None = None, skip: t
 async def _home(text: str, started: float) -> dict | None:
     try:
         from features.home_assistant.home import brain as home_brain
-        home_out = await home_brain.handle(text)
+        async with stages.attempt("agent", "Domotica") as probe:
+            home_out = await home_brain.handle(text)
+            if not home_out:
+                probe.skip()
     except Exception as exc:
         store.event("WARN", f"Casa non disponibile: {exc}", "home")
         return None
@@ -79,7 +79,8 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
     emit("voice_command", {"text": text})
     try:
         from features.automations import commands as automation_cmd
-        speech, ui = await automation_cmd.answer(text)
+        async with stages.attempt("skill", "Automazioni", misses=(LookupError,)):
+            speech, ui = await automation_cmd.answer(text)
         return {"reply": speech, "ui": ui, "intent": "automations", "agent": "automazioni",
                 "elapsed_ms": int((time.time() - started) * 1000)}
     except LookupError:
@@ -99,7 +100,9 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
     lang = (speech_lang or {}).get("lang", "it")
     tried: set[str] = set()
     if lang == "it":
-        decision = await understanding.route(text, request_context.device.get())
+        async with stages.stage("classifier", "Classificatore Intenti", "Analisi semantica e instradamento") as probe:
+            decision = await understanding.route(text, request_context.device.get())
+            probe.note(understanding.describe(decision))
         for domain in (decision.domains if understanding.enabled() else EARLY):
             tried.add(domain)
             if domain == "people":
@@ -114,7 +117,10 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
         if out:
             return out
     if lang == "it" or actions.match(text):
-        act = await actions.handle(text)
+        async with stages.attempt("tool", "Azioni") as probe:
+            act = await actions.handle(text)
+            if not act:
+                probe.skip()
         if act:
             speech, ui, agent = act
             elapsed = int((time.time() - started) * 1000)
@@ -128,41 +134,14 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
         intent = "conversation"
     agent = "atena_ui"
     try:
-        if intent == "weather":
-            speech, ui = await weather_skill(text)
-        elif intent == "camera":
-            speech, ui = camera_skill(text)
-        elif intent == "system":
-            speech, ui = system_skill()
-        elif intent == "vision":
-            speech, ui = vision_skill()
-            ui["personal"] = ui.get("mode") == "focus"
-        elif intent == "network":
-            speech, ui = await network_skill()
-        elif intent == "introduce":
-            speech, ui = await introduce_skill(text)
-        elif intent == "person_info":
-            speech, ui = await person_info_skill(text)
-            ui["personal"] = True
-        elif intent == "time":
-            speech, ui = time_skill()
-        elif intent == "voices":
-            speech, ui = await voices_skill(text)
-        elif intent == "place":
-            speech, ui = await place_skill(text)
-        elif intent == "music":
-            speech, ui = music_skill()
-        elif intent == "study":
-            from features.study.study import speech_summary
-            speech, ui = speech_summary()
-        elif intent == "brain":
-            speech, ui = ("Ecco la mia mente. Ogni punto luminoso è un ricordo reale: "
-                          "tocca un neurone per esplorarlo.", {"mode": "brain"})
-        else:
-            raise LookupError
+        async with stages.attempt("skill", f"Abilità · {intent}", misses=(LookupError,)):
+            speech, ui = await run_skill(intent, text)
     except LookupError:
         from features.skills.library import library
-        solved = await library.try_answer(text)
+        async with stages.attempt("skill", "Libreria di algoritmi") as probe:
+            solved = await library.try_answer(text)
+            if not solved:
+                probe.skip()
         if solved:
             agent = f"algoritmo · {solved['name']} ({solved['total_ms']} ms)"
             speech, ui = solved["speech"], {"mode": "face"}
@@ -173,7 +152,8 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
             agent, speech, ui = await _converse(text, core_call)
     except (httpx.HTTPError, KeyError, ValueError) as exc:
         store.event("WARN", f"Abilità '{intent}' non disponibile: {exc}", "assistant")
-        data = await core_call(text)
+        async with stages.stage("system2", "Generazione della risposta", f"Abilità «{intent}» non disponibile"):
+            data = await core_call(text)
         agent = data.get("agent_id") or "core"
         speech, ui = code.answer(data.get("speech_output") or "", text) or compose_generic(data.get("speech_output") or "…", text)
     if ui.get("code"):
@@ -196,13 +176,16 @@ async def _diagnose(text: str) -> tuple[str, dict] | None:
 async def _converse(text: str, core_call) -> tuple[str, str, dict]:
     from features.agent import commands as agent_cmd
     if agent_cmd.weak(text) and not code.wanted(text):
-        speech, ui = await agent_cmd.answer(text)
+        async with stages.stage("agent", "Agente con strumenti"):
+            speech, ui = await agent_cmd.answer(text)
         return "agente · strumenti", speech, ui
     if actions.ACTIONISH.search(text):
         found = await _diagnose(text)
         if found:
             return "diagnostica · comando di sistema", *found
-    data = await core_call(text)
+    async with stages.stage("system2", "Generazione della risposta") as probe:
+        data = await core_call(text)
+        probe.note(f"Modello: {data.get('agent_id') or 'core'}")
     reply = data.get("speech_output") or "…"
     refused = bool(actions.REFUSAL.search(reply))
     if refused and not actions.ACTIONISH.search(text):
@@ -210,7 +193,8 @@ async def _converse(text: str, core_call) -> tuple[str, str, dict]:
         if found:
             return "diagnostica · comando di sistema", *found
     if refused and agent_cmd.enabled():
-        speech, ui = await agent_cmd.answer(text)
+        async with stages.stage("agent", "Agente con strumenti", "Il modello ha rifiutato: provo con gli strumenti"):
+            speech, ui = await agent_cmd.answer(text)
         return "agente · strumenti", speech, ui
     if refused:
         actions.note_gap(text, "il modello ha rifiutato e nessuno strumento è adatto")
@@ -219,4 +203,8 @@ async def _converse(text: str, core_call) -> tuple[str, str, dict]:
 
 async def _presented(reply: str, text: str):
     from features.presentation.composition import compose
-    return await compose(text, reply)
+    async with stages.attempt("tool", "Impaginazione della risposta") as probe:
+        laid_out = await compose(text, reply)
+        if not laid_out:
+            probe.skip()
+    return laid_out

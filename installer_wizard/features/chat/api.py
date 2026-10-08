@@ -16,11 +16,11 @@ from tasks import background
 
 from features.brain.brains import brains
 from features.brain.residency import primary
-from features.brain.journey import journeys
 from features.brain.trace import trace
 from features.capabilities import manifest as capabilities
 from features.chat import addressee, assistant, brain_chain, intents, speaker, voice_id, wake
 from features.chat.dialogue import dialogue
+from features.chat.journey_flow import ChatJourney
 from features.chat.layout import presence
 from features.chat.skills import ambient
 from features.laws import guard
@@ -148,62 +148,23 @@ async def assistant_chat(text: str, device: str, heard_lang: str | None = None, 
     async def core_call(query: str) -> dict:
         return await (_demo_core(query) if DEMO else _core_call(query, device, speech_lang))
 
-    tracker = None
-    try:
-        tracker = journeys.start_journey(said or text, who=heard.get("speaker") or "utente")
-        n_in = tracker.add_node("input", "Domanda Ricevuta", f"«{text}» · Origine: {device}", state="ok")
-        n_laws = tracker.add_node("laws", "Leggi Fondamentali", "Verifica conformità etica e vincoli di sicurezza", state="running", parent=n_in)
-        tracker.add_edge(n_in, n_laws, "flow", "conformità")
-    except Exception:
-        pass
-
+    flow = ChatJourney(said, text, device, heard.get("speaker") or "utente")
     enroll = voice_id.command(text)
     if guard.attempt(said) or guard.attempt(text):
         guard.record(said, device)
-        if tracker:
-            try:
-                tracker.update_node(n_laws, state="fail", detail="Bloccato dalle Leggi Fondamentali: violazione vincoli")
-                n_ans = tracker.add_node("answer", "Rifiuto Etico", guard.REFUSAL, state="fail", parent=n_laws)
-                tracker.add_edge(n_laws, n_ans, "flow", "blocco")
-                tracker.finish(answer=guard.REFUSAL, agent="leggi fondamentali", state="failed")
-            except Exception:
-                pass
+        flow.refused(guard.REFUSAL)
         result = {"reply": guard.REFUSAL, "intent": "laws", "agent": "leggi fondamentali", "elapsed_ms": 0}
     elif enroll:
-        if tracker:
-            try:
-                tracker.update_node(n_laws, state="ok", detail="Vincoli costituzionali rispettati: richiesta ammessa")
-                n_v = tracker.add_node("agent", "Impronta Vocale", "Riconoscimento e registrazione voce", state="ok", parent=n_laws)
-                tracker.add_edge(n_laws, n_v, "flow", "profilazione")
-                n_ans = tracker.add_node("answer", "Risposta", enroll[0], state="ok", parent=n_v)
-                tracker.add_edge(n_v, n_ans, "flow", "output")
-                tracker.finish(answer=enroll[0], agent="impronta vocale", state="done")
-            except Exception:
-                pass
+        flow.enrolled(enroll[0])
         result = {"reply": enroll[0], "ui": enroll[1], "intent": "voice_id", "agent": "impronta vocale", "elapsed_ms": 0}
     else:
-        if tracker:
-            try:
-                tracker.update_node(n_laws, state="ok", detail="Vincoli costituzionali rispettati: richiesta ammessa")
-                n_mem = tracker.add_node("cache", "Memoria & Contesto", "Recupero contesto conversazionale e ricordi recenti", state="ok", parent=n_laws)
-                tracker.add_edge(n_laws, n_mem, "flow", "contesto")
-                n_int = tracker.add_node("classifier", "Classificatore Intenti", "Analisi semantica e instradamento dell'intento", state="running", parent=n_mem)
-                tracker.add_edge(n_mem, n_int, "flow", "analisi")
-            except Exception:
-                pass
-        result = await assistant.handle(text, core_call, speech_lang)
-        if tracker:
-            try:
-                intent_label = result.get("intent", "conversazione")
-                agent_label = result.get("agent", "core")
-                tracker.update_node(n_int, state="ok", detail=f"Intento identificato: {intent_label}")
-                n_exec = tracker.add_node("agent", f"Agente: {agent_label}", f"Elaborazione completata da {agent_label}", state="ok", parent=n_int)
-                tracker.add_edge(n_int, n_exec, "call", "elaborazione")
-                n_out = tracker.add_node("answer", "Risposta Finale", result.get("reply", ""), state="ok", parent=n_exec)
-                tracker.add_edge(n_exec, n_out, "flow", "output")
-                tracker.finish(answer=result.get("reply", ""), agent=agent_label, state="done")
-            except Exception:
-                pass
+        flow.begin()
+        try:
+            result = await assistant.handle(text, core_call, speech_lang)
+        except BaseException as exc:
+            flow.failed(exc)
+            raise
+        flow.answered(result)
     result["reply"] = speaker.fix_address(result.get("reply") or "") + voice_id.offer(heard.get("voice_known"))
     if isinstance(result.get("ui"), dict):
         result["ui"].setdefault("presence", presence(result["reply"], result["ui"]))

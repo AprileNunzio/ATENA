@@ -63,6 +63,12 @@ class JourneyTracker:
         self._commit()
         return idx
 
+    def add_span(self, kind: str, name: str, detail: str, state: str, parent: int | None, started: float) -> int:
+        idx = self.add_node(kind, name, detail, state, parent)
+        self.nodes[idx]["a"] = round(max(0.0, started - self.started), 2)
+        self._commit()
+        return idx
+
     def add_edge(self, source: int, target: int, kind: str = "flow", label: str = "") -> None:
         self.edges.append([source, target, str(kind)[:12], str(label)[:80]])
         self._commit()

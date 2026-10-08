@@ -3,6 +3,7 @@ from collections import deque
 from dataclasses import dataclass, field
 
 from config import env_get
+from features.brain import stages
 from features.understanding import claims, context
 from state import store
 
@@ -68,12 +69,22 @@ async def route(text: str, device: str) -> Decision:
     ranked = sorted(((d, s) for d, s in claims.score_all(ctx).items() if s >= MIN), key=lambda x: -x[1])
     decision = Decision(order=ranked)
     if ambiguous(ranked) and reasoning():
-        chosen = await arbitrate(ctx, ranked)
+        async with stages.stage("reasoning", "Ragionamento sull'ambiguità",
+                                ", ".join(f"{d} {sc:.2f}" for d, sc in ranked[:4])) as probe:
+            chosen = await arbitrate(ctx, ranked)
+            probe.note(f"Scelto: {chosen[0]} · {chosen[1]}" if chosen else "Nessuna scelta: resta l'ordine per somiglianza")
         if chosen:
             first = next(x for x in ranked if x[0] == chosen[0])
             decision = Decision(order=[first] + [x for x in ranked if x[0] != chosen[0]], arbitrated=True, reason=chosen[1])
     note(ctx, decision)
     return decision
+
+
+def describe(decision: Decision) -> str:
+    if not decision.order:
+        return "Nessun dominio riconosciuto: risposta generale"
+    ranked = ", ".join(f"{d} {s:.2f}" for d, s in decision.order[:4])
+    return f"Domini: {ranked}" + (f" · scelto ragionando: {decision.reason}" if decision.arbitrated else "")
 
 
 def recent(limit: int = 40) -> list[dict]:
