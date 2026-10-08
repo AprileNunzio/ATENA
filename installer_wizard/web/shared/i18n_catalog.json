@@ -12131,6 +12131,110 @@
     [
       "Destinazione non valida",
       "Invalid destination"
+    ],
+    [
+      "il microfono era troppo alto",
+      "the microphone was too loud"
+    ],
+    [
+      "la voce arrivava troppo bassa",
+      "the voice came through too quiet"
+    ],
+    [
+      "livello del microfono corretto",
+      "correct microphone level"
+    ],
+    [
+      "Frase da dire",
+      "Phrase to say"
+    ],
+    [
+      "Come l'ha capita ATENA",
+      "How ATENA understood it"
+    ],
+    [
+      "Non ancora addestrata. Premi «Avvia sul display»: sul display comparirà una breve sequenza da ripetere (il nome «Atena», alcuni comandi e qualche frase). ATENA impara il timbro della voce e il modo in cui questa persona pronuncia il suo nome e i comandi.",
+      "Not trained yet. Press «Start on the display»: a short sequence to repeat will appear on the display (the name «Atena», a few commands and some sentences). ATENA learns the voice timbre and how this person pronounces its name and the commands."
+    ],
+    [
+      "Ultimo addestramento",
+      "Last training"
+    ],
+    [
+      "Frasi capite",
+      "Phrases understood"
+    ],
+    [
+      "Come pronuncia «Atena»",
+      "How they pronounce «Atena»"
+    ],
+    [
+      "Nessuna variante: il nome viene capito correttamente.",
+      "No variant: the name is understood correctly."
+    ],
+    [
+      "Dizionario personale",
+      "Personal dictionary"
+    ],
+    [
+      "Addestramento vocale e dizionario personale",
+      "Voice training and personal dictionary"
+    ],
+    [
+      "🎙 Avvia sul display",
+      "🎙 Start on the display"
+    ],
+    [
+      "Cancella dizionario",
+      "Delete dictionary"
+    ],
+    [
+      "Addestramento avviato: segui le istruzioni sul display, davanti al microfono",
+      "Training started: follow the instructions on the display, in front of the microphone"
+    ],
+    [
+      "Cancellare il dizionario vocale di questa persona?",
+      "Delete this person's voice dictionary?"
+    ],
+    [
+      "Dizionario vocale cancellato",
+      "Voice dictionary deleted"
+    ],
+    [
+      "non ancora registrata — usa «Avvia sul display» qui sotto oppure dì «Atena, impara la mia voce» davanti alla webcam",
+      "not registered yet — use «Start on the display» below or say «Atena, learn my voice» in front of the webcam"
+    ],
+    [
+      "Dì il mio nome",
+      "Say my name"
+    ],
+    [
+      "Dì il comando",
+      "Say the command"
+    ],
+    [
+      "Leggi la frase",
+      "Read the sentence"
+    ],
+    [
+      "Passo {0} di {1} · {2}",
+      "Step {0} of {1} · {2}"
+    ],
+    [
+      "Il microfono è un po' troppo alto: allontanati leggermente o abbassalo.",
+      "The microphone is a bit too loud: move back slightly or turn it down."
+    ],
+    [
+      "Ti sento piano: avvicinati un po' al microfono.",
+      "I can barely hear you: move a little closer to the microphone."
+    ],
+    [
+      "Perfetto, {0}: ho imparato la tua voce e come pronunci il mio nome. Ho capito il {1}% delle frasi.",
+      "Perfect, {0}: I learned your voice and how you pronounce my name. I understood {1}% of the phrases."
+    ],
+    [
+      "Ho imparato la tua voce, ma non sono riuscita a salvare il dizionario: riprova più tardi.",
+      "I learned your voice, but I could not save the dictionary: try again later."
     ]
   ],
   "reverse": [
@@ -12529,7 +12633,9 @@
     "Microphone",
     "Sandbox",
     "language preference not saved",
-    "Preferenza del livello del microfono non salvata"
+    "Preferenza del livello del microfono non salvata",
+    "salvataggio non riuscito ({0})",
+    "Addestramento vocale non salvato"
   ],
   "fr": [
     [
@@ -12557,8 +12663,16 @@
       "Connexion requise"
     ],
     [
+      "Addestramento avviato: segui le istruzioni sul display, davanti al microfono",
+      "Entraînement lancé : suivez les instructions sur l'écran, devant le microphone"
+    ],
+    [
       "Addestramento con Soup (solo con GPU adatta)",
       "Entraînement avec Soup (uniquement avec un GPU adapté)"
+    ],
+    [
+      "Addestramento vocale e dizionario personale",
+      "Entraînement vocal et dictionnaire personnel"
     ],
     [
       "Agente con strumenti: file, widget, ologramma, 3D, email, SMB, terminale (1/0)",
@@ -12725,6 +12839,14 @@
       "Titre, artiste et album de la musique en cours d'écoute"
     ],
     [
+      "Cancella dizionario",
+      "Supprimer le dictionnaire"
+    ],
+    [
+      "Cancellare il dizionario vocale di questa persona?",
+      "Supprimer le dictionnaire vocal de cette personne ?"
+    ],
+    [
       "Carica il file .onnx (facoltativo)",
       "Téléversez le fichier .onnx (facultatif)"
     ],
@@ -12853,6 +12975,14 @@
       "Commandes gestuelles : mains reconnues (1/2)"
     ],
     [
+      "Come l'ha capita ATENA",
+      "Ce qu'ATENA a compris"
+    ],
+    [
+      "Come pronuncia «Atena»",
+      "Comment elle prononce «Atena»"
+    ],
+    [
       "Come ti chiami?",
       "Comment vous appelez-vous ?"
     ],
@@ -12969,6 +13099,14 @@
       "Écran holographique"
     ],
     [
+      "Dizionario personale",
+      "Dictionnaire personnel"
+    ],
+    [
+      "Dizionario vocale cancellato",
+      "Dictionnaire vocal supprimé"
+    ],
+    [
       "Docker Engine e isolamento dei servizi",
       "Docker Engine et isolation des services"
     ],
@@ -12999,6 +13137,14 @@
     [
       "Driver video del display: auto (NVIDIA ufficiale se adatto), nouveau (libero)",
       "Pilote vidéo de l'écran : auto (NVIDIA officiel si adapté), nouveau (libre)"
+    ],
+    [
+      "Dì il comando",
+      "Dites la commande"
+    ],
+    [
+      "Dì il mio nome",
+      "Dites mon nom"
     ],
     [
       "Email in uscita: mittente (vuoto = utente SMTP)",
@@ -13057,6 +13203,14 @@
       "Fournisseur STT en ligne (deepgram, groq, openai, gemini)"
     ],
     [
+      "Frase da dire",
+      "Phrase à dire"
+    ],
+    [
+      "Frasi capite",
+      "Phrases comprises"
+    ],
+    [
       "Funzionalità sconosciuta",
       "Fonctionnalité inconnue"
     ],
@@ -13085,6 +13239,10 @@
       "Matériel, réseau et choix des réseaux neuronaux"
     ],
     [
+      "Ho imparato la tua voce, ma non sono riuscita a salvare il dizionario: riprova più tardi.",
+      "J'ai appris votre voix, mais je n'ai pas pu enregistrer le dictionnaire : réessayez plus tard."
+    ],
+    [
       "Ho salvato le tue scelte. Le parti più pesanti continuano a installarsi in background: puoi seguirle dal widget in basso.",
       "J'ai enregistré vos choix. Les parties les plus lourdes continuent de s'installer en arrière-plan : vous pouvez les suivre depuis le widget en bas."
     ],
@@ -13107,6 +13265,14 @@
     [
       "Il file non è un modello ONNX valido",
       "Le fichier n'est pas un modèle ONNX valide"
+    ],
+    [
+      "il microfono era troppo alto",
+      "le microphone était trop fort"
+    ],
+    [
+      "Il microfono è un po' troppo alto: allontanati leggermente o abbassalo.",
+      "Le microphone est un peu trop fort : éloignez-vous légèrement ou baissez-le."
     ],
     [
       "Il modello deve essere un file .onnx tra 1 KB e 20 MB",
@@ -13253,12 +13419,20 @@
       "La première configuration est déjà terminée : utilisez le panneau d'administration"
     ],
     [
+      "la voce arrivava troppo bassa",
+      "la voix arrivait trop faible"
+    ],
+    [
       "Latitudine della posizione predefinita",
       "Latitude de la position par défaut"
     ],
     [
       "Leggero e veloce anche su computer piccoli. Serve una chiave API.",
       "Léger et rapide même sur de petits ordinateurs. Nécessite une clé API."
+    ],
+    [
+      "Leggi la frase",
+      "Lisez la phrase"
     ],
     [
       "LibreOffice, caratteri e librerie per documenti Office, ODF e PDF",
@@ -13283,6 +13457,10 @@
     [
       "Livello automatico del microfono",
       "Niveau automatique du microphone"
+    ],
+    [
+      "livello del microfono corretto",
+      "niveau du microphone correct"
     ],
     [
       "Livello vocale obiettivo dell'autolivellamento (0.03 - 0.2)",
@@ -13397,6 +13575,10 @@
       "Dans le cloud"
     ],
     [
+      "Nessuna variante: il nome viene capito correttamente.",
+      "Aucune variante : le nom est bien compris."
+    ],
+    [
       "No, mai",
       "Non, jamais"
     ],
@@ -13407,6 +13589,14 @@
     [
       "Nome dell'utente principale (come Atena ti chiama)",
       "Nom de l'utilisateur principal (comme Atena vous appelle)"
+    ],
+    [
+      "Non ancora addestrata. Premi «Avvia sul display»: sul display comparirà una breve sequenza da ripetere (il nome «Atena», alcuni comandi e qualche frase). ATENA impara il timbro della voce e il modo in cui questa persona pronuncia il suo nome e i comandi.",
+      "Pas encore entraînée. Appuyez sur «Lancer sur l'écran» : une courte séquence à répéter apparaîtra sur l'écran (le nom «Atena», quelques commandes et quelques phrases). ATENA apprend le timbre de la voix et la façon dont cette personne prononce son nom et les commandes."
+    ],
+    [
+      "non ancora registrata — usa «Avvia sul display» qui sotto oppure dì «Atena, impara la mia voce» davanti alla webcam",
+      "pas encore enregistrée — utilisez «Lancer sur l'écran» ci-dessous ou dites «Atena, apprends ma voix» devant la webcam"
     ],
     [
       "Non installo da sola componenti con licenza non commerciale.",
@@ -13457,6 +13647,10 @@
       "Paquet inconnu ou non supprimable"
     ],
     [
+      "Passo {0} di {1} · {2}",
+      "Étape {0} sur {1} · {2}"
+    ],
+    [
       "Password dell'utente atena-share per la cartella condivisa",
       "Mot de passe de l'utilisateur atena-share pour le dossier partagé"
     ],
@@ -13475,6 +13669,10 @@
     [
       "Percezione",
       "Perception"
+    ],
+    [
+      "Perfetto, {0}: ho imparato la tua voce e come pronunci il mio nome. Ho capito il {1}% delle frasi.",
+      "Parfait, {0} : j'ai appris votre voix et votre façon de prononcer mon nom. J'ai compris {1} % des phrases."
     ],
     [
       "Piacere, sono Atena",
@@ -13785,6 +13983,10 @@
       "Temps de phase"
     ],
     [
+      "Ti sento piano: avvicinati un po' al microfono.",
+      "Je vous entends à peine : rapprochez-vous un peu du microphone."
+    ],
+    [
       "Tocca il pulsante per ascoltarla. Se la voce non è ancora installata, la potrai ascoltare tra poco.",
       "Touchez le bouton pour l'écouter. Si la voix n'est pas encore installée, vous pourrez l'écouter dans un instant."
     ],
@@ -13847,6 +14049,10 @@
     [
       "Ufficio",
       "Bureautique"
+    ],
+    [
+      "Ultimo addestramento",
+      "Dernier entraînement"
     ],
     [
       "Un momento: sto ancora parlando",
@@ -13967,6 +14173,10 @@
     [
       "{0}% · {1} core",
       "{0} % · {1} cœurs"
+    ],
+    [
+      "🎙 Avvia sul display",
+      "🎙 Lancer sur l'écran"
     ]
   ]
 }

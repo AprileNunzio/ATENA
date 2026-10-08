@@ -243,7 +243,7 @@
   function voiceSection(p) {
     const vp = p.voiceprint || {};
     const vs = vp.enrolled ? `✓ registrata (${vp.samples} campioni${vp.updated ? `, ultimo ${new Date(vp.updated * 1000).toLocaleDateString("it-IT")}` : ""})`
-      : vp.samples ? `in corso: ${vp.samples} campioni raccolti` : "non ancora registrata — dì «Atena, impara la mia voce» davanti alla webcam";
+      : vp.samples ? `in corso: ${vp.samples} campioni raccolti` : "non ancora registrata — usa «Avvia sul display» qui sotto oppure dì «Atena, impara la mia voce» davanti alla webcam";
     return `<div class="form-grid">
         <div><label>Voce di Atena per questa persona</label><select data-voice="tts_voice"><option value="">Predefinita di sistema</option>
           ${Object.entries(peopleSchema.voices || {}).map(([v, label]) => `<option value="${v}" ${p.voice && p.voice.tts_voice === v ? "selected" : ""}>${fmt.esc(label)}</option>`).join("")}</select></div>
@@ -253,6 +253,11 @@
         <div class="row" style="justify-content:space-between; align-items:center; margin-top:14px">
           <div class="muted-note">Impronta vocale: ${vs}.</div>
           ${vp.enrolled || vp.samples ? '<button class="btn sm danger" id="forget-voice">Cancella impronta vocale</button>' : ""}</div>`;
+  }
+
+  function voiceSectionFull(p) {
+    const base = voiceSection(p);
+    return A.PeopleVoice ? A.PeopleVoice.section(p, base) : base;
   }
 
   function habitsSection(p) {
@@ -267,7 +272,7 @@
 
   function sectionHtml(p) {
     if (currentSection === "gallery") return gallerySection(p);
-    if (currentSection === "voice") return voiceSection(p);
+    if (currentSection === "voice") return voiceSectionFull(p);
     if (currentSection === "habits") return habitsSection(p);
     const sec = peopleSchema.sections.find((s) => s.id === currentSection);
     if (!sec) return "";
@@ -420,6 +425,15 @@
         A.toast("Persona eliminata");
         showOverview();
         loadPeople();
+      } catch (err) {
+        A.toast(err.message, true);
+      }
+      return;
+    }
+
+    if (A.PeopleVoice && (t.id === "train-voice" || t.id === "forget-training")) {
+      try {
+        await A.PeopleVoice.handle(t, currentPerson, () => openPerson(currentPerson));
       } catch (err) {
         A.toast(err.message, true);
       }

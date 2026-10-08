@@ -3,10 +3,10 @@ import re
 import time
 from pathlib import Path
 
-from config import STATE_DIR
+from config import STATE_DIR, read_env
 
 from features.chat import context as request_context
-from features.people import identity
+from features.people import identity, voice_training
 
 PRINTS = Path("/var/lib/atena/voiceprints")
 OFFERS = STATE_DIR / "voice_offers.json"
@@ -14,15 +14,6 @@ OFFER_EVERY = 3 * 86400
 ENROLL = re.compile(r"\b(?:impara|registra|memorizza|riconosci)\b.{0,15}\b(?:la )?mia voce\b|\btest (?:di lettura|vocale)\b",
                     re.I)
 FORGET = re.compile(r"\b(?:dimentica|cancella|elimina)\b.{0,15}\b(?:la )?mia voce\b", re.I)
-SENTENCES = (
-    "Buongiorno Atena, oggi è una splendida giornata per imparare qualcosa di nuovo.",
-    "Il gatto dorme sul divano mentre fuori piove e il vento muove le foglie.",
-    "Vorrei sapere che tempo farà domani pomeriggio e se devo portare l'ombrello.",
-    "Ricordami di comprare il pane, il latte e tre mele verdi al mercato.",
-    "Accendi la luce del soggiorno e abbassa un po' il volume della musica.",
-    "Quanti chilometri ci sono tra Roma e Milano passando per Firenze?",
-    "La mia voce è unica: da oggi mi riconoscerai anche senza guardarmi.",
-)
 
 
 def status(slug: str) -> dict:
@@ -71,5 +62,11 @@ def command(text: str) -> tuple[str, dict] | None:
     if FORGET.search(text):
         forget(slug)
         return f"Fatto, {name}: ho cancellato la sua impronta vocale.", {"mode": "face"}
-    return (f"Perfetto, {name}. Legga ad alta voce le frasi che compaiono sullo schermo, una alla volta, "
-            "con il suo tono normale.", {"mode": "enroll", "slug": slug, "name": name, "sentences": list(SENTENCES)})
+    return (f"Perfetto, {name}. Ripeta ad alta voce le frasi che compaiono sullo schermo, una alla volta, "
+            "con il suo tono normale: imparo la sua voce e come pronuncia il mio nome.", session(profile))
+
+
+def session(profile: dict) -> dict:
+    lang = voice_training.language(profile.get("language") or read_env().get("ATENA_UI_LANG"))
+    return {"mode": "enroll", "train": True, "slug": profile["slug"], "name": identity.first_name(profile), "lang": lang,
+            "plan": voice_training.plan(lang)}

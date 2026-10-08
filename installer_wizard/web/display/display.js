@@ -112,6 +112,7 @@
     renderPresence(s.presence);
     guardPersonal();
     handleGreeting(s.greeting);
+    if (D.Enroll) D.Enroll.fromState(s.voice_training);
     D.onAudioRev(s.audio_rev);
     D.Ear.resetFrom(s.mic_reset);
     AtenaDesk.setScreens(s.screens);

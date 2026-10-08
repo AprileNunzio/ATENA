@@ -51,7 +51,7 @@ def quality(faces: Path, slug: str) -> int:
 
 
 async def associate(from_slug: str, to_slug: str) -> dict:
-    target = people.get(to_slug)
+    target = people.load(to_slug)
     if not target:
         raise HTTPException(404, "Persona di destinazione non trovata")
     if people.slugify(from_slug) == people.slugify(to_slug):

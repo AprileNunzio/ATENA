@@ -16,7 +16,7 @@ for noisy in ("websockets", "faster_whisper"):
 import earconf
 import enhance
 import stt
-from learner import learner
+from learner import learner, name_variant
 from music import MusicTap
 from recorder import Recorder, write_chunk
 from reviewer import Reviewer, activity
@@ -211,7 +211,7 @@ class Session:
             return
         clean = await asyncio.to_thread(enhance.clean, audio, self.profile)
         if self.enroll is not None:
-            await self._enroll_sample(clean)
+            await self._enroll_sample(clean, audio)
             return
         if not attentive and self.waiting >= 2:
             return
@@ -287,13 +287,23 @@ class Session:
         await self.send(type="wake_only")
         await self.set_mode("listening")
 
-    async def _enroll_sample(self, clean: np.ndarray) -> None:
-        emb = await asyncio.to_thread(voiceprints.embed, clean)
-        if emb is None:
-            await self.send(type="enroll_progress", count=self.enroll["count"], ok=False)
+    async def _enroll_sample(self, clean: np.ndarray, raw: np.ndarray) -> None:
+        emb = await asyncio.to_thread(voiceprints.embed, clean) if voiceprints.ready else None
+        if emb is not None:
+            self.enroll["count"] = await asyncio.to_thread(voiceprints.add, self.enroll["slug"], emb, "lettura")
+        if not self.enroll.get("train"):
+            await self.send(type="enroll_progress", count=self.enroll["count"], ok=emb is not None)
             return
-        self.enroll["count"] = await asyncio.to_thread(voiceprints.add, self.enroll["slug"], emb, "lettura")
-        await self.send(type="enroll_progress", count=self.enroll["count"], ok=True)
+        async with stt.lock:
+            heard, _ = await asyncio.to_thread(stt.transcribe, clean, False, True)
+        variant = name_variant(heard) if self.enroll.get("expect") in ("wake", "command") else None
+        taught = bool(variant) and learner.teach(variant)
+        peak = float(np.abs(raw).max()) if len(raw) else 0.0
+        level = {"rms": round(float(np.sqrt(np.mean(raw * raw))) if len(raw) else 0.0, 4), "peak": round(peak, 4),
+                 "clipping": round(float(np.mean(np.abs(raw) >= 0.985)) if len(raw) else 0.0, 4),
+                 "advice": self.autolevel.status()["advice"]}
+        await self.send(type="enroll_progress", count=self.enroll["count"], ok=bool(heard) or emb is not None,
+                        heard=heard, variant=variant, taught=taught, level=level)
 
     async def _transcribe_raw(self) -> None:
         pcm, self.raw = b"".join(self.raw or []), None
@@ -322,11 +332,15 @@ class Session:
             self.alone = alone if SLUG_RE.match(alone) else None
         elif kind == "enroll_start":
             slug = str(msg.get("slug") or "")
-            if voiceprints.ready and SLUG_RE.match(slug):
-                self.enroll = {"slug": slug, "count": voiceprints.count(slug)}
+            if SLUG_RE.match(slug) and (voiceprints.ready or msg.get("train")):
+                count = voiceprints.count(slug) if voiceprints.ready else 0
+                self.enroll = {"slug": slug, "count": count, "train": bool(msg.get("train")), "expect": ""}
                 await self.send(type="enroll_progress", count=self.enroll["count"], ok=True)
             else:
                 await self.send(type="enroll_unavailable")
+        elif kind == "enroll_expect" and self.enroll is not None:
+            expect = str(msg.get("kind") or "")
+            self.enroll["expect"] = expect if expect in ("wake", "command", "reading") else ""
         elif kind == "enroll_stop":
             done, self.enroll = self.enroll, None
             await self.send(type="enroll_done", count=(done or {}).get("count", 0))

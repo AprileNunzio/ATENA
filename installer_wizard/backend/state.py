@@ -49,6 +49,7 @@ class Store:
         self.privacy: dict = {"enabled": True, "away": False, "voice_s": 30}
         self.pipeline_failed = False
         self.greeting: dict = {}
+        self.voice_training: dict = {}
         self.now_playing: dict = {}
         self.audio_rev = ""
         self.study: dict = {}
@@ -129,6 +130,7 @@ class Store:
             "presence": self.presence,
             "privacy": self.privacy,
             "greeting": self.greeting,
+            "voice_training": self.voice_training,
             "now_playing": self.now_playing,
             "audio_rev": self.audio_rev,
             "study": self.study,

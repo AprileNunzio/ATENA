@@ -30,6 +30,17 @@ def _lev(a: str, b: str) -> int:
     return prev[-1]
 
 
+GREETINGS = frozenset({"hey", "hei", "hej", "ehi", "ehy", "eh", "ei", "e", "hi", "ok", "okay", "dis", "salut"})
+
+
+def name_variant(text: str) -> str | None:
+    tokens = [w for w in (_plain(t) for t in TOKEN_RE.findall(text or "")) if w not in GREETINGS][:3]
+    candidates = tokens + [a + b for a, b in zip(tokens, tokens[1:]) if len(a) <= 3]
+    scored = sorted((_lev(c, NAME), c) for c in candidates
+                    if 3 <= len(c) <= 10 and not any(blocked in c for blocked in NOT_NAMES))
+    return scored[0][1] if scored and scored[0][0] <= 2 else None
+
+
 class Learner:
 
     def __init__(self) -> None:
@@ -136,6 +147,16 @@ class Learner:
         self.data["variants"][word] = self.data["variants"].get(word, 0) + 1
         self.data["stats"]["learned"] += 1
         self.save()
+        return True
+
+    def teach(self, word: str) -> bool:
+        word = _plain(word)
+        if not 3 <= len(word) <= 10 or word in NOT_NAMES or _lev(word, NAME) > 3:
+            return False
+        self.data["variants"][word] = max(2, self.data["variants"].get(word, 0) + 1)
+        self.data["stats"]["learned"] += 1
+        self.save(force=True)
+        log.info("Variante «%s» per Atena insegnata durante l'addestramento vocale", word)
         return True
 
     def on_review(self, missed: int, false_instant: int) -> None:

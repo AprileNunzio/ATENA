@@ -1,21 +1,25 @@
 import os
 import re
+import secrets
 import shutil
+import time
 from pathlib import Path
 
 from fastapi import APIRouter, Depends, HTTPException, Request, Response
 
-from access import require_admin
+from access import require_admin, require_display
 from config import DEMO, STATE_DIR
 from core_client import core
 from features.chat import voice_id
-from features.people import faces, people
+from features.people import faces, people, voice_training
 from features.vision.proxy import vision_proxy
 from features.voices.catalog import VOICES
 from state import store
 from tasks import background
 
 admin_routes = APIRouter()
+public_routes = APIRouter()
+TRAINING_BODY_LIMIT = 65536
 FACES = Path(os.environ.get("ATENA_FACES_DIR", str(STATE_DIR / "faces")))
 
 
@@ -103,6 +107,49 @@ async def admin_person_update(slug: str, request: Request, _: str = Depends(requ
         raise HTTPException(400, str(exc))
     background(sync_person_neuron(slug))
     return {"ok": True, "updated_at": p["updated_at"]}
+
+
+@admin_routes.post("/api/people/{slug}/voice-training/start")
+async def admin_voice_training_start(slug: str, user: str = Depends(require_admin)):
+    profile = people.load(slug)
+    if not profile:
+        raise HTTPException(404, "Persona non trovata")
+    store.voice_training = {"id": secrets.token_hex(6), "at": time.time(), **voice_id.session(profile)}
+    store.touch()
+    store.event("INFO", f"Addestramento vocale di {profile['name']} avviato sul display da {user}", "people")
+    return store.voice_training
+
+
+@admin_routes.delete("/api/people/{slug}/voice-training")
+async def admin_voice_training_forget(slug: str, user: str = Depends(require_admin)):
+    profile = people.load(slug)
+    if not profile:
+        raise HTTPException(404, "Persona non trovata")
+    profile.pop("voice_training", None)
+    people.save(profile)
+    store.event("INFO", f"Dizionario vocale cancellato: {slug} (da {user})", "people")
+    return {"ok": True}
+
+
+@public_routes.post("/api/people/{slug}/voice-training")
+async def display_voice_training_save(slug: str, request: Request):
+    require_display(request)
+    if int(request.headers.get("content-length") or 0) > TRAINING_BODY_LIMIT:
+        raise HTTPException(413, "Richiesta troppo grande")
+    body = await request.json()
+    if not isinstance(body, dict):
+        raise HTTPException(400, "Richiesta non valida")
+    try:
+        result = voice_training.record(slug, body.get("lang"), body.get("answers"))
+    except LookupError:
+        raise HTTPException(404, "Persona non trovata")
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+    if store.voice_training.get("slug") == people.slugify(slug):
+        store.voice_training = {}
+        store.touch()
+    store.event("INFO", f"Addestramento vocale di {slug} completato: {result['score']}% riconosciuto", "people")
+    return result
 
 
 @admin_routes.delete("/api/people/{slug}/voiceprint")
