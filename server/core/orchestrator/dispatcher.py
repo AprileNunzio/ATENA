@@ -31,10 +31,38 @@ class OrchestratorDispatcher:
         device_id: str,
         biometric_score: float,
         context_override: Optional[Dict[str, Any]] = None,
-    ) -> AgentTaskResponse:
         from server.features.project_workspace.manager import project_manager
         
         response = await self._internal_dispatch(raw_query, speaker_id, device_id, biometric_score, context_override)
+        
+        state = project_manager.get_active(speaker_id)
+        if state and state.is_active and response and response.status == "SUCCESS" and not response.result_data.get("closed"):
+            from server.features.llm_gateway.gateway import llm_gateway
+            from server.features.llm_gateway.contracts import LLMRequest, LLMMessage
+            
+            prompt = (
+                "Stiamo lavorando a un progetto software insieme. Sei il mio collega sviluppatore Senior, ironico, "
+                "brillante e complice. "
+                f"La mia richiesta era: '{raw_query}'. "
+                f"Esito del sistema tecnico: '{response.speech_output}'. "
+                "Rispondi direttamente a me, dandomi del 'tu', confermando che il lavoro è fatto o le modifiche "
+                "sono state apportate ai file. Fai una battuta scherzosa, proponi idee moderne, prendimi un po' "
+                "in giro bonariamente se ho chiesto cose desuete (es. puro HTML invece di React/PHP/Rust), ridi con "
+                "'ahhahaha' e condividi un consiglio tecnico veloce. Sii collaborativo. Max 2-3 frasi fluide e umane. "
+                "Nessun preambolo, parla direttamente come un collega."
+            )
+            try:
+                banter = await llm_gateway.generate_completion(LLMRequest(
+                    model_name=response.agent_id if "coder" in response.agent_id else "qwen2.5-coder:7b",
+                    component="project_banter",
+                    messages=[LLMMessage(role="user", content=prompt)],
+                    temperature=0.8
+                ))
+                if banter and banter.content:
+                    response.speech_output = banter.content
+            except Exception:
+                pass
+
         if response and response.speech_output:
             project_manager.add_response(speaker_id, response.speech_output)
         return response
