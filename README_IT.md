@@ -16,7 +16,7 @@
     ██╔══██║   ██║   ██╔══╝  ██║╚██╗██║██╔══██║
     ██║  ██║   ██║   ███████╗██║ ╚████║██║  ██║
     ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝
-    DISTRIBUTED AI OPERATING SYSTEM - ENTERPRISE v4
+    DISTRIBUTED AI OPERATING SYSTEM - ENTERPRISE v4.0.0
          Progettato e sviluppato da NunzioTech
 ```
 
@@ -27,7 +27,14 @@ niente abbonamenti, niente funzioni a pagamento, nessun dato venduto. Ogni riga 
 
 Se Atena gestisce la tua casa, ti aiuta a studiare o semplicemente ti strappa un sorriso, **una donazione è ciò che lo fa crescere**:
 copre l'hardware di prova (telecamere, schede ESP32, GPU), i crediti dei modelli cloud per lo sviluppo e le tante ore necessarie
-per le nuove funzionalità. Anche un caffè fa la differenza, e ogni contributo diventa un'Atena più potente per tutti.
+per le nuove funzionalità. Anche un caffè fa la differenza, e ogni contributo diventa un'Atena più potente per tutti..
+
+## 🚀 Novità nella Versione 4.0.0
+
+Atena 4.0.0 introduce potenti innovazioni per l'automazione IT e l'interattività dell'interfaccia:
+- **Integrazione Nativa con Proxmox**: Atena è ora un'esperta amministratrice di Proxmox VE. Grazie al nuovo modulo proxmox_manager, può comunicare con le API del tuo hypervisor per gestire macchine virtuali e container LXC, interrogare lo stato di salute, effettuare diagnostiche avanzate ed eseguire operazioni di manutenzione.
+- **Widget UI Dinamici**: Non solo risposte testuali e vocali; l'agente SysOps è ora in grado di generare dashboard e widget HTML interattivi in tempo reale sulla base dei dati estratti dai tuoi sistemi, visualizzandoli elegantemente con Tailwind CSS direttamente all'interno dell'interfaccia chat.
+- **SysOps Automation Avanzata**: Espansione delle capacità dell'agente di automazione di sistema per gestire task complessi, con ragionamento autonomo (ReAct) e validazione integrata tramite l'engine di *self-critique*.
 
 <p align="center">
   <a href="https://www.paypal.com/paypalme/NunzioAprile">
@@ -1323,14 +1330,14 @@ La scheda **Telecamere** dell'admin riunisce webcam locali, sensore infrarosso e
 | **Dal vivo** | Griglia con l'anteprima di ogni sorgente, ingrandimento a tutto schermo, foto con un clic |
 | **Aggiungi** | Ricerca in rete (annunci ONVIF e porte RTSP 554/8554 su una rete privata fino a 256 indirizzi), modelli per Hikvision, Dahua/Amcrest/Imou, Reolink, Tapo, Foscam, Axis, Ezviz, UniFi, Wyze e generica, prova della connessione con diagnosi (password, percorso, porta, rete) |
 | **Opzioni per telecamera** | Nome, stanza, rotazione 0/90/180/270, specchio, fluidità, larghezza, preferita, nascosta a display e voce |
-| **Controlli webcam** | Luminosità, contrasto, esposizione, bilanciamento del bianco e ogni controllo V4L2 della periferica; ricordati e riapplicati a ogni avvio |
+| **Controlli webcam** | Luminosità, contrasto, esposizione, bilanciamento del bianco e ogni controllo v4.0.0L2 della periferica; ricordati e riapplicati a ogni avvio |
 | **Movimento** | Confronto tra due immagini 64×36 ogni `ATENA_CAMERAS_MOTION_EVERY` secondi, sensibilità 1-10, pausa tra gli avvisi `ATENA_CAMERAS_MOTION_COOLDOWN`, foto al movimento opzionale, registro degli eventi; non conserva immagini |
 | **Foto e clip** | Archivio con anteprima, scarico e cancellazione; foto conservate fino a `ATENA_CAMERAS_PHOTOS_MAX`; clip dell'anello di registrazione |
 | **Registrazione** | Anello da 5, 15 o 60 minuti, consenso obbligatorio; anche per le webcam locali, tranne quella in uso dalla visione |
 | **Webcam e infrarosso** | Dispositivi rilevati, immagine infrarossa, configurazione automatica dell'emettitore |
 
-Installazione automatica, senza interventi: `ffmpeg` e `v4l-utils` fanno parte dei pacchetti del passo di sistema, e il passo
-Visione non si considera completo se `v4l2-ctl` manca, quindi gli aggiornamenti li installano da soli anche sui server
+Installazione automatica, senza interventi: `ffmpeg` e `v4.0.0l-utils` fanno parte dei pacchetti del passo di sistema, e il passo
+Visione non si considera completo se `v4.0.0l2-ctl` manca, quindi gli aggiornamenti li installano da soli anche sui server
 già in funzione. Se l'immagine infrarossa resta al buio per più di un minuto, Atena scarica lo strumento
 dell'emettitore (versione fissa con impronta SHA-256), prova i nodi infrarossi, verifica dai fotogrammi che la luce
 sia accesa e la rende permanente; ritenta su una stessa webcam al massimo una volta a settimana, e si può spegnere
@@ -2788,3 +2795,4 @@ in un'attività e `ATENA_UNOFFICIAL_SERVICES=1` solo se accetti i termini dei se
 attribuzioni e limiti: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 *ATENA significa Architettura Tecnologica ed Ecosistema Neurale Aprile. Atena OS è un progetto indipendente.*
+

@@ -1,5 +1,12 @@
 # A.T.E.N.A. - Distributed AI Operating System
 
+## 🚀 What's New in Version 4.0.0
+
+Atena 4.0.0 introduces powerful innovations for IT automation and UI interactivity:
+- **Native Proxmox Integration**: Atena is now an expert Proxmox VE administrator. Thanks to the new proxmox_manager module, it can communicate with your hypervisor's APIs to manage virtual machines and LXC containers, query health status, perform advanced diagnostics, and execute maintenance operations.
+- **Dynamic UI Widgets**: Not just text and voice responses; the SysOps agent is now capable of generating interactive HTML dashboards and widgets in real-time based on data extracted from your systems, elegantly displaying them using Tailwind CSS directly within the chat interface.
+- **Advanced SysOps Automation**: Expanded capabilities of the system automation agent to handle complex tasks, featuring autonomous reasoning (ReAct) and built-in validation via a *self-critique* engine.
+
 <p align="center">
   <img src="https://img.shields.io/badge/Architecture-Clean%20Architecture-00f0ff?style=for-the-badge" alt="Clean Architecture">
   <img src="https://img.shields.io/badge/Security-Zero%20Trust%20Wasm-red?style=for-the-badge" alt="Zero Trust">
@@ -16,7 +23,7 @@
     ██╔══██║   ██║   ██╔══╝  ██║╚██╗██║██╔══██║
     ██║  ██║   ██║   ███████╗██║ ╚████║██║  ██║
     ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═╝
-    DISTRIBUTED AI OPERATING SYSTEM - ENTERPRISE v4
+    DISTRIBUTED AI OPERATING SYSTEM - ENTERPRISE v4.0.0
          Designed and developed by NunzioTech
 ```
 
@@ -1204,13 +1211,13 @@ The **Cameras** tab of the admin brings together local webcams, infrared sensor 
 | **Live** | Grid with preview of each source, fullscreen enlargement, one-click photo |
 | **Add** | Network search (ONVIF announcements and RTSP 554/8554 ports on a private network up to 256 addresses), templates for Hikvision, Dahua/Amcrest/Imou, Reolink, Tapo, Foscam, Axis, Ezviz, UniFi, Wyze and generic, connection test with diagnosis (password, path, port, network) |
 | **Camera options** | Name, room, rotation 0/90/180/270, mirror, smoothness, width, favorite, hidden from display and voice |
-| **Webcam controls** | Brightness, contrast, exposure, white balance and every V4L2 control of the device; remembered and reapplied at each startup |
+| **Webcam controls** | Brightness, contrast, exposure, white balance and every v4.0.0L2 control of the device; remembered and reapplied at each startup |
 | **Motion** | Comparison between two 64×36 images every `ATENA_CAMERAS_MOTION_EVERY` seconds, sensitivity 1-10, pause between alerts `ATENA_CAMERAS_MOTION_COOLDOWN`, optional photo on motion, event log; does not keep images |
 | **Photos and clips** | Archive with preview, download and deletion; photos kept up to `ATENA_CAMERAS_PHOTOS_MAX`; clips from the recording ring |
 | **Recording** | 5, 15 or 60 minute ring, mandatory consent; also for local webcams, except the one used by vision |
 | **Webcams and infrared** | Detected devices, infrared image, automatic configuration of the emitter |
 
-Automatic installation, without intervention: `ffmpeg` and `v4l-utils` are part of the system step packages, and the Vision step is not considered complete if `v4l2-ctl` is missing, so updates install them on their own even on running servers. If the infrared image stays dark for more than a minute, Atena downloads the emitter tool (fixed version with SHA-256 fingerprint), tests the infrared nodes, verifies from the frames that the light is on and makes it permanent; it retries on the same webcam at most once a week, and can be turned off with `ATENA_IR_AUTO=0`. The emitter service, if configured but stopped, is reactivated.
+Automatic installation, without intervention: `ffmpeg` and `v4.0.0l-utils` are part of the system step packages, and the Vision step is not considered complete if `v4.0.0l2-ctl` is missing, so updates install them on their own even on running servers. If the infrared image stays dark for more than a minute, Atena downloads the emitter tool (fixed version with SHA-256 fingerprint), tests the infrared nodes, verifies from the frames that the light is on and makes it permanent; it retries on the same webcam at most once a week, and can be turned off with `ATENA_IR_AUTO=0`. The emitter service, if configured but stopped, is reactivated.
 
 Security: search and test only accept private addresses and reject others; search requires explicit confirmation; URLs with credentials never leave the API (error messages with obscured credentials); the public display never serves hidden sources nor infrared; photos and clips are only read with names validated against path traversal. With voice or from an agent: list, open and close, `camera_photo`, `camera_motion`, `camera_events`, `camera_overview`. APIs in `GET /api/cameras/overview`, `PUT /api/cameras/source/{id}/options|record|controls`, `POST /api/cameras/discover|probe|presets/build`, `/api/cameras/source/{id}/photo(s)`, `/api/cameras/clips/{id}`, `GET|DELETE /api/cameras/events`.
 
@@ -2603,3 +2610,6 @@ and `ATENA_UNOFFICIAL_SERVICES=1` only if you accept the terms of unofficial ser
 restrictions: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 *ATENA stands for Architettura Tecnologica ed Ecosistema Neurale Aprile. Atena OS is an independent project.*
+
+
+
