@@ -20,6 +20,7 @@ from permissions.policy import Policy
 from senses import places
 from senses.windows import Focus
 from settings import autostart, paths, store
+from updates.updater import Updater
 
 log = logging.getLogger("atena")
 
@@ -47,6 +48,7 @@ class Assistant:
         self.heartbeat = Heartbeat(self.client, self._report, self._on_reply,
                                    lambda: self.ui.dispatch.post(self.unpair, True), self._security)
         self.backup = BackupScheduler(cfg, self.snapshots, lambda text: self.ui.dispatch.post(self.ui.note, text))
+        self.updater = Updater(lambda text: self.ui.dispatch.post(self.ui.note, text), self.quit)
         self.hotkeys: list = []
         if self.policy.tampered:
             self.ui.alert("⚠ Il file dei permessi era stato modificato fuori da ATENA: ho ripristinato i valori sicuri.")
@@ -78,6 +80,8 @@ class Assistant:
                 self.voice.answer("Sono qui, su questo computer.", None, False)
             elif command == "restart":
                 self.restart()
+            elif command == "update":
+                self.updater.check_now()
 
     def _security(self, message: str) -> None:
         log.error(message)
@@ -113,6 +117,7 @@ class Assistant:
         self.voice.start()
         self.heartbeat.start()
         self.backup.start()
+        self.updater.start()
         self._bind_hotkeys()
         self.ui.run()
 
@@ -134,5 +139,6 @@ class Assistant:
         self.voice.stop()
         self.heartbeat.stop()
         self.backup.stop()
+        self.updater.stop()
         self.ui.quit()
         os._exit(0)

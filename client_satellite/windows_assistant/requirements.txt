@@ -8,3 +8,4 @@ opencv-python-headless>=4.8
 uiautomation>=2.0.18
 keyboard>=0.13.5
 pyperclip>=1.8
+cryptography>=42

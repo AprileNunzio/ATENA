@@ -12347,6 +12347,18 @@
     [
       "Come il sistema",
       "Same as the system"
+    ],
+    [
+      "Installer per Windows 10/11: non serve Python. Si aggiorna da solo con aggiornamenti firmati digitalmente.",
+      "Installer for Windows 10/11: no Python needed. It updates itself with digitally signed updates."
+    ],
+    [
+      "Alternativa per utenti esperti: sorgenti in ZIP (richiede Python)",
+      "Alternative for advanced users: sources as ZIP (requires Python)"
+    ],
+    [
+      "Scarica lo ZIP",
+      "Download the ZIP"
     ]
   ],
   "reverse": [
@@ -12809,6 +12821,10 @@
     [
       "Algoritmi riutilizzabili per calcoli e conversioni (1/0)",
       "Algorithmes réutilisables pour calculs et conversions (1/0)"
+    ],
+    [
+      "Alternativa per utenti esperti: sorgenti in ZIP (richiede Python)",
+      "Alternative pour utilisateurs avancés : sources en ZIP (nécessite Python)"
     ],
     [
       "Altro",
@@ -13515,6 +13531,10 @@
       "Installations en pause"
     ],
     [
+      "Installer per Windows 10/11: non serve Python. Si aggiorna da solo con aggiornamenti firmati digitalmente.",
+      "Installateur pour Windows 10/11 : Python n'est pas nécessaire. Il se met à jour tout seul avec des mises à jour signées numériquement."
+    ],
+    [
       "Installo solo quello che scegli. Il resto lo aggiungo quando me lo chiedi, anche a voce.",
       "J'installe uniquement ce que vous choisissez. J'ajoute le reste quand vous me le demandez, même à voix haute."
     ],
@@ -14017,6 +14037,10 @@
     [
       "Scarica da solo la voce di una lingua nuova quando serve (1/0)",
       "Télécharge elle-même la voix d'une nouvelle langue quand il le faut (1/0)"
+    ],
+    [
+      "Scarica lo ZIP",
+      "Télécharger le ZIP"
     ],
     [
       "Scegli la mia voce",

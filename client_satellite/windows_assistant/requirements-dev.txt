@@ -1,2 +1,2 @@
 -r requirements.txt
-cryptography>=42
+pyinstaller>=6.6

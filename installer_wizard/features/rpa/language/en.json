@@ -11,7 +11,8 @@
   ],
   "settings": {
     "ATENA_RPA_DOWNLOAD_LINK": "Download the ATENA Assistant for Windows (.ZIP)",
-    "ATENA_RPA_DASHBOARD_LINK": "Remote Control Dashboard (add IP, password and check status)"
+    "ATENA_RPA_DASHBOARD_LINK": "Remote Control Dashboard (add IP, password and check status)",
+    "ATENA_RPA_DOWNLOAD_ZIP": "Alternative for advanced users: sources as ZIP (requires Python)"
   },
   "guide": [
     {
@@ -22,28 +23,28 @@
     {
       "title": "Before you start: what you need",
       "steps": [
-        "A Windows 10 or 11 PC on the same network (same Wi-Fi or router) as the computer running ATENA.",
-        "Python 3.10 or newer on the Windows PC. If missing, the launcher opens the download page itself: during setup tick \"Add Python to PATH\" (very important).",
+        "A Windows 10 or 11 PC (64-bit) on the same network (same Wi-Fi or router) as the computer running ATENA.",
+        "No need to install Python or other programs: the installer already contains everything.",
         "Optional but recommended: microphone and speakers (or headphones) to talk to ATENA, a webcam if you want it to be able to look at you."
       ]
     },
     {
       "title": "Download and install the assistant",
       "steps": [
-        "From the Windows PC open this page and press \"Download the Windows Assistant\".",
-        "Open Downloads, right-click ATENA_Assistente_Windows.zip → \"Extract All…\". Choose a short path, e.g. C:/ATENA (very long paths can cause errors).",
-        "In the extracted folder double-click Start_ATENA_Assistente.bat. If the blue \"Windows protected your PC\" warning appears, click \"More info\" and then \"Run anyway\".",
-        "The first time a black window prepares the components: it takes 1-3 minutes. Later starts are instant."
+        "From the Windows PC open this page and press «Download the Windows Assistant»: you get ATENA_Assistente_Setup.exe.",
+        "Open the downloaded file. If the blue «Windows protected your PC» warning appears, click «More info» and then «Run anyway».",
+        "Follow the setup: no administrator rights are needed and ATENA installs only for your user, with a Start menu shortcut.",
+        "Later updates arrive by themselves: ATENA installs them only if they are digitally signed by the developer."
       ],
-      "tip": "If Windows asks to allow Python network access, choose \"Private networks\" and press \"Allow\"."
+      "tip": "If Windows asks to allow ATENA network access, choose «Private networks» and press «Allow»."
     },
     {
       "title": "Connect the PC to ATENA (with a code)",
       "steps": [
-        "In the ATENA admin panel open Features → Nodes and servers and press \"+ Add a node\": a 6-digit code valid for a few minutes appears.",
-        "In the \"Collega questo PC ad ATENA\" window the ATENA address is already filled in. Type the code and a name for the PC (e.g. Studio).",
-        "Keep \"Avvia ATENA all'accensione del PC\" ticked if you want it to always start by itself, then press \"Collega\".",
-        "The glowing orb appears bottom right: ATENA is ready. The PC also shows up in the Nodes list."
+        "In the ATENA admin panel open Features → Nodes and servers and press «+ Add a node»: a 6-digit code and ATENA's certificate fingerprint appear.",
+        "In the «Collega questo PC ad ATENA» window type ATENA's address (e.g. 192.168.1.100) and press «Verifica».",
+        "Check that the fingerprint shown is identical to the one in the panel and tick «L'impronta coincide»: this way you are sure you are talking to your ATENA and not to an intruder on the network.",
+        "Type the code and a name for the PC, then press «Collega». The glowing orb appears bottom right: ATENA is ready."
       ]
     },
     {
@@ -69,36 +70,38 @@
       ]
     },
     {
-      "title": "Privacy and security",
+      "title": "Privacy, permissions and security",
       "steps": [
-        "The microphone sends audio only to ATENA on your network; ATENA wakes only when it hears its name. You can turn off continuous listening in settings (Ctrl+Alt+Space keeps working).",
-        "Screen and webcam are used only when your request needs them: the webcam turns on for an instant and off again. You can forbid it entirely in settings.",
-        "ATENA writes only in your user folder and Windows folders (Documents, Desktop, Downloads…), never deletes anything and asks before replacing an existing file.",
-        "It never starts programs or scripts on its own: it only opens apps from the Start menu.",
-        "To disconnect a PC: right-click the orb → Settings → \"Scollega questo PC\", or remove it from Nodes and servers."
+        "You decide what ATENA can do: right-click the orb → Permissions. For each capability choose «Allow», «Ask every time» or «Never».",
+        "With «Ask every time» ATENA always shows the exact action before running it: the PowerShell command, the script content, the SSH command or the file to change.",
+        "Commands that delete, format or download and run programs always ask for confirmation, even if you chose «Allow».",
+        "ATENA works in your personal folders; add other folders in Permissions. Before changing a file it saves a safety copy.",
+        "Communication with ATENA is encrypted (HTTPS) and bound to the certificate verified at pairing: an intruder on the network cannot pretend to be ATENA.",
+        "Microphone, screen and webcam are used only when needed and you can forbid them in Permissions. To disconnect the PC: Settings → «Scollega questo PC»."
       ]
     },
     {
       "title": "Troubleshooting",
       "steps": [
-        "The black window closes immediately or says Python is missing: install Python from python.org with \"Add Python to PATH\" ticked and run the .bat again.",
-        "\"Invalid or expired pairing code\": generate a new code in Nodes and servers and type it within a few minutes.",
-        "\"ATENA not reachable\": check the PC is on the same network and the address is ATENA's without the admin panel port (e.g. 192.168.1.100).",
+        "«ATENA is reachable only over HTTPS» or «not reachable»: check the PC is on the same network and that ATENA is on and up to date: HTTPS is always active on port 443.",
+        "«Invalid or expired pairing code»: generate a new code in Nodes and servers and type it within a few minutes.",
+        "The fingerprint does not match: do not connect the PC and check the network. If you reinstalled ATENA, the fingerprint changes and reconnecting is normal.",
+        "«The certificate presented is not signed by ATENA's authority»: ATENA was reinstalled or someone is intruding on the network. Reconnect the PC only if you are sure.",
         "The orb is grey or ATENA doesn't hear you: ATENA's listening service may be off; meanwhile you can type by clicking the orb.",
-        "ATENA hears its own voice and interrupts itself: with speakers keep \"Uso le cuffie\" off.",
         "For any other problem the log is in %APPDATA%/ATENA/assistant.log."
       ]
     }
   ],
   "buttons": {
     "ATENA_RPA_DASHBOARD_LINK": "Open PC Dashboard",
-    "ATENA_RPA_DOWNLOAD_LINK": "Download the Windows Assistant"
+    "ATENA_RPA_DOWNLOAD_LINK": "Download the Windows Assistant",
+    "ATENA_RPA_DOWNLOAD_ZIP": "Download the ZIP"
   },
   "help": {
     "ATENA_RPA_PSK": "No need to change it: it's created automatically. Change it only if you know what you're doing.",
     "ATENA_RPA_AUTO_SYNC": "When on, ATENA periodically checks by itself that connected PCs are on and reachable.",
     "ATENA_RPA_DASHBOARD_LINK": "For advanced users: add PCs manually via WinRM or SSH and check whether they are online.",
-    "ATENA_RPA_DOWNLOAD_LINK": "Install it on every Windows PC where you want ATENA. The ZIP already contains this server's address.",
+    "ATENA_RPA_DOWNLOAD_LINK": "Installer for Windows 10/11: no Python needed. It updates itself with digitally signed updates.",
     "ATENA_RPA_NODES": "Leave empty. Only needed for old installations."
   }
 }

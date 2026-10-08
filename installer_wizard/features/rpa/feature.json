@@ -58,7 +58,15 @@
       "default": "/api/rpa/download-client",
       "button": "Scarica l'Assistente per Windows",
       "download": true,
-      "help": "Da installare su ogni PC Windows su cui vuoi ATENA. Lo ZIP contiene già l'indirizzo di questo server."
+      "help": "Installer per Windows 10/11: non serve Python. Si aggiorna da solo con aggiornamenti firmati digitalmente."
+    },
+    {
+      "key": "ATENA_RPA_DOWNLOAD_ZIP",
+      "label": "Alternativa per utenti esperti: sorgenti in ZIP (richiede Python)",
+      "type": "link",
+      "default": "/api/rpa/download-client?format=zip",
+      "button": "Scarica lo ZIP",
+      "download": true
     },
     {
       "key": "ATENA_RPA_NODES",
@@ -77,28 +85,28 @@
     {
       "title": "Prima di iniziare: cosa ti serve",
       "steps": [
-        "Un PC con Windows 10 o 11 nella stessa rete (stesso Wi-Fi o router) del computer su cui gira ATENA.",
-        "Python 3.10 o più recente sul PC Windows. Se non c'è, il programma di avvio apre da solo la pagina di download: durante l'installazione metti la spunta su \"Add Python to PATH\" (molto importante).",
+        "Un PC con Windows 10 o 11 (64 bit) nella stessa rete (stesso Wi-Fi o router) del computer su cui gira ATENA.",
+        "Non serve installare Python né altri programmi: l'installer contiene già tutto.",
         "Facoltativi ma consigliati: microfono e altoparlanti (o cuffie) per parlare con ATENA, una webcam se vuoi che possa guardarti."
       ]
     },
     {
       "title": "Scarica e installa l'assistente",
       "steps": [
-        "Dal PC Windows apri questa pagina e premi \"Scarica l'Assistente per Windows\".",
-        "Apri la cartella Download, clic destro su ATENA_Assistente_Windows.zip → \"Estrai tutto…\". Scegli un percorso breve, ad esempio C:/ATENA (i percorsi molto lunghi possono dare errori).",
-        "Nella cartella estratta fai doppio clic su Start_ATENA_Assistente.bat. Se compare l'avviso blu \"Windows ha protetto il PC\", premi \"Ulteriori informazioni\" e poi \"Esegui comunque\".",
-        "La prima volta si apre una finestra nera che prepara i componenti: ci vogliono 1-3 minuti. Le volte successive l'avvio è immediato."
+        "Dal PC Windows apri questa pagina e premi «Scarica l'Assistente per Windows»: scarichi ATENA_Assistente_Setup.exe.",
+        "Apri il file scaricato. Se compare l'avviso blu «Windows ha protetto il PC», premi «Ulteriori informazioni» e poi «Esegui comunque».",
+        "Segui l'installazione: non servono diritti di amministratore e ATENA si installa solo per il tuo utente, con un collegamento nel menu Start.",
+        "Gli aggiornamenti successivi arrivano da soli: ATENA li installa solo se sono firmati digitalmente dallo sviluppatore."
       ],
-      "tip": "Se Windows chiede di consentire l'accesso alla rete a Python, scegli \"Reti private\" e premi \"Consenti\"."
+      "tip": "Se Windows chiede di consentire l'accesso alla rete ad ATENA, scegli «Reti private» e premi «Consenti»."
     },
     {
       "title": "Collega il PC ad ATENA (con un codice)",
       "steps": [
-        "Sul pannello di amministrazione di ATENA apri Funzionalità → Nodi e server e premi \"+ Aggiungi un nodo\": compare un codice di 6 cifre valido per qualche minuto.",
-        "Nella finestra \"Collega questo PC ad ATENA\" l'indirizzo di ATENA è già compilato. Scrivi il codice e un nome per il PC (ad esempio Studio).",
-        "Lascia la spunta su \"Avvia ATENA all'accensione del PC\" se vuoi che parta sempre da sola, poi premi \"Collega\".",
-        "Compare la sfera luminosa in basso a destra: ATENA è pronta. Il PC appare anche nell'elenco dei Nodi."
+        "Sul pannello di amministrazione di ATENA apri Funzionalità → Nodi e server e premi «+ Aggiungi un nodo»: compare un codice di 6 cifre e l'impronta del certificato di ATENA.",
+        "Nella finestra «Collega questo PC ad ATENA» scrivi l'indirizzo di ATENA (ad esempio 192.168.1.100) e premi «Verifica».",
+        "Controlla che l'impronta mostrata sia identica a quella del pannello e spunta «L'impronta coincide»: così sei sicuro di parlare con il tuo ATENA e non con un intruso in rete.",
+        "Scrivi il codice e un nome per il PC, poi premi «Collega». Compare la sfera luminosa in basso a destra: ATENA è pronta."
       ]
     },
     {
@@ -124,24 +132,25 @@
       ]
     },
     {
-      "title": "Privacy e sicurezza",
+      "title": "Privacy, permessi e sicurezza",
       "steps": [
-        "Il microfono invia l'audio solo ad ATENA nella tua rete; ATENA si attiva solo quando sente il suo nome. Puoi disattivare l'ascolto continuo nelle impostazioni (resta Ctrl+Alt+Spazio).",
-        "Schermo e webcam vengono usati solo quando la tua richiesta lo richiede: la webcam si accende per un istante e si spegne subito. Puoi vietarla del tutto nelle impostazioni.",
-        "ATENA scrive solo nella tua cartella utente e nelle cartelle di Windows (Documenti, Scrivania, Download…), non cancella mai nulla e chiede conferma prima di sostituire un file esistente.",
-        "Non avvia mai programmi o script da sola: apre solo le app presenti nel menu Start.",
-        "Per scollegare un PC: clic destro sulla sfera → Impostazioni → \"Scollega questo PC\", oppure rimuovilo da Nodi e server."
+        "Cosa può fare ATENA lo decidi tu: clic destro sulla sfera → Permessi. Per ogni capacità scegli «Consenti», «Chiedi ogni volta» o «Mai».",
+        "Con «Chiedi ogni volta» ATENA mostra sempre l'azione esatta prima di eseguirla: il comando PowerShell, il contenuto dello script, il comando SSH o il file da modificare.",
+        "Comandi che cancellano, formattano o scaricano ed eseguono programmi chiedono sempre conferma, anche se hai scelto «Consenti».",
+        "ATENA lavora nelle tue cartelle personali; per altre cartelle aggiungile nei Permessi. Prima di modificare un file ne salva una copia di sicurezza.",
+        "La comunicazione con ATENA è cifrata (HTTPS) e legata al certificato verificato all'abbinamento: un intruso in rete non può fingersi ATENA.",
+        "Microfono, schermo e webcam si usano solo quando servono e puoi vietarli nei Permessi. Per scollegare il PC: Impostazioni → «Scollega questo PC»."
       ]
     },
     {
       "title": "Se qualcosa non funziona",
       "steps": [
-        "La finestra nera si chiude subito o dice che Python non c'è: installa Python da python.org con la spunta \"Add Python to PATH\" e riavvia il file .bat.",
-        "\"Codice di abbinamento non valido o scaduto\": genera un nuovo codice in Nodi e server e scrivilo entro qualche minuto.",
-        "\"ATENA non raggiungibile\": controlla che il PC sia nella stessa rete e che l'indirizzo sia quello di ATENA senza la porta del pannello di amministrazione (ad esempio 192.168.1.100).",
+        "«ATENA si raggiunge solo in HTTPS» o «non raggiungibile»: controlla che il PC sia nella stessa rete e che ATENA sia accesa e aggiornata: HTTPS è sempre attivo sulla porta 443.",
+        "«Codice di abbinamento non valido o scaduto»: genera un nuovo codice in Nodi e server e scrivilo entro qualche minuto.",
+        "L'impronta non coincide: non collegare il PC e controlla la rete. Se hai reinstallato ATENA, l'impronta cambia ed è normale ricollegare.",
+        "«Il certificato presentato non è firmato dall'autorità di ATENA»: ATENA è stata reinstallata o qualcuno si intromette nella rete. Ricollega il PC solo se sei sicuro.",
         "La sfera è grigia o ATENA non ti sente: il servizio di ascolto di ATENA potrebbe essere spento; intanto puoi scriverle cliccando la sfera.",
-        "ATENA sente la propria voce e si interrompe: se usi le casse lascia spenta l'opzione \"Uso le cuffie\".",
-        "Per tutti gli altri problemi trovi il registro in %APPDATA%/ATENA/assistant.log."
+        "Per tutti gli altri problemi il registro si trova in %APPDATA%/ATENA/assistant.log."
       ]
     }
   ]

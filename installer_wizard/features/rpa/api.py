@@ -3,7 +3,9 @@ import os
 import zipfile
 
 from fastapi import APIRouter, HTTPException, Request
-from fastapi.responses import StreamingResponse
+from fastapi.responses import RedirectResponse, StreamingResponse
+
+from features.rpa import releases
 
 admin_routes = APIRouter(tags=["RPA"])
 public_routes = APIRouter(tags=["RPA"])
@@ -86,7 +88,11 @@ def _generate_zip(server: str = "") -> io.BytesIO:
 
 @admin_routes.get("/api/rpa/download-client")
 @public_routes.get("/api/rpa/download-client")
-async def download_client_zip(request: Request):
+async def download_client(request: Request, format: str = "exe"):
+    if format != "zip":
+        url = await releases.installer_url()
+        if url:
+            return RedirectResponse(url, status_code=302)
     if not os.path.isfile(os.path.join(ASSISTANT_DIR, "atena_assistant.py")):
         raise HTTPException(
             status_code=404,
