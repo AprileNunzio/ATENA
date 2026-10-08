@@ -204,6 +204,15 @@ def build(admin: bool) -> FastAPI:
         routes = getattr(module, kind, None)
         if routes is not None:
             app.include_router(routes)
+            
+    if admin:
+        try:
+            from server.web.features.computer_control.api import router as computer_control_router
+            app.include_router(computer_control_router)
+        except Exception as e:
+            import logging
+            logging.error(f"Errore caricamento router computer_control: {e}")
+            
     return app
 
 
