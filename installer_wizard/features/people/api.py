@@ -52,7 +52,7 @@ async def sync_person_neuron(slug: str) -> None:
 
 @admin_routes.get("/api/people")
 async def admin_people_list(_: str = Depends(require_admin)):
-    for slug in faces.sync_gallery(FACES):
+    for slug in faces.sync_gallery(FACES) + await faces.sync_vision():
         store.event("INFO", f"Volto rilevato aggiunto a Persone: {slug}", "people")
     plist = people.all_profiles()
     for p in plist:

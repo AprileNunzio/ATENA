@@ -2,10 +2,11 @@ import json
 import logging
 from pathlib import Path
 
+import httpx
 from fastapi import HTTPException
 
 from features.people import people
-from features.vision.proxy import vision_proxy
+from features.vision.proxy import VISION_URL, vision_proxy
 
 log = logging.getLogger("atena.people")
 GOOD_SAMPLES = 20
@@ -22,21 +23,43 @@ def _meta(folder: Path) -> dict | None:
     return data if isinstance(data, dict) else None
 
 
-def sync_gallery(faces: Path) -> list[str]:
-    if not faces.is_dir():
-        return []
+def _adopt(entries: list[tuple[str, dict]]) -> list[str]:
     created = []
-    for folder in sorted(p for p in faces.iterdir() if p.is_dir()):
-        meta = _meta(folder)
-        if meta is None or people.load(folder.name) is not None:
+    for slug, meta in entries:
+        slug = people.slugify(slug)
+        if people.load(slug) is not None:
             continue
-        profile = people.ensure(folder.name, str(meta.get("name") or folder.name))
+        profile = people.ensure(slug, str(meta.get("name") or slug)[:40])
         profile["auto"] = bool(meta.get("auto"))
         people.save(profile)
-        created.append(folder.name)
+        created.append(slug)
     if created:
         log.info("Volti della galleria aggiunti a Persone: %s", ", ".join(created))
     return created
+
+
+def sync_gallery(faces: Path) -> list[str]:
+    if not faces.is_dir():
+        return []
+    folders = sorted(p for p in faces.iterdir() if p.is_dir())
+    return _adopt([(f.name, meta) for f in folders if (meta := _meta(f)) is not None])
+
+
+def sync_listing(listing: list) -> list[str]:
+    rows = [p for p in listing if isinstance(p, dict) and isinstance(p.get("slug"), str) and p["slug"].strip()]
+    return _adopt([(p["slug"], p) for p in rows])
+
+
+async def sync_vision() -> list[str]:
+    try:
+        async with httpx.AsyncClient(timeout=5) as client:
+            r = await client.get(f"{VISION_URL}/people")
+        r.raise_for_status()
+        listing = r.json().get("people", [])
+    except (httpx.HTTPError, ValueError, AttributeError) as exc:
+        log.info("Elenco volti dal servizio di visione non disponibile: %s", exc)
+        return []
+    return sync_listing(listing if isinstance(listing, list) else [])
 
 
 def quality(faces: Path, slug: str) -> int:

@@ -55,6 +55,14 @@ class FacesTest(unittest.TestCase):
         self.assertTrue(profile["auto"])
         self.assertEqual(faces.sync_gallery(self.faces), [])
 
+    def test_a_guest_known_only_to_the_vision_service_appears_in_people(self):
+        listing = [{"slug": "ospite-1728000500", "name": "Ospite 2", "auto": True, "samples": 8}, {"name": "senza slug"}, "x"]
+        self.assertEqual(faces.sync_listing(listing), ["ospite-1728000500"])
+        profile = people.load("ospite-1728000500")
+        self.assertEqual(profile["name"], "Ospite 2")
+        self.assertTrue(profile["auto"])
+        self.assertEqual(faces.sync_listing(listing), [])
+
     def test_quality_is_zero_without_face_samples(self):
         face(self.faces, "nunzio", "Nunzio")
         self.assertEqual(faces.quality(self.faces, "nunzio"), 0)
