@@ -73,6 +73,14 @@
     );
 
     const registered = all.filter((p) => !p.is_scanned);
+    
+    // Ordina alfabeticamente per "Cognome Nome" se presenti
+    registered.sort((a, b) => {
+      const nameA = (a.last_name && a.first_name) ? `${a.last_name} ${a.first_name}` : (a.name || "");
+      const nameB = (b.last_name && b.first_name) ? `${b.last_name} ${b.first_name}` : (b.name || "");
+      return nameA.toLowerCase().localeCompare(nameB.toLowerCase());
+    });
+
     const scanned = all.filter((p) => p.is_scanned);
 
     if ($("count-registered")) $("count-registered").textContent = `${registered.length} persone`;
@@ -85,6 +93,7 @@
         regGrid.innerHTML = '<div class="muted-note" style="grid-column:1/-1;">Nessuna persona registrata trovata.</div>';
       } else {
         regGrid.innerHTML = registered.map((p) => {
+          const displayName = (p.last_name && p.first_name) ? `${p.last_name} ${p.first_name}` : p.name;
           const isPres = present.has(p.slug);
           const age = p.computed && p.computed.age != null ? ` · ${p.computed.age} anni` : "";
           const roleLabel = peopleData.roles[p.role] || p.role || "Ospite";
@@ -93,7 +102,7 @@
               <div class="person-card-top">
                 ${avatar(p, 64)}
                 <div class="person-card-info">
-                  <div class="person-card-name">${fmt.esc(p.name)}</div>
+                  <div class="person-card-name">${fmt.esc(displayName)}</div>
                   <div class="person-card-role">${fmt.esc(roleLabel)}${age}</div>
                   ${isPres ? '<span class="present">● presente ora</span>' : `<span class="muted-note" style="font-size:11px;">visto ${ago(p.stats && p.stats.last_seen)}</span>`}
                 </div>
@@ -114,7 +123,10 @@
       if (!scanned.length) {
         scnGrid.innerHTML = '<div class="muted-note" style="grid-column:1/-1;">Nessun volto scansionato da associare al momento. I volti rilevati dalla telecamera appariranno qui.</div>';
       } else {
-        const regOptions = registered.map((rp) => `<option value="${fmt.esc(rp.slug)}">${fmt.esc(rp.name)}</option>`).join("");
+        const regOptions = registered.map((rp) => {
+          const displayAssocName = (rp.last_name && rp.first_name) ? `${rp.last_name} ${rp.first_name}` : rp.name;
+          return `<option value="${fmt.esc(rp.slug)}">${fmt.esc(displayAssocName)}</option>`;
+        }).join("");
         scnGrid.innerHTML = scanned.map((p) => {
           return `
             <div class="person-card" data-scanned-slug="${fmt.esc(p.slug)}" style="border-color:rgba(245,158,11,0.25);">

@@ -24,9 +24,15 @@ FACES = Path(os.environ.get("ATENA_FACES_DIR", str(STATE_DIR / "faces")))
 def is_scanned_unnamed(p: dict) -> bool:
     name = (p.get("name") or "").strip()
     slug = (p.get("slug") or "").strip()
+    
+    is_generic_name = bool(re.match(r"^(ospite|sconosciuto|guest|unknown)(\s+\d+)?$", name, re.I))
+    
+    if name and not is_generic_name:
+        return False
+
     if slug.startswith("ospite-") or slug.startswith("sconosciut") or slug.startswith("guest-"):
         return True
-    if re.match(r"^(ospite|sconosciuto|guest|unknown)(\s+\d+)?$", name, re.I):
+    if is_generic_name:
         return True
     if p.get("auto") and (not p.get("first_name") or name.lower().startswith("ospite")):
         return True
