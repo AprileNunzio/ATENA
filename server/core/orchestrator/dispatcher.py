@@ -96,7 +96,7 @@ class OrchestratorDispatcher:
         )
 
         with journey.span("classifier", "Classificatore Intenti", "Analisi semantica dell'intento") as class_span:
-            if intent_classifier._keyword_fallback(sanitized_query) == "GENERAL_INTELLIGENCE" and len(sanitized_query) < 240:
+            if intent_classifier._fallback_routing(sanitized_query) == "GENERAL_INTELLIGENCE" and len(sanitized_query) < 240:
                 extracted_intent, confidence = "GENERAL_INTELLIGENCE", 0.7
                 class_span.ok(f"Intento: {extracted_intent} (fallback rapido, conf: {confidence:.2f})")
             else:
@@ -197,7 +197,7 @@ class OrchestratorDispatcher:
             return res
 
         if sys1_decision.intent == System1Intent.CONVERSATION or (
-            extracted_intent == "GENERAL_INTELLIGENCE" and sys1_decision.intent != System1Intent.COMPLEX_TASK
+            extracted_intent in ("GENERAL_INTELLIGENCE", "PEOPLE_MANAGEMENT") and sys1_decision.intent != System1Intent.COMPLEX_TASK
         ):
             journey.step("decision", "Instradamento → conversazione",
                          f"System 1: {sys1_decision.intent.value} · classificatore: {extracted_intent} · scartati: lavagna, browser, progetto, System 2, agenti")

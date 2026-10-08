@@ -74,12 +74,20 @@ def home(ctx: Context) -> float:
     return {"query": 0.8, "ask": 0.7}.get(plan["kind"], 0.3)
 
 
-CLAIMS = {"whiteboard": whiteboard, "livecam": livecam, "music": music, "home": home}
+def people(ctx: Context) -> float:
+    t = ctx.plain
+    if any(k in t for k in ("anni", "compleanno", "nato", "nata", "profilo", "scheda", "lavoro", "appunta", "ricordati", "chi sono")):
+        return 0.9
+    return 0.0
+
+
+CLAIMS = {"whiteboard": whiteboard, "livecam": livecam, "music": music, "home": home, "people": people}
 DESCRIPTIONS = {
     "whiteboard": "la lavagna condivisa (aprirla, scrivere, calcoli ed equazioni passo passo, spiegazioni, controllare ciò che è scritto)",
     "livecam": "le webcam e telecamere in diretta (aprirle, tutto schermo, chiuderle)",
     "music": "la musica della libreria locale su Chromecast, DLNA e display (suonare, pausa, volume)",
     "home": "i dispositivi di casa (luci, porte, serrature, tapparelle, clima, prese)",
+    "people": "la gestione persone e anagrafe (scoprire o ricordare età, quanti anni ho, compleanni, lavoro, gusti, o appuntare e memorizzare dettagli su di sé o su altre persone)",
 }
 
 

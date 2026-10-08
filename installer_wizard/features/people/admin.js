@@ -1,38 +1,152 @@
 (() => {
   const A = window.AtenaAdmin, { $, fmt } = A;
   const DAYS = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
-  const REMINDER_ICON = { compleanno: "🎂", onomastico: "🌼", evento: "📅", scadenza: "⚠️" };
   const initials = (n) => (n || "?").split(/\s+/).map((x) => x[0]).join("").slice(0, 2).toUpperCase();
-  const avatar = (p, size = 48) => `<img class="avatar" style="width:${size}px;height:${size}px" src="/api/vision/people/${encodeURIComponent(p.slug)}/photo.jpg" onerror="this.outerHTML='<div class=&quot;avatar&quot; style=&quot;width:${size}px;height:${size}px&quot;>${fmt.esc(initials(p.name))}</div>'">`;
+  const avatar = (p, size = 64) => `<img class="frontal-avatar" style="width:${size}px;height:${size}px" src="/api/vision/people/${encodeURIComponent(p.slug)}/photo.jpg" onerror="this.outerHTML='<div class=&quot;frontal-avatar&quot; style=&quot;width:${size}px;height:${size}px;display:grid;place-items:center;font-size:${Math.round(size/2.5)}px;color:var(--cyan);background:rgba(2,8,16,0.8);&quot;>${fmt.esc(initials(p.name))}</div>'">`;
   const ago = (t) => t ? `${fmt.duration(Date.now() / 1000 - t)} fa` : "mai";
-  let peopleData = { people: [], roles: {} }, peopleSchema = null, currentPerson = null, currentSection = "identity";
-  let personCache = null, peopleFilter = "";
+
+  let peopleData = { people: [], roles: {} }, peopleSchema = null;
+  let currentPerson = null, currentSection = "identity";
+  let personCache = null, peopleFilter = "", personPhotos = [];
   const saveTimers = {};
+
+  function qualityClass(pct) {
+    if (pct >= 80) return "high";
+    if (pct >= 55) return "mid";
+    return "low";
+  }
+
+  function qualityBoxHtml(pct) {
+    const qPct = Math.max(5, Math.min(100, Math.round(pct || 75)));
+    const cls = qualityClass(qPct);
+    return `
+      <div class="quality-box">
+        <div class="quality-header">
+          <span class="quality-label">Qualità Riconoscimento</span>
+          <span class="quality-pct ${cls}">${qPct}%</span>
+        </div>
+        <div class="quality-progress">
+          <div class="quality-progress-fill ${cls}" style="width:${qPct}%"></div>
+        </div>
+      </div>
+    `;
+  }
 
   async function loadPeople() {
     try {
       if (!peopleSchema) peopleSchema = await A.api("GET", "/api/people/schema");
       peopleData = await A.api("GET", "/api/people");
-      const rem = await A.api("GET", "/api/people/reminders?days=45");
-      $("reminders").innerHTML = rem.reminders.length ? rem.reminders.map((r) => `<div class="rem" data-slug="${fmt.esc(r.slug)}">
-          <span class="ic">${REMINDER_ICON[r.type] || "•"}</span><span>${fmt.esc(r.title)}</span>
-          <span class="when">${r.days === 0 ? "oggi" : r.days === 1 ? "domani" : `tra ${r.days} giorni`}</span></div>`).join("")
-        : '<div class="faint">Nessuna ricorrenza nei prossimi 45 giorni.</div>';
-    } catch (e) { A.toast(e.message, true); return; }
-    renderPeopleList();
-    if (currentPerson && !$("person-detail").contains(document.activeElement)) openPerson(currentPerson);
-    else if (!currentPerson) renderPerson();
+    } catch (e) {
+      A.toast(e.message, true);
+      return;
+    }
+    renderTwoSections();
+    if (currentPerson) {
+      openPerson(currentPerson);
+    } else {
+      showOverview();
+    }
   }
 
-  function renderPeopleList() {
+  function showOverview() {
+    currentPerson = null;
+    const ov = $("people-overview");
+    const det = $("person-detail-view");
+    if (ov) ov.style.display = "flex";
+    if (det) det.style.display = "none";
+  }
+
+  function showDetail() {
+    const ov = $("people-overview");
+    const det = $("person-detail-view");
+    if (ov) ov.style.display = "none";
+    if (det) det.style.display = "block";
+  }
+
+  function renderTwoSections() {
     const s = A.state;
     const present = new Set(((s && s.presence && s.presence.people) || []).filter((p) => p.known).map((p) => p.slug));
-    const q = peopleFilter.toLowerCase();
-    const list = peopleData.people.filter((p) => !q || JSON.stringify([p.name, p.nickname, p.tags, p.occupation]).toLowerCase().includes(q));
-    $("people-list").innerHTML = list.map((p) => `<div class="person ${p.slug === currentPerson ? "on" : ""}" data-slug="${fmt.esc(p.slug)}">
-      ${avatar(p)}<div><div class="n">${fmt.esc(p.name)} ${present.has(p.slug) ? '<span class="present">● presente</span>' : ""}</div>
-      <div class="m">${fmt.esc(peopleData.roles[p.role] || p.role || "")}${p.computed && p.computed.age != null ? ` · ${p.computed.age} anni` : ""} · visto ${ago(p.stats && p.stats.last_seen)}</div></div></div>`).join("")
-      || '<div class="faint">Nessuna persona trovata.</div>';
+    const q = peopleFilter.toLowerCase().trim();
+
+    const all = (peopleData.people || []).filter((p) =>
+      !q || JSON.stringify([p.name, p.nickname, p.tags, p.occupation, p.role]).toLowerCase().includes(q)
+    );
+
+    const registered = all.filter((p) => !p.is_scanned);
+    const scanned = all.filter((p) => p.is_scanned);
+
+    if ($("count-registered")) $("count-registered").textContent = `${registered.length} persone`;
+    if ($("count-scanned")) $("count-scanned").textContent = `${scanned.length} volti`;
+
+    // 1. Persone Registrate
+    const regGrid = $("registered-grid");
+    if (regGrid) {
+      if (!registered.length) {
+        regGrid.innerHTML = '<div class="muted-note" style="grid-column:1/-1;">Nessuna persona registrata trovata.</div>';
+      } else {
+        regGrid.innerHTML = registered.map((p) => {
+          const isPres = present.has(p.slug);
+          const age = p.computed && p.computed.age != null ? ` · ${p.computed.age} anni` : "";
+          const roleLabel = peopleData.roles[p.role] || p.role || "Ospite";
+          return `
+            <div class="person-card" data-slug="${fmt.esc(p.slug)}">
+              <div class="person-card-top">
+                ${avatar(p, 64)}
+                <div class="person-card-info">
+                  <div class="person-card-name">${fmt.esc(p.name)}</div>
+                  <div class="person-card-role">${fmt.esc(roleLabel)}${age}</div>
+                  ${isPres ? '<span class="present">● presente ora</span>' : `<span class="muted-note" style="font-size:11px;">visto ${ago(p.stats && p.stats.last_seen)}</span>`}
+                </div>
+              </div>
+              ${qualityBoxHtml(p.quality_pct)}
+              <div class="person-card-actions">
+                <button class="btn sm primary card-open-btn" data-open="${fmt.esc(p.slug)}">Visualizza Scheda</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+    }
+
+    // 2. Persone Scansionate
+    const scnGrid = $("scanned-grid");
+    if (scnGrid) {
+      if (!scanned.length) {
+        scnGrid.innerHTML = '<div class="muted-note" style="grid-column:1/-1;">Nessun volto scansionato da associare al momento. I volti rilevati dalla telecamera appariranno qui.</div>';
+      } else {
+        const regOptions = registered.map((rp) => `<option value="${fmt.esc(rp.slug)}">${fmt.esc(rp.name)}</option>`).join("");
+        scnGrid.innerHTML = scanned.map((p) => {
+          return `
+            <div class="person-card" data-scanned-slug="${fmt.esc(p.slug)}" style="border-color:rgba(245,158,11,0.25);">
+              <div class="person-card-top">
+                ${avatar(p, 64)}
+                <div class="person-card-info">
+                  <div class="person-card-name" style="color:var(--amber);">${fmt.esc(p.name || "Volto Rilevato")}</div>
+                  <div class="person-card-role">Scansione senza nome</div>
+                  <span class="muted-note" style="font-size:11px;">visto ${ago(p.stats && p.stats.last_seen)}</span>
+                </div>
+              </div>
+              ${qualityBoxHtml(p.quality_pct)}
+              <div class="person-card-actions">
+                <!-- Azione 1: Assegna un nome -->
+                <div class="scanned-assign-box">
+                  <input type="text" class="scanned-assign-input" placeholder="Assegna un nome…" data-input-slug="${fmt.esc(p.slug)}" maxlength="40">
+                  <button class="btn sm primary btn-assign-name" data-slug="${fmt.esc(p.slug)}">Salva</button>
+                </div>
+                <!-- Azione 2: Associa a persona registrata -->
+                <div class="scanned-assoc-box">
+                  <select class="scanned-assoc-select" data-select-slug="${fmt.esc(p.slug)}">
+                    <option value="">Associa a persona…</option>
+                    ${regOptions}
+                  </select>
+                  <button class="btn sm btn-do-assoc" data-slug="${fmt.esc(p.slug)}">Associa</button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+    }
   }
 
   function fieldInput(f, value, path) {
@@ -67,86 +181,139 @@
       : `<div class="${f.type === "textarea" ? "wide" : ""}"><label>${fmt.esc(f.label)}${extra}</label>${fieldInput(f, p[f.key], f.key)}</div>`;
   }
 
+  async function loadPersonPhotos(slug) {
+    try {
+      const res = await A.api("GET", `/api/people/${encodeURIComponent(slug)}/photos`);
+      personPhotos = res.photos || [];
+    } catch (e) {
+      personPhotos = [];
+    }
+  }
+
+  function gallerySection(p) {
+    const qPct = p.quality_pct || 75;
+    return `
+      <div class="gallery-section-box">
+        <div class="gallery-controls-bar">
+          <div>
+            <div style="font-weight:600; font-size:14px; margin-bottom:4px;">Galleria Foto Riconoscimento Biometrico</div>
+            <div class="gallery-summary-text">
+              Tutte le migliori foto utilizzate dal motore di riconoscimento per questa persona.
+              La notte, il sistema automatico perfeziona il modello biometrico. Se rilevi foto errate o mal associate, puoi eliminarle e riprogettare il riconoscimento.
+            </div>
+          </div>
+          <div class="row" style="gap:10px;">
+            <button class="btn primary" id="btn-reproject" title="Ricalcola e ottimizza il modello biometrico per questa persona">🔄 Riprogetta Riconoscimento</button>
+            <button class="btn" id="enroll-cam">📷 Nuova Foto da Webcam</button>
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
+          <div style="font-size:13px; font-weight:500;">Foto Campione (${personPhotos.length})</div>
+          <div style="font-size:12px; color:var(--text-dim);">Accuratezza attuale: <b style="color:var(--cyan);">${qPct}%</b></div>
+        </div>
+
+        <div class="gallery-photos-grid">
+          ${personPhotos.length ? personPhotos.map((ph) => `
+            <div class="gallery-photo-card ${ph.is_primary ? "is-primary" : ""}">
+              <img class="gallery-photo-img" src="${fmt.esc(ph.url)}" loading="lazy">
+              <div class="gallery-photo-meta">
+                ${ph.is_primary ? '<span class="primary-tag">⭐ Viso Frontale Principale</span>' : '<span class="muted-note">Campione Angolazione / Luce</span>'}
+                <button class="btn sm danger btn-delete-photo" data-photo-id="${fmt.esc(ph.id)}" title="Elimina questa foto se errata">🗑 Elimina Foto</button>
+              </div>
+            </div>
+          `).join("") : '<div class="muted-note" style="grid-column:1/-1;">Nessuna foto memorizzata. Cattura una foto frontale con la webcam per potenziare il riconoscimento.</div>'}
+        </div>
+      </div>
+    `;
+  }
+
   function voiceSection(p) {
     const vp = p.voiceprint || {};
     const vs = vp.enrolled ? `✓ registrata (${vp.samples} campioni${vp.updated ? `, ultimo ${new Date(vp.updated * 1000).toLocaleDateString("it-IT")}` : ""})`
-      : vp.samples ? `in corso: ${vp.samples} campioni raccolti` : "non ancora registrata — dille «impara la mia voce» davanti alla webcam";
+      : vp.samples ? `in corso: ${vp.samples} campioni raccolti` : "non ancora registrata — dì «Atena, impara la mia voce» davanti alla webcam";
     return `<div class="form-grid">
         <div><label>Voce di Atena per questa persona</label><select data-voice="tts_voice"><option value="">Predefinita di sistema</option>
           ${Object.entries(peopleSchema.voices || {}).map(([v, label]) => `<option value="${v}" ${p.voice && p.voice.tts_voice === v ? "selected" : ""}>${fmt.esc(label)}</option>`).join("")}</select></div>
         <div><label>Velocità (${(p.voice && p.voice.speed) || 1.0})</label><input data-voice="speed" type="range" min="0.7" max="1.4" step="0.05" value="${(p.voice && p.voice.speed) || 1}"></div>
         <div><label>Tono (${(p.voice && p.voice.pitch) || 0})</label><input data-voice="pitch" type="range" min="-6" max="6" step="0.5" value="${(p.voice && p.voice.pitch) || 0}"></div>
         <div><label>Volume (${(p.voice && p.voice.volume) || 1.0})</label><input data-voice="volume" type="range" min="0.5" max="1.8" step="0.05" value="${(p.voice && p.voice.volume) || 1}"></div></div>
-        <div class="row" style="justify-content:space-between; align-items:center; margin-top:6px">
+        <div class="row" style="justify-content:space-between; align-items:center; margin-top:14px">
           <div class="muted-note">Impronta vocale: ${vs}.</div>
-          ${vp.enrolled || vp.samples ? '<button class="btn sm danger" id="forget-voice">Cancella impronta vocale</button>' : ""}</div>
-        <div class="panel-title" style="margin-top:22px">Volto</div>
-        <div class="actions"><button class="btn primary" id="enroll">📷 Registra / migliora il volto</button></div>
-        <div class="muted-note">Mettiti davanti alla webcam a circa un metro e resta fermo 4 secondi. Ripeti con luci diverse per migliorare il riconoscimento.</div>`;
+          ${vp.enrolled || vp.samples ? '<button class="btn sm danger" id="forget-voice">Cancella impronta vocale</button>' : ""}</div>`;
   }
 
   function habitsSection(p) {
-    const h = p.habits, maxH = Math.max(1, ...h.arrival_hours), maxD = Math.max(1, ...h.weekdays);
+    const h = p.habits || { arrival_hours: [0]*24, weekdays: [0]*7, summary: "Nessuna abitudine registrata." };
+    const maxH = Math.max(1, ...(h.arrival_hours || [1]));
+    const maxD = Math.max(1, ...(h.weekdays || [1]));
     return `<div style="font-size:14px; margin-bottom:14px">${fmt.esc(h.summary)}</div>
-        <div class="grid g2"><div><label>Orari di arrivo</label><div class="chart">${h.arrival_hours.map((v) => `<i style="height:${(v / maxH) * 100}%" title="${v}"></i>`).join("")}</div><div class="chart-lbl"><span>0</span><span>6</span><span>12</span><span>18</span><span>23</span></div></div>
-        <div><label>Giorni della settimana</label><div class="chart">${h.weekdays.map((v) => `<i style="height:${(v / maxD) * 100}%" title="${v}"></i>`).join("")}</div><div class="chart-lbl">${DAYS.map((d) => `<span>${d}</span>`).join("")}</div></div></div>
-        <div class="muted-note">${p.stats.visits} visite · ${fmt.duration(p.stats.total_seconds)} di presenza · prima volta ${p.stats.first_seen ? new Date(p.stats.first_seen * 1000).toLocaleDateString("it-IT") : "—"}</div>`;
+        <div class="grid g2"><div><label>Orari di arrivo</label><div class="chart">${(h.arrival_hours || []).map((v) => `<i style="height:${(v / maxH) * 100}%" title="${v}"></i>`).join("")}</div><div class="chart-lbl"><span>0</span><span>6</span><span>12</span><span>18</span><span>23</span></div></div>
+        <div><label>Giorni della settimana</label><div class="chart">${(h.weekdays || []).map((v) => `<i style="height:${(v / maxD) * 100}%" title="${v}"></i>`).join("")}</div><div class="chart-lbl">${DAYS.map((d) => `<span>${d}</span>`).join("")}</div></div></div>
+        <div class="muted-note">${p.stats ? p.stats.visits : 0} visite · ${fmt.duration(p.stats ? p.stats.total_seconds : 0)} di presenza · prima volta ${p.stats && p.stats.first_seen ? new Date(p.stats.first_seen * 1000).toLocaleDateString("it-IT") : "—"}</div>`;
   }
 
   function sectionHtml(p) {
+    if (currentSection === "gallery") return gallerySection(p);
     if (currentSection === "voice") return voiceSection(p);
     if (currentSection === "habits") return habitsSection(p);
     const sec = peopleSchema.sections.find((s) => s.id === currentSection);
+    if (!sec) return "";
     return `${sec.private ? '<div class="muted-note" style="margin:0 0 14px">🔒 Dati riservati: restano solo su questo dispositivo.</div>' : ""}
       <div class="form-grid">${sec.fields.map((f) => renderField(f, p)).join("")}</div>`;
   }
 
   async function openPerson(slug) {
-    currentPerson = slug; renderPeopleList();
-    try { personCache = await A.api("GET", `/api/people/${encodeURIComponent(slug)}`); } catch (e) { A.toast(e.message, true); return; }
+    currentPerson = slug;
+    showDetail();
+    try {
+      personCache = await A.api("GET", `/api/people/${encodeURIComponent(slug)}`);
+      await loadPersonPhotos(slug);
+    } catch (e) {
+      A.toast(e.message, true);
+      showOverview();
+      return;
+    }
     renderPerson();
   }
 
   function renderPerson() {
-    if (!currentPerson) {
-      $("person-detail").innerHTML = `
-        <div class="panel-title" style="margin-bottom:12px;">Persone Scansionate</div>
-        <div class="muted-note" style="margin-bottom:16px;">Associa i volti rilevati (preferibilmente frontali) a una persona esistente.</div>
-        <div class="faces-grid" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(110px, 1fr)); gap:12px;">
-          ${peopleData.people.map(p => `
-            <div class="face-card" style="background:#2c2c2c; padding:10px; border-radius:8px; text-align:center;">
-              ${avatar(p, 80)}
-              <div style="font-size:12px; margin:8px 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${fmt.esc(p.name)}</div>
-              <select class="assoc-select" data-slug="${fmt.esc(p.slug)}" style="width:100%; font-size:11px; padding:2px;">
-                <option value="">Associa a...</option>
-                ${peopleData.people.filter(op => op.slug !== p.slug && !op.slug.startsWith("sconosciut")).map(op => `
-                  <option value="${fmt.esc(op.slug)}">${fmt.esc(op.name)}</option>
-                `).join("")}
-              </select>
-            </div>
-          `).join("")}
-        </div>
-      `;
-      return;
-    }
+    if (!currentPerson || !personCache) return;
     const p = personCache, c = p.computed || {};
-    const tabs = [...peopleSchema.sections.map((s) => [s.id, `${s.icon} ${s.title}`]), ["voice", "🎙 Voce e volto"], ["habits", "📈 Abitudini"]];
+    const tabs = [
+      ...peopleSchema.sections.map((s) => [s.id, `${s.icon} ${s.title}`]),
+      ["gallery", "📸 Galleria Foto"],
+      ["voice", "🎙 Voce e Impronta"],
+      ["habits", "📈 Abitudini"],
+    ];
     $("person-detail").innerHTML = `
-      <div class="row" style="gap:16px; margin-bottom:16px">${avatar(p, 72)}
-        <div style="flex:1"><h2 style="margin:0; font-weight:400">${fmt.esc(c.display_name || p.name)}${p.nickname ? ` <span class="faint" style="font-size:15px">«${fmt.esc(p.nickname)}»</span>` : ""}</h2>
-        <div class="faint" style="font-size:12px">${fmt.esc(peopleData.roles[p.role] || "")}${c.age != null ? ` · ${c.age} anni` : ""}${c.name_day ? ` · onomastico ${c.name_day.replace("-", "/")}` : ""}${p.occupation ? ` · ${fmt.esc(p.occupation)}` : ""}</div></div>
-        <span class="saved" id="saved">✓ salvato</span>
-        <button class="btn sm danger" id="forget" title="Elimina persona e tutti i suoi dati">Elimina</button></div>
+      <div class="row" style="gap:16px; margin-bottom:16px; align-items:center;">
+        ${avatar(p, 72)}
+        <div style="flex:1">
+          <h2 style="margin:0; font-weight:500;">${fmt.esc(c.display_name || p.name)}${p.nickname ? ` <span class="faint" style="font-size:15px">«${fmt.esc(p.nickname)}»</span>` : ""}</h2>
+          <div class="faint" style="font-size:13px; margin-top:3px;">
+            ${fmt.esc(peopleData.roles[p.role] || "")}${c.age != null ? ` · ${c.age} anni` : ""}${c.name_day ? ` · onomastico ${c.name_day.replace("-", "/")}` : ""}${p.occupation ? ` · ${fmt.esc(p.occupation)}` : ""}
+            · Qualità Biometrica: <b style="color:var(--cyan);">${p.quality_pct || 75}%</b>
+          </div>
+        </div>
+        <button class="btn sm danger" id="forget" title="Elimina persona e tutti i suoi dati">Elimina</button>
+      </div>
       <div class="subtabs">${tabs.map(([id, t]) => `<button class="${id === currentSection ? "on" : ""}" data-sec="${id}">${t}</button>`).join("")}</div>
-      <div id="section-body">${sectionHtml(p)}</div>`;
+      <div id="section-body">${sectionHtml(p)}</div>
+    `;
   }
 
   function autosave(key, value, delay = 600) {
     clearTimeout(saveTimers[key]);
     saveTimers[key] = setTimeout(async () => {
-      try { await A.api("PUT", `/api/people/${encodeURIComponent(currentPerson)}`, { [key]: value }); personCache[key] = value; A.flash("saved");
-        if (["first_name", "last_name", "role", "birthday", "nickname"].includes(key)) loadPeople(); }
-      catch (e) { A.toast(e.message, true); }
+      try {
+        await A.api("PUT", `/api/people/${encodeURIComponent(currentPerson)}`, { [key]: value });
+        personCache[key] = value;
+        A.flash("saved");
+        if (["first_name", "last_name", "role", "birthday", "nickname"].includes(key)) loadPeople();
+      } catch (e) {
+        A.toast(e.message, true);
+      }
     }, delay);
   }
 
@@ -182,75 +349,215 @@
       return;
     }
     if (t.dataset.del) { const key = t.dataset.del; t.closest(".list-row").remove(); autosave(key, collectList(key), 0); return; }
-    if (t.id === "enroll") {
+
+    // Riprogetta riconoscimento
+    if (t.id === "btn-reproject") {
+      t.disabled = true;
+      t.textContent = "Riprogettazione in corso…";
+      try {
+        const res = await A.api("POST", `/api/people/${encodeURIComponent(currentPerson)}/reproject`);
+        A.toast(`Riconoscimento riprogettato con successo! Nuova qualità: ${res.quality_pct || 80}%`);
+        await loadPeople();
+        openPerson(currentPerson);
+      } catch (err) {
+        A.toast(err.message, true);
+      } finally {
+        t.disabled = false;
+        t.textContent = "🔄 Riprogetta Riconoscimento";
+      }
+      return;
+    }
+
+    // Elimina singola foto dalla galleria
+    if (t.classList.contains("btn-delete-photo")) {
+      const photoId = t.dataset.photoId;
+      if (!photoId) return;
+      if (!confirm("Rimuovere questa foto dal modello di riconoscimento?")) return;
+      try {
+        await A.api("DELETE", `/api/people/${encodeURIComponent(currentPerson)}/photos/${encodeURIComponent(photoId)}`);
+        A.toast("Foto rimossa con successo");
+        await loadPeople();
+        openPerson(currentPerson);
+      } catch (err) {
+        A.toast(err.message, true);
+      }
+      return;
+    }
+
+    if (t.id === "enroll-cam") {
       t.disabled = true; t.textContent = "Guarda la webcam… 4 secondi";
-      try { const r = await A.api("POST", "/api/vision/people", { name: personCache.name }); A.toast(`Volto registrato: ${r.samples} campioni`); loadPeople(); }
-      catch (err) { A.toast(err.message, true); }
-      finally { t.disabled = false; t.textContent = "📷 Registra / migliora il volto"; }
+      try {
+        const r = await A.api("POST", "/api/vision/people", { name: personCache.name });
+        A.toast(`Nuovo campione acquisito (${r.samples} totali)`);
+        await loadPeople();
+        openPerson(currentPerson);
+      } catch (err) {
+        A.toast(err.message, true);
+      } finally {
+        t.disabled = false;
+        t.textContent = "📷 Nuova Foto da Webcam";
+      }
+      return;
     }
+
     if (t.id === "forget") {
-      if (!confirm("Eliminare definitivamente questa persona con volto, dati, relazioni e abitudini?")) return;
-      try { await A.api("DELETE", `/api/people/${encodeURIComponent(currentPerson)}`); currentPerson = null; $("person-detail").innerHTML = '<div class="faint">Persona eliminata.</div>'; loadPeople(); }
-      catch (err) { A.toast(err.message, true); }
+      if (!confirm("Eliminare definitivamente questa persona con volto, foto, dati e abitudini?")) return;
+      try {
+        await A.api("DELETE", `/api/people/${encodeURIComponent(currentPerson)}`);
+        currentPerson = null;
+        A.toast("Persona eliminata");
+        showOverview();
+        loadPeople();
+      } catch (err) {
+        A.toast(err.message, true);
+      }
+      return;
     }
+
     if (t.id === "forget-voice") {
       if (!confirm("Cancellare l'impronta vocale di questa persona?")) return;
-      try { await A.api("DELETE", `/api/people/${encodeURIComponent(currentPerson)}/voiceprint`); A.toast("Impronta vocale cancellata"); openPerson(currentPerson); }
-      catch (err) { A.toast(err.message, true); }
+      try {
+        await A.api("DELETE", `/api/people/${encodeURIComponent(currentPerson)}/voiceprint`);
+        A.toast("Impronta vocale cancellata");
+        openPerson(currentPerson);
+      } catch (err) {
+        A.toast(err.message, true);
+      }
+      return;
     }
   }
 
   function init() {
-    if (A.peopleBio) A.peopleBio.init();
-    $("people-list").addEventListener("click", (e) => { const el = e.target.closest(".person"); if (el) openPerson(el.dataset.slug); });
-    $("reminders").addEventListener("click", (e) => { const el = e.target.closest(".rem"); if (el) openPerson(el.dataset.slug); });
-    $("people-search").addEventListener("input", (e) => { peopleFilter = e.target.value; renderPeopleList(); });
-    $("person-new").addEventListener("submit", async (e) => {
-      e.preventDefault(); const name = $("person-new-name").value.trim(); if (!name) return;
-      try { const p = await A.api("POST", "/api/people", { name }); $("person-new-name").value = ""; currentPerson = p.slug; await loadPeople(); openPerson(p.slug); }
-      catch (err) { A.toast(err.message, true); }
+    // Navigazione e ricerca
+    $("btn-back-to-people")?.addEventListener("click", showOverview);
+
+    $("people-search")?.addEventListener("input", (e) => {
+      peopleFilter = e.target.value;
+      renderTwoSections();
     });
-    $("person-detail").addEventListener("input", (e) => {
-      if (e.target.dataset.voice) {
-        const t = e.target; autosave("voice", { ...(personCache.voice || {}), [t.dataset.voice]: t.type === "range" ? parseFloat(t.value) : t.value });
-      } else if (e.target.dataset.path && e.target.type !== "checkbox" && e.target.tagName !== "SELECT") onFieldChange(e.target);
-    });
-    $("person-detail").addEventListener("change", async (e) => {
-      if (e.target.classList.contains("assoc-select")) {
-        const fromSlug = e.target.dataset.slug;
-        const toSlug = e.target.value;
-        if (fromSlug && toSlug) {
-          if (!confirm("Sei sicuro di voler associare questo volto alla persona selezionata?")) {
-            e.target.value = "";
-            return;
-          }
-          try {
-            // Find target person name
-            const targetPerson = peopleData.people.find(p => p.slug === toSlug);
-            if (targetPerson) {
-              await A.api("PUT", `/api/people/${encodeURIComponent(fromSlug)}`, { name: targetPerson.name });
-              A.toast("Volto associato con successo!");
-              await loadPeople();
-            }
-          } catch (err) { A.toast(err.message, true); }
-        }
-      } else if (e.target.type === "checkbox" || e.target.tagName === "SELECT") {
-        onFieldChange(e.target);
+
+    $("person-new")?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const name = $("person-new-name").value.trim();
+      if (!name) return;
+      try {
+        const p = await A.api("POST", "/api/people", { name });
+        $("person-new-name").value = "";
+        A.toast(`Persona creata: ${p.name}`);
+        await loadPeople();
+        openPerson(p.slug);
+      } catch (err) {
+        A.toast(err.message, true);
       }
     });
-    $("person-detail").addEventListener("click", onDetailClick);
+
+    // Ottimizzazione notturna manuale
+    $("btn-nightly-optimize")?.addEventListener("click", async () => {
+      const btn = $("btn-nightly-optimize");
+      btn.disabled = true;
+      btn.textContent = "🌙 Ottimizzazione in corso…";
+      try {
+        const res = await A.api("POST", "/api/people/optimize-nightly");
+        A.toast(`Ottimizzazione biometrica completata per ${res.total_people || 0} persone!`);
+        await loadPeople();
+      } catch (err) {
+        A.toast(err.message, true);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = "🌙 Ottimizza Riconoscimento";
+      }
+    });
+
+    // Click su card registrata per aprire scheda
+    $("registered-grid")?.addEventListener("click", (e) => {
+      const openBtn = e.target.closest("[data-open]");
+      if (openBtn) {
+        openPerson(openBtn.dataset.open);
+        return;
+      }
+      const card = e.target.closest(".person-card");
+      if (card && card.dataset.slug) {
+        openPerson(card.dataset.slug);
+      }
+    });
+
+    // Azioni su Persone Scansionate (Assegna nome o Associa)
+    $("scanned-grid")?.addEventListener("click", async (e) => {
+      const assignBtn = e.target.closest(".btn-assign-name");
+      if (assignBtn) {
+        const slug = assignBtn.dataset.slug;
+        const input = document.querySelector(`[data-input-slug="${slug}"]`);
+        const newName = input ? input.value.trim() : "";
+        if (!newName) {
+          A.toast("Inserisci un nome per la persona", true);
+          return;
+        }
+        try {
+          await A.api("PUT", `/api/people/${encodeURIComponent(slug)}`, { name: newName });
+          A.toast(`Nome assegnato con successo: ${newName}!`);
+          await loadPeople();
+        } catch (err) {
+          A.toast(err.message, true);
+        }
+        return;
+      }
+
+      const assocBtn = e.target.closest(".btn-do-assoc");
+      if (assocBtn) {
+        const fromSlug = assocBtn.dataset.slug;
+        const select = document.querySelector(`[data-select-slug="${fromSlug}"]`);
+        const toSlug = select ? select.value : "";
+        if (!toSlug) {
+          A.toast("Seleziona una persona registrata a cui associare il volto", true);
+          return;
+        }
+        if (!confirm("Sei sicuro di voler associare questo volto alla persona selezionata? Le foto e i campioni biometrici verranno uniti.")) {
+          return;
+        }
+        try {
+          await A.api("POST", `/api/people/${encodeURIComponent(fromSlug)}/associate`, { to_slug: toSlug });
+          A.toast("Volto e campioni associati con successo!");
+          await loadPeople();
+        } catch (err) {
+          A.toast(err.message, true);
+        }
+        return;
+      }
+    });
+
+    // Eventi scheda dettaglio
+    const detailEl = $("person-detail");
+    if (detailEl) {
+      detailEl.addEventListener("input", (e) => {
+        if (e.target.dataset.voice) {
+          const t = e.target;
+          autosave("voice", { ...(personCache.voice || {}), [t.dataset.voice]: t.type === "range" ? parseFloat(t.value) : t.value });
+        } else if (e.target.dataset.path && e.target.type !== "checkbox" && e.target.tagName !== "SELECT") {
+          onFieldChange(e.target);
+        }
+      });
+      detailEl.addEventListener("change", (e) => {
+        if (e.target.type === "checkbox" || e.target.tagName === "SELECT") {
+          onFieldChange(e.target);
+        }
+      });
+      detailEl.addEventListener("click", onDetailClick);
+    }
   }
 
   function onState(s) {
     if (!A.isOn("people")) return;
     const pr = s.presence || {};
     const sig = JSON.stringify((pr.people || []).map((x) => x.slug));
-    if (sig !== window.__presenceSig) { window.__presenceSig = sig; renderPeopleList(); }
+    if (sig !== window.__presenceSig) {
+      window.__presenceSig = sig;
+      if (!currentPerson) renderTwoSections();
+    }
   }
 
   A.tab("people", {
     title: "Persone", init, onState,
-    load() { loadPeople(); if (A.peopleBio) A.peopleBio.load(); },
-    leave() { if (A.peopleBio) A.peopleBio.leave(); },
+    load() { loadPeople(); },
+    leave() {},
   });
 })();

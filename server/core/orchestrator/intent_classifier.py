@@ -13,18 +13,22 @@ INTENT_CATALOG: Dict[str, str] = {
     "SYSOPS_AUTOMATION": "Gestione server, SSH, servizi systemd, backup, database, rete, DNS, firewall, Docker",
     "3D_GENERATION": "Creare modelli 3D, disegnare case in 3D, generare asset tridimensionali, architettura 3D",
     "WEB_RESEARCH_CATALOGS": "Scaricare cataloghi, cercare informazioni di prodotti, estrarre dati da siti web, scraping",
-    "GENERAL_INTELLIGENCE": "Domande generiche, conversazione, ragionamento, ricerca informazioni",
+    "PEOPLE_MANAGEMENT": "Gestione persone, identità, anagrafica e memoria personale: scoprire o ricordare quanti anni ha una persona, compleanni, relazioni, lavoro, preferenze, oppure appuntare, aggiornare e memorizzare automaticamente dettagli, note e fatti su chi parla o su altre persone in qualunque lingua",
+    "GENERAL_INTELLIGENCE": "Domande di conoscenza generale, conversazione aperta, ragionamento logico",
 }
 
 _SYSTEM_PROMPT_TEMPLATE: str = (
-    "Sei il classificatore di intenti di Atena, un orchestratore cognitivo autonomo.\n"
-    "Analizza la richiesta dell'utente e rispondi con un singolo oggetto JSON valido.\n"
+    "Sei il classificatore cognitivo degli intenti di Atena, un orchestratore autonomo e multilingue.\n"
+    "Il tuo compito è comprendere l'intenzione semantica profonda dell'utente, formulata in qualsiasi lingua o stile.\n\n"
+    "Principio di ragionamento autonomo:\n"
+    "- Se l'utente chiede informazioni su di sé o su altre persone (ad es. quanti anni ha, quando è nato, chi è, che lavoro fa, cosa gli piace), "
+    "oppure desidera che Atena impari, appunti, ricordi o aggiorni dettagli, fatti o preferenze personali, "
+    "l'intento logico corretto è interagire con la funzionalità Persone e anagrafe: PEOPLE_MANAGEMENT.\n\n"
     "Schema obbligatorio:\n"
-    '  {{"intent": "<INTENT_NAME>", "confidence": <float 0.0-1.0>, "reasoning": "<breve motivazione>"}}\n\n'
-    "Intenti disponibili:\n{catalog}\n\n"
+    '  {{"intent": "<INTENT_NAME>", "confidence": <float 0.0-1.0>, "reasoning": "<ragionamento cognitivo>"}}\n\n'
+    "Funzionalità disponibili:\n{catalog}\n\n"
     "Regole:\n"
-    "- Scegli l'intent che meglio corrisponde alla richiesta, anche se espressa in modo informale.\n"
-    "- Se la richiesta è ambigua, scegli quello più probabile e abbassa la confidence.\n"
+    "- Scegli l'intent che meglio realizza lo scopo dell'utente attraverso le funzionalità del sistema.\n"
     "- Rispondi ESCLUSIVAMENTE con il JSON, nessun altro testo."
 )
 
@@ -54,12 +58,12 @@ class LLMIntentClassifier:
             confidence = float(result.get("confidence", 0.5))
             if intent not in INTENT_CATALOG:
                 logger.warning("LLM returned unknown intent '%s', falling back", intent)
-                return self._keyword_fallback(user_query), 0.4
+                return self._fallback_routing(user_query), 0.4
             logger.info("Intent classified: %s (%.2f) — %s", intent, confidence, result.get("reasoning", ""))
             return intent, confidence
         except Exception as exc:
-            logger.warning("LLM intent classification failed (%s), using keyword fallback", exc)
-            return self._keyword_fallback(user_query), 0.5
+            logger.warning("LLM intent classification failed (%s), using fallback routing", exc)
+            return self._fallback_routing(user_query), 0.5
 
     @staticmethod
     def _extract_json(raw: str) -> str:
@@ -71,20 +75,15 @@ class LLMIntentClassifier:
         return raw
 
     @staticmethod
-    def _keyword_fallback(text: str) -> str:
+    def _fallback_routing(text: str) -> str:
+        # Minimal emergency fallback when LLM gateway is completely unreachable
         lowered = text.lower()
-        if any(w in lowered for w in ["luce", "luci", "spegni", "accendi", "temperatura", "termostato", "porta"]):
+        if any(w in lowered for w in ["luce", "light", "spegni", "switch", "termostato", "thermostat"]):
             return "HOME_AUTOMATION"
-        if any(w in lowered for w in ["telecamera", "telecamere", "chi c'è", "intruso", "cancello", "garage"]):
+        if any(w in lowered for w in ["telecamera", "camera", "webcam", "intruso", "intruder"]):
             return "VISION_SURVEILLANCE"
-        if any(w in lowered for w in ["scrivi codice", "programma", "crea script", "fixa", "correggi errore"]):
-            return "AUTONOMOUS_PROGRAMMING"
-        if any(w in lowered for w in ["server", "ssh", "backup", "database", "servizio", "docker"]):
-            return "SYSOPS_AUTOMATION"
-        if any(w in lowered for w in ["3d", "blender", "modello 3d", "casa in 3d", "architettura"]):
-            return "3D_GENERATION"
-        if any(w in lowered for w in ["catalogo", "cataloghi", "prodotti", "scarica informazioni", "web scraping", "ricerca prodotto"]):
-            return "WEB_RESEARCH_CATALOGS"
+        if any(w in lowered for w in ["anni", "age", "compleanno", "birthday", "chi sono", "who am i", "appunta", "remember"]):
+            return "PEOPLE_MANAGEMENT"
         return "GENERAL_INTELLIGENCE"
 
 

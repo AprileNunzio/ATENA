@@ -13,7 +13,7 @@ from features.chat.intents import detect_intent
 from features.chat.skills.camera import camera_skill
 from features.chat.skills.music import music_skill
 from features.chat.skills.network import network_skill
-from features.chat.skills.people import introduce_skill, vision_skill
+from features.chat.skills.people import introduce_skill, person_info_skill, vision_skill
 from features.chat.skills.place import place_skill
 from features.chat.skills.system import system_skill, time_skill
 from features.chat.skills.voices import voices_skill
@@ -102,6 +102,10 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
         decision = await understanding.route(text, request_context.device.get())
         for domain in (decision.domains if understanding.enabled() else EARLY):
             tried.add(domain)
+            if domain == "people":
+                speech, ui = await person_info_skill(text)
+                ui["personal"] = True
+                return {"reply": speech, "ui": ui, "intent": "people", "agent": "persone", "elapsed_ms": int((time.time() - started) * 1000)}
             out = await (_home(text, started) if domain == "home" else _connect(text, started, (domain,)))
             if out:
                 return out
@@ -137,6 +141,9 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
             speech, ui = await network_skill()
         elif intent == "introduce":
             speech, ui = await introduce_skill(text)
+        elif intent == "person_info":
+            speech, ui = await person_info_skill(text)
+            ui["personal"] = True
         elif intent == "time":
             speech, ui = time_skill()
         elif intent == "voices":

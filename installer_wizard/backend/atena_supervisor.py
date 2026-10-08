@@ -98,6 +98,7 @@ from features.telegram import api as telegram_api
 from features.understanding import api as understanding_api
 from features.telegram.bot import bot
 from features.vision import api as vision_api
+from features.vision.nightly import loop as nightly_biometrics_loop
 from features.whiteboard import api as whiteboard_api
 from features.printers import api as printers_api
 from features.nvr import api as nvr_api
@@ -284,6 +285,7 @@ BACKGROUND = (
     ("musica", music_library.run, 0.0),
     ("uscite-musica", music_outputs.run, 0.0),
     ("mcp-esterni", mcpclient_run, 0.0),
+    ("ottimizzazione-biometrica", nightly_biometrics_loop, 0.0),
 )
 
 

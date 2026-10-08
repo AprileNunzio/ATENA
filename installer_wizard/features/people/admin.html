@@ -1,22 +1,50 @@
 <section class="tab" id="tab-people">
-  <div class="people-grid">
-    <div class="grid" style="gap:18px; align-content:start">
-
-      <div class="panel">
-        <div class="panel-title">Qualità del riconoscimento</div>
-        <div id="bio-table" class="faint">—</div>
+  <!-- Vista Elenco a 2 Sezioni: Persone Registrate e Persone Scansionate -->
+  <div id="people-overview" class="people-overview">
+    <div class="people-top-bar">
+      <div class="row people-bar-left">
+        <input id="people-search" placeholder="Cerca persone registrate o scansionate…" class="people-search-input">
+        <form class="row" id="person-new" style="margin:0; gap:8px;">
+          <input id="person-new-name" placeholder="Nuova persona (Nome Cognome)" maxlength="40" class="people-name-input">
+          <button class="btn primary" type="submit">+ Aggiungi Persona</button>
+        </form>
       </div>
-      <div class="panel">
-        <div class="panel-title">Prossime ricorrenze</div>
-        <div id="reminders" class="reminders"></div>
-      </div>
-      <div class="panel">
-        <div class="panel-title">Anagrafe</div>
-        <input id="people-search" placeholder="Cerca per nome, etichetta, lavoro…" style="margin-bottom:10px">
-        <form class="row" id="person-new" style="margin-bottom:12px"><input id="person-new-name" placeholder="Nome e cognome della nuova persona" maxlength="40"><button class="btn">Aggiungi</button></form>
-        <div class="people-list" id="people-list"></div>
+      <div class="row people-bar-right">
+        <button class="btn sm" id="btn-nightly-optimize" title="Avvia adesso l'ottimizzazione biometrica notturna di tutte le persone">🌙 Ottimizza Riconoscimento</button>
       </div>
     </div>
-    <div class="panel" id="person-detail"><div class="faint">Seleziona una persona dall'anagrafe o aggiungine una nuova. Chi si presenta davanti alla webcam viene aggiunto automaticamente.</div></div>
+
+    <!-- SEZIONE 1: PERSONE REGISTRATE -->
+    <div class="panel people-section" id="section-registered">
+      <div class="section-header">
+        <div>
+          <div class="panel-title">Persone Registrate</div>
+          <div class="section-desc">Persone registrate con nome. Il viso frontale garantisce la massima affidabilità del riconoscimento.</div>
+        </div>
+        <span class="badge ok" id="count-registered">0 registrate</span>
+      </div>
+      <div class="people-cards-grid" id="registered-grid"></div>
+    </div>
+
+    <!-- SEZIONE 2: PERSONE SCANSIONATE -->
+    <div class="panel people-section" id="section-scanned" style="margin-top:22px;">
+      <div class="section-header">
+        <div>
+          <div class="panel-title">Persone Scansionate</div>
+          <div class="section-desc">Volti scansionati dalla telecamera che non hanno ancora un nome. Puoi associarli a una persona già registrata o assegnare loro un nome.</div>
+        </div>
+        <span class="badge warn" id="count-scanned">0 scansionate</span>
+      </div>
+      <div class="people-cards-grid" id="scanned-grid"></div>
+    </div>
+  </div>
+
+  <!-- Vista Scheda Completa della Persona Selezionata -->
+  <div id="person-detail-view" class="person-detail-view" style="display:none;">
+    <div class="detail-top-nav">
+      <button class="btn sm" id="btn-back-to-people">← Torna a Persone</button>
+      <span class="saved" id="saved">✓ salvato</span>
+    </div>
+    <div class="panel" id="person-detail"></div>
   </div>
 </section>

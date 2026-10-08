@@ -160,7 +160,10 @@ class Gallery:
             merged_ir = emb.merge(_load_rows(d / "embeddings_ir.npy"), np.array(ir), MAX_SAMPLES)
             np.save(d / "embeddings_ir.npy", merged_ir.astype(np.float32))
             meta["samples_ir"] = len(merged_ir)
+        photos_dir = d / "photos"
+        photos_dir.mkdir(parents=True, exist_ok=True)
         cv2.imwrite(str(d / "photo.jpg"), photo)
+        cv2.imwrite(str(photos_dir / f"photo_{int(time.time())}.jpg"), photo)
         (d / "meta.json").write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
         os.chmod(d, 0o700)
         self.reload()
@@ -173,6 +176,109 @@ class Gallery:
         shutil.rmtree(d)
         self.reload()
         return True
+
+    def list_photos(self, slug: str) -> list[dict]:
+        d = FACES / slugify(slug)
+        if not d.is_dir():
+            return []
+        photos_dir = d / "photos"
+        photos_dir.mkdir(parents=True, exist_ok=True)
+        items = []
+        primary_path = d / "photo.jpg"
+        if primary_path.is_file():
+            stat = primary_path.stat()
+            items.append({
+                "id": "photo_primary",
+                "filename": "photo.jpg",
+                "is_primary": True,
+                "url": f"/api/vision/people/{slugify(slug)}/photo.jpg",
+                "created_at": stat.st_mtime,
+                "size_bytes": stat.st_size,
+            })
+        for f in sorted(photos_dir.glob("*.jpg"), key=lambda p: -p.stat().st_mtime):
+            stat = f.stat()
+            items.append({
+                "id": f.name,
+                "filename": f.name,
+                "is_primary": False,
+                "url": f"/api/vision/people/{slugify(slug)}/photos/{f.name}",
+                "created_at": stat.st_mtime,
+                "size_bytes": stat.st_size,
+            })
+        return items
+
+    def delete_photo(self, slug: str, photo_id: str) -> bool:
+        d = FACES / slugify(slug)
+        if not d.is_dir():
+            return False
+        photos_dir = d / "photos"
+        target = None
+        if photo_id in ("photo_primary", "photo.jpg"):
+            target = d / "photo.jpg"
+        elif (photos_dir / photo_id).is_file():
+            target = photos_dir / photo_id
+        if not target or not target.is_file():
+            return False
+        try:
+            target.unlink()
+        except OSError:
+            return False
+        # If primary photo was deleted, promote another photo from photos_dir
+        if target.name == "photo.jpg":
+            remaining = sorted(photos_dir.glob("*.jpg"), key=lambda p: -p.stat().st_mtime)
+            if remaining:
+                shutil.copy(remaining[0], d / "photo.jpg")
+        self.reproject_person(slug)
+        return True
+
+    def reproject_person(self, slug: str) -> dict:
+        d = FACES / slugify(slug)
+        if not d.is_dir():
+            return {"ok": False, "error": "Directory non trovata"}
+        emb_path = d / "embeddings.npy"
+        rows = _load_rows(emb_path)
+        if rows is None:
+            return {"ok": False, "error": "Embeddings non trovati"}
+        # Re-prune and clean embeddings against centroid
+        cleaned = emb.prune(rows, MAX_SAMPLES)
+        c = emb.centroid(cleaned)
+        # Drop outliers that have similarity < 0.25 with centroid
+        sims = cleaned @ c
+        kept = cleaned[sims >= 0.25]
+        if len(kept) < 2:
+            kept = cleaned
+        np.save(emb_path, kept.astype(np.float32))
+        try:
+            meta = json.loads((d / "meta.json").read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            meta = {"name": slug, "enrolled_at": time.time()}
+        meta["samples"] = len(kept)
+        meta["reprojected_at"] = time.time()
+        (d / "meta.json").write_text(json.dumps(meta, ensure_ascii=False), encoding="utf-8")
+        self.reload()
+        pct = quality_percent(len(kept), meta.get("samples_ir", 0), emb.intra_stats(kept))
+        return {"ok": True, "samples": len(kept), "quality_pct": pct, "threshold": round(emb.person_threshold(kept, MATCH_THRESHOLD), 3)}
+
+    def associate_face(self, from_slug: str, to_slug: str) -> dict:
+        src = FACES / slugify(from_slug)
+        dst = FACES / slugify(to_slug)
+        if not src.is_dir() or not dst.is_dir():
+            return {"ok": False, "error": "Cartelle volti non valide"}
+        src_rows = _load_rows(src / "embeddings.npy")
+        dst_rows = _load_rows(dst / "embeddings.npy")
+        merged = emb.merge(dst_rows, src_rows if src_rows is not None else np.empty((0, 128), dtype=np.float32), MAX_SAMPLES)
+        np.save(dst / "embeddings.npy", merged.astype(np.float32))
+        # Copy photos
+        dst_photos = dst / "photos"
+        dst_photos.mkdir(parents=True, exist_ok=True)
+        if (src / "photo.jpg").is_file():
+            shutil.copy(src / "photo.jpg", dst_photos / f"scan_{int(time.time())}.jpg")
+        if (src / "photos").is_dir():
+            for p in (src / "photos").glob("*.jpg"):
+                shutil.copy(p, dst_photos / f"merged_{p.name}")
+        shutil.rmtree(src, ignore_errors=True)
+        self.reload()
+        return self.reproject_person(to_slug)
 
     def listing(self) -> list:
         with self.lock:
@@ -188,11 +294,32 @@ class Gallery:
             similar = [{"slug": other, "name": people[other]["name"], "similarity": round(sims[frozenset((slug, other))], 3)}
                        for other in people if other != slug and frozenset((slug, other)) in twins]
             samples, ir = len(p["embeddings"]), 0 if p["ir"] is None else len(p["ir"])
+            q_label = quality(samples, ir, stats, bool(similar))
+            q_pct = quality_percent(samples, ir, stats, bool(similar))
             rows.append({"slug": slug, "name": p["name"], "samples": samples, "samples_ir": ir,
                          "threshold": round(p["threshold"], 3), "threshold_ir": round(p["threshold_ir"], 3),
                          "spread": round(stats[1], 3) if stats else None, "similar": similar,
-                         "quality": quality(samples, ir, stats, bool(similar))})
+                         "quality": q_label, "quality_pct": q_pct})
         return sorted(rows, key=lambda r: r["name"].lower())
+
+
+def quality_percent(samples: int, ir: int = 0, stats: tuple | None = None, has_twin: bool = False) -> int:
+    if samples <= 0:
+        return 0
+    base = min(88, 30 + int(samples * 2.2))
+    if stats and len(stats) >= 2 and stats[1] is not None:
+        spread = stats[1]
+        if spread < 0.10:
+            base += 8
+        elif spread < 0.15:
+            base += 4
+        elif spread > 0.25:
+            base -= 10
+    if ir > 0:
+        base += min(6, ir * 2)
+    if has_twin:
+        base -= 10
+    return max(15, min(99, base))
 
 
 def quality(samples: int, ir: int, stats: tuple | None, has_twin: bool) -> str:

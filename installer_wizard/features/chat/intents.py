@@ -18,6 +18,14 @@ INTENTS = [
                             r"|cosa c'?[èe] in rete|rete di casa|dispositivi connessi)\b", re.I)),
     ("place", re.compile(r"\b(abito|vivo|mi trovo|ci troviamo|siamo|la casa [èe]|la mia casa [èe])\s+(a|ad|in)\s+[A-Za-zÀ-ÿ']"
                           r"|\b(dove (sei|siamo|ti trovi|ci troviamo)|qual [èe] la (tua|nostra) posizione)\b", re.I)),
+    ("person_info", re.compile(
+        r"\b(?:quanti anni (?:ho|ha\b|abbiamo)|sai quanti anni|mi sai dire quanti anni|che et[àa] ho|qual [èe] la mia et[àa]"
+        r"|quando (?:sono nato|compio gli anni|compie gli anni|[èe] il mio compleanno|[èe] nata?)|data di nascita"
+        r"|mio compleanno|compleanno di \w+|cosa sai di me|cosa ricordi di me|cosa ti ricordi di me|il mio profilo|la mia scheda"
+        r"|che lavoro faccio|qual [èe] il mio lavoro|lavoro come \w+|cosa mi piace|le mie preferenze|il mio piatto preferito"
+        r"|ho \d{1,3} anni|compio \d{1,3} anni|ricordati che ho \d{1,3} anni|appunta che ho \d{1,3} anni"
+        r"|appunta che (?:sono|faccio|il mio|mi piace|ho)|ricordati che (?:sono|faccio|il mio|mi piace)"
+        r"|segna nel (?:mio )?profilo|il mio compleanno [èe]|sono nat[oa] il)\b", re.I)),
     ("introduce", re.compile(r"\b(mi chiamo|il mio nome [èe]|chiamami)\s+\w", re.I)),
     ("voices", re.compile(r"\b(?:(?:scarica|installa|aggiungi|prendi|procurati|impara)(?:ti)?\s+(?:la\s+|una\s+|le\s+)?voc[ei]"
                            r"|(?:che|quali)\s+(?:voci|lingue)\s+(?:hai|parli|conosci|sai)|in\s+che\s+lingue\s+(?:parli|sai)"
