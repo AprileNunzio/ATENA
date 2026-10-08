@@ -32,7 +32,34 @@ class OrchestratorDispatcher:
         biometric_score: float,
         context_override: Optional[Dict[str, Any]] = None,
     ) -> AgentTaskResponse:
+        from server.features.project_workspace.manager import project_manager
+        
+        response = await self._internal_dispatch(raw_query, speaker_id, device_id, biometric_score, context_override)
+        if response and response.speech_output:
+            project_manager.add_response(speaker_id, response.speech_output)
+        return response
+
+    async def _internal_dispatch(
+        self,
+        raw_query: str,
+        speaker_id: str,
+        device_id: str,
+        biometric_score: float,
+        context_override: Optional[Dict[str, Any]] = None,
+    ) -> AgentTaskResponse:
         sanitized_query = self._sanitizer.sanitize_plain_text(raw_query)
+        
+        from server.features.project_workspace.manager import project_manager
+        sanitized_query = project_manager.process_query(sanitized_query, speaker_id)
+        if sanitized_query.startswith("Comando di sistema: il progetto attuale è stato chiuso"):
+            return AgentTaskResponse(
+                task_id=f"tsk_sys_{uuid.uuid4().hex[:8]}",
+                agent_id="system_core",
+                status="SUCCESS",
+                speech_output=sanitized_query,
+                result_data={"closed": True}
+            )
+
         journey.begin(sanitized_query, speaker_id or "user")
 
         with journey.span("laws", "Leggi Fondamentali", "Controllo vincoli e conformità delle leggi") as laws_span:

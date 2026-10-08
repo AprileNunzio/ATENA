@@ -17,6 +17,7 @@ import { Terminal as XTerm } from 'xterm';
 import 'xterm/css/xterm.css';
 import { AgentDescriptor, SystemModelConfig, KnowledgeNode } from '../../shared/types';
 import { NeuralAnalysisFlow } from './NeuralAnalysisFlow';
+import { ProjectWidget } from './ProjectWidget';
 
 interface ControlDeckViewProps {
   nodes: KnowledgeNode[];
@@ -260,6 +261,9 @@ export const ControlDeckView: React.FC<ControlDeckViewProps> = ({ nodes, onRefre
       <div className="mt-6">
         <NeuralAnalysisFlow />
       </div>
+      
+      {/* Floating Project Mode Widget */}
+      <ProjectWidget />
     </div>
   );
 };
