@@ -1,20 +1,47 @@
 {
   "id": "rpa",
   "name": "Controllo del computer",
-  "icon": "🖱",
+  "icon": "fa-network-wired",
   "category": "assistente",
   "order": 18,
   "panel": "",
   "toggle": { "env": "ATENA_RPA", "apply": [] },
-  "description": "Atena usa un computer collegato come farebbe una persona: trova gli elementi sullo schermo con la visione, muove il mouse, scrive, e verifica dai pixel che l'azione abbia avuto effetto, riprovando da solo se non è andata.",
+  "description": "ATENA assume il controllo completo e sicuro della tua infrastruttura di computer (Windows, macOS, Linux, BSD). Invece di richiedere copie e incollature manuali, Atena sfrutta il suo Remote Manager e il Satellite di Contesto locale per leggere automaticamente i documenti a cui stai lavorando e amministrare i dispositivi.",
   "capabilities": [
-    "Coordinate assolute in pixel degli elementi dell'interfaccia, ricavate dallo screenshot",
-    "Mouse, tastiera e rotella simulati come dispositivi hardware reali (uinput)",
-    "Ogni azione è verificata confrontando i pixel prima e dopo; se non cambia nulla ritenta su un altro elemento",
-    "Rifiuto delle aree uniformi: un'etichetta inventata dal modello non viene cliccata",
-    "Il nodo si collega in uscita: nessuna porta aperta; abilitazione esplicita per ogni nodo"
+    "Crittografia End-to-End (AES-128 Fernet) attiva tra il server e i computer collegati",
+    "Satellite Locale: legge in tempo reale il testo della finestra attiva e genera screenshot",
+    "Supporto universale SysAdmin: Windows (WinRM e SSH), Debian, Ubuntu, macOS, RedHat e FreeBSD",
+    "Capacit amministrative: Controllo stato RAM/Disco, Sincronizzazione, Update OS e Riavvio Servizi",
+    "Mappatura Dinamica senza hardcoding: configura la rete tramite la Dashboard di Controllo"
   ],
   "settings": [
-    { "key": "ATENA_RPA_NODES", "label": "Nodi controllabili (id separati da virgola)", "type": "text", "default": "" }
+    {
+      "key": "ATENA_RPA_PSK",
+      "label": "Chiave PSK (Generata automaticamente per la crittografia E2E del Satellite)",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "ATENA_RPA_AUTO_SYNC",
+      "label": "Ping e Sincronizzazione automatica dei PC in background",
+      "type": "select",
+      "default": "1",
+      "options": [
+        { "value": "1", "label": "Attivata (Consigliato)" },
+        { "value": "0", "label": "Manuale" }
+      ]
+    },
+    {
+      "key": "ATENA_RPA_DASHBOARD_LINK",
+      "label": "Dashboard Controllo Remoto (Aggiungi IP, Password e verifica lo stato)",
+      "type": "text",
+      "default": "http://127.0.0.1:8000/api/v1/computer-control/view.html"
+    },
+    { 
+      "key": "ATENA_RPA_NODES", 
+      "label": "Compatibilit Nodi Legacy (id separati da virgola)", 
+      "type": "text", 
+      "default": "" 
+    }
   ]
 }

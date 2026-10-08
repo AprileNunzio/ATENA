@@ -1,14 +1,18 @@
 {
   "name": "Controllo del computer",
-  "description": "Atena usa un computer collegato come farebbe una persona: trova gli elementi sullo schermo con la visione, muove il mouse, scrive, e verifica dai pixel che l'azione abbia avuto effetto, riprovando da solo se non è andata.",
+  "description": "ATENA assume il controllo completo e sicuro della tua infrastruttura di computer (Windows, macOS, Linux, BSD). Invece di richiedere copia e incolla manuali, Atena sfrutta il suo Remote Manager e il Satellite di Contesto locale per leggere automaticamente i documenti a cui stai lavorando e amministrare i dispositivi.",
   "capabilities": [
-    "Coordinate assolute in pixel degli elementi dell'interfaccia, ricavate dallo screenshot",
-    "Mouse, tastiera e rotella simulati come dispositivi hardware reali (uinput)",
-    "Ogni azione è verificata confrontando i pixel prima e dopo; se non cambia nulla ritenta su un altro elemento",
-    "Rifiuto delle aree uniformi: un'etichetta inventata dal modello non viene cliccata",
-    "Il nodo si collega in uscita: nessuna porta aperta; abilitazione esplicita per ogni nodo"
+    "Context Satellite locale: ATENA vede cosa stai scrivendo o leggendo in tempo reale senza dover fare copia-incolla",
+    "Crittografia End-to-End (AES-128 Fernet) tra ATENA e i PC remoti",
+    "Supporto universale nativo: Windows (WinRM/SSH), macOS, Debian, RHEL e FreeBSD",
+    "Capacità SysAdmin: Lettura RAM, Dischi, Riavvio servizi, Uptime, CPU e Utenti attivi",
+    "Deploy e Auto-Update Over-The-Air per i satelliti client",
+    "Gestione flotte tramite Mappatura di Rete e Dashboard di Sincronizzazione"
   ],
   "settings": {
-    "ATENA_RPA_NODES": "Nodi controllabili (id separati da virgola)"
+    "ATENA_RPA_PSK": "Chiave PSK per crittografia Satellite E2E (Autogenerata)",
+    "ATENA_RPA_AUTO_SYNC": "Ping e Sincronizzazione automatica dei PC in background",
+    "ATENA_RPA_DASHBOARD_LINK": "Dashboard Avanzata (URL per configurare IP, Password e Sync)",
+    "ATENA_RPA_NODES": "Compatibilità Nodi Legacy (id separati da virgola)"
   }
 }
