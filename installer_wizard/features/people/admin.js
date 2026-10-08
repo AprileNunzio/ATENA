@@ -481,8 +481,13 @@
       }
     });
 
-    // Azioni su Persone Scansionate (Assegna nome o Associa)
     $("scanned-grid")?.addEventListener("click", async (e) => {
+      const card = e.target.closest(".person-card");
+      if (card && card.dataset.scannedSlug && !e.target.closest("button") && !e.target.closest("input") && !e.target.closest("select")) {
+        openPerson(card.dataset.scannedSlug);
+        return;
+      }
+
       const assignBtn = e.target.closest(".btn-assign-name");
       if (assignBtn) {
         const slug = assignBtn.dataset.slug;
@@ -493,7 +498,7 @@
           return;
         }
         try {
-          await A.api("PUT", `/api/people/${encodeURIComponent(slug)}`, { name: newName });
+          await A.api("PUT", `/api/people/${encodeURIComponent(slug)}`, { name: newName, is_scanned: false });
           A.toast(`Nome assegnato con successo: ${newName}!`);
           await loadPeople();
         } catch (err) {
