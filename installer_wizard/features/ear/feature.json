@@ -77,7 +77,30 @@
         {
           "value": "gemini",
           "label": "Google Gemini (gemini-2.5-flash audio nativo)"
+        },
+        {
+          "value": "custom",
+          "label": "Server personalizzato compatibile OpenAI (es. Gemma o Whisper su vLLM, LocalAI, anche locale)"
         }
+      ]
+    },
+    {
+      "key": "ATENA_ONLINE_STT_URL",
+      "label": "Server personalizzato: indirizzo (es. http://192.168.1.50:8000)",
+      "type": "text",
+      "default": "",
+      "apply": [
+        "ear"
+      ],
+      "help": "Qualsiasi server con l'API di trascrizione compatibile OpenAI (/v1/audio/transcriptions). La chiave API è facoltativa."
+    },
+    {
+      "key": "ATENA_ONLINE_STT_MODEL",
+      "label": "Server personalizzato: nome del modello (es. google/gemma-3n-E4B-it o whisper-large-v3)",
+      "type": "text",
+      "default": "",
+      "apply": [
+        "ear"
       ]
     },
     {

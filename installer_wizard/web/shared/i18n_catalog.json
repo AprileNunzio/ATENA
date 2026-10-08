@@ -12235,6 +12235,22 @@
     [
       "Ho imparato la tua voce, ma non sono riuscita a salvare il dizionario: riprova più tardi.",
       "I learned your voice, but I could not save the dictionary: try again later."
+    ],
+    [
+      "Server personalizzato compatibile OpenAI (es. Gemma o Whisper su vLLM, LocalAI, anche locale)",
+      "Custom OpenAI-compatible server (e.g. Gemma or Whisper on vLLM, LocalAI, local too)"
+    ],
+    [
+      "Server personalizzato: indirizzo (es. http://192.168.1.50:8000)",
+      "Custom server: address (e.g. http://192.168.1.50:8000)"
+    ],
+    [
+      "Server personalizzato: nome del modello (es. google/gemma-3n-E4B-it o whisper-large-v3)",
+      "Custom server: model name (e.g. google/gemma-3n-E4B-it or whisper-large-v3)"
+    ],
+    [
+      "Qualsiasi server con l'API di trascrizione compatibile OpenAI (/v1/audio/transcriptions). La chiave API è facoltativa.",
+      "Any server with the OpenAI-compatible transcription API (/v1/audio/transcriptions). The API key is optional."
     ]
   ],
   "reverse": [
@@ -13723,6 +13739,10 @@
       "Quelque chose n'a pas fonctionné, réessayez"
     ],
     [
+      "Qualsiasi server con l'API di trascrizione compatibile OpenAI (/v1/audio/transcriptions). La chiave API è facoltativa.",
+      "Tout serveur avec l'API de transcription compatible OpenAI (/v1/audio/transcriptions). La clé API est facultative."
+    ],
+    [
       "Quando ti riconosce mostra meteo, promemoria e riepilogo Google nei widget (1/0)",
       "Quand elle vous reconnaît, elle affiche la météo, les rappels et le résumé Google dans les widgets (1/0)"
     ],
@@ -13841,6 +13861,18 @@
     [
       "Server Ollama (vuoto = locale; es. http://192.168.1.50:11434 per usare un altro server)",
       "Serveur Ollama (vide = local ; ex. http://192.168.1.50:11434 pour utiliser un autre serveur)"
+    ],
+    [
+      "Server personalizzato compatibile OpenAI (es. Gemma o Whisper su vLLM, LocalAI, anche locale)",
+      "Serveur personnalisé compatible OpenAI (ex. Gemma ou Whisper sur vLLM, LocalAI, même local)"
+    ],
+    [
+      "Server personalizzato: indirizzo (es. http://192.168.1.50:8000)",
+      "Serveur personnalisé : adresse (ex. http://192.168.1.50:8000)"
+    ],
+    [
+      "Server personalizzato: nome del modello (es. google/gemma-3n-E4B-it o whisper-large-v3)",
+      "Serveur personnalisé : nom du modèle (ex. google/gemma-3n-E4B-it ou whisper-large-v3)"
     ],
     [
       "Servizi cognitivi",

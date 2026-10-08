@@ -2,6 +2,7 @@ import io
 import json
 import logging
 import os
+import re
 import time
 import urllib.error
 import urllib.request
@@ -11,7 +12,9 @@ import numpy as np
 log = logging.getLogger("atena.ear.online")
 
 RATE = 16000
+CUSTOM_URL_RE = re.compile(r"https?://[A-Za-z0-9.\-]+(:\d{1,5})?(/[A-Za-z0-9._~/-]{0,200})?")
 TIMEOUT = 4.0
+CUSTOM_TIMEOUT = 15.0
 
 
 def audio_to_wav_bytes(audio: np.ndarray, rate: int = RATE) -> bytes:
@@ -29,6 +32,15 @@ def audio_to_wav_bytes(audio: np.ndarray, rate: int = RATE) -> bytes:
         wf.setframerate(rate)
         wf.writeframes(pcm16.tobytes())
     return buf.getvalue()
+
+
+def custom_endpoint() -> str:
+    url = os.environ.get("ATENA_ONLINE_STT_URL", "").strip().rstrip("/")
+    if not CUSTOM_URL_RE.fullmatch(url) or ".." in url:
+        if url:
+            log.warning("Indirizzo del server di trascrizione personalizzato non valido: %s", url[:120])
+        return ""
+    return url if url.endswith("/audio/transcriptions") else url + "/v1/audio/transcriptions"
 
 
 def _get_api_key(provider: str) -> str:
@@ -68,9 +80,8 @@ def transcribe_deepgram(wav_bytes: bytes, lang: str = "it", api_key: str = "") -
     return None
 
 
-def transcribe_openai_compatible(wav_bytes: bytes, endpoint: str, model: str, api_key: str, lang: str = "it") -> str | None:
-    if not api_key:
-        return None
+def transcribe_openai_compatible(wav_bytes: bytes, endpoint: str, model: str, api_key: str, lang: str = "it",
+                                 timeout: float = TIMEOUT) -> str | None:
     boundary = f"----WebKitFormBoundary{int(time.time() * 1000)}"
     body = bytearray()
 
@@ -89,13 +100,13 @@ def transcribe_openai_compatible(wav_bytes: bytes, endpoint: str, model: str, ap
         endpoint,
         data=bytes(body),
         headers={
-            "Authorization": f"Bearer {api_key}",
+            **({"Authorization": f"Bearer {api_key}"} if api_key else {}),
             "Content-Type": f"multipart/form-data; boundary={boundary}",
         },
         method="POST"
     )
     try:
-        with urllib.request.urlopen(req, timeout=TIMEOUT) as resp:
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
             data = json.loads(resp.read().decode("utf-8"))
             return str(data.get("text", "")).strip()
     except Exception as exc:
@@ -137,6 +148,12 @@ def transcribe_online(audio: np.ndarray, lang: str = "it") -> str | None:
     """Tenta la trascrizione online usando il provider configurato. Ritorna None se fallisce o disattivato."""
     provider = os.environ.get("ATENA_ONLINE_STT_PROVIDER", "deepgram").strip().lower()
     api_key = _get_api_key(provider)
+    if provider == "custom":
+        endpoint = custom_endpoint()
+        if not endpoint:
+            return None
+        model = os.environ.get("ATENA_ONLINE_STT_MODEL", "").strip() or "whisper-1"
+        return transcribe_openai_compatible(audio_to_wav_bytes(audio, RATE), endpoint, model, api_key, lang, CUSTOM_TIMEOUT)
     if not api_key:
         return None
 

@@ -9,9 +9,12 @@
   "settings": {
     "ATENA_WAKE_WORD": "Wake word",
     "ATENA_STT_ENGINE": "STT Engine",
-    "ATENA_MIC_AGC": "Automatic microphone level"
+    "ATENA_MIC_AGC": "Automatic microphone level",
+    "ATENA_ONLINE_STT_URL": "Custom server: address (e.g. http://192.168.1.50:8000)",
+    "ATENA_ONLINE_STT_MODEL": "Custom server: model name (e.g. google/gemma-3n-E4B-it or whisper-large-v3)"
   },
   "help": {
-    "ATENA_MIC_AGC": "Automatic: ATENA measures your voice and, if the microphone is too loud or distorts, it turns on the browser volume control by itself, which lowers the microphone in the system. Yes: always on. No: never."
+    "ATENA_MIC_AGC": "Automatic: ATENA measures your voice and, if the microphone is too loud or distorts, it turns on the browser volume control by itself, which lowers the microphone in the system. Yes: always on. No: never.",
+    "ATENA_ONLINE_STT_URL": "Any server with the OpenAI-compatible transcription API (/v1/audio/transcriptions). The API key is optional."
   }
 }

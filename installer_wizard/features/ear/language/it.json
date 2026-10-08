@@ -48,9 +48,12 @@
     "ATENA_VOICEPRINT_MATCH": "Soglia di somiglianza della voce (0,3 - 0,95)",
     "ATENA_VOICE_MARGIN": "Distacco minimo dalla seconda voce più simile (0 - 0,5)",
     "ATENA_VOICE_TWIN_SIM": "Due voci sono «simili» oltre questa somiglianza (0,2 - 0,95)",
-    "ATENA_VOICE_TWIN_MARGIN": "Distacco richiesto tra voci simili, per esempio gemelli (0 - 0,6)"
+    "ATENA_VOICE_TWIN_MARGIN": "Distacco richiesto tra voci simili, per esempio gemelli (0 - 0,6)",
+    "ATENA_ONLINE_STT_URL": "Server personalizzato: indirizzo (es. http://192.168.1.50:8000)",
+    "ATENA_ONLINE_STT_MODEL": "Server personalizzato: nome del modello (es. google/gemma-3n-E4B-it o whisper-large-v3)"
   },
   "help": {
-    "ATENA_MIC_AGC": "Automatico: ATENA misura la tua voce e, se il microfono è troppo alto o distorce, attiva da sola il controllo del volume del browser che abbassa il microfono nel sistema. Sì: sempre attivo. No: mai."
+    "ATENA_MIC_AGC": "Automatico: ATENA misura la tua voce e, se il microfono è troppo alto o distorce, attiva da sola il controllo del volume del browser che abbassa il microfono nel sistema. Sì: sempre attivo. No: mai.",
+    "ATENA_ONLINE_STT_URL": "Qualsiasi server con l'API di trascrizione compatibile OpenAI (/v1/audio/transcriptions). La chiave API è facoltativa."
   }
 }
