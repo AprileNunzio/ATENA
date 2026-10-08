@@ -12447,6 +12447,154 @@
     [
       "Ologramma wireframe del volto",
       "Wireframe face hologram"
+    ],
+    [
+      "3 secondi…",
+      "3 seconds…"
+    ],
+    [
+      "Abbassa leggermente il mento",
+      "Lower your chin slightly"
+    ],
+    [
+      "Allontanati e girati di spalle",
+      "Step back and turn around"
+    ],
+    [
+      "Allontanati finché la webcam ti inquadra dalla testa ai piedi",
+      "Step back until the webcam frames you from head to toe"
+    ],
+    [
+      "Alza leggermente il mento",
+      "Raise your chin slightly"
+    ],
+    [
+      "Analisi foto {0} di {1}…",
+      "Analysing photo {0} of {1}…"
+    ],
+    [
+      "Campione Angolazione / Luce",
+      "Angle / Light Sample"
+    ],
+    [
+      "Carica una foto JPEG, PNG, WEBP o BMP",
+      "Upload a JPEG, PNG, WEBP or BMP photo"
+    ],
+    [
+      "Conversione della foto non riuscita",
+      "Photo conversion failed"
+    ],
+    [
+      "Corpo di spalle",
+      "Body from behind"
+    ],
+    [
+      "Corpo intero",
+      "Full body"
+    ],
+    [
+      "Foto non eliminata: {0}",
+      "Photo not deleted: {0}"
+    ],
+    [
+      "Foto più grande di 8 MB",
+      "Photo larger than 8 MB"
+    ],
+    [
+      "Foto vuota o più grande di 8 MB",
+      "Empty photo or larger than 8 MB"
+    ],
+    [
+      "Frontale",
+      "Front"
+    ],
+    [
+      "Gira la testa del tutto verso la tua destra",
+      "Turn your head fully to your right"
+    ],
+    [
+      "Gira la testa del tutto verso la tua sinistra",
+      "Turn your head fully to your left"
+    ],
+    [
+      "Gira un poco la testa verso la tua destra",
+      "Turn your head slightly to your right"
+    ],
+    [
+      "Gira un poco la testa verso la tua sinistra",
+      "Turn your head slightly to your left"
+    ],
+    [
+      "Guarda dritto la webcam",
+      "Look straight at the webcam"
+    ],
+    [
+      "Nome della foto non valido",
+      "Invalid photo name"
+    ],
+    [
+      "Più angolazioni del viso e del corpo rendono il riconoscimento affidabile anche di profilo, da lontano e con luce diversa. Scatta dalla webcam seguendo l'indicazione oppure carica foto già fatte.",
+      "More angles of the face and body make recognition reliable even in profile, from a distance and in different light. Shoot from the webcam following the hint or upload existing photos."
+    ],
+    [
+      "Profilo destro",
+      "Right profile"
+    ],
+    [
+      "Profilo sinistro",
+      "Left profile"
+    ],
+    [
+      "Testa alta",
+      "Head up"
+    ],
+    [
+      "Testa bassa",
+      "Head down"
+    ],
+    [
+      "Tipo di vista non valido",
+      "Invalid view type"
+    ],
+    [
+      "Tre quarti destra",
+      "Three-quarter right"
+    ],
+    [
+      "Tre quarti sinistra",
+      "Three-quarter left"
+    ],
+    [
+      "Vista a 360°",
+      "360° view"
+    ],
+    [
+      "{0} acquisita ({1} campioni in totale)",
+      "{0} captured ({1} samples in total)"
+    ],
+    [
+      "{0} di {1} viste",
+      "{0} of {1} views"
+    ],
+    [
+      "{0} foto aggiunte alla galleria",
+      "{0} photos added to the gallery"
+    ],
+    [
+      "✓ {0} foto",
+      "✓ {0} photos"
+    ],
+    [
+      "⬆ Carica più foto (angolazione riconosciuta da sola)",
+      "⬆ Upload several photos (angle detected automatically)"
+    ],
+    [
+      "⭐ Viso Frontale Principale",
+      "⭐ Main Front Face"
+    ],
+    [
+      "🗑 Elimina Foto",
+      "🗑 Delete Photo"
     ]
   ],
   "reverse": [
@@ -24522,6 +24670,154 @@
     [
       "Ologramma wireframe del volto",
       "Hologramme filaire du visage"
+    ],
+    [
+      "3 secondi…",
+      "3 secondes…"
+    ],
+    [
+      "Abbassa leggermente il mento",
+      "Baissez légèrement le menton"
+    ],
+    [
+      "Allontanati e girati di spalle",
+      "Reculez et tournez le dos"
+    ],
+    [
+      "Allontanati finché la webcam ti inquadra dalla testa ai piedi",
+      "Reculez jusqu'à ce que la webcam vous cadre de la tête aux pieds"
+    ],
+    [
+      "Alza leggermente il mento",
+      "Levez légèrement le menton"
+    ],
+    [
+      "Analisi foto {0} di {1}…",
+      "Analyse de la photo {0} sur {1}…"
+    ],
+    [
+      "Campione Angolazione / Luce",
+      "Échantillon angle / lumière"
+    ],
+    [
+      "Carica una foto JPEG, PNG, WEBP o BMP",
+      "Chargez une photo JPEG, PNG, WEBP ou BMP"
+    ],
+    [
+      "Conversione della foto non riuscita",
+      "Échec de la conversion de la photo"
+    ],
+    [
+      "Corpo di spalle",
+      "Corps de dos"
+    ],
+    [
+      "Corpo intero",
+      "Corps entier"
+    ],
+    [
+      "Foto non eliminata: {0}",
+      "Photo non supprimée : {0}"
+    ],
+    [
+      "Foto più grande di 8 MB",
+      "Photo de plus de 8 Mo"
+    ],
+    [
+      "Foto vuota o più grande di 8 MB",
+      "Photo vide ou de plus de 8 Mo"
+    ],
+    [
+      "Frontale",
+      "De face"
+    ],
+    [
+      "Gira la testa del tutto verso la tua destra",
+      "Tournez complètement la tête vers votre droite"
+    ],
+    [
+      "Gira la testa del tutto verso la tua sinistra",
+      "Tournez complètement la tête vers votre gauche"
+    ],
+    [
+      "Gira un poco la testa verso la tua destra",
+      "Tournez légèrement la tête vers votre droite"
+    ],
+    [
+      "Gira un poco la testa verso la tua sinistra",
+      "Tournez légèrement la tête vers votre gauche"
+    ],
+    [
+      "Guarda dritto la webcam",
+      "Regardez droit vers la webcam"
+    ],
+    [
+      "Nome della foto non valido",
+      "Nom de photo non valide"
+    ],
+    [
+      "Più angolazioni del viso e del corpo rendono il riconoscimento affidabile anche di profilo, da lontano e con luce diversa. Scatta dalla webcam seguendo l'indicazione oppure carica foto già fatte.",
+      "Plus d'angles du visage et du corps rendent la reconnaissance fiable même de profil, de loin et sous une autre lumière. Prenez la photo avec la webcam en suivant l'indication ou chargez des photos existantes."
+    ],
+    [
+      "Profilo destro",
+      "Profil droit"
+    ],
+    [
+      "Profilo sinistro",
+      "Profil gauche"
+    ],
+    [
+      "Testa alta",
+      "Tête haute"
+    ],
+    [
+      "Testa bassa",
+      "Tête baissée"
+    ],
+    [
+      "Tipo di vista non valido",
+      "Type de vue non valide"
+    ],
+    [
+      "Tre quarti destra",
+      "Trois-quarts droit"
+    ],
+    [
+      "Tre quarti sinistra",
+      "Trois-quarts gauche"
+    ],
+    [
+      "Vista a 360°",
+      "Vue à 360°"
+    ],
+    [
+      "{0} acquisita ({1} campioni in totale)",
+      "{0} acquise ({1} échantillons au total)"
+    ],
+    [
+      "{0} di {1} viste",
+      "{0} vues sur {1}"
+    ],
+    [
+      "{0} foto aggiunte alla galleria",
+      "{0} photos ajoutées à la galerie"
+    ],
+    [
+      "✓ {0} foto",
+      "✓ {0} photos"
+    ],
+    [
+      "⬆ Carica più foto (angolazione riconosciuta da sola)",
+      "⬆ Charger plusieurs photos (angle détecté automatiquement)"
+    ],
+    [
+      "⭐ Viso Frontale Principale",
+      "⭐ Visage de face principal"
+    ],
+    [
+      "🗑 Elimina Foto",
+      "🗑 Supprimer la photo"
     ]
   ]
 }

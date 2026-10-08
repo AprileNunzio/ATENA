@@ -17,6 +17,7 @@ from gallery import FACES, Gallery, slugify
 from ircam import IrCamera, enhance
 from objects import ObjectDetector
 from tracks import Track, facing, iou, reliable_unknown
+from views import Views, router as views_router
 
 log = logging.getLogger("atena.vision")
 logging.basicConfig(level=logging.INFO, format="%(asctime)s [%(name)s] %(levelname)s: %(message)s")
@@ -323,6 +324,8 @@ class Vision:
 gallery = Gallery()
 vision = Vision(gallery)
 app = FastAPI(title="Atena Vision", docs_url=None, redoc_url=None, openapi_url=None)
+views = Views(vision, gallery, MODELS)
+app.include_router(views_router(views))
 
 
 @app.get("/health")

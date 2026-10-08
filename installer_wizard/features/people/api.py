@@ -11,7 +11,7 @@ from access import require_admin, require_display
 from config import DEMO, STATE_DIR
 from core_client import core
 from features.chat import voice_id
-from features.people import faces, people, voice_training
+from features.people import faces, people, views, voice_training
 from features.vision.proxy import vision_proxy
 from features.voices.catalog import VOICES
 from state import store
@@ -199,6 +199,7 @@ async def admin_person_photos(slug: str, _: str = Depends(require_admin)):
             "filename": "photo.jpg",
             "is_primary": True,
             "url": f"/api/vision/people/{clean}/photo.jpg",
+            "kind": "front",
             "created_at": stat.st_mtime,
             "quality_pct": faces.quality(FACES, clean),
         })
@@ -209,6 +210,7 @@ async def admin_person_photos(slug: str, _: str = Depends(require_admin)):
             "filename": f.name,
             "is_primary": False,
             "url": f"/api/people/{clean}/photos/{f.name}",
+            "kind": views.kind_of(f.stem),
             "created_at": stat.st_mtime,
             "quality_pct": faces.quality(FACES, clean),
         })
@@ -218,6 +220,7 @@ async def admin_person_photos(slug: str, _: str = Depends(require_admin)):
 @admin_routes.get("/api/people/{slug}/photos/{photo_id}")
 async def admin_person_photo_file(slug: str, photo_id: str, _: str = Depends(require_admin)):
     clean = people.slugify(slug)
+    views.check_photo_id(photo_id)
     p_path = FACES / clean / "photos" / photo_id
     if p_path.is_file():
         return Response(p_path.read_bytes(), media_type="image/jpeg", headers={"Cache-Control": "private, no-store"})
@@ -229,6 +232,7 @@ async def admin_person_photo_file(slug: str, photo_id: str, _: str = Depends(req
 @admin_routes.delete("/api/people/{slug}/photos/{photo_id}")
 async def admin_person_photo_delete(slug: str, photo_id: str, user: str = Depends(require_admin)):
     clean = people.slugify(slug)
+    views.check_photo_id(photo_id)
     d = FACES / clean
     if not d.is_dir():
         raise HTTPException(404, "Persona non trovata")
@@ -242,16 +246,13 @@ async def admin_person_photo_delete(slug: str, photo_id: str, user: str = Depend
         raise HTTPException(404, "Foto non trovata")
     try:
         target.unlink()
-    except OSError:
-        pass
-
-    if target.name == "photo.jpg":
-        remaining = sorted(photos_dir.glob("*.jpg"), key=lambda p: -p.stat().st_mtime)
-        if remaining:
-            try:
+        if target.name == "photo.jpg":
+            remaining = sorted((p for p in photos_dir.glob("*.jpg") if views.kind_of(p.stem) not in views.BODY),
+                               key=lambda p: -p.stat().st_mtime)
+            if remaining:
                 shutil.copy(remaining[0], d / "photo.jpg")
-            except OSError:
-                pass
+    except OSError as exc:
+        raise HTTPException(500, f"Foto non eliminata: {exc}")
 
     from features.vision.nightly import optimize_person
     opt = optimize_person(clean)
@@ -275,3 +276,5 @@ async def admin_people_optimize_all(user: str = Depends(require_admin)):
     store.event("INFO", f"Ottimizzazione notturna biometrica avviata manualmente da {user}", "vision")
     return res
 
+
+admin_routes.include_router(views.admin_routes)

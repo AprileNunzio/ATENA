@@ -1,13 +1,12 @@
 (() => {
   const A = window.AtenaAdmin, { $, fmt } = A;
-  const DAYS = ["Lun", "Mar", "Mer", "Gio", "Ven", "Sab", "Dom"];
   const initials = (n) => (n || "?").split(/\s+/).map((x) => x[0]).join("").slice(0, 2).toUpperCase();
   const avatar = (p, size = 64) => `<img class="frontal-avatar" style="width:${size}px;height:${size}px" src="/api/vision/people/${encodeURIComponent(p.slug)}/photo.jpg" onerror="this.outerHTML='<div class=&quot;frontal-avatar&quot; style=&quot;width:${size}px;height:${size}px;display:grid;place-items:center;font-size:${Math.round(size/2.5)}px;color:var(--cyan);background:rgba(2,8,16,0.8);&quot;>${fmt.esc(initials(p.name))}</div>'">`;
   const ago = (t) => t ? `${fmt.duration(Date.now() / 1000 - t)} fa` : "mai";
 
   let peopleData = { people: [], roles: {} }, peopleSchema = null;
   let currentPerson = null, currentSection = "identity";
-  let personCache = null, peopleFilter = "", personPhotos = [];
+  let personCache = null, peopleFilter = "";
   const saveTimers = {};
 
   function qualityClass(pct) {
@@ -74,7 +73,6 @@
 
     const registered = all.filter((p) => !p.is_scanned);
     
-    // Ordina alfabeticamente per cognome e nome se presenti
     registered.sort((a, b) => {
       const nameA = (a.last_name && a.first_name) ? `${a.last_name} ${a.first_name}` : (a.name || "");
       const nameB = (b.last_name && b.first_name) ? `${b.last_name} ${b.first_name}` : (b.name || "");
@@ -86,7 +84,6 @@
     if ($("count-registered")) $("count-registered").textContent = `${registered.length} persone`;
     if ($("count-scanned")) $("count-scanned").textContent = `${scanned.length} volti`;
 
-    // 1. Persone Registrate
     const regGrid = $("registered-grid");
     if (regGrid) {
       if (!registered.length) {
@@ -117,7 +114,6 @@
       }
     }
 
-    // 2. Persone Scansionate
     const scnGrid = $("scanned-grid");
     if (scnGrid) {
       if (!scanned.length) {
@@ -193,53 +189,6 @@
       : `<div class="${f.type === "textarea" ? "wide" : ""}"><label>${fmt.esc(f.label)}${extra}</label>${fieldInput(f, p[f.key], f.key)}</div>`;
   }
 
-  async function loadPersonPhotos(slug) {
-    try {
-      const res = await A.api("GET", `/api/people/${encodeURIComponent(slug)}/photos`);
-      personPhotos = res.photos || [];
-    } catch (e) {
-      personPhotos = [];
-    }
-  }
-
-  function gallerySection(p) {
-    const qPct = p.quality_pct || 75;
-    return `
-      <div class="gallery-section-box">
-        <div class="gallery-controls-bar">
-          <div>
-            <div style="font-weight:600; font-size:14px; margin-bottom:4px;">Galleria Foto Riconoscimento Biometrico</div>
-            <div class="gallery-summary-text">
-              Tutte le migliori foto utilizzate dal motore di riconoscimento per questa persona.
-              La notte, il sistema automatico perfeziona il modello biometrico. Se rilevi foto errate o mal associate, puoi eliminarle e riprogettare il riconoscimento.
-            </div>
-          </div>
-          <div class="row" style="gap:10px;">
-            <button class="btn primary" id="btn-reproject" title="Ricalcola e ottimizza il modello biometrico per questa persona">🔄 Riprogetta Riconoscimento</button>
-            <button class="btn" id="enroll-cam">📷 Nuova Foto da Webcam</button>
-          </div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:4px;">
-          <div style="font-size:13px; font-weight:500;">Foto Campione (${personPhotos.length})</div>
-          <div style="font-size:12px; color:var(--text-dim);">Accuratezza attuale: <b style="color:var(--cyan);">${qPct}%</b></div>
-        </div>
-
-        <div class="gallery-photos-grid">
-          ${personPhotos.length ? personPhotos.map((ph) => `
-            <div class="gallery-photo-card ${ph.is_primary ? "is-primary" : ""}">
-              <img class="gallery-photo-img" src="${fmt.esc(ph.url)}" loading="lazy">
-              <div class="gallery-photo-meta">
-                ${ph.is_primary ? '<span class="primary-tag">⭐ Viso Frontale Principale</span>' : '<span class="muted-note">Campione Angolazione / Luce</span>'}
-                <button class="btn sm danger btn-delete-photo" data-photo-id="${fmt.esc(ph.id)}" title="Elimina questa foto se errata">🗑 Elimina Foto</button>
-              </div>
-            </div>
-          `).join("") : '<div class="muted-note" style="grid-column:1/-1;">Nessuna foto memorizzata. Cattura una foto frontale con la webcam per potenziare il riconoscimento.</div>'}
-        </div>
-      </div>
-    `;
-  }
-
   function voiceSection(p) {
     const vp = p.voiceprint || {};
     const vs = vp.enrolled ? `✓ registrata (${vp.samples} campioni${vp.updated ? `, ultimo ${new Date(vp.updated * 1000).toLocaleDateString("it-IT")}` : ""})`
@@ -260,24 +209,19 @@
     return A.PeopleVoice ? A.PeopleVoice.section(p, base) : base;
   }
 
-  function habitsSection(p) {
-    const h = p.habits || { arrival_hours: [0]*24, weekdays: [0]*7, summary: "Nessuna abitudine registrata." };
-    const maxH = Math.max(1, ...(h.arrival_hours || [1]));
-    const maxD = Math.max(1, ...(h.weekdays || [1]));
-    return `<div style="font-size:14px; margin-bottom:14px">${fmt.esc(h.summary)}</div>
-        <div class="grid g2"><div><label>Orari di arrivo</label><div class="chart">${(h.arrival_hours || []).map((v) => `<i style="height:${(v / maxH) * 100}%" title="${v}"></i>`).join("")}</div><div class="chart-lbl"><span>0</span><span>6</span><span>12</span><span>18</span><span>23</span></div></div>
-        <div><label>Giorni della settimana</label><div class="chart">${(h.weekdays || []).map((v) => `<i style="height:${(v / maxD) * 100}%" title="${v}"></i>`).join("")}</div><div class="chart-lbl">${DAYS.map((d) => `<span>${d}</span>`).join("")}</div></div></div>
-        <div class="muted-note">${p.stats ? p.stats.visits : 0} visite · ${fmt.duration(p.stats ? p.stats.total_seconds : 0)} di presenza · prima volta ${p.stats && p.stats.first_seen ? new Date(p.stats.first_seen * 1000).toLocaleDateString("it-IT") : "—"}</div>`;
-  }
-
   function sectionHtml(p) {
-    if (currentSection === "gallery") return gallerySection(p);
+    if (currentSection === "gallery") return A.PeopleGallery ? A.PeopleGallery.section(p) : "";
     if (currentSection === "voice") return voiceSectionFull(p);
-    if (currentSection === "habits") return habitsSection(p);
+    if (currentSection === "habits") return A.PeopleHabits ? A.PeopleHabits.section(p) : "";
     const sec = peopleSchema.sections.find((s) => s.id === currentSection);
     if (!sec) return "";
     return `${sec.private ? '<div class="muted-note" style="margin:0 0 14px">🔒 Dati riservati: restano solo su questo dispositivo.</div>' : ""}
       <div class="form-grid">${sec.fields.map((f) => renderField(f, p)).join("")}</div>`;
+  }
+
+  async function reloadPerson() {
+    await loadPeople();
+    if (currentPerson) openPerson(currentPerson);
   }
 
   async function openPerson(slug) {
@@ -285,7 +229,10 @@
     showDetail();
     try {
       personCache = await A.api("GET", `/api/people/${encodeURIComponent(slug)}`);
-      await loadPersonPhotos(slug);
+      if (A.PeopleGallery) {
+        A.PeopleGallery.bind(slug, reloadPerson);
+        await A.PeopleGallery.load(slug);
+      }
     } catch (e) {
       A.toast(e.message, true);
       showOverview();
@@ -367,52 +314,11 @@
     }
     if (t.dataset.del) { const key = t.dataset.del; t.closest(".list-row").remove(); autosave(key, collectList(key), 0); return; }
 
-    // Riprogetta riconoscimento
-    if (t.id === "btn-reproject") {
-      t.disabled = true;
-      t.textContent = "Riprogettazione in corso…";
+    if (A.PeopleGallery && (t.id === "btn-reproject" || t.dataset.viewCapture || t.classList.contains("btn-delete-photo"))) {
       try {
-        const res = await A.api("POST", `/api/people/${encodeURIComponent(currentPerson)}/reproject`);
-        A.toast(`Riconoscimento riprogettato con successo! Nuova qualità: ${res.quality_pct || 80}%`);
-        await loadPeople();
-        openPerson(currentPerson);
+        await A.PeopleGallery.handle(t, currentPerson, reloadPerson);
       } catch (err) {
         A.toast(err.message, true);
-      } finally {
-        t.disabled = false;
-        t.textContent = "🔄 Riprogetta Riconoscimento";
-      }
-      return;
-    }
-
-    // Elimina singola foto dalla galleria
-    if (t.classList.contains("btn-delete-photo")) {
-      const photoId = t.dataset.photoId;
-      if (!photoId) return;
-      if (!confirm("Rimuovere questa foto dal modello di riconoscimento?")) return;
-      try {
-        await A.api("DELETE", `/api/people/${encodeURIComponent(currentPerson)}/photos/${encodeURIComponent(photoId)}`);
-        A.toast("Foto rimossa con successo");
-        await loadPeople();
-        openPerson(currentPerson);
-      } catch (err) {
-        A.toast(err.message, true);
-      }
-      return;
-    }
-
-    if (t.id === "enroll-cam") {
-      t.disabled = true; t.textContent = "Guarda la webcam… 4 secondi";
-      try {
-        const r = await A.api("POST", "/api/vision/people", { name: personCache.name });
-        A.toast(`Nuovo campione acquisito (${r.samples} totali)`);
-        await loadPeople();
-        openPerson(currentPerson);
-      } catch (err) {
-        A.toast(err.message, true);
-      } finally {
-        t.disabled = false;
-        t.textContent = "📷 Nuova Foto da Webcam";
       }
       return;
     }
@@ -454,7 +360,6 @@
   }
 
   function init() {
-    // Navigazione e ricerca
     $("btn-back-to-people")?.addEventListener("click", showOverview);
 
     $("people-search")?.addEventListener("input", (e) => {
@@ -477,7 +382,6 @@
       }
     });
 
-    // Ottimizzazione notturna manuale
     $("btn-nightly-optimize")?.addEventListener("click", async () => {
       const btn = $("btn-nightly-optimize");
       btn.disabled = true;
@@ -494,7 +398,6 @@
       }
     });
 
-    // Click su card registrata per aprire scheda
     $("registered-grid")?.addEventListener("click", (e) => {
       const openBtn = e.target.closest("[data-open]");
       if (openBtn) {
@@ -556,7 +459,6 @@
       }
     });
 
-    // Eventi scheda dettaglio
     const detailEl = $("person-detail");
     if (detailEl) {
       detailEl.addEventListener("input", (e) => {
