@@ -75,6 +75,13 @@ def create_application() -> FastAPI:
     agent_pool.register_agent(tool_builder_agent)
     logger.info("Core agents registered: %s", agent_pool.list_agents())
 
+    try:
+        from server.web.features.computer_control.api import router as computer_control_router
+        app.include_router(computer_control_router)
+        logger.info("Computer Control UI router caricato.")
+    except Exception as e:
+        logger.error("Errore nel caricare computer control UI: %s", str(e))
+
     app.include_router(router)
 
     web_dir = Path(__file__).resolve().parent.parent / "web"
