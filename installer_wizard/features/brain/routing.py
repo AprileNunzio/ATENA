@@ -12,6 +12,7 @@ from features.brain.assignments import Assignment
 from features.brain.brains import brains
 from features.brain.components import COMPONENTS
 from features.brain.keepalive import keep_alive_policy
+from features.brain.tuning import Tuning
 
 ROUTES_VERSION = 1
 
@@ -45,6 +46,10 @@ class AssignmentService:
         self.publish()
         return self.assignments()
 
+    def tuning(self, component_id: str) -> Tuning:
+        own = self.assignments().get(component_id)
+        return own.tuning if own else Tuning()
+
     def role_orders(self) -> dict[str, list[str]]:
         config = brains.config()
         return {key: list(value) for key, value in config.items() if isinstance(value, list)}
@@ -58,15 +63,18 @@ class AssignmentService:
         return {c.id: model.resolve(c.id, assignments, orders, lambda ref: brains.usable(ref, set())) for c in COMPONENTS}
 
     def publish(self) -> None:
-        payload = {"version": ROUTES_VERSION, "components": self.chains(),
-                   "explicit": sorted(self.assignments()), "keep_alive": keep_alive_policy.overrides()}
+        assignments = self.assignments()
+        payload = {"version": ROUTES_VERSION, "components": self.chains(), "explicit": sorted(assignments),
+                   "keep_alive": keep_alive_policy.overrides(),
+                   "tuning": {cid: a.tuning.to_json() for cid, a in sorted(assignments.items()) if not a.tuning.empty}}
         if payload == self._published and self._routes.exists():
             return
         self._write(self._routes, json.dumps({**payload, "updated": int(time.time())}, ensure_ascii=False, separators=(",", ":")))
         self._published = payload
 
     def overview(self, installed: set[str]) -> list[dict]:
-        assignments, orders = self.assignments(), self.role_orders()
+        from features.brain.trace import trace
+        assignments, orders, stats = self.assignments(), self.role_orders(), trace.summary()
         rows = []
         for component in COMPONENTS:
             own = assignments.get(component.id)
@@ -77,6 +85,7 @@ class AssignmentService:
                 "role": model.effective_role(component.id, assignments),
                 "assignment": own.to_json() if own else {"role": "", "order": [], "mode": "inherit"},
                 "chain": [{**brains.describe(ref), "available": brains.usable(ref, installed)} for ref in chain],
+                "stats": stats.get(component.id),
             })
         return rows
 

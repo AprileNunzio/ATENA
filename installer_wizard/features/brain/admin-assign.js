@@ -29,6 +29,33 @@
     }).join("");
   }
 
+  const blank = (v) => (v === null || v === undefined ? "" : v);
+
+  function tuningFields() {
+    const t = draft.tuning;
+    return `<div class="as-sub">Parametri dell'agente (vuoto = predefinito)</div>
+      <div class="form-grid">
+        <label>Creatività (temperatura 0 – 1,5)<input data-t="temperature" type="number" min="0" max="1.5" step="0.1" value="${esc(blank(t.temperature))}" placeholder="predefinita"></label>
+        <label>Lunghezza massima della risposta (token)<input data-t="max_tokens" type="number" min="64" max="16384" step="64" value="${esc(blank(t.max_tokens))}" placeholder="predefinita"></label>
+        <label>Tempo massimo (secondi)<input data-t="timeout" type="number" min="5" max="600" step="5" value="${esc(blank(t.timeout))}" placeholder="predefinito"></label>
+      </div>
+      <label>Istruzioni personalizzate per questo agente<textarea data-t="instructions" rows="3" maxlength="1200" placeholder="Es. rispondi sempre con un elenco puntato e cita le fonti">${esc(t.instructions || "")}</textarea></label>`;
+  }
+
+  function readTuning(rowEl) {
+    const value = (key) => rowEl.querySelector(`[data-t="${key}"]`).value.trim();
+    const number = (key) => (value(key) === "" ? null : Number(value(key)));
+    return { temperature: number("temperature"), max_tokens: number("max_tokens"), timeout: number("timeout"), instructions: value("instructions") };
+  }
+
+  function stats(c) {
+    const st = c.stats;
+    if (!st || !st.calls) return '<div class="faint" style="font-size:11px">Nessuna chiamata da quando Atena è stata avviata.</div>';
+    const color = st.success >= 95 ? "var(--green)" : st.success >= 70 ? "var(--amber)" : "var(--red)";
+    return `<div class="faint" style="font-size:11px">${st.calls} chiamate · <b style="color:${color}">${st.success}% riuscite</b> · ~${(st.avg_ms / 1000).toFixed(1)} s
+      ${st.last_model ? ` · ultimo: ${esc(st.last_model)}` : ""}</div>${st.last_error ? `<div class="as-error">Ultimo errore: ${esc(st.last_error)}</div>` : ""}`;
+  }
+
   function editor(c) {
     const roles = [["", `Predefinito — ${roleName(c.default_role)}`], ...data.roles.map((r) => [r.id, `${r.icon} ${r.label}`])];
     const options = roles.map(([v, l]) => `<option value="${v}" ${draft.role === v ? "selected" : ""}>${esc(l)}</option>`).join("");
@@ -39,17 +66,20 @@
       <div class="as-add"><select data-pick><option value="">Aggiungi un modello o un server…</option>${pickOptions()}</select><button class="btn sm" data-add>+ Aggiungi</button></div>
       <label class="as-mode"><input type="radio" name="${group}" value="first" ${draft.mode !== "only" ? "checked" : ""}> Prima i miei, poi la lista del ruolo se non rispondono</label>
       <label class="as-mode"><input type="radio" name="${group}" value="only" ${draft.mode === "only" ? "checked" : ""}> Solo i miei, nessun ripiego</label>
+      ${tuningFields()}
       <div class="actions"><button class="btn primary sm" data-save>Salva</button><button class="btn sm" data-cancel>Annulla</button>
       <button class="btn sm danger" data-reset>Torna al predefinito</button></div></div>`;
   }
 
   function row(c) {
-    const custom = c.assignment.role || c.assignment.order.length;
+    const t = c.assignment.tuning || {};
+    const tuned = t.temperature !== null && t.temperature !== undefined || t.max_tokens || t.timeout || t.instructions;
+    const custom = c.assignment.role || c.assignment.order.length || tuned;
     return `<div class="as-row ${custom ? "custom" : ""}" data-id="${esc(c.id)}">
       <div class="as-main"><div class="as-name">${esc(c.label)} ${custom ? '<span class="badge">personalizzato</span>' : ""}
         <span class="as-side">${c.side === "core" ? "Core" : "Supervisore"}</span></div>
         <div class="faint">${esc(c.hint)}</div>
-        <div class="as-chain">${chips(c.chain)}</div></div>
+        <div class="as-chain">${chips(c.chain)}</div>${stats(c)}</div>
       <button class="btn sm" data-edit-open>${editing === c.id ? "Chiudi" : "Cambia"}</button>
       ${editing === c.id ? editor(c) : ""}</div>`;
   }
@@ -91,10 +121,12 @@
     const id = rowEl.dataset.id, c = data.components.find((x) => x.id === id), t = e.target;
     if (t.closest("[data-edit-open]")) {
       editing = editing === id ? null : id;
-      draft = editing ? { role: c.assignment.role, order: [...c.assignment.order], mode: c.assignment.mode === "only" ? "only" : "first" } : null;
+      draft = editing ? { role: c.assignment.role, order: [...c.assignment.order], mode: c.assignment.mode === "only" ? "only" : "first",
+        tuning: { ...(c.assignment.tuning || {}) } } : null;
       return render();
     }
     if (editing !== id) return;
+    if (t.closest("[data-t]")) return;
     if (t.dataset.up !== undefined) swap(+t.dataset.up - 1, +t.dataset.up);
     else if (t.dataset.down !== undefined) swap(+t.dataset.down, +t.dataset.down + 1);
     else if (t.dataset.rm !== undefined) { draft.order.splice(+t.dataset.rm, 1); render(); }
@@ -103,7 +135,8 @@
     else if (t.dataset.reset !== undefined) save(id, null);
     else if (t.dataset.save !== undefined) {
       const mode = rowEl.querySelector(`input[name="mode-${id}"]:checked`);
-      save(id, { role: rowEl.querySelector("[data-role]").value, order: draft.order, mode: draft.order.length ? (mode ? mode.value : "first") : "inherit" });
+      save(id, { role: rowEl.querySelector("[data-role]").value, order: draft.order, mode: draft.order.length ? (mode ? mode.value : "first") : "inherit",
+        tuning: readTuning(rowEl) });
     }
   }
 

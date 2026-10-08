@@ -189,3 +189,5 @@
   .cl-only .btn { width: 100%; }
   .as-row { grid-template-columns: 1fr; }
 }
+
+.as-error { font-size: 11px; color: var(--amber); }

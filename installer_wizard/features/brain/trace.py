@@ -18,6 +18,25 @@ class Trace:
         self._active: dict[int, dict] = {}
         self._recent: deque = deque(maxlen=MAX_RECENT)
         self.seq = 0
+        self.stats: dict[str, dict] = {}
+
+    def _account(self, entry: dict, ok: bool, ms: float, error: str = "") -> None:
+        row = self.stats.setdefault(entry["component"], {"calls": 0, "ok": 0, "failed": 0, "total_ms": 0.0,
+                                                         "last_ms": 0, "last_model": "", "last_error": "", "last_at": 0.0})
+        row["calls"] += 1
+        row["ok" if ok else "failed"] += 1
+        row["total_ms"] += ms
+        row.update(last_ms=round(ms), last_at=time.time())
+        if entry.get("model"):
+            row["last_model"] = entry["model"].get("label", "")
+        if error:
+            row["last_error"] = error[:SNIPPET]
+
+    def summary(self) -> dict[str, dict]:
+        return {component: {"calls": r["calls"], "success": round(100 * r["ok"] / r["calls"]) if r["calls"] else 0,
+                            "avg_ms": round(r["total_ms"] / r["calls"]) if r["calls"] else 0, "last_ms": r["last_ms"],
+                            "last_model": r["last_model"], "last_error": r["last_error"], "last_at": r["last_at"]}
+                for component, r in self.stats.items()}
 
     def begin(self, component: str, note: str = "", chain: Iterable[str] = ()) -> int:
         call_id = next(self._ids)
@@ -55,6 +74,7 @@ class Trace:
         entry["model"] = brains.describe(ref) if ref else None
         entry.update(state="done", ms=round(ms), snippet=" ".join(snippet.split())[:SNIPPET], ended=time.time())
         self._step(entry, f"risposta di {entry['model']['label']} in {round(ms)} ms" if ref else f"completato in {round(ms)} ms")
+        self._account(entry, True, ms)
         self._recent.appendleft(entry)
         self.seq += 1
 
@@ -64,6 +84,7 @@ class Trace:
             return
         entry.update(state="failed", ms=round((time.time() - entry["started"]) * 1000), snippet=reason[:SNIPPET], ended=time.time())
         self._step(entry, f"nessun cervello ha risposto: {reason[:80]}")
+        self._account(entry, False, entry["ms"], reason)
         self._recent.appendleft(entry)
         self.seq += 1
 

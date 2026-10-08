@@ -52,6 +52,11 @@ def brain_order_for(component_id: str) -> List[str]:
     return _split(getattr(settings, key, "")) if key else []
 
 
+def tuning_for(component_id: str) -> dict:
+    tuned = (_routes().get("tuning") or {}).get(component_id)
+    return tuned if isinstance(tuned, dict) else {}
+
+
 def has_explicit_brain(component_id: str) -> bool:
     return component_id in (_routes().get("explicit") or [])
 

@@ -69,6 +69,13 @@ def _govern(system: str) -> str:
 async def generate(prompt: str, *, as_json: bool = False, max_tokens: int = 500, temperature: float = 0.1,
                    kind: str = "deep", system: str = "", prefer: list[str] | None = None, timeout: float = 240,
                    govern: bool = True, component: str = ""):
+    if component:
+        from features.brain.routing import assignment_service
+        tuned = assignment_service.tuning(component)
+        temperature = tuned.temperature if tuned.temperature is not None else temperature
+        max_tokens = tuned.max_tokens if tuned.max_tokens is not None else max_tokens
+        timeout = tuned.timeout if tuned.timeout is not None else timeout
+        system = tuned.system(system)
     if govern:
         system = _govern(system)
     errors = []

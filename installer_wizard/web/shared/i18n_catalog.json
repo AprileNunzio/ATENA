@@ -12359,6 +12359,70 @@
     [
       "Scarica lo ZIP",
       "Download the ZIP"
+    ],
+    [
+      "Parametri dell'agente (vuoto = predefinito)",
+      "Agent parameters (empty = default)"
+    ],
+    [
+      "Creatività (temperatura 0 – 1,5)",
+      "Creativity (temperature 0 – 1.5)"
+    ],
+    [
+      "Lunghezza massima della risposta (token)",
+      "Maximum answer length (tokens)"
+    ],
+    [
+      "Tempo massimo (secondi)",
+      "Maximum time (seconds)"
+    ],
+    [
+      "Istruzioni personalizzate per questo agente",
+      "Custom instructions for this agent"
+    ],
+    [
+      "Es. rispondi sempre con un elenco puntato e cita le fonti",
+      "E.g. always answer with a bulleted list and cite sources"
+    ],
+    [
+      "{0} chiamate ·",
+      "{0} calls ·"
+    ],
+    [
+      "{0}% riuscite",
+      "{0}% successful"
+    ],
+    [
+      "Nessun modello dedicato: questo agente usa gli stessi modelli del Ragionamento. Scegline uno qui sotto, oppure apri «Agenti e componenti» per personalizzare ogni singolo agente con parametri e istruzioni.",
+      "No dedicated model: this agent uses the same models as Reasoning. Choose one below, or open «Agents and components» to customise each single agent with parameters and instructions."
+    ],
+    [
+      "Usa questo modello",
+      "Use this model"
+    ],
+    [
+      "Agenti e componenti →",
+      "Agents and components →"
+    ],
+    [
+      "Modello per {0}",
+      "Model for {0}"
+    ],
+    [
+      "Scegli un modello per questo agente…",
+      "Choose a model for this agent…"
+    ],
+    [
+      "Scegli prima un modello dall'elenco",
+      "Choose a model from the list first"
+    ],
+    [
+      "Ultimo errore: {0}",
+      "Last error: {0}"
+    ],
+    [
+      "Nessuna chiamata da quando Atena è stata avviata.",
+      "No calls since Atena was started."
     ]
   ],
   "reverse": [
@@ -12803,6 +12867,10 @@
       "Agent avec outils : fichiers, widgets, hologramme, 3D, e-mail, SMB, terminal (1/0)"
     ],
     [
+      "Agenti e componenti →",
+      "Agents et composants →"
+    ],
+    [
       "Aggiornamenti automatici (1/0)",
       "Mises à jour automatiques (1/0)"
     ],
@@ -13215,6 +13283,10 @@
       "Ainsi je vous reconnais quand vous entrez dans la pièce et je vous salue par votre prénom. Si vous n'êtes pas devant la caméra maintenant, vous pourrez le faire plus tard depuis Personnes."
     ],
     [
+      "Creatività (temperatura 0 – 1,5)",
+      "Créativité (température 0 – 1,5)"
+    ],
+    [
       "Credenziali non valide o utente non autorizzato",
       "Identifiants non valides ou utilisateur non autorisé"
     ],
@@ -13309,6 +13381,10 @@
     [
       "Errore interno del supervisore: {0}",
       "Erreur interne du superviseur : {0}"
+    ],
+    [
+      "Es. rispondi sempre con un elenco puntato e cita le fonti",
+      "Ex. réponds toujours avec une liste à puces et cite les sources"
     ],
     [
       "Esecuzione protetta del codice generato, senza rete e senza accesso al sistema",
@@ -13559,6 +13635,10 @@
       "Isolation matérielle de la sandbox, active uniquement là où la virtualisation KVM est disponible"
     ],
     [
+      "Istruzioni personalizzate per questo agente",
+      "Instructions personnalisées pour cet agent"
+    ],
+    [
       "Kernel in spazio utente per la sandbox, scaricato in background",
       "Noyau en espace utilisateur pour la sandbox, téléchargé en arrière-plan"
     ],
@@ -13655,6 +13735,10 @@
       "Longitude de la position par défaut"
     ],
     [
+      "Lunghezza massima della risposta (token)",
+      "Longueur maximale de la réponse (tokens)"
+    ],
+    [
       "Manutenzione autonoma",
       "Maintenance autonome"
     ],
@@ -13743,6 +13827,10 @@
       "Modèle de langage rapide et mémoire sémantique"
     ],
     [
+      "Modello per {0}",
+      "Modèle pour {0}"
+    ],
+    [
       "Modello «Ehi, Atena»",
       "Modèle «Hé, Atena»"
     ],
@@ -13765,6 +13853,14 @@
     [
       "Nel cloud",
       "Dans le cloud"
+    ],
+    [
+      "Nessun modello dedicato: questo agente usa gli stessi modelli del Ragionamento. Scegline uno qui sotto, oppure apri «Agenti e componenti» per personalizzare ogni singolo agente con parametri e istruzioni.",
+      "Aucun modèle dédié : cet agent utilise les mêmes modèles que le Raisonnement. Choisissez-en un ci-dessous, ou ouvrez «Agents et composants» pour personnaliser chaque agent avec des paramètres et des instructions."
+    ],
+    [
+      "Nessuna chiamata da quando Atena è stata avviata.",
+      "Aucun appel depuis le démarrage d'Atena."
     ],
     [
       "Nessuna variante: il nome viene capito correttamente.",
@@ -13845,6 +13941,10 @@
     [
       "Pacchetto sconosciuto o non rimovibile",
       "Paquet inconnu ou non supprimable"
+    ],
+    [
+      "Parametri dell'agente (vuoto = predefinito)",
+      "Paramètres de l'agent (vide = par défaut)"
     ],
     [
       "Passo {0} di {1}",
@@ -14047,6 +14147,14 @@
       "Choisissez ma voix"
     ],
     [
+      "Scegli prima un modello dall'elenco",
+      "Choisissez d'abord un modèle dans la liste"
+    ],
+    [
+      "Scegli un modello per questo agente…",
+      "Choisissez un modèle pour cet agent…"
+    ],
+    [
       "Scegli un servizio cloud",
       "Choisissez un service cloud"
     ],
@@ -14231,6 +14339,10 @@
       "Temps de phase"
     ],
     [
+      "Tempo massimo (secondi)",
+      "Temps maximal (secondes)"
+    ],
+    [
       "Ti sento piano: avvicinati un po' al microfono.",
       "Je vous entends à peine : rapprochez-vous un peu du microphone."
     ],
@@ -14303,6 +14415,10 @@
       "Dernier entraînement"
     ],
     [
+      "Ultimo errore: {0}",
+      "Dernière erreur : {0}"
+    ],
+    [
       "Un momento: sto ancora parlando",
       "Un instant : je parle encore"
     ],
@@ -14313,6 +14429,10 @@
     [
       "URL Home Assistant",
       "URL Home Assistant"
+    ],
+    [
+      "Usa questo modello",
+      "Utiliser ce modèle"
     ],
     [
       "Uso commerciale (1 = Atena è usata in un'attività: non installa da sola componenti con licenza non commerciale e li segnala con un avviso; 0 = uso personale)",
@@ -14403,6 +14523,10 @@
       "Webcam et reconnaissance faciale (1/0)"
     ],
     [
+      "{0} chiamate ·",
+      "{0} appels ·"
+    ],
+    [
       "{0} di {1} pronte",
       "{0} sur {1} prêtes"
     ],
@@ -14417,6 +14541,10 @@
     [
       "{0} — nuovo tentativo automatico tra {1}",
       "{0} — nouvelle tentative automatique dans {1}"
+    ],
+    [
+      "{0}% riuscite",
+      "{0} % réussis"
     ],
     [
       "{0}% · {1} core",

@@ -5,6 +5,8 @@ from typing import Callable, Mapping
 
 from features.brain.components import BY_ID as COMPONENT_BY_ID
 from features.brain.roles import BY_ID as ROLE_BY_ID
+from features.brain.tuning import Tuning, TuningError
+from features.brain.tuning import parse as parse_tuning
 
 MODES = ("inherit", "first", "only")
 MAX_ORDER = 12
@@ -20,13 +22,14 @@ class Assignment:
     role: str = ""
     order: tuple[str, ...] = ()
     mode: str = "inherit"
+    tuning: Tuning = Tuning()
 
     @property
     def empty(self) -> bool:
-        return not self.role and not self.order
+        return not self.role and not self.order and self.tuning.empty
 
     def to_json(self) -> dict:
-        return {"role": self.role, "order": list(self.order), "mode": self.mode}
+        return {"role": self.role, "order": list(self.order), "mode": self.mode, "tuning": self.tuning.to_json()}
 
 
 def parse_assignment(raw: Mapping) -> Assignment:
@@ -44,7 +47,11 @@ def parse_assignment(raw: Mapping) -> Assignment:
         raise AssignmentError(f"unknown mode: {mode}")
     if mode != "inherit" and not order:
         mode = "inherit"
-    return Assignment(role, order, mode)
+    try:
+        tuning = parse_tuning(raw.get("tuning"))
+    except TuningError as exc:
+        raise AssignmentError(str(exc)) from exc
+    return Assignment(role, order, mode, tuning)
 
 
 def parse_all(raw: Mapping) -> dict[str, Assignment]:

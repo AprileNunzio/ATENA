@@ -6,6 +6,7 @@ from server.config.env import settings
 from server.core.orchestrator.brain_routing import brain_order_for, keep_alive_for
 from server.features.llm_gateway.supervisor_bridge import BridgeError, CallTrace, bridge, is_remote_ref
 from server.features.llm_gateway.contracts import SYNTHETIC_MODEL, LLMRequest, LLMResponse
+from server.features.llm_gateway.tuning import apply as apply_tuning
 from server.shared.i18n.provider import global_translator
 
 logger = logging.getLogger("atena.llm_gateway")
@@ -26,6 +27,7 @@ class LLMGateway:
         self._provider_chain = chain
 
     async def generate_completion(self, request: LLMRequest) -> LLMResponse:
+        request = apply_tuning(request)
         start_time = time.time()
         last_error = ""
 
