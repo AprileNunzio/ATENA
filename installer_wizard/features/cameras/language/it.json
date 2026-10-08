@@ -1,0 +1,26 @@
+{
+  "name": "Telecamere",
+  "description": "Un'unica funzione per webcam, infrarosso e telecamere di rete: vista dal vivo di tutte le sorgenti, ricerca e modelli per le marche più comuni, prova della connessione, opzioni per ogni telecamera (nome, stanza, rotazione, specchio, fluidità), controlli della webcam (luminosità, contrasto, esposizione), foto e clip, avviso di movimento e registrazione ad anello. Registrazione spenta di default: va attivata con il consenso di chi viene ripreso.",
+  "capabilities": [
+    "Webcam locali, sensore infrarosso e telecamere di rete (RTSP, ONVIF, Hikvision) in un'unica vista dal vivo",
+    "Ricerca automatica in rete (ONVIF e porte RTSP) e modelli per Hikvision, Dahua, Reolink, Tapo, Foscam, Axis e altre",
+    "Prova della connessione con diagnosi dell'errore (password, percorso, porta, rete)",
+    "Opzioni per telecamera: nome, stanza, rotazione, specchio, fluidità, risoluzione, preferita, nascosta",
+    "Controlli della webcam (luminosità, contrasto, esposizione, bilanciamento) ripristinati a ogni avvio",
+    "Foto a richiesta e al movimento, archivio con anteprima, scarico e cancellazione",
+    "Avviso di movimento con sensibilità regolabile e registro degli eventi",
+    "Registrazione ad anello (5/15/60 minuti) con credenziali cifrate, consenso obbligatorio e indicatore visibile",
+    "Configurazione automatica dell'emettitore infrarosso con un clic",
+    "Con la voce: «apri la webcam salotto a tutto schermo», «scatta una foto dall'ingresso», «avvisami se si muove qualcosa in giardino»",
+    "Tutto ciò che manca (ffmpeg, v4l-utils, strumento dell'emettitore infrarosso) si installa e si configura da solo, senza interventi"
+  ],
+  "settings": {
+    "ATENA_LIVECAM_FPS": "Fluidità dell'immagine in diretta",
+    "ATENA_LIVECAM_WIDTH": "Larghezza dell'immagine in diretta",
+    "ATENA_LIVECAM_MAX": "Telecamere in diretta contemporanee",
+    "ATENA_CAMERAS_MOTION_EVERY": "Controllo del movimento ogni",
+    "ATENA_CAMERAS_MOTION_COOLDOWN": "Pausa tra due avvisi di movimento",
+    "ATENA_CAMERAS_PHOTOS_MAX": "Foto conservate per telecamera",
+    "ATENA_IR_AUTO": "Configura da solo l'emettitore infrarosso se l'immagine è al buio"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Hand Gesture Controls",
+  "description": "Optical hand gesture recognition via camera feed: optical pinch, swipe, point, and volume adjustments.",
+  "capabilities": [
+    "MediaPipe hand landmark detection",
+    "Air gestures for display and media controls",
+    "Zero-touch UI interaction"
+  ],
+  "settings": {
+    "ATENA_HANDS_FPS": "Sampling rate (fps)",
+    "ATENA_HANDS_COUNT": "Max hands tracked"
+  }
+}

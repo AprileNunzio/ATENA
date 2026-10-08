@@ -1,0 +1,12 @@
+{
+  "name": "Consolidamento nei pesi (Soup)",
+  "description": "Di notte trasferisce ciò che ha studiato nei pesi di un modello personale (LoRA). Sperimentale: richiede una GPU adatta.",
+  "capabilities": [
+    "Dataset dagli appunti",
+    "Addestramento notturno",
+    "Modello «atena-studio» in Ollama"
+  ],
+  "settings": {
+    "ATENA_STUDY_BASE_MODEL": "Modello base (Hugging Face)"
+  }
+}

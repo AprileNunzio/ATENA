@@ -1,0 +1,10 @@
+{
+  "name": "Continuous Scheduler",
+  "description": "Cron and event-driven task scheduler for recurring background jobs, maintenance, and backups.",
+  "capabilities": [
+    "Precision cron and interval execution",
+    "Persistent job state and retry policies",
+    "Execution latency profiling"
+  ],
+  "settings": {}
+}

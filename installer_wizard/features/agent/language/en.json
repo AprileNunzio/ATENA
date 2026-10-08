@@ -1,0 +1,17 @@
+{
+  "name": "Tool-Equipped Agent",
+  "description": "Atena reasons step-by-step and utilizes real tools until the task is complete: handling multi-stage workflows such as 'design a 3D hammer and email it to Marco'.",
+  "capabilities": [
+    "Files and folders: create, read, write, copy, move, compress, search; deletions are moved to trash",
+    "Display: opens, closes, and moves widgets across monitors",
+    "Music: searches and streams tracks to Chromecast, DLNA, and display; live camera feeds with fullscreen support",
+    "Hologram: actions, facial expressions, camera angles, accessories, and color customization",
+    "3D Models: parametric design, rendering, and attachment handling",
+    "Email with attachments (linked Gmail or SMTP) and SMB shared folders",
+    "Terminal execution and web page browsing (full access)",
+    "Voice confirmation before sending emails, file deletions, system-modifying commands, and writing outside working directories"
+  ],
+  "settings": {
+    "ATENA_AGENT_ACCESS": "Access level"
+  }
+}

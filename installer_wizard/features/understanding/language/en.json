@@ -1,0 +1,10 @@
+{
+  "name": "Intent Understanding",
+  "description": "Semantic semantic parser: extracts intents, entities, temporal references, and slot values from speech.",
+  "capabilities": [
+    "Fast intent classification",
+    "Entity and temporal range extraction",
+    "Ambiguity resolution and clarification"
+  ],
+  "settings": {}
+}

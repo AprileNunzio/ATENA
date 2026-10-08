@@ -1,0 +1,12 @@
+{
+  "name": "Spotify Player",
+  "description": "Spotify Connect integration: search tracks, playlists, playback control, and artist metadata.",
+  "capabilities": [
+    "Spotify Web API integration",
+    "Playback transfer across devices",
+    "Personalized playlist recommendation"
+  ],
+  "settings": {
+    "SPOTIFY_CLIENT_ID": "Spotify Client ID"
+  }
+}

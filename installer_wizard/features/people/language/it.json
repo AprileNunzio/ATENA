@@ -1,0 +1,11 @@
+{
+  "name": "Persone",
+  "description": "Anagrafe completa: volti, relazioni, ricorrenze, preferenze e abitudini di ogni persona.",
+  "capabilities": [
+    "Registrazione automatica dei volti",
+    "Compleanni e onomastici",
+    "Relazioni",
+    "Abitudini"
+  ],
+  "settings": {}
+}

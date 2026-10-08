@@ -1,0 +1,11 @@
+{
+  "name": "Nodi e server",
+  "description": "Il server principale e tutti i nodi di Atena (satelliti audio, display, altri server, microcontrollori): stato in tempo reale, abbinamento sicuro e comandi.",
+  "capabilities": [
+    "Stato del server principale e dei suoi sottosistemi",
+    "Abbinamento dei nodi con codice monouso e token personale",
+    "Online, ultimo contatto e risorse di ogni nodo",
+    "Nome, stanza, comandi remoti e revoca"
+  ],
+  "settings": {}
+}

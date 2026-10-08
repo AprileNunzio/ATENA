@@ -1,0 +1,10 @@
+{
+  "name": "Autonomous Study",
+  "description": "Continuous background research: reads literature, manuals, and technical documentation to enrich knowledge.",
+  "capabilities": [
+    "Autonomous web exploration and PDF reading",
+    "Knowledge graph node extraction",
+    "Daily synthesis digest generation"
+  ],
+  "settings": {}
+}

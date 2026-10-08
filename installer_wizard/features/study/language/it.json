@@ -1,0 +1,10 @@
+{
+  "name": "Studio autonomo",
+  "description": "A riposo Atena studia le materie che scegli o che scopre dalle conversazioni, da base a esperto, e usa ciò che impara nelle risposte.",
+  "capabilities": [
+    "Lezioni da fonti reali",
+    "Ripasso ed esami di livello",
+    "Memoria binaria → ternaria → coseno"
+  ],
+  "settings": {}
+}

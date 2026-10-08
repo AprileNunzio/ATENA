@@ -1,0 +1,10 @@
+{
+  "name": "Office Documents",
+  "description": "Document ingestion and synthesis: parsing, indexing, and generating PDF, Word, and Excel files.",
+  "capabilities": [
+    "Parsing PDF, DOCX, XLSX, and TXT files",
+    "Semantic chunking and embedding in deep memory",
+    "Automated report generation"
+  ],
+  "settings": {}
+}

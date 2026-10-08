@@ -1,0 +1,16 @@
+{
+  "name": "Comandi con le mani",
+  "description": "Controlla i widget con le mani davanti alla webcam: pizzica per afferrare, trascina, lancia di lato per cambiare schermo, due mani per lo zoom. In automatico si attiva solo se la GPU del display regge il riconoscimento senza rallentare la pagina.",
+  "capabilities": [
+    "Pizzica per afferrare e trascinare i widget",
+    "Lancio laterale per spostarli su un altro monitor",
+    "Zoom con due mani",
+    "Prova della GPU del display: in automatico si spegne da solo se è troppo lento",
+    "Si ferma da solo se rallenta la pagina"
+  ],
+  "settings": {
+    "ATENA_HANDS_FPS": "Analisi al secondo con una mano in vista",
+    "ATENA_HANDS_COUNT": "Mani riconosciute",
+    "ATENA_HANDS_MAX_MS": "Tempo massimo per analisi (in automatico oltre questo si spegne)"
+  }
+}

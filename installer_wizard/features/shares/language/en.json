@@ -1,0 +1,10 @@
+{
+  "name": "Shared Folders (SMB/NFS)",
+  "description": "File sharing service: mounts and serves network folders across Windows, macOS, and Linux.",
+  "capabilities": [
+    "Samba SMB server and client management",
+    "Network share discovery and mounting",
+    "Access permission management"
+  ],
+  "settings": {}
+}

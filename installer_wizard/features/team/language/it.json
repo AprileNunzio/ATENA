@@ -1,0 +1,12 @@
+{
+  "name": "Squadra di agenti",
+  "description": "Ogni funzionalità di Atena è un agente indipendente con la sua priorità: conosce i propri strumenti e le proprie impostazioni, vede cosa fanno gli altri e può passare loro richieste, come una squadra.",
+  "capabilities": [
+    "Un agente per ogni funzionalità, con priorità (le leggi e la sicurezza passano avanti alla musica)",
+    "Lavagna condivisa: cosa sta facendo ogni agente e gli ultimi messaggi tra agenti",
+    "Messaggi e deleghe tra agenti, con le stesse conferme dell'azione originale",
+    "Ogni agente descrive a qualsiasi modello cosa sa fare, le sue impostazioni e i suoi strumenti",
+    "Cambio delle impostazioni di un agente a voce, previa conferma"
+  ],
+  "settings": {}
+}

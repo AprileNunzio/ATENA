@@ -1,0 +1,13 @@
+{
+  "name": "Assistant Appearance",
+  "description": "3D wireframe holographic face (or lightweight core, selected based on device hardware). Dances with music against an ambient weather backdrop.",
+  "capabilities": [
+    "Automatic display mode selection for every screen",
+    "Cyan holographic wireframe with customizable color palette",
+    "Dances to audio playback with dynamic weather backdrop"
+  ],
+  "settings": {
+    "ATENA_FACE_STYLE": "Appearance",
+    "ATENA_FACE_COLOR": "Hologram Color"
+  }
+}

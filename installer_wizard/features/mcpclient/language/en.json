@@ -1,0 +1,10 @@
+{
+  "name": "External MCP Servers",
+  "description": "Client integration for Model Context Protocol (MCP) servers: connects tools and resources dynamically.",
+  "capabilities": [
+    "Connect external MCP servers (stdio and SSE)",
+    "Dynamic tool registration into ReAct loop",
+    "Resource and prompt protocol inspection"
+  ],
+  "settings": {}
+}

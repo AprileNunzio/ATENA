@@ -494,5 +494,34 @@
       "too_large": "Request too large.",
       "body": "Invalid request."
     }
+  },
+  "categories": {
+    "all": "All",
+    "assistente": "Assistant",
+    "percezione": "Perception",
+    "casa": "Home and people",
+    "conoscenza": "Knowledge",
+    "comunicazione": "Communication",
+    "sistema": "System",
+    "altro": "Other"
+  },
+  "features_ui": {
+    "mode_auto": "Automatic",
+    "mode_1": "Always active",
+    "mode_0": "Disabled",
+    "state_active": "active",
+    "state_inactive": "inactive",
+    "source_ai": " · created by Atena",
+    "source_user": " · added by you",
+    "pin_remove": "Remove from sidebar",
+    "pin_add": "Add to sidebar",
+    "btn_open": "Open",
+    "btn_open_full": "Open full panel",
+    "what_it_does": "Capabilities",
+    "settings": "Settings",
+    "saved": "saved",
+    "empty_search": "No feature matches your search.",
+    "new_badge": "new",
+    "favorite_hint": "Add favorites with ☆ from Features"
   }
 }

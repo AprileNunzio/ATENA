@@ -1,0 +1,10 @@
+{
+  "name": "3D Modeling & CAD",
+  "description": "Generative CAD design: creates OpenSCAD and STEP 3D models with Three.js interactive preview.",
+  "capabilities": [
+    "Parametric 3D CAD code generation",
+    "Three.js real-time rendering and slicing",
+    "STL and 3MF export for 3D printing"
+  ],
+  "settings": {}
+}

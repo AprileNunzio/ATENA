@@ -1,0 +1,12 @@
+{
+  "name": "Automatic Updates",
+  "description": "Atena automatically updates itself from GitHub, verifies the new release integrity, and performs automatic rollbacks if any anomaly occurs.",
+  "capabilities": [
+    "Periodic update checks",
+    "Integrity verification and automated rollback"
+  ],
+  "settings": {
+    "ATENA_UPDATE_INTERVAL": "Check interval (minutes)",
+    "ATENA_UPDATE_BRANCH": "GitHub Branch"
+  }
+}

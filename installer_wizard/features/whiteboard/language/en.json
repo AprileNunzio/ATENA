@@ -1,0 +1,10 @@
+{
+  "name": "Collaborative Whiteboard",
+  "description": "Interactive visual canvas: diagramming, system architecture sketching, OCR handwriting recognition, and export.",
+  "capabilities": [
+    "Vector sketching, box and arrow drawing",
+    "Mathematical and structural diagram recognition",
+    "Real-time shared whiteboard canvas with Atena"
+  ],
+  "settings": {}
+}

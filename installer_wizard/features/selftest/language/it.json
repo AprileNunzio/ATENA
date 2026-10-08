@@ -1,0 +1,17 @@
+{
+  "name": "Collaudo",
+  "description": "Atena prova davvero le sue funzioni ogni notte e dopo ogni aggiornamento; se un aggiornamento rompe qualcosa di essenziale torna da solo alla versione precedente e la avvisa.",
+  "capabilities": [
+    "13 prove reali: supervisore e pannello, componenti, conversazione, voce, automazioni, cervello, display, ascolto, visione, casa, suoni, spazio, aggiornamenti",
+    "Ogni notte (03:30) e cinque minuti dopo ogni aggiornamento",
+    "Ritorno automatico alla versione precedente se una prova essenziale che prima passava ora fallisce",
+    "Avviso su Telegram e sul display di ciò che si è rotto o è tornato a funzionare",
+    "Gli aggiornamenti si installano solo se hanno superato i test su GitHub",
+    "A voce: «fai il collaudo»"
+  ],
+  "settings": {
+    "ATENA_SELFTEST_AT": "Ora del collaudo notturno (HH:MM)",
+    "ATENA_SELFTEST_ROLLBACK": "Se un aggiornamento rompe qualcosa di essenziale",
+    "ATENA_UPDATE_REQUIRE_CI": "Aggiornamenti da GitHub"
+  }
+}

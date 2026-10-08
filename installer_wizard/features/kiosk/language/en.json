@@ -1,0 +1,12 @@
+{
+  "name": "Kiosk Display Surface",
+  "description": "Standalone fullscreen kiosk runtime with touch optimization, screen saver, and proximity wake-up.",
+  "capabilities": [
+    "Touchscreen fullscreen interface",
+    "Hardware proximity wake and sleep",
+    "Screen saver with ambient clock and weather"
+  ],
+  "settings": {
+    "ATENA_KIOSK_SLEEP": "Screen sleep timeout (minutes)"
+  }
+}

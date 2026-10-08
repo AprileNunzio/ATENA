@@ -1,0 +1,14 @@
+{
+  "name": "Geographic Location",
+  "description": "GPS and IP geolocation manager for solar azimuth, local weather, and distance calculation.",
+  "capabilities": [
+    "IP and GPS geolocation resolution",
+    "Sunrise, sunset, and solar azimuth computation",
+    "Proximity to points of interest"
+  ],
+  "settings": {
+    "ATENA_LATITUDE": "Latitude",
+    "ATENA_LONGITUDE": "Longitude",
+    "ATENA_CITY": "City"
+  }
+}

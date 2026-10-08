@@ -1,0 +1,31 @@
+{
+  "name": "Gestione Musica",
+  "description": "Il tuo Spotify locale: libreria, playlist, mix, ricerca, testi, Chromecast e DLNA, link condivisi, app per telefono e riconoscimento ambientale.",
+  "capabilities": [
+    "Libreria con smistamento automatico",
+    "Playlist normali e intelligenti",
+    "Mix e radio infinita",
+    "Chromecast, DLNA e schermo di Atena",
+    "Link condivisi a scadenza",
+    "Server compatibile con le app musicali",
+    "Riconoscimento ambientale"
+  ],
+  "settings": {
+    "ATENA_MUSIC_ORGANIZE": "Smista da solo i file messi in «Da smistare»",
+    "ATENA_MUSIC_SCAN_MIN": "Controllo della libreria",
+    "ATENA_MUSIC_COVERS": "Cerca online copertine e dati mancanti (album, anno, genere)",
+    "ATENA_MUSIC_LYRICS": "Scarica i testi e salvali accanto ai brani (.lrc)",
+    "ATENA_MUSIC_CAST": "Cerca Chromecast, TV e speaker DLNA",
+    "ATENA_MUSIC_RADIO": "Radio infinita quando la coda finisce",
+    "ATENA_MUSIC_CROSSFADE": "Dissolvenza tra i brani",
+    "ATENA_MUSIC_TRANSCODE": "Conversione dei formati non supportati",
+    "ATENA_MUSIC_TRANSCODE_KBPS": "Qualità della conversione",
+    "ATENA_MUSIC_SHARE_LINKS": "Permetti i link condivisi",
+    "ATENA_MUSIC_SHARE_HOURS": "Durata dei link condivisi",
+    "ATENA_MUSIC_HISTORY_DAYS": "Cronologia di ascolto conservata",
+    "ATENA_MUSIC_VOICE": "Comandi vocali per la musica",
+    "ATENA_MUSIC_IDENTIFY": "Riconosci i brani senza dati dal suono (invia 12 secondi di audio al servizio di riconoscimento)",
+    "ATENA_MUSIC_TAGS": "Scrivi nei file i dati mancanti (titolo, artista, album, anno, genere)",
+    "ATENA_MUSIC_RENAME": "Dai ai file nomi completi: numero - artista - titolo (anno)"
+  }
+}

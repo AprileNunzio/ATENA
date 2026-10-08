@@ -1,0 +1,12 @@
+{
+  "name": "Cameras & Feeds",
+  "description": "Direct RTSP/MJPEG camera stream ingestion, video analytics, and perimeter inspection.",
+  "capabilities": [
+    "RTSP, USB webcam, and ONVIF stream playback",
+    "Real-time object and person detection",
+    "Snapshot capture and motion trigger generation"
+  ],
+  "settings": {
+    "ATENA_CAM_REFRESH": "Stream refresh rate (fps)"
+  }
+}

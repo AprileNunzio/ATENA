@@ -1,0 +1,14 @@
+{
+  "name": "Display",
+  "description": "Schermo dedicato ad Atena in modalità kiosk, sicuro e sempre acceso.",
+  "capabilities": [
+    "Chromium dedicato",
+    "Riavvio automatico",
+    "Nessun popup o traduttore",
+    "Driver video NVIDIA ufficiale quando la scheda lo supporta, con verifica dopo il riavvio e ritorno automatico al driver libero"
+  ],
+  "settings": {
+    "ATENA_GPU_DRIVER": "Driver video",
+    "ATENA_GPU_DRIVER_REBOOT": "Riavvio per attivare il driver"
+  }
+}

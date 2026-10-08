@@ -1,0 +1,25 @@
+{
+  "name": "Maps",
+  "description": "Indicazioni stradali, tempi con il traffico e avvisi di partenza: il tragitto per il lavoro di chi è davanti allo schermo al mattino e il percorso per gli appuntamenti in agenda.",
+  "capabilities": [
+    "«Come arrivo a…», «quanto ci metto ad andare al lavoro?»",
+    "Traffico e mezzi pubblici con la chiave Google Maps (senza: OpenStreetMap)",
+    "Luoghi salvati a voce: lavoro, palestra, scuola…",
+    "Tragitto per il lavoro di ogni persona, dalla sua scheda, quando la vede al mattino",
+    "Ricorda gli appuntamenti con un luogo e quando partire",
+    "Quando uscire per pullman, treni e voli: tempo con il traffico previsto all'ora di partenza, anticipo e margine ricavato dallo storico",
+    "Aggiorna il consiglio se il traffico cambia e avvisa quando è ora di uscire"
+  ],
+  "settings": {
+    "ATENA_MAPS_MODE": "Mezzo predefinito",
+    "ATENA_MAPS_TRIPS": "Consigliami quando uscire per gli appuntamenti con un luogo e per pullman, treni e voli",
+    "ATENA_MAPS_WISE": "Margine di sicurezza calcolato dallo storico dei tempi (traffico variabile)",
+    "ATENA_MAPS_MARGIN_MIN": "Margine minimo in più sul tempo di viaggio, in minuti (0 - 60)",
+    "ATENA_MAPS_BUFFER_BUS": "Arrivare in anticipo per un pullman (minuti)",
+    "ATENA_MAPS_BUFFER_TRAIN": "Arrivare in anticipo per un treno (minuti)",
+    "ATENA_MAPS_BUFFER_FLIGHT": "Arrivare in anticipo per un volo (minuti)",
+    "ATENA_MAPS_BUFFER_EVENT": "Anticipo per gli altri appuntamenti (minuti)",
+    "ATENA_MAPS_HEADSUP_MIN": "Primo avviso quanti minuti prima dell'ora di uscita (10 - 720)",
+    "ATENA_MAPS_EVENT_HOURS": "Guarda gli impegni delle prossime ore (1 - 48)"
+  }
+}

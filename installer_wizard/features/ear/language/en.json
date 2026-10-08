@@ -1,0 +1,13 @@
+{
+  "name": "Voice Listening",
+  "description": "Acoustic perception: wake-word detection, continuous speech recognition, and acoustic environment classification.",
+  "capabilities": [
+    "Local wake-word detection (Sherpa/Porcupine/Whisper)",
+    "Continuous multi-lingual speech-to-text",
+    "Acoustic event identification"
+  ],
+  "settings": {
+    "ATENA_WAKE_WORD": "Wake word",
+    "ATENA_STT_ENGINE": "STT Engine"
+  }
+}

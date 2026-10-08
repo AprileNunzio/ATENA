@@ -1,0 +1,10 @@
+{
+  "name": "Network Explorer",
+  "description": "Local network topology scanner: ARP inspection, open port detection, and device fingerprinting.",
+  "capabilities": [
+    "Subnet scanning and device discovery",
+    "Port scanning and service detection (HTTP, SMB, SSH, RTSP)",
+    "Network latency and throughput benchmarks"
+  ],
+  "settings": {}
+}

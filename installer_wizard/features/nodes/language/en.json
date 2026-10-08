@@ -1,0 +1,12 @@
+{
+  "name": "Nodes & P2P Mesh",
+  "description": "Decentralized peer-to-peer mesh coordinator: connects multiple Atena nodes across the local network.",
+  "capabilities": [
+    "P2P node discovery and heartbeat",
+    "Distributed state event replication",
+    "Offloaded sub-agent task routing"
+  ],
+  "settings": {
+    "ATENA_MESH_PORT": "Mesh communication port"
+  }
+}

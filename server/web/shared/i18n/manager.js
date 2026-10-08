@@ -37,8 +37,11 @@ export class I18nManager {
         }
 
         try {
-            const basePath = window.I18N_BASE_PATH || '/features';
-            const response = await fetch(`${basePath}/${feature}/language/${this.#currentLang}.json`);
+            let response = await fetch(`/features/${feature}/language/${this.#currentLang}.json`);
+            if (!response.ok) {
+                const basePath = window.I18N_BASE_PATH || '/static';
+                response = await fetch(`${basePath}/${feature}/language/${this.#currentLang}.json`);
+            }
 
             if (!response.ok) {
                 throw new LanguageLoadError(feature, this.#currentLang, `HTTP ${response.status}`);
@@ -52,6 +55,11 @@ export class I18nManager {
             }
             throw new LanguageLoadError(feature, this.#currentLang, error.message);
         }
+    }
+
+    getFeature(feature) {
+        const cacheKey = `${feature}:${this.#currentLang}`;
+        return this.#cache.get(cacheKey) || null;
     }
 
     translate(feature, key) {
@@ -101,12 +109,6 @@ export class I18nManager {
                 if (el.tagName === 'INPUT' && el.type === 'button') {
                     el.value = this.translate(feature, key);
                 } else {
-                    // Prendi i tag HTML interni (es <span>)
-                    const existingHTML = el.innerHTML;
-                    if (existingHTML.includes('<span') || existingHTML.includes('<b')) {
-                        // Limitazione temporanea: per non rompere l'HTML interno (es logo)
-                        // mappiamo solo il testo dove non è strettamente HTML strutturato.
-                    }
                     el.textContent = this.translate(feature, key);
                 }
             } catch (error) {
@@ -126,7 +128,6 @@ export class I18nManager {
                 try {
                     el.placeholder = this.translate(feature, key);
                 } catch (error) {
-                    // Ignore missing
                 }
             }
         });

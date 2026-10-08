@@ -1,0 +1,10 @@
+{
+  "name": "Agent Swarm Team",
+  "description": "Multi-agent coordination: dispatches parallel sub-agents (coder, researcher, critic, sysops, designer).",
+  "capabilities": [
+    "Parallel sub-agent orchestration",
+    "Consensus jury voting and self-critique",
+    "DAG task dependency resolution"
+  ],
+  "settings": {}
+}

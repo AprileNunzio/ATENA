@@ -1,0 +1,12 @@
+{
+  "name": "Music Manager",
+  "description": "Local and streaming audio player: library indexing, metadata extraction, playback on multiroom speakers.",
+  "capabilities": [
+    "Local audio indexing (FLAC, MP3, AAC)",
+    "Multiroom streaming via DLNA, Chromecast, AirPlay",
+    "Acoustic feature analysis and playlist generation"
+  ],
+  "settings": {
+    "ATENA_MUSIC_DIR": "Music directory"
+  }
+}

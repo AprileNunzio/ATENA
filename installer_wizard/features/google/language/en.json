@@ -1,0 +1,12 @@
+{
+  "name": "Google Services",
+  "description": "Integration with Google Calendar, Gmail, Google Drive, and Google Maps API.",
+  "capabilities": [
+    "Calendar event synchronization and query",
+    "Gmail message reading and sending",
+    "Drive file retrieval and cloud backup"
+  ],
+  "settings": {
+    "GOOGLE_CLIENT_ID": "Google Client ID"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Learned Skills & Algorithms",
+  "description": "Synthesized skills library: custom Python tools and reasoning heuristics created by Atena.",
+  "capabilities": [
+    "Dynamic tool synthesis and caching",
+    "Automatic skill execution sandboxing",
+    "Skill composition and ranking"
+  ],
+  "settings": {}
+}

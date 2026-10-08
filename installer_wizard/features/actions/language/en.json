@@ -1,0 +1,14 @@
+{
+  "name": "Actions",
+  "description": "Atena actually executes what you request: files, websites, shared folders, device discovery, internet speed tests, updates, programs, and verified calculations.",
+  "capabilities": [
+    "Creates files and websites published on the home network",
+    "SMB shared folders",
+    "Discovers network devices and their IP addresses",
+    "Internet speed testing",
+    "Checks and installs system updates",
+    "Natural language calculations with verified results",
+    "Read-only command diagnostics when a skill is missing"
+  ],
+  "settings": {}
+}

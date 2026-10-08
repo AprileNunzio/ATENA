@@ -1,0 +1,13 @@
+{
+  "name": "Chat with Atena",
+  "description": "Interactive conversational console with the assistant, detailing the active reasoning model, tool calls, and execution latencies.",
+  "capabilities": [
+    "Textual multi-turn chat",
+    "Dual-brain engine attribution indicator",
+    "Detailed latency and step breakdown"
+  ],
+  "settings": {
+    "ATENA_ADDRESSEE_THRESHOLD": "Confidence threshold required before responding (0.2 timid - 0.95 cautious)",
+    "ATENA_ADDRESSEE_ALONE": "Bonus confidence when alone in the room (0 - 1)"
+  }
+}

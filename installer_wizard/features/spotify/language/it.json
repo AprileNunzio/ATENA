@@ -1,0 +1,11 @@
+{
+  "name": "Spotify",
+  "description": "Collega il tuo account: quando sei davanti allo schermo il brano in riproduzione compare come widget.",
+  "capabilities": [
+    "Brano, artista, copertina e avanzamento",
+    "Solo quando ti vede (o sempre)"
+  ],
+  "settings": {
+    "ATENA_SPOTIFY_WHEN": "Quando mostrare il brano"
+  }
+}

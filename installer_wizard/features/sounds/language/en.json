@@ -1,0 +1,10 @@
+{
+  "name": "Acoustic Effects & Soundscapes",
+  "description": "System auditory feedback: chimes, notification sounds, ambient soundscapes, and binaural audio.",
+  "capabilities": [
+    "Auditory event feedback synthesis",
+    "Ambient soundscapes generation",
+    "Sound effect volume control"
+  ],
+  "settings": {}
+}

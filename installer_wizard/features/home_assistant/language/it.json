@@ -1,0 +1,21 @@
+{
+  "name": "Casa (Home Assistant)",
+  "description": "Atena studia tutta la casa da Home Assistant: stanze, piani, dispositivi Zigbee, Thread, Matter, Wi-Fi, Z-Wave e Bluetooth con modelli e capacità. Li comanda a voce in pochi millisecondi e sa in quali stanze c'è movimento o presenza.",
+  "capabilities": [
+    "Studio automatico di stanze, dispositivi, modelli e protocolli",
+    "Database locale sempre aggiornato in tempo reale",
+    "Comandi a voce istantanei (luci, colori, tapparelle, clima, TV, scene…)",
+    "Movimento e presenza per stanza",
+    "Temperatura, umidità, porte e finestre aperte",
+    "Conferma per serrature, allarme, cancelli e garage",
+    "Impara le frasi nuove e le ricorda"
+  ],
+  "settings": {
+    "HOME_ASSISTANT_URL": "Indirizzo di Home Assistant",
+    "HOME_ASSISTANT_TOKEN": "Token di accesso a lunga durata",
+    "ATENA_HOME_ROOM": "Stanza in cui si trova Atena",
+    "ATENA_HOME_MOTION_MIN": "Minuti di occupazione dopo l'ultimo movimento",
+    "ATENA_HOME_CONFIRM": "Chiedi conferma per serrature, allarme, cancelli e garage",
+    "HOME_ASSISTANT_VERIFY_SSL": "Verifica il certificato HTTPS"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "NVR Surveillance",
+  "description": "Network Video Recorder gateway: Frigate NVR integration, event ingestion, and security zone alerts.",
+  "capabilities": [
+    "Frigate NVR MQTT and REST event ingestion",
+    "Motion and object detection event archive",
+    "Perimeter breach notifications"
+  ],
+  "settings": {
+    "FRIGATE_URL": "Frigate NVR URL",
+    "MQTT_BROKER": "MQTT Broker"
+  }
+}

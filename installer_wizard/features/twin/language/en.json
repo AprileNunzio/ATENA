@@ -1,0 +1,10 @@
+{
+  "name": "Digital Twin",
+  "description": "3D digital twin of the home: rooms, furniture, light fixtures, temperatures, and occupancy in real time.",
+  "capabilities": [
+    "3D interactive house floorplan rendering",
+    "Real-time sensor value projection",
+    "Simulated environmental scenarios"
+  ],
+  "settings": {}
+}

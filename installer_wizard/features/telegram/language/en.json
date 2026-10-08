@@ -1,0 +1,12 @@
+{
+  "name": "Telegram Bot",
+  "description": "Remote assistant via Telegram: voice messages, camera snapshots, alarms, and bi-directional chat.",
+  "capabilities": [
+    "Secure 2-way Telegram messaging",
+    "Voice message speech-to-text and audio response",
+    "Photo snapshots and security notifications"
+  ],
+  "settings": {
+    "TELEGRAM_BOT_TOKEN": "Telegram Bot Token"
+  }
+}

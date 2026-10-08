@@ -1,0 +1,12 @@
+{
+  "name": "Widget Desktop",
+  "description": "Surface canvas manager for interactive widgets, telemetry gauges, and collaborative whiteboards.",
+  "capabilities": [
+    "Multi-monitor desktop layout",
+    "Draggable and resizable cybernetic widgets",
+    "Real-time state synchronization"
+  ],
+  "settings": {
+    "ATENA_DESKTOP_THEME": "Desktop Theme"
+  }
+}

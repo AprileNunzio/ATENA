@@ -1,0 +1,12 @@
+{
+  "name": "Vision & Biometrics",
+  "description": "Visual perception: face recognition, head pose, gaze estimation, person tracking, and spatial presence.",
+  "capabilities": [
+    "Real-time face recognition and owner verification",
+    "3D head pose and gaze attention tracking",
+    "Proximity detection and presence scoring"
+  ],
+  "settings": {
+    "ATENA_VISION_DEVICE": "Camera device index"
+  }
+}

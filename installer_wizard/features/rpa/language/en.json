@@ -1,0 +1,10 @@
+{
+  "name": "Computer Automation (RPA)",
+  "description": "Robotic Process Automation: desktop mouse, keyboard, and window control for complex legacy software.",
+  "capabilities": [
+    "Simulated keyboard and mouse interactions",
+    "Visual UI element anchoring and OCR",
+    "Multi-application workflow automation"
+  ],
+  "settings": {}
+}

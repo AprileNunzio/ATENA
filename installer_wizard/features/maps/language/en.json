@@ -1,0 +1,10 @@
+{
+  "name": "Maps & Navigation",
+  "description": "Geospatial queries, routing, transit calculation, and points-of-interest discovery.",
+  "capabilities": [
+    "Interactive Leaflet and OpenStreetMap rendering",
+    "Route planning with traffic estimation",
+    "Local venue and service lookup"
+  ],
+  "settings": {}
+}

@@ -1,0 +1,10 @@
+{
+  "name": "Atena Capabilities",
+  "description": "Central catalog of active tools, sub-agent capabilities, and operational skills.",
+  "capabilities": [
+    "Dynamic skill registration and introspection",
+    "Capability discovery and safety validation",
+    "ReAct tool binding"
+  ],
+  "settings": {}
+}

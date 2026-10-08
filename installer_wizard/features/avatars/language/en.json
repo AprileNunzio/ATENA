@@ -1,0 +1,12 @@
+{
+  "name": "Holograms & Avatars",
+  "description": "Management and customization of 3D avatars, holographic meshes, and visual skins for Atena.",
+  "capabilities": [
+    "Import GLTF, GLB, and FBX 3D avatars",
+    "Facial blendshapes and real-time lip sync",
+    "Skins, accessories, and atmospheric shaders"
+  ],
+  "settings": {
+    "ATENA_ACTIVE_AVATAR": "Active avatar model"
+  }
+}

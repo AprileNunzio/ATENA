@@ -1,0 +1,10 @@
+{
+  "name": "Capacità di Atena",
+  "description": "Atena dice a ogni cervello collegato (locale o cloud) tutto quello che sa fare e con quali frasi chiederlo, così nessun modello risponde «non posso» per qualcosa che Atena fa davvero.",
+  "capabilities": [
+    "Elenco aggiornato di musica, telecamere, widget e strumenti dell'agente inserito nelle istruzioni di ogni modello",
+    "Pagina dati /api/capabilities (pannello) con frasi e strumenti in formato leggibile da qualsiasi LLM",
+    "Strumenti dell'agente per musica, dispositivi di rete e telecamere in diretta"
+  ],
+  "settings": {}
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Voice Synthesis (TTS)",
+  "description": "Neural text-to-speech engine: multi-voice selection (Kokoro, Piper, Edge TTS), emotional inflection, and timbre.",
+  "capabilities": [
+    "Ultra-low latency local neural TTS",
+    "Multi-speaker voice library",
+    "Emotional pitch and cadence modulation"
+  ],
+  "settings": {
+    "ATENA_TTS_VOICE": "Default voice",
+    "ATENA_TTS_SPEED": "Speech rate"
+  }
+}

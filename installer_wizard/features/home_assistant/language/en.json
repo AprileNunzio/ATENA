@@ -1,0 +1,13 @@
+{
+  "name": "Home Assistant Bridge",
+  "description": "Full bidirectional synchronization with Home Assistant: entities, states, automations, and event bus.",
+  "capabilities": [
+    "Home Assistant REST & WebSocket API bridge",
+    "Entity state synchronization and control",
+    "Area, floor, and device topology mapping"
+  ],
+  "settings": {
+    "HASS_URL": "Home Assistant URL",
+    "HASS_TOKEN": "Long-lived Access Token"
+  }
+}

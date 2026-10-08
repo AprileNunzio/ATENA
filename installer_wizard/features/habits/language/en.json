@@ -1,0 +1,10 @@
+{
+  "name": "Habits & Implicit Learning",
+  "description": "Implicit user habit recognition: tracks routines, user preferences, and adapts automations automatically.",
+  "capabilities": [
+    "Recurring pattern discovery from sensory bus",
+    "Implicit reward learning from manual overrides",
+    "Adaptive home automation suggestions"
+  ],
+  "settings": {}
+}

@@ -1,0 +1,21 @@
+{
+  "name": "Pianificatore e servizi continui",
+  "description": "Tiene sempre vivi i servizi in background (li riavvia se si fermano o si bloccano) e fa girare i cron: espressioni cron, ripresa delle esecuzioni mancate quando Atena era spenta e stato che sopravvive ai riavvii.",
+  "capabilities": [
+    "Riavvio automatico dei servizi in background con attesa crescente",
+    "Rilevamento dei servizi bloccati tramite battito",
+    "Cron a 5 campi (*/15 8-18 * * 1-5, @daily, @hourly) con giorni e mesi per nome",
+    "Esecuzioni mancate recuperate: salta, recupera una volta o recupera tutte",
+    "Stato dei pianificatori salvato su disco: gli intervalli non ripartono da zero",
+    "Prossime esecuzioni in elenco"
+  ],
+  "settings": {
+    "ATENA_LOOPS_BACKOFF_MAX": "Attesa massima prima di riavviare un servizio guasto, in secondi (5 - 600)",
+    "ATENA_LOOPS_STALE_FACTOR": "Un servizio è bloccato dopo quante volte il suo battito normale (2 - 20)",
+    "ATENA_SCHED_PERSIST": "Ricorda le esecuzioni dopo un riavvio",
+    "ATENA_SCHED_MISFIRE": "Se Atena era spenta all'orario di un'automazione",
+    "ATENA_SCHED_GRACE_MIN": "Recupera solo se la mancata esecuzione è più recente di (minuti, 0 = mai recuperare)",
+    "ATENA_SCHED_MAX_CATCHUP": "Massimo di esecuzioni recuperate per ogni innesco (1 - 50)",
+    "ATENA_SCHED_JITTER_S": "Sfasamento casuale degli orari per non farli scattare tutti insieme, in secondi (0 - 300)"
+  }
+}

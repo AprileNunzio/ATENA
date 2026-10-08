@@ -1,0 +1,12 @@
+{
+  "name": "Resource Governor",
+  "description": "Dynamic hardware throttle: CPU, RAM, VRAM, and thermal monitoring with power management policies.",
+  "capabilities": [
+    "Real-time system resource watchdog",
+    "Dynamic LLM context quantization and unloading",
+    "Power profile switching (ECO, DYNAMIC, BOOST)"
+  ],
+  "settings": {
+    "ATENA_POWER_PROFILE": "Power Profile"
+  }
+}

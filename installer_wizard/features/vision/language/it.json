@@ -1,0 +1,32 @@
+{
+  "name": "Visione e volti",
+  "description": "Webcam e riconoscimento facciale locale: chi è in casa, saluti personalizzati, nuove persone aggiunte da sole.",
+  "capabilities": [
+    "Riconoscimento facciale offline",
+    "Presenze in tempo reale",
+    "Ospiti registrati da soli",
+    "Filtro dei riflessi (specchi e vetri)",
+    "Oggetti che hai in mano",
+    "Lettura di etichette e testi",
+    "Riparazione guidata via webcam con i cervelli che vedono",
+    "Webcam a doppio sensore (colori + infrarosso) riconosciute al collegamento, senza riavvio",
+    "Anti-foto e anti-schermo con l'infrarosso",
+    "Gemelli e volti somiglianti distinti con un margine più severo, senza mischiare i loro campioni",
+    "Il riconoscimento migliora da solo: campioni diversi, soglie per persona, infrarosso"
+  ],
+  "settings": {
+    "ATENA_IR_MODE": "Sensore infrarosso (webcam con doppio sensore)",
+    "ATENA_LIVENESS": "Controllo anti-foto e anti-schermo (richiede l'infrarosso)",
+    "ATENA_LIVENESS_MIN": "Punteggio minimo per considerare vivo un volto (0,1 - 0,95)",
+    "ATENA_CAMERA_RES": "Risoluzione della webcam",
+    "ATENA_CAMERA_RGB": "Webcam a colori: automatica oppure percorso (es. /dev/video0)",
+    "ATENA_CAMERA_IR": "Sensore infrarosso: automatico, off oppure percorso (es. /dev/video2)",
+    "ATENA_FACE_AUTOIMPROVE": "Il riconoscimento dei volti migliora da solo nel tempo",
+    "ATENA_FACE_ADAPTIVE": "Soglia di riconoscimento calcolata per ogni persona",
+    "ATENA_FACE_THRESHOLD": "Soglia di somiglianza del volto (0,2 - 0,8)",
+    "ATENA_FACE_MARGIN": "Distacco minimo dalla seconda persona più simile (0 - 0,4)",
+    "ATENA_FACE_TWIN_SIM": "Due persone sono «somiglianti» oltre questa somiglianza (0,3 - 0,95)",
+    "ATENA_FACE_TWIN_MARGIN": "Distacco richiesto tra persone somiglianti, per esempio gemelli (0 - 0,5)",
+    "ATENA_FACE_IR_WEIGHT": "Peso dell'infrarosso nel riconoscimento (0 - 0,8)"
+  }
+}

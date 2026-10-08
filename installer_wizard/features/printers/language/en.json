@@ -1,0 +1,10 @@
+{
+  "name": "Printers & 3D Fabricators",
+  "description": "Manages 2D network printers, OctoPrint, Klipper 3D printers, and laser engravers.",
+  "capabilities": [
+    "IPP and CUPS 2D network printer control",
+    "Moonraker and Klipper 3D printer telemetry",
+    "Print job queuing and temperature monitoring"
+  ],
+  "settings": {}
+}

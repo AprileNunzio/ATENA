@@ -1,0 +1,11 @@
+{
+  "name": "Posizione",
+  "description": "Dove si trova Atena, per meteo e servizi locali: GPS del telefono, display, reti Wi-Fi e access point di casa, posizione indicata da te; l'indirizzo IP solo come ultima risorsa.",
+  "capabilities": [
+    "Posizione dal telefono via Telegram",
+    "Access point di casa → BeaconDB",
+    "Consenso tra più servizi IP",
+    "«Abito a Napoli» detto a voce"
+  ],
+  "settings": {}
+}

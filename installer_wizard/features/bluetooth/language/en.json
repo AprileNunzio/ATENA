@@ -1,0 +1,12 @@
+{
+  "name": "Bluetooth Mesh & Devices",
+  "description": "Discovers and communicates with Bluetooth Low Energy (BLE) sensors, beacons, and smart home peripherals.",
+  "capabilities": [
+    "BLE peripheral discovery and scanning",
+    "RSSI-based proximity triangulation",
+    "Sensor telemetry acquisition"
+  ],
+  "settings": {
+    "ATENA_BT_ADAPTER": "Bluetooth Adapter"
+  }
+}

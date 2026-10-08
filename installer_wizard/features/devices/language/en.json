@@ -1,0 +1,13 @@
+{
+  "name": "Display Audio & Hardware",
+  "description": "Hardware audio configuration, microphone arrays, sound cards, and acoustic echo cancellation.",
+  "capabilities": [
+    "Audio input/output device selection",
+    "Acoustic noise suppression and beamforming",
+    "Hardware volume normalization"
+  ],
+  "settings": {
+    "ATENA_AUDIO_INPUT": "Input device",
+    "ATENA_AUDIO_OUTPUT": "Output device"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "name": "System Self-Test",
+  "description": "Automated hardware, network, model, and database integrity diagnostic suite.",
+  "capabilities": [
+    "End-to-end component diagnostics",
+    "Subsystem latency benchmarking",
+    "Automated repair trigger dispatch"
+  ],
+  "settings": {}
+}

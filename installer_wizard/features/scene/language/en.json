@@ -1,0 +1,10 @@
+{
+  "name": "Scene & Environmental Perception",
+  "description": "Ambient room perception: lighting level, noise, occupancy, and climate sensor aggregation.",
+  "capabilities": [
+    "Multi-sensor environmental fusion",
+    "Occupancy and presence confidence scoring",
+    "Daylight and circadian rhythm modeling"
+  ],
+  "settings": {}
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Cognitive Autonomy",
+  "description": "Background proactive initiative: periodic environment sweeps, anomaly resolution, and autonomous maintenance routines.",
+  "capabilities": [
+    "Proactive periodic sweeps",
+    "Autonomous anomaly detection and resolution",
+    "Configurable operational safety limits"
+  ],
+  "settings": {
+    "ATENA_AUTONOMY_LEVEL": "Autonomy level",
+    "ATENA_AUTONOMY_INTERVAL": "Sweep interval (seconds)"
+  }
+}

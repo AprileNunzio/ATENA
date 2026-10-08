@@ -1,0 +1,29 @@
+{
+  "name": "Suoni ed effetti",
+  "description": "Effetti sonori mentre Atena ascolta, pensa ed elabora, suoni di notifica e allarme, sottofondo ambientale; orari di silenzio, non disturbare e volumi notturni.",
+  "capabilities": [
+    "Attivazione, richiesta ricevuta, errore",
+    "Ciclo discreto mentre pensa, che diventa «elaborazione» se la risposta tarda",
+    "Notifiche, promemoria, allarmi e campanello (gli allarmi suonano anche in silenzio)",
+    "Sottofondo: reattore, spazio profondo, pioggia, onde, laboratorio; si abbassa mentre parla o ascolta",
+    "Orari di silenzio per giorni, non disturbare a voce («non disturbare per un'ora», «modalità notte fino a domattina»)",
+    "Di notte: effetti attenuati o muti, sottofondo spento, voce più bassa",
+    "Tre temi timbrici, tutti sintetizzati dal vivo senza file da scaricare",
+    "Usabili nelle automazioni come azione «Suono»"
+  ],
+  "settings": {
+    "ATENA_SOUNDS_VOLUME": "Volume degli effetti (0 - 100)",
+    "ATENA_SOUNDS_THEME": "Tema dei suoni",
+    "ATENA_SOUNDS_FEEDBACK": "Suoni di attivazione e richiesta",
+    "ATENA_SOUNDS_THINKING": "Suono mentre pensa ed elabora",
+    "ATENA_SOUNDS_NOTIFY": "Suoni di notifica",
+    "ATENA_SOUNDS_AMBIENT": "Sottofondo",
+    "ATENA_SOUNDS_AMBIENT_VOLUME": "Volume del sottofondo (0 - 100)",
+    "ATENA_QUIET_MODE": "Negli orari di silenzio",
+    "ATENA_QUIET_START": "Silenzio dalle (HH:MM)",
+    "ATENA_QUIET_END": "Silenzio fino alle (HH:MM)",
+    "ATENA_QUIET_DAYS": "Notti di silenzio",
+    "ATENA_QUIET_VOICE": "Volume della voce in silenzio (0 - 100)",
+    "ATENA_QUIET_EFFECTS": "Volume degli effetti in silenzio attenuato (0 - 100)"
+  }
+}

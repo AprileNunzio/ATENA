@@ -1,0 +1,10 @@
+{
+  "name": "Fundamental Laws & Constraints",
+  "description": "Core safety guard rails: Asimov principles, ethical guidelines, safety invariants, and Zero-Trust validation.",
+  "capabilities": [
+    "Strict safety constraint evaluation before tool execution",
+    "Zero-Trust command integrity checks",
+    "Ethical and privacy boundary enforcement"
+  ],
+  "settings": {}
+}

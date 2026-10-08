@@ -1,0 +1,14 @@
+{
+  "name": "Automations",
+  "description": "Multi-stage automation engine: multi-triggers, nested conditions, branching actions, delays, loops, parallel runs, voice confirmations, and execution tracing.",
+  "capabilities": [
+    "Triggers: schedule, intervals, sunrise/sunset offsets, device state changes, presence, vocal commands, system events, webhooks",
+    "Nested conditions (AND/OR/NOT): time windows, presence, day/night mode, quiet hours, logical expressions",
+    "Actions: Home Assistant devices, TTS speech, notifications, widgets, hologram, sound effects, agent tools, HTTP requests",
+    "Control flow: if/else, multi-branch switch, parallel branches, loops, timeouts, voice confirmation",
+    "Contextual variables, Jinja expressions, queue/parallel execution modes",
+    "Natural language automation authoring with automated validation, templates, and import/export",
+    "Execution history with detailed step traces, latency breakdown, and cancellation controls"
+  ],
+  "settings": {}
+}

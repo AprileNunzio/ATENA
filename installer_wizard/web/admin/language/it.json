@@ -494,5 +494,34 @@
       "too_large": "Richiesta troppo grande.",
       "body": "Richiesta non valida."
     }
+  },
+  "categories": {
+    "all": "Tutte",
+    "assistente": "Assistente",
+    "percezione": "Percezione",
+    "casa": "Casa e persone",
+    "conoscenza": "Conoscenza",
+    "comunicazione": "Comunicazione",
+    "sistema": "Sistema",
+    "altro": "Altro"
+  },
+  "features_ui": {
+    "mode_auto": "Automatica",
+    "mode_1": "Sempre attiva",
+    "mode_0": "Disattivata",
+    "state_active": "attiva",
+    "state_inactive": "spenta",
+    "source_ai": " · creata da Atena",
+    "source_user": " · aggiunta da te",
+    "pin_remove": "Togli dal menu laterale",
+    "pin_add": "Aggiungi al menu laterale",
+    "btn_open": "Apri",
+    "btn_open_full": "Apri il pannello completo",
+    "what_it_does": "Cosa sa fare",
+    "settings": "Impostazioni",
+    "saved": "salvato",
+    "empty_search": "Nessuna funzionalità corrisponde alla ricerca.",
+    "new_badge": "nuova",
+    "favorite_hint": "Aggiungi i preferiti con ☆ dalle Funzionalità"
   }
 }

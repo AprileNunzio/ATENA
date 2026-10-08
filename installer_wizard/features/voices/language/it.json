@@ -1,0 +1,20 @@
+{
+  "name": "Voci",
+  "description": "Oltre 600 voci in più di 60 lingue (una trentina in italiano): scegli, ascolta e scarica; mettile in ordine. Atena risponde nella lingua in cui gli parli o in quella che gli chiedi («parlami in inglese», «insegnami il tedesco») e scarica da solo la voce che gli manca.",
+  "capabilities": [
+    "Voci neurali Kokoro (9 lingue)",
+    "Catalogo Piper completo, scaricabile",
+    "Voci online naturalissime (Microsoft Edge)",
+    "Voce preferita per ogni lingua",
+    "Download automatico delle lingue nuove",
+    "Ordine di priorità",
+    "Anteprima di ogni voce"
+  ],
+  "settings": {
+    "ATENA_VOICE_SPEED": "Velocità della voce (0.6 - 1.6)",
+    "ATENA_VOICE_PITCH": "Tono della voce (-6 grave … +6 acuto)",
+    "ATENA_VOICE_VOLUME": "Volume della voce (0.4 - 2.0)",
+    "ATENA_VOICE_ONLINE": "Voci online",
+    "ATENA_VOICE_AUTO_DOWNLOAD": "Scarica da solo le voci delle lingue nuove"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Cognitive Brain",
+  "description": "Core cognitive architecture: dual-brain orchestration, knowledge graph, semantic memory, and vector embeddings.",
+  "capabilities": [
+    "Dual-Brain System 1 (fast non-autoregressive) & System 2 (latent ReAct reasoning)",
+    "Context graph indexing with multi-hop relational retrieval",
+    "Local neural embeddings and semantic caching"
+  ],
+  "settings": {
+    "ATENA_EMBED_MODEL": "Embedding Model",
+    "ATENA_REASONING_BUDGET": "Reasoning Token Budget"
+  }
+}

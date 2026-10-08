@@ -1,0 +1,10 @@
+{
+  "name": "Memory Vault & Diary",
+  "description": "Persistent episodic memory: journal of daily conversations, key facts, and long-term user preferences.",
+  "capabilities": [
+    "Episodic memory timeline indexing",
+    "Semantic memory recall and association",
+    "Encrypted private personal data storage"
+  ],
+  "settings": {}
+}

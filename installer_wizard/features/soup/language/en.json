@@ -1,0 +1,10 @@
+{
+  "name": "Model Weight Merging (Soup)",
+  "description": "Fine-tuned model merge engine: merges neural weights into consolidated specialized models.",
+  "capabilities": [
+    "Model weight averaging and spherical interpolation",
+    "Model evaluation and perplexity scoring",
+    "Automated checkpoint deployment"
+  ],
+  "settings": {}
+}

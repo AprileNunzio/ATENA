@@ -1,0 +1,12 @@
+{
+  "name": "Aggiornamenti automatici",
+  "description": "Atena si aggiorna da sola da GitHub, verifica la nuova versione e torna indietro se qualcosa non va.",
+  "capabilities": [
+    "Controllo periodico",
+    "Verifica e rollback automatico"
+  ],
+  "settings": {
+    "ATENA_UPDATE_INTERVAL_MIN": "Controlla ogni (minuti)",
+    "ATENA_UPDATE_BRANCH": "Ramo GitHub"
+  }
+}

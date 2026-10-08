@@ -1,0 +1,10 @@
+{
+  "name": "Mind & Belief State",
+  "description": "Mental model of the world: belief states, entities, ongoing goals, and conversation context.",
+  "capabilities": [
+    "Temporal belief state tracking",
+    "Long-term goal and project management",
+    "Multi-speaker context separation"
+  ],
+  "settings": {}
+}
