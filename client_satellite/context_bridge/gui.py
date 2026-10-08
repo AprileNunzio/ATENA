@@ -6,7 +6,6 @@ import socket
 import urllib.request
 import urllib.error
 import json
-import base64
 
 def _ensure_gui_deps():
     try:
