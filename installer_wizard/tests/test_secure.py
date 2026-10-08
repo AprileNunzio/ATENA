@@ -2,6 +2,7 @@ import asyncio
 import os
 import tempfile
 import unittest
+from unittest import mock
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -130,14 +131,30 @@ class ProxyTest(unittest.IsolatedAsyncioTestCase):
     async def test_closing_the_browser_ends_the_pump(self):
         await asyncio.wait_for(proxy.pump(FakeClient([]), FakeUpstream([])), 2)
 
-    def socket(self, host, cookie=None):
-        return SimpleNamespace(client=SimpleNamespace(host=host), cookies={auth.SESSION_COOKIE: cookie} if cookie else {})
+    def socket(self, host, cookie=None, headers=None):
+        return SimpleNamespace(client=SimpleNamespace(host=host), cookies={auth.SESSION_COOKIE: cookie} if cookie else {},
+                               headers=headers or {})
 
     def test_only_local_or_logged_in_sockets_are_accepted(self):
         self.assertTrue(proxy.allowed(self.socket("127.0.0.1")))
         self.assertFalse(proxy.allowed(self.socket("192.168.1.20")))
         self.assertFalse(proxy.allowed(self.socket("192.168.1.20", "forged")))
         self.assertTrue(proxy.allowed(self.socket("192.168.1.20", auth.issue("admin"))))
+
+    def test_paired_nodes_are_accepted_only_with_their_token(self):
+        from features.nodes.registry import registry
+
+        def authenticate(node_id, token):
+            if (node_id, token) != ("pc-studio", "good"):
+                raise PermissionError("Nodo non autorizzato")
+            return {"id": node_id}
+
+        with mock.patch.object(registry, "authenticate", side_effect=authenticate):
+            node = {"x-atena-node": "pc-studio", "authorization": "Bearer good"}
+            forged = {"x-atena-node": "pc-studio", "authorization": "Bearer bad"}
+            self.assertTrue(proxy.allowed(self.socket("192.168.1.20", headers=node)))
+            self.assertFalse(proxy.allowed(self.socket("192.168.1.20", headers=forged)))
+            self.assertFalse(proxy.allowed(self.socket("192.168.1.20", headers={"authorization": "Bearer good"})))
 
 
 if __name__ == "__main__":
