@@ -1,11 +1,11 @@
 import base64
-from typing import Dict, Any, Optional
+from typing import Dict, Any
 
 def _ensure_deps():
     import importlib
     import subprocess
     import sys
-    for pkg in ["uiautomation", "mss", "fastapi", "uvicorn"]:
+    for pkg in ["uiautomation", "mss", "fastapi", "uvicorn", "cryptography", "requests"]:
         try:
             importlib.import_module(pkg)
         except ImportError:
