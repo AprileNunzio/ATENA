@@ -74,7 +74,7 @@
 
     const registered = all.filter((p) => !p.is_scanned);
     
-    // Ordina alfabeticamente per "Cognome Nome" se presenti
+    // Ordina alfabeticamente per cognome e nome se presenti
     registered.sort((a, b) => {
       const nameA = (a.last_name && a.first_name) ? `${a.last_name} ${a.first_name}` : (a.name || "");
       const nameB = (b.last_name && b.first_name) ? `${b.last_name} ${b.first_name}` : (b.name || "");
