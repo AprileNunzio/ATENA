@@ -4,7 +4,6 @@ import subprocess
 import requests
 import zipfile
 import shutil
-import time
 from pathlib import Path
 
 def apply_update(download_url: str) -> None:

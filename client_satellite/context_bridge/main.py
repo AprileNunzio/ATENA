@@ -3,7 +3,6 @@ import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
-from typing import Dict, Any
 
 from sensor import ContextSensor
 from crypto import E2EEncryption
