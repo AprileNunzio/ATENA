@@ -31,6 +31,7 @@ class OrchestratorDispatcher:
         device_id: str,
         biometric_score: float,
         context_override: Optional[Dict[str, Any]] = None,
+    ) -> AgentTaskResponse:
         from server.features.project_workspace.manager import project_manager
         
         response = await self._internal_dispatch(raw_query, speaker_id, device_id, biometric_score, context_override)
