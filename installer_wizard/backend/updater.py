@@ -14,6 +14,7 @@ BAD_REVS_FILE = STATE_DIR / "bad_revs"
 LAST_GOOD_FILE = STATE_DIR / "last_good_rev"
 GATED_JOBS = {"validate-python", "tests", "kernel-tests", "validate-scripts"}
 UNREACHABLE_GRACE = 3600
+PRIORITY_FETCH_TIMEOUT = 45
 _ci: dict[str, tuple[str, float]] = {}
 _unreachable_since = 0.0
 
@@ -106,13 +107,17 @@ async def mark_good() -> None:
         store.save()
 
 
-async def check() -> dict:
+def auto_update_enabled() -> bool:
+    return not DEMO and env_get("ATENA_AUTO_UPDATE", "1") != "0"
+
+
+async def check(fetch_timeout: float = 180) -> dict:
     info = store.update
     info["last_check"] = now_iso()
     if DEMO:
         info.update(local_rev="demo", remote_rev="demo", available=False, last_result="Modalità demo")
         return info
-    code, out = await git("fetch", "--quiet", "origin", branch(), timeout=180)
+    code, out = await git("fetch", "--quiet", "origin", branch(), timeout=fetch_timeout)
     if code != 0:
         info["last_result"] = f"Fetch non riuscito: {out[:160]}"
         store.touch()
@@ -130,14 +135,16 @@ async def check() -> dict:
     return info
 
 
-async def apply(reason: str = "automatico") -> bool:
-    info = await check()
+async def apply(reason: str = "automatico", fetch_timeout: float = 180) -> bool:
+    info = await check(fetch_timeout)
     if not info.get("available"):
         return False
     target = info["target_rev"]
+    previous = pending()
+    rollback_to = previous["from"] if previous else info["local_rev"]
     store.event("INFO", f"Aggiornamento {reason}: {info['local_rev'][:7]} → {target[:7]} (test superati)", "updater")
     store.set_phase("UPDATING", "Download del nuovo firmware cognitivo…")
-    PENDING_FILE.write_text(json.dumps({"from": info["local_rev"], "to": target, "at": time.time()}))
+    PENDING_FILE.write_text(json.dumps({"from": rollback_to, "to": target, "at": time.time()}))
     code, out = await git("reset", "--hard", target)
     if code != 0:
         PENDING_FILE.unlink(missing_ok=True)
@@ -149,6 +156,14 @@ async def apply(reason: str = "automatico") -> bool:
     await asyncio.sleep(2)
     await sh("systemctl", "restart", "--no-block", "atena-supervisor.service", timeout=10)
     return True
+
+
+async def priority_update(reason: str) -> bool:
+    if not auto_update_enabled():
+        return False
+    store.message = "Cerco una versione più recente online…"
+    store.touch()
+    return await apply(reason, PRIORITY_FETCH_TIMEOUT)
 
 
 def pending() -> dict | None:

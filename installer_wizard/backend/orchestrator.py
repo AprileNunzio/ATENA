@@ -43,6 +43,8 @@ class Orchestrator:
         elif not setup_api.done():
             log.warning("Codice per la prima configurazione da un altro dispositivo: %s", setup_api.guard.code)
 
+        if await updater.priority_update("prioritario all'avvio"):
+            return
         failures = 0
         while True:
             store.set_phase(base_phase, label)
@@ -62,6 +64,8 @@ class Orchestrator:
                 store.pipeline_failed = False
                 break
             store.pipeline_failed = True
+            if await updater.priority_update("correttivo dopo un errore"):
+                return
             if pending and await updater.finish_pending(False):
                 return
             wait = min(ERROR_RETRY_MAX, ERROR_RETRY_SECONDS * 2 ** min(failures, 4))
@@ -71,6 +75,9 @@ class Orchestrator:
                                      f"(tentativo {failures}); verifico anche se esistono correzioni su GitHub")
             await asyncio.sleep(wait)
 
+        degraded = any(rec.get("status") == "failed" for rec in store.steps.values())
+        if degraded and await updater.priority_update("correttivo per un componente non riuscito"):
+            return
         if not store.installed:
             store.installed = True
             store.installed_at = time.time()
