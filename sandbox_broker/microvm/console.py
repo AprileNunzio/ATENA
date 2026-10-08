@@ -1,8 +1,40 @@
 import base64
 import binascii
 import re
+import os
+import pty
+import subprocess
+import fcntl
 from dataclasses import dataclass
 from typing import Dict, Optional
+
+class PersistentPTY:
+    def __init__(self) -> None:
+        self.master_fd, self.slave_fd = pty.openpty()
+        self.process = subprocess.Popen(
+            ["/bin/bash"],
+            stdin=self.slave_fd,
+            stdout=self.slave_fd,
+            stderr=self.slave_fd,
+            preexec_fn=os.setsid,
+            close_fds=True
+        )
+        flags = fcntl.fcntl(self.master_fd, fcntl.F_GETFL)
+        fcntl.fcntl(self.master_fd, fcntl.F_SETFL, flags | os.O_NONBLOCK)
+
+    def write_command(self, cmd: str) -> None:
+        try:
+            os.write(self.master_fd, (cmd + "\n").encode("utf-8"))
+        except OSError as exc:
+            raise RuntimeError(f"PTY write failed: {exc}")
+
+    def read_output(self, buffer_size: int = 4096) -> str:
+        try:
+            return os.read(self.master_fd, buffer_size).decode("utf-8", "replace")
+        except BlockingIOError:
+            return ""
+        except OSError as exc:
+            raise RuntimeError(f"PTY read failed: {exc}")
 
 MARK = b"@@ATENA@@"
 _OOM_SIGNS = (b"Out of memory", b"oom-kill", b"Killed process")

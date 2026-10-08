@@ -12,7 +12,11 @@ import {
   RefreshCw,
   Server
 } from 'lucide-react';
+import * as monaco from 'monaco-editor';
+import { Terminal as XTerm } from 'xterm';
+import 'xterm/css/xterm.css';
 import { AgentDescriptor, SystemModelConfig, KnowledgeNode } from '../../shared/types';
+import { NeuralAnalysisFlow } from './NeuralAnalysisFlow';
 
 interface ControlDeckViewProps {
   nodes: KnowledgeNode[];
@@ -28,6 +32,30 @@ export const ControlDeckView: React.FC<ControlDeckViewProps> = ({ nodes, onRefre
     voiceVolume: 0.9,
     voiceSpeed: 1.0,
   });
+
+  React.useEffect(() => {
+    const ws = new WebSocket('wss://localhost:8443/bus-core');
+    const editor = monaco.editor.create(document.getElementById('monaco-container')!, {
+        value: '', language: 'python', theme: 'vs-dark', automaticLayout: true, minimap: { enabled: false }
+    });
+    const term = new XTerm({ theme: { background: '#1e1e1e' }, cursorBlink: true });
+    const termEl = document.getElementById('xterm-container');
+    if (termEl) term.open(termEl);
+
+    ws.onmessage = (event) => {
+        try {
+            const data = JSON.parse(event.data);
+            if (data.type === 'file_sync') editor.setValue(data.content);
+            if (data.type === 'term_out') term.write(data.content);
+        } catch (e) {}
+    };
+
+    return () => {
+        editor.dispose();
+        term.dispose();
+        ws.close();
+    };
+  }, []);
 
   const agents: AgentDescriptor[] = [
     {
@@ -217,17 +245,20 @@ export const ControlDeckView: React.FC<ControlDeckViewProps> = ({ nodes, onRefre
             <div className="flex items-center space-x-2.5 mb-3">
               <Terminal className="w-5 h-5 text-emerald-400" />
               <h2 className="font-['Rajdhani'] text-lg font-semibold text-slate-100">
-                Sandbox & Self-Healing Log
+                PTY Terminal & VFS Sync (Live Binding)
               </h2>
             </div>
-            <div className="bg-black/80 rounded-xl p-3 font-mono text-[11px] text-emerald-400/90 space-y-1 border border-slate-800">
-              <div className="text-slate-500">[08:29:12] Sandbox initialized: gVisor/isolate</div>
-              <div>[08:30:45] Home Assistant sync: 42 entità ok</div>
-              <div>[08:31:02] Self-healing test passed: 0 regressions</div>
-              <div className="text-cyan-400">[08:32:10] Atena Core: In attesa su porta 8443</div>
+            <div className="flex flex-col lg:flex-row gap-4 h-64">
+              <div className="flex-1 bg-black/80 rounded-xl border border-slate-800 overflow-hidden" id="monaco-container"></div>
+              <div className="flex-1 bg-black/80 rounded-xl border border-slate-800 overflow-hidden p-2" id="xterm-container"></div>
             </div>
           </div>
         </div>
+      </div>
+      
+      {/* Neural Telemetry Flow Section */}
+      <div className="mt-6">
+        <NeuralAnalysisFlow />
       </div>
     </div>
   );

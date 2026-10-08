@@ -7,10 +7,13 @@ from server.features.sandbox.domain.spec import ResourceLimits
 from server.features.sandbox.infrastructure.broker_client import BrokerClient
 
 
+from sandbox_broker.microvm.console import PersistentPTY
+
 class SandboxRunner:
     def __init__(self, gateway: SandboxGateway, timeout_seconds: int) -> None:
         self._gateway = gateway
         self._limits = ResourceLimits(wall_seconds=timeout_seconds)
+        self._pty = PersistentPTY()
 
     async def execute_in_sandbox(self, python_code: str) -> Tuple[bool, str, str]:
         try:
@@ -22,6 +25,12 @@ class SandboxRunner:
         if report.oom_killed:
             return False, report.stdout, f"{report.stderr}\nexecution exceeded memory limit".strip()
         return report.succeeded, report.stdout, report.stderr
+
+    def execute_pty_command(self, command: str) -> None:
+        self._pty.write_command(command)
+
+    def read_pty_output(self) -> str:
+        return self._pty.read_output()
 
 
 sandbox_gateway = SandboxGateway(BrokerClient(settings.SANDBOX_SOCKET_PATH, lambda: settings.ATENA_SECRET_KEY))

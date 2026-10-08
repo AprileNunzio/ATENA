@@ -177,6 +177,38 @@ class SelfHealingCoderAgent(BaseAgent):
         loop.register_tool("create_directory", "Crea una cartella nel workspace (usa per strutturare progetti)", create_directory)
         loop.register_tool("write_file", "Scrive il contenuto in un file nel workspace (usa per salvare codice PHP, HTML, CSS, JS)", write_file)
 
+        from server.core.kernel.telemetry import NeuralTelemetry
+
+        async def apply_patch(path: str, patch: str) -> str:
+            try:
+                await NeuralTelemetry.emit("agent_thought", self.agent_id, {"thought": f"Sto modificando il file {path} per applicare il fix."})
+                res = workspace_files.apply_patch(path, patch)
+                await NeuralTelemetry.emit("tool_execution", self.agent_id, {"tool": "apply_patch", "status": "success", "detail": path})
+                return res
+            except (WorkspaceError, OSError) as exc:
+                return f"ERROR: {exc}"
+
+        async def execute_command(cmd: str) -> str:
+            try:
+                await NeuralTelemetry.emit("agent_thought", self.agent_id, {"thought": f"Avvio esecuzione PTY: {cmd}"})
+                sandbox_runner.execute_pty_command(cmd)
+                await NeuralTelemetry.emit("tool_execution", self.agent_id, {"tool": "execute_command", "status": "success", "detail": cmd})
+                return "Comando inviato al PTY."
+            except Exception as exc:
+                return f"ERROR: {exc}"
+
+        async def read_terminal() -> str:
+            try:
+                out = sandbox_runner.read_pty_output()
+                await NeuralTelemetry.emit("tool_execution", self.agent_id, {"tool": "read_terminal", "status": "success", "detail": "Letti bytes dal terminale"})
+                return out
+            except Exception as exc:
+                return f"ERROR: {exc}"
+
+        loop.register_tool("apply_patch", "Applica un unified diff patch a un file", apply_patch)
+        loop.register_tool("execute_command", "Esegue comando nel PTY", execute_command)
+        loop.register_tool("read_terminal_output", "Legge l'output PTY", read_terminal)
+
         return loop
 
     async def _refine_with_critique(self, task: str, code: str) -> str:

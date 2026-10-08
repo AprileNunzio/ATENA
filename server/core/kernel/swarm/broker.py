@@ -25,16 +25,42 @@ class SwarmBroker:
         lane = lane_for(node.kind)
         spec = self._governor.spec(lane)
         request = self._request(node, upstream, feedback)
+        from server.core.kernel.telemetry import NeuralTelemetry
+        
         async with self._governor.slot(lane):
-            agent = await self._select(request, spec)
-            request.preferred_brain = preferred_brain_for(agent.agent_id)
-            response = await agent.execute(request)
+            architect_agent = await self._select_role(spec, "architect")
+            coder_agent = await self._select_role(spec, "self_healing_coder")
+            executor_agent = await self._select_role(spec, "executor")
+
+            await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "architect", "reason": "Planning Phase"})
+            plan_req = self._build_req(node, upstream, feedback, "architect", "")
+            plan_res = await architect_agent.execute(plan_req)
+
+            await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "self_healing_coder", "reason": "Code Generation"})
+            code_req = self._build_req(node, upstream, feedback, "coder", plan_res.result_data.get("code", ""))
+            code_res = await coder_agent.execute(code_req)
+
+            await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "executor", "reason": "Sandbox Validation"})
+            exec_req = self._build_req(node, upstream, feedback, "executor", code_res.result_data.get("code", ""))
+            response = await executor_agent.execute(exec_req)
         return NodeResult(
             node_id=node.node_id,
             output={**response.result_data, "status": response.status},
             speech=response.speech_output,
             agent_id=response.agent_id,
         )
+
+    async def _select_role(self, spec: LaneSpec, role: str) -> BaseAgent:
+        target_id = f"agent_{role}"
+        if self._pool.registered([target_id]):
+            return self._pool.select_among(None, [target_id])
+        return await self._pool.select_best_agent(None)
+
+    def _build_req(self, node: NodeSpec, upstream: Mapping[str, NodeResult], feedback: Optional[ErrorPayload], role: str, context: str) -> AgentTaskRequest:
+        req = self._request(node, upstream, feedback)
+        req.intent = f"{req.intent}_{role}"
+        req.parameters["workflow_context"] = context
+        return req
 
     async def _select(self, request: AgentTaskRequest, spec: LaneSpec) -> BaseAgent:
         if self._pool.registered(spec.agent_ids):

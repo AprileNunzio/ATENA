@@ -41,6 +41,25 @@ class WorkspaceFiles:
             handle.write(content)
         return f"File {relative} scritto con successo.{self._track(self._normalise(relative), content)}"
 
+    def apply_patch(self, relative: str, patch_text: str) -> str:
+        import diff_match_patch
+        full = self.resolve(relative)
+        if full not in getattr(self, '_memory_state', {}):
+            try:
+                with open(full, "r", encoding="utf-8") as f:
+                    content = f.read()
+            except OSError:
+                content = ""
+        else:
+            content = self._memory_state[full]
+        dmp = diff_match_patch.diff_match_patch()
+        patches = dmp.patch_fromText(patch_text)
+        new_text, _ = dmp.patch_apply(patches, content)
+        if not hasattr(self, '_memory_state'):
+            self._memory_state = {}
+        self._memory_state[full] = new_text
+        return self.write(relative, new_text)
+
     def _normalise(self, relative: str) -> str:
         return os.path.relpath(self.resolve(relative), self._root).replace(os.sep, "/")
 
