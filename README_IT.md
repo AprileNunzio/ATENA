@@ -1,5 +1,7 @@
 # A.T.E.N.A. - Distributed AI Operating System
 
+[🇬🇧 English](README.md) | [🇮🇹 Italiano](README_IT.md) | [🇫🇷 Français](README_FR.md)
+
 <p align="center">
   <img src="https://img.shields.io/badge/Architecture-Clean%20Architecture-00f0ff?style=for-the-badge" alt="Clean Architecture">
   <img src="https://img.shields.io/badge/Security-Zero%20Trust%20Wasm-red?style=for-the-badge" alt="Zero Trust">
@@ -2795,4 +2797,5 @@ in un'attività e `ATENA_UNOFFICIAL_SERVICES=1` solo se accetti i termini dei se
 attribuzioni e limiti: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 *ATENA significa Architettura Tecnologica ed Ecosistema Neurale Aprile. Atena OS è un progetto indipendente.*
+
 

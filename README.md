@@ -1,5 +1,7 @@
 # A.T.E.N.A. - Distributed AI Operating System
 
+[🇬🇧 English](README.md) | [🇮🇹 Italiano](README_IT.md) | [🇫🇷 Français](README_FR.md)
+
 ## 🚀 What's New in Version 4.0.0
 
 Atena 4.0.0 introduces powerful innovations for IT automation and UI interactivity:
@@ -2610,6 +2612,7 @@ and `ATENA_UNOFFICIAL_SERVICES=1` only if you accept the terms of unofficial ser
 restrictions: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
 *ATENA stands for Architettura Tecnologica ed Ecosistema Neurale Aprile. Atena OS is an independent project.*
+
 
 
 
