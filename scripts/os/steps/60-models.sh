@@ -17,7 +17,7 @@ models() {
     if [ "$MODELS_SCOPE" = full ]; then
         list=("${ATENA_LLM_MODEL:-granite3.3:2b}")
     else
-        list=("${ATENA_LLM_FAST_MODEL:-${ATENA_LLM_MODEL:-granite3.3:2b}}" "${ATENA_EMBED_MODEL:-nomic-embed-text}")
+        list=("${ATENA_LLM_FAST_MODEL:-${ATENA_LLM_MODEL:-granite3.3:2b}}" "${ATENA_EMBED_MODEL:-embeddinggemma-2}")
     fi
     for m in "${list[@]}"; do
         licensed "$m"
