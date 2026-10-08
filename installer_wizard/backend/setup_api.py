@@ -13,6 +13,7 @@ from fastapi.responses import JSONResponse, RedirectResponse, Response
 
 import machine
 from access import NO_CACHE, is_local, require_admin
+import setup_owner
 from config import DEMO, ETC_DIR, STATE_DIR, UI_LANGUAGES, read_env
 from state import store
 
@@ -121,6 +122,10 @@ def _same_origin(request: Request) -> bool:
         return True
     host = request.headers.get("host", "")
     return origin.split("://", 1)[-1].rstrip("/") == host
+
+
+def setup_required(request: Request) -> bool:
+    return not done() and _private_client(request)
 
 
 def require_setup(request: Request) -> None:
@@ -295,6 +300,7 @@ async def setup_state(request: Request):
     return JSONResponse({
         "needed": True, "local": is_local(request), "code": guard.code if is_local(request) else None,
         "hardware": hardware(), "languages": LANGS, "voices": VOICE_CHOICES,
+        "voice_languages": {k: v[1] for k, v in setup_owner.VOICE_LANGUAGES.items()},
         "profiles": {k: {kk: vv for kk, vv in v.items() if kk != "min_ram_gb"} for k, v in PROFILES.items()},
         "clouds": {k: v[0] for k, v in CLOUD_PICK.items()},
         "suggested": suggested_packages(),
@@ -312,15 +318,36 @@ async def setup_save(request: Request, _: None = Depends(require_setup)):
         raise HTTPException(400, "Dati non validi")
     if not isinstance(raw, dict):
         raise HTTPException(400, "Dati non validi")
+    first, last = setup_owner.clean_names(raw)
     updates = _clean(raw)
+    voice_lang = setup_owner.clean_voice_language(raw, updates["ATENA_UI_LANG"])
     _store_cloud(raw)
     password = ""
     if raw.get("shares") is True:
         password = secrets.token_urlsafe(18)
         updates.update(ATENA_SMB_PASSWORD=password, ATENA_SHARES="1")
     await _apply(updates, "procedura guidata")
+    owner = setup_owner.register_owner(first, last, updates["ATENA_UI_LANG"], voice_lang)
     _mark_done("procedura guidata")
-    return JSONResponse({"ok": True, "shares_password": password}, headers=NO_CACHE)
+    training = is_local(request)
+    if training:
+        from features.chat import voice_id
+        store.voice_training = {"id": secrets.token_hex(6), "at": time.time(), **voice_id.session(owner)}
+        store.touch()
+    return JSONResponse({"ok": True, "shares_password": password, "owner": owner["slug"], "voice_training": training},
+                        headers=NO_CACHE)
+
+
+@public_routes.post("/api/setup/face")
+async def setup_face(request: Request, _: None = Depends(require_setup)):
+    try:
+        raw = await request.json()
+    except ValueError:
+        raise HTTPException(400, "Dati non validi")
+    if not isinstance(raw, dict):
+        raise HTTPException(400, "Dati non validi")
+    first, last = setup_owner.clean_names(raw)
+    return JSONResponse(await setup_owner.enroll_face(first, last), headers=NO_CACHE)
 
 
 @public_routes.post("/api/setup/wakeword")
@@ -420,6 +447,8 @@ async def apply_answers_file(path: Path = ANSWERS_FILE) -> bool:
         store.event("ERROR", f"File di risposte illeggibile: {exc}", "setup")
         return False
     await _apply(updates, "file di risposte")
+    if updates.get("ATENA_USER_NAME"):
+        setup_owner.register_owner(updates["ATENA_USER_NAME"], "", updates["ATENA_UI_LANG"], updates["ATENA_UI_LANG"])
     _mark_done("file di risposte")
     try:
         path.unlink()

@@ -17,6 +17,8 @@
     <ol class="dots" id="dots" aria-label="Avanzamento"></ol>
   </header>
 
+  <p class="step-of" id="step-of" aria-live="polite"></p>
+
   <section class="card screen" data-screen="code" hidden>
     <h1>Codice di sicurezza</h1>
     <p class="lead">Stai configurando Atena da un altro dispositivo. Inserisci il codice di 6 cifre che vedi sullo schermo di Atena oppure con il comando <code>atenactl setup-code</code>.</p>
@@ -25,11 +27,23 @@
 
   <section class="card screen" data-screen="intro" hidden>
     <h1>Piacere, sono Atena</h1>
-    <p class="lead">Mentre finisco di installarmi, scegliamo insieme come lavorare. Puoi cambiare tutto anche dopo dal pannello di amministrazione.</p>
+    <p class="lead">Mentre finisco di installarmi, scegliamo insieme come lavorare. Questa configurazione è necessaria una sola volta: diventerai il proprietario di Atena. Puoi cambiare tutto anche dopo dal pannello di amministrazione.</p>
     <label class="field"><span>Come ti chiami?</span>
       <input id="name" maxlength="40" autocomplete="given-name" placeholder="Il tuo nome, senza spazi"></label>
-    <div class="field"><span>Lingua</span><div class="seg" id="langs" role="radiogroup" aria-label="Lingua"></div></div>
+    <label class="field"><span>Cognome (facoltativo)</span>
+      <input id="last-name" maxlength="60" autocomplete="family-name" placeholder="Il tuo cognome"></label>
+    <div class="field"><span>Lingua dello schermo</span><div class="seg" id="langs" role="radiogroup" aria-label="Lingua"></div></div>
+    <label class="field"><span>Lingua in cui ti parlo</span>
+      <select id="voice-lang" aria-label="Lingua in cui ti parlo"></select></label>
+    <p class="hint">Ogni persona di casa potrà poi avere la propria lingua dello schermo e della voce, dalla sua scheda in Persone.</p>
     <p class="local-code" id="local-code" hidden>Vuoi configurarmi dal telefono? Apri questa pagina sulla rete di casa e inserisci il codice <b id="local-code-value"></b>.</p>
+  </section>
+
+  <section class="card screen" data-screen="face" hidden>
+    <h1>Fatti conoscere</h1>
+    <p class="lead">Mettiti davanti alla telecamera di Atena, a circa un metro, con il viso ben illuminato, e premi il pulsante. Ci vogliono pochi secondi.</p>
+    <button type="button" class="primary" id="face-btn">Registra il mio volto</button>
+    <p class="hint" id="face-status">Così ti riconosco quando entri nella stanza e ti saluto per nome. Se ora non sei davanti alla telecamera puoi farlo più tardi da Persone.</p>
   </section>
 
   <section class="card screen" data-screen="brain" hidden>
@@ -96,6 +110,7 @@
       <button type="button" class="ghost" id="copy">Copia</button>
       <small>Annotala ora: per sicurezza non la mostrerò più.</small>
     </div>
+    <p class="hint" id="voice-next">Per insegnarmi la tua voce apri la tua scheda in Persone e premi «Avvia sul display», oppure di' «Atena, impara la mia voce» davanti al display.</p>
     <a class="primary" href="/">Vai ad Atena</a>
   </section>
 

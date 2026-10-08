@@ -98,6 +98,13 @@ def save(profile: dict) -> None:
     tmp.replace(path)
 
 
+def preferred_languages(slug: str | None) -> tuple[str, str]:
+    profile = load(slug) if slug else None
+    if not profile:
+        return "", ""
+    return str(profile.get("ui_language") or ""), str(profile.get("voice_language") or "")
+
+
 def ensure(slug: str, name: str) -> dict:
     with _lock:
         profile = load(slug)

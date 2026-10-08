@@ -1,5 +1,6 @@
 import json
 import unittest
+from unittest import mock
 
 from fastapi.testclient import TestClient
 
@@ -31,7 +32,7 @@ class SupervisorTest(unittest.TestCase):
 
     def test_admin_apis(self):
         for path in ("/", "/api/features", "/api/automations", "/api/automations/catalog", "/api/sounds", "/api/autonomy", "/api/selftest"):
-            with self.subTest(path=path):
+            with self.subTest(path=path), mock.patch("setup_api.done", return_value=True):
                 r = self.admin.get(path, headers=HEADERS)
                 self.assertEqual(r.status_code, 200, r.text[:300])
 

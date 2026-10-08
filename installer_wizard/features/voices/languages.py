@@ -154,7 +154,7 @@ STICKY_TTL = 3 * 3600
 _sessions: dict[str, dict] = {}
 
 
-def resolve(text: str, device: str, heard: str | None = None) -> dict:
+def resolve(text: str, device: str, heard: str | None = None, preferred: str = "") -> dict:
     now = time.time()
     s = _sessions.get(device)
     if s and now - s["at"] > STICKY_TTL:
@@ -171,7 +171,7 @@ def resolve(text: str, device: str, heard: str | None = None) -> dict:
         s["at"] = now
         return {"lang": s["lang"], "teach": s["teach"], "sticky": True, "switched": False}
     heard = base(heard or "")
-    spoken = heard if heard in LANGS else detect(text)
+    spoken = heard if heard in LANGS else detect(text, preferred if preferred in LANGS else DEFAULT)
     return {"lang": spoken, "teach": False, "sticky": False, "switched": False}
 
 

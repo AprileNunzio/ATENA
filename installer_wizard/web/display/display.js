@@ -110,6 +110,7 @@
   function onState(s) {
     privacy = s.privacy || privacy;
     renderPresence(s.presence);
+    if (D.followLanguage) D.followLanguage(s.presence);
     guardPersonal();
     handleGreeting(s.greeting);
     if (D.Enroll) D.Enroll.fromState(s.voice_training);

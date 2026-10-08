@@ -115,13 +115,33 @@ class WizardTest(unittest.TestCase):
         key = "AIza" + "b" * 35
         self.addCleanup(write_env, {"ATENA_BRAIN": "", "ATENA_LLM_CHAT_ORDER": "", "ATENA_LLM_DEEP_ORDER": ""})
         with Network(local=True), mock.patch("features.cloud.vault.vault.update") as update:
-            r = self.public.post("/api/setup", json={"brain": "cloud", "cloud_provider": "gemini", "cloud_key": key},
-                                 headers=HEADERS)
+            r = self.public.post("/api/setup", json={"name": "Nunzio", "brain": "cloud", "cloud_provider": "gemini",
+                                                     "cloud_key": key}, headers=HEADERS)
             self.assertEqual(r.status_code, 200, r.text)
         update.assert_called_once_with("gemini", {"key": key, "enabled": True})
         self.assertNotIn(key, "".join(read_env().values()))
         self.assertEqual(read_env().get("ATENA_BRAIN"), "cloud")
         self.assertEqual(r.json()["shares_password"], "")
+
+    def test_the_owner_must_give_a_name(self):
+        with Network(local=True):
+            for body in ({}, {"name": ""}, {"name": "Nunzio", "last_name": "<script>"}, {"name": "Nunzio", "voice_lang": "xx"}):
+                with self.subTest(body=body):
+                    r = self.public.post("/api/setup", json=body, headers=HEADERS)
+                    self.assertEqual(r.status_code, 400, r.text)
+            self.assertFalse(setup_api.done())
+
+    def test_completing_the_wizard_registers_the_owner_with_languages(self):
+        from features.people import people
+        with tempfile.TemporaryDirectory() as root, mock.patch.object(people, "PEOPLE_DIR", Path(root)), Network(local=False):
+            r = self.public.post("/api/setup", json={"name": "Nunzio", "last_name": "D'Aprile", "lang": "fr",
+                                                     "voice_lang": "en"}, headers={**HEADERS, "X-Atena-Setup-Code": setup_api.guard.code})
+            self.assertEqual(r.status_code, 200, r.text)
+            owner = people.load(r.json()["owner"])
+            self.assertEqual((owner["role"], owner["first_name"], owner["last_name"]), ("owner", "Nunzio", "D'Aprile"))
+            self.assertEqual((owner["ui_language"], owner["voice_language"]), ("fr", "en"))
+            self.assertFalse(r.json()["voice_training"])
+        self.addCleanup(write_env, {"ATENA_UI_LANG": "it"})
 
     def test_completing_the_wizard_closes_it(self):
         with Network(local=True):

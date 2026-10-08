@@ -12251,6 +12251,102 @@
     [
       "Qualsiasi server con l'API di trascrizione compatibile OpenAI (/v1/audio/transcriptions). La chiave API è facoltativa.",
       "Any server with the OpenAI-compatible transcription API (/v1/audio/transcriptions). The API key is optional."
+    ],
+    [
+      "Scrivi il tuo nome: serve per riconoscerti e salutarti",
+      "Write your name: I need it to recognise and greet you"
+    ],
+    [
+      "Il cognome può contenere solo lettere, spazi, apostrofi e trattini",
+      "The last name may only contain letters, spaces, apostrophes and hyphens"
+    ],
+    [
+      "Lingua della voce non supportata",
+      "Unsupported voice language"
+    ],
+    [
+      "Mentre finisco di installarmi, scegliamo insieme come lavorare. Questa configurazione è necessaria una sola volta: diventerai il proprietario di Atena. Puoi cambiare tutto anche dopo dal pannello di amministrazione.",
+      "While I finish installing, let's choose together how to work. This setup is needed only once: you will become Atena's owner. You can change everything later from the admin panel."
+    ],
+    [
+      "Cognome (facoltativo)",
+      "Last name (optional)"
+    ],
+    [
+      "Il tuo cognome",
+      "Your last name"
+    ],
+    [
+      "Lingua dello schermo",
+      "Screen language"
+    ],
+    [
+      "Lingua in cui ti parlo",
+      "Language I speak to you in"
+    ],
+    [
+      "Ogni persona di casa potrà poi avere la propria lingua dello schermo e della voce, dalla sua scheda in Persone.",
+      "Everyone at home can then have their own screen and voice language, from their card in People."
+    ],
+    [
+      "Fatti conoscere",
+      "Let me get to know you"
+    ],
+    [
+      "Mettiti davanti alla telecamera di Atena, a circa un metro, con il viso ben illuminato, e premi il pulsante. Ci vogliono pochi secondi.",
+      "Stand in front of Atena's camera, about one metre away, with your face well lit, and press the button. It takes a few seconds."
+    ],
+    [
+      "Registra il mio volto",
+      "Register my face"
+    ],
+    [
+      "Così ti riconosco quando entri nella stanza e ti saluto per nome. Se ora non sei davanti alla telecamera puoi farlo più tardi da Persone.",
+      "This way I recognise you when you enter the room and greet you by name. If you are not in front of the camera now you can do it later from People."
+    ],
+    [
+      "Per insegnarmi la tua voce apri la tua scheda in Persone e premi «Avvia sul display», oppure di' «Atena, impara la mia voce» davanti al display.",
+      "To teach me your voice open your card in People and press «Start on the display», or say «Atena, learn my voice» in front of the display."
+    ],
+    [
+      "Passo {0} di {1}",
+      "Step {0} of {1}"
+    ],
+    [
+      "Premi «Registra il mio volto», oppure «Salta» per farlo più tardi",
+      "Press «Register my face», or «Skip» to do it later"
+    ],
+    [
+      "Ora guarda il display: ti chiederò di ripetere alcune frasi per imparare la tua voce e come pronunci il mio nome.",
+      "Now look at the display: I will ask you to repeat a few phrases to learn your voice and how you pronounce my name."
+    ],
+    [
+      "Guarda la telecamera e resta fermo qualche secondo…",
+      "Look at the camera and stay still for a few seconds…"
+    ],
+    [
+      "Fatto: ti ho memorizzato con {0} immagini.",
+      "Done: I memorised you with {0} images."
+    ],
+    [
+      "Registra di nuovo",
+      "Register again"
+    ],
+    [
+      "Registrazione del volto non riuscita",
+      "Face registration failed"
+    ],
+    [
+      "Lingua dello schermo quando è davanti al display",
+      "Screen language when in front of the display"
+    ],
+    [
+      "Lingua in cui ATENA le parla",
+      "Language ATENA speaks to them in"
+    ],
+    [
+      "Come il sistema",
+      "Same as the system"
     ]
   ],
   "reverse": [
@@ -12967,6 +13063,10 @@
       "Code de sécurité"
     ],
     [
+      "Cognome (facoltativo)",
+      "Nom (facultatif)"
+    ],
+    [
       "Collaudo notturno e dopo ogni aggiornamento (1/0)",
       "Test automatique nocturne et après chaque mise à jour (1/0)"
     ],
@@ -12989,6 +13089,10 @@
     [
       "Comandi con le mani: mani riconosciute (1/2)",
       "Commandes gestuelles : mains reconnues (1/2)"
+    ],
+    [
+      "Come il sistema",
+      "Comme le système"
     ],
     [
       "Come l'ha capita ATENA",
@@ -13089,6 +13193,10 @@
     [
       "Cosa vuoi usare da subito?",
       "Que voulez-vous utiliser tout de suite ?"
+    ],
+    [
+      "Così ti riconosco quando entri nella stanza e ti saluto per nome. Se ora non sei davanti alla telecamera puoi farlo più tardi da Persone.",
+      "Ainsi je vous reconnais quand vous entrez dans la pièce et je vous salue par votre prénom. Si vous n'êtes pas devant la caméra maintenant, vous pourrez le faire plus tard depuis Personnes."
     ],
     [
       "Credenziali non valide o utente non autorizzato",
@@ -13199,6 +13307,14 @@
       "Facultatif : connectez les services que vous utilisez déjà. Vous pouvez tout laisser vide."
     ],
     [
+      "Fatti conoscere",
+      "Faisons connaissance"
+    ],
+    [
+      "Fatto: ti ho memorizzato con {0} immagini.",
+      "C'est fait : je vous ai mémorisé avec {0} images."
+    ],
+    [
       "Fiducia aggiuntiva quando sei solo nella stanza (0 - 1)",
       "Confiance supplémentaire quand vous êtes seul dans la pièce (0 - 1)"
     ],
@@ -13251,6 +13367,10 @@
       "Google : services à connecter (calendar,gmail,tasks,contacts,drive,keep)"
     ],
     [
+      "Guarda la telecamera e resta fermo qualche secondo…",
+      "Regardez la caméra et restez immobile quelques secondes…"
+    ],
+    [
       "Hardware, rete e scelta delle reti neurali",
       "Matériel, réseau et choix des réseaux neuronaux"
     ],
@@ -13279,6 +13399,10 @@
       "Le code comporte 6 chiffres"
     ],
     [
+      "Il cognome può contenere solo lettere, spazi, apostrofi e trattini",
+      "Le nom ne peut contenir que des lettres, des espaces, des apostrophes et des tirets"
+    ],
+    [
       "Il file non è un modello ONNX valido",
       "Le fichier n'est pas un modèle ONNX valide"
     ],
@@ -13297,6 +13421,10 @@
     [
       "Il nome può contenere solo lettere e trattini, senza spazi",
       "Le nom ne peut contenir que des lettres et des tirets, sans espaces"
+    ],
+    [
+      "Il tuo cognome",
+      "Votre nom"
     ],
     [
       "Il tuo nome, senza spazi",
@@ -13467,6 +13595,26 @@
       "Langue de l'interface de l'écran et du panneau (it, en, fr)"
     ],
     [
+      "Lingua della voce non supportata",
+      "Langue de la voix non prise en charge"
+    ],
+    [
+      "Lingua dello schermo",
+      "Langue de l'écran"
+    ],
+    [
+      "Lingua dello schermo quando è davanti al display",
+      "Langue de l'écran devant l'affichage"
+    ],
+    [
+      "Lingua in cui ATENA le parla",
+      "Langue dans laquelle ATENA lui parle"
+    ],
+    [
+      "Lingua in cui ti parlo",
+      "Langue dans laquelle je vous parle"
+    ],
+    [
       "Lingua non supportata",
       "Langue non prise en charge"
     ],
@@ -13531,8 +13679,16 @@
       "Pendant que je termine mon installation, choisissons ensemble comment travailler. Vous pourrez tout changer plus tard depuis le panneau d'administration."
     ],
     [
+      "Mentre finisco di installarmi, scegliamo insieme come lavorare. Questa configurazione è necessaria una sola volta: diventerai il proprietario di Atena. Puoi cambiare tutto anche dopo dal pannello di amministrazione.",
+      "Pendant que je termine mon installation, choisissons ensemble comment travailler. Cette configuration n'est nécessaire qu'une fois : vous deviendrez le propriétaire d'Atena. Vous pourrez tout changer plus tard depuis le panneau d'administration."
+    ],
+    [
       "Message broker e proxy di uscita della sandbox in Rust, con ritorno automatico a Python",
       "Message broker et proxy de sortie de la sandbox en Rust, avec retour automatique à Python"
+    ],
+    [
+      "Mettiti davanti alla telecamera di Atena, a circa un metro, con il viso ben illuminato, e premi il pulsante. Ci vogliono pochi secondi.",
+      "Placez-vous devant la caméra d'Atena, à environ un mètre, le visage bien éclairé, et appuyez sur le bouton. Cela prend quelques secondes."
     ],
     [
       "Micro-VM Firecracker",
@@ -13635,6 +13791,10 @@
       "Nouvelle tentative automatique dans {0} minutes (tentative {1}) ; je vérifie aussi s'il existe des correctifs sur GitHub"
     ],
     [
+      "Ogni persona di casa potrà poi avere la propria lingua dello schermo e della voce, dalla sua scheda in Persone.",
+      "Chaque personne de la maison pourra ensuite avoir sa propre langue d'écran et de voix, depuis sa fiche dans Personnes."
+    ],
+    [
       "Operativo",
       "Opérationnel"
     ],
@@ -13645,6 +13805,10 @@
     [
       "Ora del collaudo notturno HH:MM",
       "Heure du test automatique nocturne HH:MM"
+    ],
+    [
+      "Ora guarda il display: ti chiederò di ripetere alcune frasi per imparare la tua voce e come pronunci il mio nome.",
+      "Regardez maintenant l'écran : je vous demanderai de répéter quelques phrases pour apprendre votre voix et votre façon de prononcer mon nom."
     ],
     [
       "Orari di silenzio: soft (attenua), mute (solo allarmi), off",
@@ -13661,6 +13825,10 @@
     [
       "Pacchetto sconosciuto o non rimovibile",
       "Paquet inconnu ou non supprimable"
+    ],
+    [
+      "Passo {0} di {1}",
+      "Étape {0} sur {1}"
     ],
     [
       "Passo {0} di {1} · {2}",
@@ -13683,6 +13851,10 @@
       "Home Assistant nécessite à la fois l'adresse et le jeton"
     ],
     [
+      "Per insegnarmi la tua voce apri la tua scheda in Persone e premi «Avvia sul display», oppure di' «Atena, impara la mia voce» davanti al display.",
+      "Pour m'apprendre votre voix, ouvrez votre fiche dans Personnes et appuyez sur «Lancer sur l'écran», ou dites «Atena, apprends ma voix» devant l'écran."
+    ],
+    [
       "Percezione",
       "Perception"
     ],
@@ -13701,6 +13873,10 @@
     [
       "Posizione: auto (display/Wi-Fi più precisi) o fixed (sempre la predefinita)",
       "Position : auto (écran/Wi-Fi plus précis) ou fixed (toujours celle par défaut)"
+    ],
+    [
+      "Premi «Registra il mio volto», oppure «Salta» per farlo più tardi",
+      "Appuyez sur «Enregistrer mon visage», ou sur «Passer» pour le faire plus tard"
     ],
     [
       "Preparazione del prossimo componente",
@@ -13749,6 +13925,18 @@
     [
       "Ramo GitHub",
       "Branche GitHub"
+    ],
+    [
+      "Registra di nuovo",
+      "Enregistrer à nouveau"
+    ],
+    [
+      "Registra il mio volto",
+      "Enregistrer mon visage"
+    ],
+    [
+      "Registrazione del volto non riuscita",
+      "L'enregistrement du visage a échoué"
     ],
     [
       "Rete ↓ / ↑",
@@ -13841,6 +14029,10 @@
     [
       "Scelta del cervello non valida",
       "Choix du cerveau non valide"
+    ],
+    [
+      "Scrivi il tuo nome: serve per riconoscerti e salutarti",
+      "Écrivez votre prénom : il me sert à vous reconnaître et à vous saluer"
     ],
     [
       "Scudi di sicurezza",

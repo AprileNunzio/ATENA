@@ -1,3 +1,6 @@
+from config import UI_LANGUAGES
+from features.voices.languages import LANGS as VOICE_LANGUAGES
+
 RELATIONS = {
     "coniuge": ("Coniuge", "coniuge"), "partner": ("Partner", "partner"), "fidanzato": ("Fidanzato/a", "fidanzato"),
     "ex_coniuge": ("Ex coniuge", "ex_coniuge"),
@@ -30,6 +33,10 @@ SECTIONS = [
         {"key": "name_day", "label": "Onomastico (gg-mm)", "type": "text", "placeholder": "calcolato dal nome se vuoto"},
         {"key": "nationality", "label": "Nazionalità", "type": "text"},
         {"key": "languages", "label": "Lingue parlate", "type": "tags"},
+        {"key": "ui_language", "label": "Lingua dello schermo quando è davanti al display", "type": "select",
+         "options": ["", *UI_LANGUAGES], "labels": {"": "Come il sistema", **UI_LANGUAGES}},
+        {"key": "voice_language", "label": "Lingua in cui ATENA le parla", "type": "select",
+         "options": ["", *VOICE_LANGUAGES], "labels": {"": "Come il sistema", **{k: v[1] for k, v in VOICE_LANGUAGES.items()}}},
         {"key": "religion", "label": "Religione", "type": "text"},
         {"key": "marital_status", "label": "Stato civile", "type": "select", "options": ["", "Celibe/Nubile", "Fidanzato/a", "Convivente", "Sposato/a", "Unito/a civilmente", "Separato/a", "Divorziato/a", "Vedovo/a"]},
         {"key": "role", "label": "Ruolo per Atena", "type": "select", "options": list(ROLES), "labels": ROLES},

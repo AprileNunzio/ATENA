@@ -137,9 +137,9 @@
     try { localStorage.setItem("atena_ui_lang", lang); } catch (e) { console.warn("language preference not saved", e); }
   }
 
-  async function switchTo(lang) {
+  async function switchTo(lang, persist = true) {
     if (!LANGS.includes(lang) || lang === state.lang) return;
-    remember(lang);
+    if (persist) remember(lang);
     await load(lang);
   }
 

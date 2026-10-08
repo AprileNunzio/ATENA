@@ -1,14 +1,15 @@
 import asyncio
 
 from fastapi import APIRouter, Depends, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, RedirectResponse
 
 import auth
 import health
 import machine
 import updater
 from access import NO_CACHE, require_admin, require_internal, session_user
-from config import DEMO, EDITABLE_KEYS, ATENA_DIR, NODE, is_secret, kiosk_log, read_env
+import setup_api
+from config import DEMO, EDITABLE_KEYS, ATENA_DIR, NODE, PUBLIC_PORT, is_secret, kiosk_log, read_env
 from orchestrator import orch
 from pages import page
 from settings import apply_config
@@ -47,7 +48,9 @@ COMPONENT_RESTART = {
 
 
 @public_routes.get("/")
-async def public_index(node: str = ""):
+async def public_index(request: Request, node: str = ""):
+    if store.phase in ("READY", "DEGRADED") and setup_api.setup_required(request):
+        return RedirectResponse("/setup", status_code=303)
     if node:
         from features.nodes.registry import registry
         if node in registry.data["nodes"]:
@@ -92,7 +95,10 @@ async def trigger_holo_action(req: HoloActionReq):
 
 
 @admin_routes.get("/")
-async def admin_index():
+async def admin_index(request: Request):
+    if not setup_api.done():
+        port = "" if PUBLIC_PORT == 80 else f":{PUBLIC_PORT}"
+        return RedirectResponse(f"http://{request.url.hostname}{port}/setup", status_code=303)
     return page("admin/admin.html")
 
 

@@ -2,8 +2,10 @@
   "use strict";
   const $ = (id) => document.getElementById(id);
   const NAME_RE = /^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ-]{0,39}$/u;
-  const FLOW = ["intro", "brain", "packages", "voice", "home", "privacy"];
-  const OPTIONAL = new Set(["home"]);
+  const FLOW = ["intro", "face", "brain", "packages", "voice", "home", "privacy"];
+  const OPTIONAL = new Set(["home", "face"]);
+  const LAST_RE = /^[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ' -]{0,59}$/u;
+  let faceDone = false;
   const BRAINS = [
     ["local", { label: "Su questo computer", note: "Tutto resta in casa. Servono spazio e memoria per i modelli." }],
     ["remote", { label: "Su un altro computer della rete", note: "Uso Ollama già installato su un altro PC di casa." }],
@@ -133,6 +135,13 @@
       return b;
     });
 
+    $("voice-lang").replaceChildren(...Object.entries(info.voice_languages || {}).map(([code, label]) => {
+      const option = el("option", null, label);
+      option.value = code;
+      option.dataset.noI18n = "";
+      return option;
+    }));
+    $("voice-lang").value = choice.lang;
     $("name").value = info.current.name || "";
     if (info.code) {
       $("local-code-value").textContent = info.code;
@@ -174,9 +183,10 @@
     const dots = $("dots");
     const steps = order.filter((s) => s !== "code" && s !== "done");
     dots.replaceChildren(...steps.map((s) => el("li", steps.indexOf(id) >= steps.indexOf(s) ? "on" : "")));
+    $("step-of").textContent = steps.includes(id) ? `Passo ${steps.indexOf(id) + 1} di ${steps.length}` : "";
     $("nav").hidden = id === "done";
     $("back").hidden = at === 0;
-    $("skip").hidden = !OPTIONAL.has(id);
+    $("skip").hidden = !OPTIONAL.has(id) || (id === "face" && faceDone);
     $("next").textContent = id === "privacy" ? "Completa" : id === "code" ? "Verifica" : "Avanti";
     error();
     const focus = document.querySelector(`.screen[data-screen="${id}"] input, .screen[data-screen="${id}"] button`);
@@ -188,8 +198,12 @@
     if (id === "code" && !/^\d{6}$/.test($("code").value.trim())) return "Il codice è di 6 cifre";
     if (id === "intro") {
       const name = $("name").value.trim();
-      if (name && !NAME_RE.test(name)) return "Il nome può contenere solo lettere e trattini, senza spazi";
+      if (!name) return "Scrivi il tuo nome: serve per riconoscerti e salutarti";
+      if (!NAME_RE.test(name)) return "Il nome può contenere solo lettere e trattini, senza spazi";
+      const last = $("last-name").value.trim();
+      if (last && !LAST_RE.test(last)) return "Il cognome può contenere solo lettere, spazi, apostrofi e trattini";
     }
+    if (id === "face" && !faceDone) return "Premi «Registra il mio volto», oppure «Salta» per farlo più tardi";
     if (id === "brain" && choice.brain === "remote" && !HOST_RE.test($("ollama-url").value.trim())) {
       return "Indica l'indirizzo del computer con Ollama, ad esempio 192.168.1.20";
     }
@@ -213,7 +227,8 @@
     if (file) await call("/api/setup/wakeword", { file });
     const res = await call("/api/setup", {
       body: {
-        name: $("name").value.trim(), lang: choice.lang, profile: choice.profile, voice: choice.voice,
+        name: $("name").value.trim(), last_name: $("last-name").value.trim(), lang: choice.lang,
+        voice_lang: $("voice-lang").value || choice.lang, profile: choice.profile, voice: choice.voice,
         brain: choice.brain, ollama_url: $("ollama-url").value.trim(),
         cloud_provider: choice.brain === "cloud" ? choice.cloud : "", cloud_key: choice.brain === "cloud" ? $("cloud-key").value.trim() : "",
         packages: [...picked],
@@ -227,7 +242,29 @@
       $("secret-value").textContent = res.shares_password;
       $("secret").hidden = false;
     }
+    if (res.voice_training) {
+      $("voice-next").textContent = "Ora guarda il display: ti chiederò di ripetere alcune frasi per imparare la tua voce e come pronunci il mio nome.";
+    }
     order.push("done");
+  }
+
+  async function registerFace() {
+    error();
+    const button = $("face-btn");
+    button.disabled = true;
+    $("face-status").textContent = "Guarda la telecamera e resta fermo qualche secondo…";
+    try {
+      const res = await call("/api/setup/face", { body: { name: $("name").value.trim(), last_name: $("last-name").value.trim() } });
+      faceDone = true;
+      $("face-status").textContent = `Fatto: ti ho memorizzato con ${res.samples} immagini.`;
+      button.textContent = "Registra di nuovo";
+      show();
+    } catch (e) {
+      $("face-status").textContent = "";
+      error(e.message);
+    } finally {
+      button.disabled = false;
+    }
   }
 
   async function next(skip = false) {
@@ -255,6 +292,7 @@
     }
   }
 
+  $("face-btn").addEventListener("click", registerFace);
   $("next").addEventListener("click", () => next());
   $("skip").addEventListener("click", () => next(true));
   $("back").addEventListener("click", () => { if (at > 0) { at--; show(); } });

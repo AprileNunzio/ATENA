@@ -12,6 +12,7 @@ GREET_AGAIN_AFTER = 20 * 60
 UNKNOWN_GREET_AFTER = 5 * 60
 STABLE_SECONDS = 1.2
 HOLD_SECONDS = 5.0
+LANGUAGE_TTL = 30.0
 
 
 def _join(names: list) -> str:
@@ -67,6 +68,7 @@ class PresenceMonitor:
         self.last_unknown_greet = 0.0
         self.greeting_id = 0
         self.observed: dict = {}
+        self.languages: dict = {}
 
     def smooth(self, visible: list) -> list:
         now = time.time()
@@ -160,6 +162,18 @@ class PresenceMonitor:
         except (ImportError, BusError):
             pass
 
+    def with_languages(self, visible: list) -> list:
+        now = time.time()
+        for p in visible:
+            if not p.get("known"):
+                continue
+            cached = self.languages.get(p["slug"])
+            if not cached or now - cached[1] > LANGUAGE_TTL:
+                cached = (people.preferred_languages(p["slug"])[0], now)
+                self.languages[p["slug"]] = cached
+            p["ui_lang"] = cached[0]
+        return visible
+
     async def run(self) -> None:
         if DEMO:
             store.presence = {"status": "ok", "people": [], "summary": describe([])}
@@ -172,7 +186,7 @@ class PresenceMonitor:
                     continue
                 try:
                     data = (await client.get(f"{VISION_URL}/presence")).json()
-                    visible = self.smooth(data.get("people", []))
+                    visible = self.with_languages(self.smooth(data.get("people", [])))
                     previous = store.presence.get("people", [])
                     store.presence = {"status": data.get("status"), "error": data.get("error", ""),
                                       "people": visible, "summary": describe(visible),
