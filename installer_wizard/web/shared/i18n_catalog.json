@@ -11791,6 +11791,30 @@
     [
       "🪶 Leggeri (≤ 3 GB)",
       "🪶 Light (≤ 3 GB)"
+    ],
+    [
+      "Non serve modificarla: viene creata in automatico. Cambiala solo se sai cosa stai facendo.",
+      "No need to change it: it's created automatically. Change it only if you know what you're doing."
+    ],
+    [
+      "Se attiva, ATENA controlla da sola ogni tanto che i PC collegati siano accesi e raggiungibili.",
+      "When on, ATENA periodically checks by itself that connected PCs are on and reachable."
+    ],
+    [
+      "Qui vedi l'elenco dei computer collegati, ne aggiungi di nuovi a mano e controlli se sono online.",
+      "Here you see the list of connected computers, add new ones manually and check whether they are online."
+    ],
+    [
+      "Programma da installare su ogni PC che vuoi far vedere ad ATENA (Windows, macOS o Linux).",
+      "Program to install on every PC you want ATENA to see (Windows, macOS or Linux)."
+    ],
+    [
+      "Lascia vuoto. Serve solo per vecchie installazioni.",
+      "Leave empty. Only needed for old installations."
+    ],
+    [
+      "Guida passo-passo",
+      "Step-by-step guide"
     ]
   ],
   "reverse": [

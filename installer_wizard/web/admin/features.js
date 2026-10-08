@@ -175,7 +175,7 @@
       ${f.capabilities.length ? `<div class="panel-title" style="margin-top:20px">${fmt.esc(tWhat)}</div><div class="caps">${f.capabilities.map((c, i) => `<span>${fmt.esc(tCap(f, i, c))}</span>`).join("")}</div>` : ""}
       ${f.settings.length ? `<div class="panel-title" style="margin-top:22px">${fmt.esc(tSet)} <span class="saved" id="f-saved">✓ ${fmt.esc(tSaved)}</span></div>
         <div class="form-grid">${f.settings.map((st) => st.type === "bool" ? `<div>${settingInput(st, f.values[st.key])}</div>`
-          : `<div><label>${fmt.esc(tSetting(f, st))}</label>${settingInput(st, f.values[st.key], f)}${st.help ? `<div class="faint set-help">${fmt.esc(tHelp(f, st))}</div>` : ""}</div>`).join("")}</div>` : ""}
+          : `<div><label>${fmt.esc(tSetting(f, st))}</label>${settingInput(st, f.values[st.key], f)}${st.help ? `<div class="set-help">${fmt.esc(tHelp(f, st))}</div>` : ""}</div>`).join("")}</div>` : ""}
       ${renderGuide(f)}
       ${f.panel ? `<div class="actions" style="margin-top:20px"><button class="btn primary" data-fpanel="${fmt.esc(f.panel)}">${fmt.esc(tFull)}</button></div>` : ""}`;
   }

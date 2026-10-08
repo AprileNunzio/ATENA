@@ -70,7 +70,7 @@ pre.log { margin: 0; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--li
 .form-grid .wide { grid-column: 1 / -1; }
 .form-grid > div { min-width: 0; }
 .link-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; box-sizing: border-box; min-height: 42px; margin-top: 2px; white-space: normal; text-align: center; line-height: 1.3; text-decoration: none; }
-.set-help { font-size: 11.5px; margin-top: 6px; line-height: 1.45; }
+.set-help { color: var(--text-faint); font-size: 11.5px; margin-top: 6px; line-height: 1.45; }
 .feat-guide { display: flex; flex-direction: column; gap: 8px; }
 .feat-guide details { border: 1px solid var(--line-strong); border-radius: 12px; background: rgba(41,224,255,0.03); padding: 0 16px; }
 .feat-guide details[open] { padding-bottom: 14px; }
