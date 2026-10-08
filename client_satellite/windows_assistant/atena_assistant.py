@@ -13,7 +13,9 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import config  # noqa: E402
-import customtkinter  # noqa: E402,F401  (imposta per primo la consapevolezza DPI per monitor)
+import importlib  # noqa: E402
+
+importlib.import_module("customtkinter")  # caricato per primo: imposta la consapevolezza DPI per monitor
 
 LOG = config.DIR / "assistant.log"
 config.DIR.mkdir(parents=True, exist_ok=True)

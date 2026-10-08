@@ -416,7 +416,8 @@ def pairing_window(cfg: dict, do_pair) -> bool:
                 result["ok"] = True
                 win.after(0, win.destroy)
             except Exception as exc:
-                win.after(0, lambda: (status.configure(text=str(exc), text_color="#ff6b81"),
+                message = str(exc)
+                win.after(0, lambda: (status.configure(text=message, text_color="#ff6b81"),
                                       button.configure(state="normal")))
         threading.Thread(target=work, daemon=True).start()
 
