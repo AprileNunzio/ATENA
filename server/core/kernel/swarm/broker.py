@@ -28,21 +28,31 @@ class SwarmBroker:
         from server.core.kernel.telemetry import NeuralTelemetry
         
         async with self._governor.slot(lane):
-            architect_agent = await self._select_role(spec, "architect")
-            coder_agent = await self._select_role(spec, "self_healing_coder")
-            executor_agent = await self._select_role(spec, "executor")
+            agent = await self._select(request, spec)
+            request.preferred_brain = preferred_brain_for(agent.agent_id)
+            
+            if agent.agent_id == "agent_self_healing_coder":
+                architect_agent = await self._select_role(spec, "architect")
+                executor_agent = await self._select_role(spec, "executor")
 
-            await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "architect", "reason": "Planning Phase"})
-            plan_req = self._build_req(node, upstream, feedback, "architect", "")
-            plan_res = await architect_agent.execute(plan_req)
+                await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "architect", "reason": "Planning Phase"})
+                plan_req = self._build_req(node, upstream, feedback, "architect", "")
+                plan_req.preferred_brain = request.preferred_brain
+                plan_res = await architect_agent.execute(plan_req)
 
-            await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "self_healing_coder", "reason": "Code Generation"})
-            code_req = self._build_req(node, upstream, feedback, "coder", plan_res.result_data.get("code", ""))
-            code_res = await coder_agent.execute(code_req)
+                await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "self_healing_coder", "reason": "Code Generation"})
+                code_req = self._build_req(node, upstream, feedback, "coder", plan_res.result_data.get("code", ""))
+                code_req.preferred_brain = request.preferred_brain
+                code_res = await agent.execute(code_req)
 
-            await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "executor", "reason": "Sandbox Validation"})
-            exec_req = self._build_req(node, upstream, feedback, "executor", code_res.result_data.get("code", ""))
-            response = await executor_agent.execute(exec_req)
+                await NeuralTelemetry.emit("swarm_handoff", "system", {"to": "executor", "reason": "Sandbox Validation"})
+                exec_req = self._build_req(node, upstream, feedback, "executor", code_res.result_data.get("code", ""))
+                exec_req.preferred_brain = request.preferred_brain
+                response = await executor_agent.execute(exec_req)
+                response.agent_id = "agent_self_healing_coder"
+            else:
+                response = await agent.execute(request)
+
         return NodeResult(
             node_id=node.node_id,
             output={**response.result_data, "status": response.status},

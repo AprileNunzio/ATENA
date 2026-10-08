@@ -1,7 +1,6 @@
 import sys
 import subprocess
 import importlib
-import os
 
 class SystemAutoInstaller:
     @staticmethod
