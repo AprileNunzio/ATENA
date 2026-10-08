@@ -12,7 +12,7 @@ from state import now_iso, store
 PENDING_FILE = STATE_DIR / "update_pending.json"
 BAD_REVS_FILE = STATE_DIR / "bad_revs"
 LAST_GOOD_FILE = STATE_DIR / "last_good_rev"
-GATED_JOBS = {"validate-python", "tests", "validate-scripts"}
+GATED_JOBS = {"validate-python", "tests", "kernel-tests", "validate-scripts"}
 UNREACHABLE_GRACE = 3600
 _ci: dict[str, tuple[str, float]] = {}
 _unreachable_since = 0.0
