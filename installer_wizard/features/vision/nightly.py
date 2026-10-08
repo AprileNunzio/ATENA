@@ -119,12 +119,7 @@ def optimize_all() -> dict:
             log.error("Ottimizzazione biometrica fallita per %s: %s", slug, exc)
             results.append({"slug": slug, "status": "error", "error": str(exc)})
 
-    # Refresh twin similarities and gallery thresholds
-    try:
-        from features.vision.gallery import Gallery
-        # If gallery singleton exists in service or can reload
-    except Exception:
-        pass
+
 
     summary = {
         "timestamp": time.time(),

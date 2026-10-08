@@ -174,7 +174,7 @@ async def admin_person_associate(from_slug: str, request: Request, user: str = D
                 d_emb = np.load(dst / "embeddings.npy")
                 merged = np.vstack([d_emb, s_emb])[:40]
                 np.save(dst / "embeddings.npy", merged)
-        except Exception as exc:
+        except Exception:
             pass
         shutil.rmtree(src, ignore_errors=True)
 
