@@ -33,6 +33,7 @@ class ZeroTrustMiddleware(BaseHTTPMiddleware):
             or path.startswith("/api/v1/system")
             or path.startswith("/api/v1/privacy")
             or path.startswith("/api/v1/cognitive")
+            or path.startswith("/api/v1/i18n")
             or request.method == "OPTIONS"
         ):
             return await call_next(request)

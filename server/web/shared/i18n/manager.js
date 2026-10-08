@@ -14,7 +14,10 @@ export class I18nManager {
 
     async discoverLanguages() {
         try {
-            const res = await fetch('/api/v1/i18n/languages');
+            let res = await fetch('/api/v1/i18n/languages');
+            if (!res.ok) {
+                res = await fetch('/i18n/languages');
+            }
             if (res.ok) {
                 const data = await res.json();
                 if (Array.isArray(data.languages) && data.languages.length) {
@@ -23,7 +26,7 @@ export class I18nManager {
                 }
             }
         } catch (_) {}
-        return this.#supportedLangs ? Array.from(this.#supportedLangs) : ['it', 'en'];
+        return this.#supportedLangs ? Array.from(this.#supportedLangs) : ['it', 'en', 'fr'];
     }
 
     #validateInputs(feature, lang) {
