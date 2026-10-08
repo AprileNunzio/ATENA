@@ -1,0 +1,45 @@
+{
+  "computers": {
+    "PC_WINDOWS": {
+      "protocol": "winrm",
+      "ip": "192.168.1.10",
+      "username": "Admin",
+      "password": "Password123!"
+    },
+    "PC_WINDOWS_SSH": {
+      "protocol": "ssh",
+      "ip": "192.168.1.11",
+      "username": "Admin",
+      "key_path": "/root/.ssh/id_rsa"
+    },
+    "SERVER_UBUNTU": {
+      "protocol": "linux_ssh",
+      "ip": "192.168.1.50",
+      "username": "ubuntu",
+      "key_path": "/root/.ssh/id_rsa"
+    },
+    "SERVER_CENTOS": {
+      "protocol": "rhel_ssh",
+      "ip": "192.168.1.51",
+      "username": "root",
+      "key_path": "/root/.ssh/id_rsa"
+    },
+    "MACBOOK_PRO": {
+      "protocol": "mac_ssh",
+      "ip": "192.168.1.60",
+      "username": "apple",
+      "key_path": "/root/.ssh/id_rsa"
+    },
+    "NAS_TRUENAS": {
+      "protocol": "bsd_ssh",
+      "ip": "192.168.1.70",
+      "username": "root",
+      "key_path": "/root/.ssh/id_rsa"
+    },
+    "MICROSERVICE_IOT": {
+      "protocol": "rest",
+      "url": "https://192.168.1.100:8443",
+      "api_key": "eyJhbGciOiJIUzI1NiIsInR..."
+    }
+  }
+}
