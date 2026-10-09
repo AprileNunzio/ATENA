@@ -1,3 +1,4 @@
+import asyncio
 import time
 import httpx
 import logging
@@ -14,6 +15,7 @@ logger = logging.getLogger("atena.llm_gateway")
 class LLMGateway:
     def __init__(self) -> None:
         self._module_path = "features/llm_gateway"
+        self._alarms: set[asyncio.Task] = set()
         self._ollama_url = settings.OLLAMA_BASE_URL
         self._gemini_api_key = os.getenv("GEMINI_API_KEY", "") or settings.GEMINI_API_KEY
         self._claude_api_key = os.getenv("ANTHROPIC_API_KEY", "") or settings.ANTHROPIC_API_KEY
@@ -133,11 +135,11 @@ class LLMGateway:
             }
         }
 
-        gemini_model = "gemini-1.5-pro-latest"
+        gemini_model = settings.ATENA_GEMINI_MODEL
 
         async with httpx.AsyncClient(timeout=60.0) as client:
-            url = f"https://generativelanguage.googleapis.com/v1beta/models/{gemini_model}:generateContent?key={self._gemini_api_key}"
-            res = await client.post(url, json=payload)
+            url = f"https://generativelanguage.googleapis.com/v1beta/models/{gemini_model}:generateContent"
+            res = await client.post(url, json=payload, headers={"x-goog-api-key": self._gemini_api_key})
             res.raise_for_status()
             data = res.json()
             content = data["candidates"][0]["content"]["parts"][0]["text"]
@@ -156,7 +158,7 @@ class LLMGateway:
         for m in request.messages:
             messages.append({"role": m.role, "content": m.content})
         payload = {
-            "model": "gpt-4o-mini",
+            "model": settings.ATENA_OPENAI_MODEL,
             "messages": messages,
             "max_tokens": request.max_tokens,
             "temperature": request.temperature,
@@ -174,7 +176,7 @@ class LLMGateway:
             elapsed = (time.time() - start_time) * 1000
             return LLMResponse(
                 content=content,
-                model_used="gpt-4o-mini",
+                model_used=settings.ATENA_OPENAI_MODEL,
                 tokens_consumed=tokens,
                 duration_ms=elapsed,
             )
@@ -186,13 +188,13 @@ class LLMGateway:
             messages.append({"role": role, "content": m.content})
 
         payload = {
-            "model": "claude-3-opus-20240229",
+            "model": settings.ATENA_CLAUDE_MODEL,
             "messages": messages,
             "max_tokens": request.max_tokens,
             "temperature": request.temperature,
         }
         if request.system_prompt:
-            payload["system"] = request.system_prompt
+            payload["system"] = [{"type": "text", "text": request.system_prompt, "cache_control": {"type": "ephemeral"}}]
 
         headers = {
             "x-api-key": self._claude_api_key,
@@ -204,12 +206,12 @@ class LLMGateway:
             res = await client.post("https://api.anthropic.com/v1/messages", json=payload, headers=headers)
             res.raise_for_status()
             data = res.json()
-            content = data["content"][0]["text"]
+            content = "".join(block.get("text", "") for block in data.get("content", []) if block.get("type") == "text")
             tokens = data.get("usage", {}).get("output_tokens", 0)
             elapsed = (time.time() - start_time) * 1000
             return LLMResponse(
                 content=content,
-                model_used="claude-3",
+                model_used=data.get("model") or settings.ATENA_CLAUDE_MODEL,
                 tokens_consumed=tokens,
                 duration_ms=elapsed
             )
@@ -218,34 +220,31 @@ class LLMGateway:
         elapsed = (time.time() - start_time) * 1000
         user_query = request.messages[-1].content if request.messages else ""
         content_msg = global_translator.translate(self._module_path, "fallback.synthetic_response", query=user_query, error=error)
-        
-        # SELF-HEALING: Se l'errore riguarda una mancata connessione a Ollama, emettiamo un allarme di sistema.
         if "connection attempts failed" in error.lower() or "ollama" in error.lower():
-            try:
-                import asyncio
-                from server.core.event_sourcing.universal_space import UniversalObservation
-                from server.core.sensory_bus.event_router import sensory_bus
-                
-                obs = UniversalObservation(
-                    modality="system_alert",
-                    source_id="llm_gateway",
-                    raw_data={"alert_type": "service_down", "service": "ollama"}
-                )
-                
-                # Eseguiamo il push nel bus senza bloccare o usare await (se siamo in contesto sincrono/asincrono ambiguo)
-                try:
-                    loop = asyncio.get_running_loop()
-                    loop.create_task(sensory_bus.push_observation(obs))
-                except RuntimeError:
-                    pass # Se non c'è loop, niente self-healing asincrono (ma fastapi ha il loop)
-            except Exception as e:
-                logger.error(f"Errore nel trigger di self-healing: {e}")
-
+            self._raise_ollama_alarm()
         return LLMResponse(
             content=content_msg,
             model_used=SYNTHETIC_MODEL,
-            tokens_consumed=25,
+            tokens_consumed=0,
             duration_ms=elapsed
         )
+
+    def _raise_ollama_alarm(self) -> None:
+        from server.core.event_sourcing.universal_space import UniversalObservation
+        from server.core.sensory_bus.event_router import sensory_bus
+        observation = UniversalObservation(
+            modality="system_alert",
+            source_id="llm_gateway",
+            raw_data={"alert_type": "service_down", "service": "ollama"}
+        )
+        try:
+            loop = asyncio.get_running_loop()
+        except RuntimeError:
+            logger.warning("Allarme Ollama non inviato: nessun event loop attivo")
+            return
+        task = loop.create_task(sensory_bus.push_observation(observation))
+        self._alarms.add(task)
+        task.add_done_callback(self._alarms.discard)
+
 
 llm_gateway = LLMGateway()

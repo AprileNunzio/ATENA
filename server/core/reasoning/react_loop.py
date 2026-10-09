@@ -59,12 +59,8 @@ class ReActLoop:
         self.model_name = model_name
         self._tools: Dict[str, ToolDefinition] = {}
         
-        # Inietta dinamicamente i tool globali (DB, API, Widget)
-        try:
-            from server.core.agent_registry.tool_registry import global_tool_registry
-            global_tool_registry.inject_tools_into_loop(self)
-        except Exception as e:
-            logger.error("Impossibile caricare il ToolRegistry globale: %s", e)
+        from server.core.agent_registry.tool_registry import global_tool_registry
+        global_tool_registry.inject_tools_into_loop(self)
 
     def register_tool(self, name: str, description: str, handler: Callable) -> None:
         self._tools[name] = ToolDefinition(name, description, handler)
@@ -107,6 +103,10 @@ class ReActLoop:
                     )
                 )
 
+                if response.is_synthetic:
+                    iter_span.fail("Nessun modello linguistico disponibile")
+                    return {"success": False, "answer": "", "error": "no_model", "trajectory": trajectory,
+                            "iterations": iteration}
                 step = self._parse_step(response.content)
                 step["iteration"] = iteration
                 step["raw_response"] = response.content

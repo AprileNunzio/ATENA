@@ -6,6 +6,7 @@ from typing import Deque, Dict, List, Optional, Tuple
 from server.config.env import settings
 from server.features.llm_gateway.contracts import LLMMessage, LLMRequest
 from server.features.llm_gateway.gateway import llm_gateway
+from server.shared.errors.domain_errors import AgentExecutionException
 
 logger = logging.getLogger("atena.conversation")
 
@@ -86,6 +87,9 @@ class ConversationEngine:
                 pinned=pinned,
             )
         )
+        if response.is_synthetic:
+            raise AgentExecutionException("atena_conversation", "nessun modello linguistico disponibile",
+                                          {"reason": "no_model"})
         self.last_model = response.model_used
         answer = response.content.strip() or "Mi scuso, non sono riuscito a formulare una risposta."
         history.append(("user", query))
