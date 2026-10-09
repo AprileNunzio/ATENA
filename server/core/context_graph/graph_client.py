@@ -67,7 +67,7 @@ class GraphClient:
                 "INSERT INTO nodes (id, node_type, label, properties, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
                 ("atena_core", NodeType.AGENT.value if hasattr(NodeType.AGENT, "value") else str(NodeType.AGENT),
                  "Atena Orchestrator",
-                 json.dumps({"version": "4.1.9", "status": "ONLINE"}),
+                 json.dumps({"version": "4.1.10", "status": "ONLINE"}),
                  now, now),
             )
             self._conn.commit()

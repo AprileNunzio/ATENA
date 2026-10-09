@@ -78,6 +78,8 @@ from features.authz import api as authz_api
 from features.locale import api as locale_api
 from features.firewall import api as firewall_api
 from features.firewall.events import monitor as firewall_monitor
+from features.vpn import api as vpn_api
+from features.vpn.service import service as vpn_service
 from features.maps.maps import maps
 from features.mcpclient import api as mcpclient_api
 from features.mcpclient.service import run as mcpclient_run
@@ -158,6 +160,7 @@ FEATURE_APIS = (
     authz_api,
     locale_api,
     firewall_api,
+    vpn_api,
     laws_api,
     cameras_api,
     models3d_api,
@@ -308,6 +311,7 @@ BACKGROUND = (
     ("mcp-esterni", mcpclient_run, 0.0),
     ("ottimizzazione-biometrica", nightly_biometrics_loop, 0.0),
     ("firewall", firewall_monitor.run, 0.0),
+    ("vpn", vpn_service.run, 0.0),
 )
 
 

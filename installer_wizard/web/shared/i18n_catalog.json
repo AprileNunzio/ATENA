@@ -12991,6 +12991,18 @@
     [
       "Motore Rust che analizza ethernet e wifi per il firewall di Atena",
       "Rust engine analysing ethernet and wifi for Atena's firewall"
+    ],
+    [
+      "Profilo VPN sconosciuto",
+      "Unknown VPN profile"
+    ],
+    [
+      "Il profilo non è un server WireGuard",
+      "The profile is not a WireGuard server"
+    ],
+    [
+      "VPN universale: WireGuard client e server con QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale e ZeroTier, con kill switch, protezione DNS e split tunneling",
+      "Universal VPN: WireGuard client and server with QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale and ZeroTier, with kill switch, DNS protection and split tunnelling"
     ]
   ],
   "reverse": [
@@ -13406,7 +13418,8 @@
     "ARP spoofing",
     "20/minute burst 5",
     "eth0, wlan0, wg0",
-    "192.168.1.5, aa:bb:cc:dd:ee:ff"
+    "192.168.1.5, aa:bb:cc:dd:ee:ff",
+    "VPN"
   ],
   "fr": [
     [
@@ -25616,6 +25629,18 @@
     [
       "Motore Rust che analizza ethernet e wifi per il firewall di Atena",
       "Moteur Rust qui analyse l'ethernet et le wifi pour le pare-feu d'Atena"
+    ],
+    [
+      "Profilo VPN sconosciuto",
+      "Profil VPN inconnu"
+    ],
+    [
+      "Il profilo non è un server WireGuard",
+      "Le profil n'est pas un serveur WireGuard"
+    ],
+    [
+      "VPN universale: WireGuard client e server con QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale e ZeroTier, con kill switch, protezione DNS e split tunneling",
+      "VPN universel : client et serveur WireGuard avec QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale et ZeroTier, avec kill switch, protection DNS et split tunneling"
     ]
   ]
 }

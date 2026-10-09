@@ -4,6 +4,7 @@ import uuid
 from dataclasses import asdict, dataclass, field
 
 KINDS = ("wireguard", "openvpn", "ipsec", "tailscale", "zerotier")
+TUNNELS = ("wireguard", "openvpn", "ipsec")
 ROLES = ("client", "server")
 SPLIT_MODES = ("all", "include", "exclude")
 NAME = re.compile(r"^[\w .,'()-]{1,48}$", re.UNICODE)
@@ -138,7 +139,7 @@ def profile(data: dict, settings: dict) -> Profile:
         raise ValueError("solo WireGuard può fare da server VPN")
     built = Profile(
         name=name, kind=kind, role=role, autostart=bool(data.get("autostart")),
-        kill_switch=bool(data.get("kill_switch")) and role == "client",
+        kill_switch=bool(data.get("kill_switch")) and role == "client" and kind in TUNNELS,
         block_dns_leaks=bool(data.get("block_dns_leaks", True)),
         dns=_list(data.get("dns"), address, 8), split=split(data.get("split")), settings=settings,
         id=str(data.get("id") or uuid.uuid4().hex[:6]),

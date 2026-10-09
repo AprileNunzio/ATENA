@@ -1,0 +1,12 @@
+{
+  "id": "vpn",
+  "name": "VPN",
+  "title": "VPN",
+  "description": "VPN universale: WireGuard client e server con QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale e ZeroTier, con kill switch, protezione DNS e split tunneling",
+  "icon": "🔐",
+  "version": "1.0",
+  "widgets": [],
+  "has_admin": false,
+  "panel": "vpn",
+  "category": "sistema"
+}

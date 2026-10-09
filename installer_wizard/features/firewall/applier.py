@@ -26,7 +26,7 @@ def render() -> str:
         return compile_script(store.policy, list(store.rules.values()), dict(store.sets), list(store.blocks.values()))
 
 
-async def _nft(*args: str) -> None:
+async def run_nft(*args: str) -> None:
     process = await asyncio.create_subprocess_exec("nft", *args, stdout=asyncio.subprocess.PIPE,
                                                    stderr=asyncio.subprocess.PIPE)
     try:
@@ -52,8 +52,8 @@ class Applier:
         tmp.write_text(script, encoding="utf-8")
         os.chmod(tmp, 0o600)
         tmp.replace(SCRIPT_FILE)
-        await _nft("-c", "-f", str(SCRIPT_FILE))
-        await _nft("-f", str(SCRIPT_FILE))
+        await run_nft("-c", "-f", str(SCRIPT_FILE))
+        await run_nft("-f", str(SCRIPT_FILE))
 
     async def apply(self, reason: str, confirm_seconds: int = 0) -> dict:
         async with self.lock:
