@@ -6,8 +6,13 @@
       <span id="gg-app-badge"></span>
     </div>
     <div class="gg-finish" id="gg-finish">
-      <label>Dopo aver accettato su Google, incolla qui l'indirizzo della pagina che non si apre (inizia con http://127.0.0.1:8889/?…code=…)</label>
-      <form class="row" id="gg-finish-form"><input id="gg-url" autocomplete="off"><button class="btn primary">Conferma</button></form>
+      <div class="gg-steps">
+        <div><b>1</b> Accedi su Google con l'account di <span id="gg-pending-who"></span> e accetta.</div>
+        <div><b>2</b> Si apre una pagina che non si carica (127.0.0.1:8889): è normale.</div>
+        <div><b>3</b> Copia l'indirizzo dalla barra e incollalo qui: il collegamento parte da solo.</div>
+      </div>
+      <form class="row" id="gg-finish-form"><input id="gg-url" autocomplete="off" placeholder="http://127.0.0.1:8889/?state=…&amp;code=…"><button type="button" class="btn" id="gg-clip">Incolla</button><button class="btn primary">Conferma</button><button type="button" class="btn" id="gg-cancel">Annulla</button></form>
+      <div class="muted-note" id="gg-pending-note"></div>
     </div>
     <div class="gg-grid" id="gg-people"></div>
   </div>

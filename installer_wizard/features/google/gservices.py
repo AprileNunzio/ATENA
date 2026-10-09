@@ -41,8 +41,8 @@ class Google:
             raise ValueError("Persona sconosciuta")
         return oauth.auth_url(slug, services)
 
-    async def link(self, pasted: str) -> tuple[str, str]:
-        slug, body = await oauth.exchange(pasted)
+    async def link(self, pasted: str, slug_hint: str = "") -> tuple[str, str]:
+        slug, body = await oauth.exchange(pasted, slug_hint)
         accounts.put(slug, {"refresh": body["refresh_token"], "scopes": body.get("scope", "").split(),
                             "linked_at": time.time()})
         session = Session(slug)

@@ -29,7 +29,7 @@ logger = logging.getLogger("atena.main")
 def create_application() -> FastAPI:
     app = FastAPI(
         title="Atena Autonomous Cognitive Orchestrator",
-        version="4.1.23",
+        version="4.1.24",
         docs_url="/docs",
         redoc_url="/redoc",
     )
@@ -137,7 +137,7 @@ def create_application() -> FastAPI:
         from server.core.context_graph.graph_client import graph_client
         return {
             "status": "HEALTHY",
-            "version": "4.1.23",
+            "version": "4.1.24",
             "orchestrator": "ONLINE",
             "active_agents": agent_pool.list_agents(),
             "knowledge_graph": {

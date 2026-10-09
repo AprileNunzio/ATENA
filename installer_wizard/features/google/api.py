@@ -3,6 +3,7 @@ from access import require_admin
 from fastapi import APIRouter, Depends, HTTPException, Request
 from state import store
 
+from features.google.flows import flows
 from features.google.gservices import google
 from features.people import people
 
@@ -18,7 +19,7 @@ def _person(slug: str) -> dict:
 
 @admin_routes.get("/api/google")
 async def admin_google(_: str = Depends(require_admin)):
-    return google.summary()
+    return {**google.summary(), "pending": flows.pending()}
 
 
 @admin_routes.get("/api/google/{slug}/preview")
@@ -39,12 +40,21 @@ async def admin_google_url(slug: str, request: Request, _: str = Depends(require
 
 @admin_routes.post("/api/google/finish")
 async def admin_google_finish(request: Request, user: str = Depends(require_admin)):
+    body = await request.json()
     try:
-        slug, email = await google.link(str((await request.json()).get("url", ""))[:4000])
-    except (ValueError, httpx.HTTPError) as exc:
+        slug, email = await google.link(str(body.get("url", ""))[:4000], str(body.get("slug", ""))[:120])
+    except httpx.HTTPError as exc:
+        raise HTTPException(502, f"Google non raggiungibile: {exc}")
+    except ValueError as exc:
         raise HTTPException(400, str(exc))
     store.event("INFO", f"Account Google di {slug} collegato da {user}", "google")
-    return {**google.summary(), "linked": slug, "email": email}
+    return {**google.summary(), "pending": flows.pending(), "linked": slug, "email": email}
+
+
+@admin_routes.delete("/api/google/{slug}/pending")
+async def admin_google_cancel(slug: str, _: str = Depends(require_admin)):
+    flows.cancel(slug)
+    return {"pending": flows.pending()}
 
 
 @admin_routes.delete("/api/google/{slug}")

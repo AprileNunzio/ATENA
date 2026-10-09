@@ -13439,6 +13439,38 @@
     [
       "Frase non sintetizzata:",
       "Sentence not synthesised:"
+    ],
+    [
+      "Accedi su Google con l'account di",
+      "Sign in to Google with the account of"
+    ],
+    [
+      "Copia l'indirizzo dalla barra e incollalo qui: il collegamento parte da solo.",
+      "Copy the address from the bar and paste it here: linking starts by itself."
+    ],
+    [
+      "Google non raggiungibile: {0}",
+      "Google unreachable: {0}"
+    ],
+    [
+      "Il browser non consente di leggere gli appunti: incolla con Ctrl+V",
+      "The browser does not allow reading the clipboard: paste with Ctrl+V"
+    ],
+    [
+      "Il link resta valido ancora {0} minuti, anche se Atena si riavvia.",
+      "The link stays valid for {0} more minutes, even if Atena restarts."
+    ],
+    [
+      "Incolla",
+      "Paste"
+    ],
+    [
+      "Si apre una pagina che non si carica (127.0.0.1:8889): è normale.",
+      "A page opens that does not load (127.0.0.1:8889): this is normal."
+    ],
+    [
+      "e accetta.",
+      "and accept."
     ]
   ],
   "reverse": [
@@ -26517,6 +26549,38 @@
     [
       "Frase non sintetizzata:",
       "Phrase non synthétisée :"
+    ],
+    [
+      "Accedi su Google con l'account di",
+      "Connectez-vous à Google avec le compte de"
+    ],
+    [
+      "Copia l'indirizzo dalla barra e incollalo qui: il collegamento parte da solo.",
+      "Copiez l'adresse depuis la barre et collez-la ici : la liaison démarre toute seule."
+    ],
+    [
+      "Google non raggiungibile: {0}",
+      "Google injoignable : {0}"
+    ],
+    [
+      "Il browser non consente di leggere gli appunti: incolla con Ctrl+V",
+      "Le navigateur ne permet pas de lire le presse-papiers : collez avec Ctrl+V"
+    ],
+    [
+      "Il link resta valido ancora {0} minuti, anche se Atena si riavvia.",
+      "Le lien reste valable encore {0} minutes, même si Atena redémarre."
+    ],
+    [
+      "Incolla",
+      "Coller"
+    ],
+    [
+      "Si apre una pagina che non si carica (127.0.0.1:8889): è normale.",
+      "Une page s'ouvre sans se charger (127.0.0.1:8889) : c'est normal."
+    ],
+    [
+      "e accetta.",
+      "et acceptez."
     ]
   ]
 }

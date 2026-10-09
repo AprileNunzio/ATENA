@@ -1,6 +1,6 @@
 (() => {
   const A = window.AtenaAdmin, { $, fmt } = A;
-  let data = null;
+  let data = null, linking = "";
 
   const blk = (t, rows) => `<div class="blk"><b>${t}</b>${rows}</div>`;
   const warn = (text) => `<div style="color:var(--amber)">${fmt.esc(text)}</div>`;
@@ -43,7 +43,34 @@
     $("gg-app-badge").innerHTML = data.has_credentials ? '<span class="badge ok">app pronta</span>' : '<span class="badge warn">configura prima l\'app qui sotto</span>';
     $("gg-people").innerHTML = data.people.map(card).join("") || '<div class="muted-note">Nessuna persona: aggiungila prima dalla scheda Persone.</div>';
     $("gg-apis").textContent = data.services.map((s) => s.api).join(", ");
+    showPending();
     await loadCredentials();
+  }
+
+  function nameOf(slug) {
+    const p = (data.people || []).find((x) => x.slug === slug);
+    return p ? p.name : slug;
+  }
+
+  function showPending() {
+    const pending = data.pending || [];
+    if (!linking && pending.length) linking = pending[0].slug;
+    if (linking && !pending.some((f) => f.slug === linking)) linking = pending.length ? pending[0].slug : "";
+    $("gg-finish").classList.toggle("show", !!linking);
+    if (!linking) return;
+    const flow = pending.find((f) => f.slug === linking);
+    $("gg-pending-who").textContent = nameOf(linking);
+    $("gg-pending-note").textContent = flow ? `Il link resta valido ancora ${Math.max(1, Math.round(flow.expires_in / 60))} minuti, anche se Atena si riavvia.` : "";
+  }
+
+  async function finish(url) {
+    if (!url.trim()) return;
+    $("gg-finish").classList.add("busy");
+    try {
+      const r = await A.api("POST", "/api/google/finish", { url, slug: linking });
+      $("gg-url").value = ""; linking = "";
+      A.toast(`Account collegato${r.email ? `: ${r.email}` : ""}`); await load();
+    } catch (err) { A.toast(err.message, true); } finally { $("gg-finish").classList.remove("busy"); }
   }
 
   async function act(el, action) {
@@ -53,7 +80,8 @@
         const services = [...el.querySelectorAll(".gg-services input:checked")].map((x) => x.value);
         const r = await A.api("POST", `/api/google/${encodeURIComponent(slug)}/auth-url`, { services });
         window.open(r.url, "_blank", "noopener");
-        $("gg-finish").classList.add("show");
+        linking = slug; data.pending = [{ slug, expires_in: 1800 }, ...(data.pending || []).filter((f) => f.slug !== slug)];
+        showPending(); $("gg-url").focus();
         A.toast("Accedi con l'account Google di questa persona, poi incolla qui l'indirizzo finale");
       } else if (action === "unlink") {
         if (!confirm("Scollegare questo account Google? Atena non potrà più leggerne agenda e posta.")) return;
@@ -73,13 +101,19 @@
       if ($("gg-secret").value.trim()) body.ATENA_GOOGLE_CLIENT_SECRET = $("gg-secret").value.trim();
       try { await A.api("PUT", "/api/config", body); $("gg-secret").value = ""; A.toast("App Google salvata"); load(); } catch (err) { A.toast(err.message, true); }
     });
-    $("gg-finish-form").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      try {
-        const r = await A.api("POST", "/api/google/finish", { url: $("gg-url").value });
-        $("gg-url").value = ""; $("gg-finish").classList.remove("show");
-        A.toast(`Account collegato${r.email ? `: ${r.email}` : ""}`); load();
-      } catch (err) { A.toast(err.message, true); }
+    $("gg-finish-form").addEventListener("submit", (e) => { e.preventDefault(); finish($("gg-url").value); });
+    $("gg-url").addEventListener("paste", (e) => {
+      const text = (e.clipboardData || window.clipboardData).getData("text");
+      if (/code=|^4\//.test(text.trim())) { e.preventDefault(); $("gg-url").value = text.trim(); finish(text); }
+    });
+    $("gg-clip").addEventListener("click", async () => {
+      try { const text = await navigator.clipboard.readText(); $("gg-url").value = text.trim(); finish(text); }
+      catch { A.toast("Il browser non consente di leggere gli appunti: incolla con Ctrl+V", true); }
+    });
+    $("gg-cancel").addEventListener("click", async () => {
+      if (!linking) return;
+      try { const r = await A.api("DELETE", `/api/google/${encodeURIComponent(linking)}/pending`); data.pending = r.pending; linking = ""; showPending(); }
+      catch (err) { A.toast(err.message, true); }
     });
   }
 

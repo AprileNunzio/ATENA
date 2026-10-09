@@ -1,21 +1,23 @@
 import base64
 import hashlib
 import secrets
-import time
 import urllib.parse
 
 import httpx
 from config import env_get
 
 from features.google.constants import REDIRECT_URI, SERVICES
+from features.google.flows import LinkError, flows, parse
 
-FLOW_TTL = 900
+_HINTS = {
+    "invalid_grant": "il codice è già stato usato o è scaduto (vale pochi minuti): premi di nuovo «Collega»",
+    "redirect_uri_mismatch": "l'ID client non è di tipo «App desktop»: ricrealo come App desktop",
+    "invalid_client": "Client ID o Client Secret errati: ricontrollali nella sezione App Google",
+    "unauthorized_client": "l'app Google non è autorizzata a questo flusso: usa un ID client «App desktop»",
+}
 
 
 class OAuthApp:
-    def __init__(self) -> None:
-        self.flows: dict[str, dict] = {}
-
     @staticmethod
     def credentials() -> tuple[str, str]:
         return env_get("ATENA_GOOGLE_CLIENT_ID", "").strip(), env_get("ATENA_GOOGLE_CLIENT_SECRET", "").strip()
@@ -32,9 +34,7 @@ class OAuthApp:
             raise ValueError("Scegli almeno un servizio")
         scopes = ["openid", "email", "profile"] + [x for s in services for x in SERVICES[s]["scopes"]]
         state, verifier = secrets.token_urlsafe(16), secrets.token_urlsafe(48)
-        now = time.time()
-        self.flows = {k: v for k, v in self.flows.items() if now - v["at"] < FLOW_TTL}
-        self.flows[state] = {"slug": slug, "verifier": verifier, "at": now}
+        flows.create(state, slug, verifier)
         challenge = base64.urlsafe_b64encode(hashlib.sha256(verifier.encode()).digest()).rstrip(b"=").decode()
         return "https://accounts.google.com/o/oauth2/v2/auth?" + urllib.parse.urlencode({
             "client_id": cid, "response_type": "code", "redirect_uri": REDIRECT_URI, "scope": " ".join(scopes),
@@ -48,28 +48,28 @@ class OAuthApp:
                                   data={**data, "client_id": cid, "client_secret": secret})
         body = r.json() if r.headers.get("content-type", "").startswith("application/json") else {}
         if r.status_code != 200:
-            err = body.get("error_description") or body.get("error") or f"errore {r.status_code}"
-            if body.get("error") == "invalid_grant":
-                err = "autorizzazione scaduta o revocata: ricollega l'account"
-            raise ValueError(f"Google: {err}")
+            code = str(body.get("error") or "")
+            if code == "invalid_grant" and data.get("grant_type") == "refresh_token":
+                raise ValueError("Google: autorizzazione scaduta o revocata: ricollega l'account")
+            err = _HINTS.get(code) or body.get("error_description") or code or f"errore {r.status_code}"
+            raise LinkError(f"Google: {err}") if code in _HINTS else ValueError(f"Google: {err}")
         return body
 
-    async def exchange(self, pasted: str) -> tuple[str, dict]:
-        pasted = pasted.strip()
-        query = urllib.parse.parse_qs(urllib.parse.urlparse(pasted).query)
-        if query.get("error"):
-            raise ValueError(f"Autorizzazione negata: {query['error'][0]}")
-        flow = self.flows.pop((query.get("state") or [""])[0], None)
-        if not flow or time.time() - flow["at"] > FLOW_TTL:
-            raise ValueError("Collegamento scaduto o non riconosciuto: genera di nuovo il link e incolla l'indirizzo completo")
-        code = (query.get("code") or [""])[0]
-        if not code:
-            raise ValueError("Codice di autorizzazione mancante")
-        body = await self.token({"grant_type": "authorization_code", "code": code, "redirect_uri": REDIRECT_URI,
-                                 "code_verifier": flow["verifier"]})
+    async def exchange(self, pasted: str, slug_hint: str = "") -> tuple[str, dict]:
+        found = parse(pasted)
+        if found.error:
+            raise LinkError("Autorizzazione negata su Google" if found.error == "access_denied"
+                            else f"Google ha risposto con un errore: {found.error}")
+        if not found.code:
+            raise LinkError("Nell'indirizzo incollato non trovo il codice: copia tutta la barra degli indirizzi "
+                            "della pagina che non si apre (contiene «code=»)")
+        state, flow = flows.resolve(found, slug_hint)
+        body = await self.token({"grant_type": "authorization_code", "code": found.code,
+                                 "redirect_uri": REDIRECT_URI, "code_verifier": flow["verifier"]})
+        flows.consume(state)
         if not body.get("refresh_token"):
-            raise ValueError("Google non ha rilasciato il token di rinnovo: rimuovi l'accesso di Atena da "
-                             "myaccount.google.com/permissions e ricollega")
+            raise LinkError("Google non ha rilasciato il token di rinnovo: rimuovi l'accesso di Atena da "
+                            "myaccount.google.com/permissions e ricollega")
         return flow["slug"], body
 
     @staticmethod

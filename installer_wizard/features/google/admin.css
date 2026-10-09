@@ -2,6 +2,11 @@
 .gg-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
 .gg-finish { display: none; border: 1px solid var(--cyan); background: var(--cyan-soft); border-radius: 12px; padding: 12px; margin-bottom: 14px; }
 .gg-finish.show { display: block; }
+.gg-steps { display: grid; gap: 6px; margin-bottom: 10px; font-size: 13px; }
+.gg-steps b { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--cyan); color: #021018; font-size: 11px; margin-right: 6px; }
+.gg-finish .row { flex-wrap: wrap; }
+.gg-finish input { flex: 1 1 260px; min-width: 0; }
+.gg-finish.busy { opacity: 0.6; pointer-events: none; }
 .gg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
 .gg-card { border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; background: rgba(2, 8, 16, 0.45); }
 .gg-card.on { border-color: rgba(61, 255, 168, 0.45); }
