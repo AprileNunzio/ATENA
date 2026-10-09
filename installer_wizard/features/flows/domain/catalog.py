@@ -108,7 +108,15 @@ NODES: tuple[Node, ...] = (
         A("verify.critic", "Autocritica", "Il modello rilegge e corregge la propria risposta.", 3, 4, 5, 3, default=True),
         A("verify.jury", "Giuria", "Più modelli votano la risposta migliore.", 1, 5, 4, 1, available=False),
     )),
-    Node("answer", "Risposta", "❝", "Parla, scrive o mostra un widget sul display.", 520, 400, 0.05,
+    Node("widgets", "Widget", "▣", "Mostra sul display widget, schede e immagini che accompagnano la risposta.", 520, 400, 0.2, (
+        A("widgets.smart", "Quando servono", "Widget per spiegazioni, confronti e risposte lunghe; voce per il resto.", 4, 4, 5, 4,
+          default=True, effects={"presentation.mode": "smart"}),
+        A("widgets.rich", "Sempre visivo", "Accompagna con un widget anche le risposte brevi.", 3, 5, 5, 3,
+          effects={"presentation.mode": "rich"}),
+        A("widgets.voice", "Solo voce", "Nessun widget generato: risposte solo a voce e testo.", 5, 2, 5, 5,
+          effects={"presentation.mode": "voice"}),
+    )),
+    Node("answer", "Risposta", "❝", "Parla, scrive o mostra un widget sul display.", 320, 400, 0.05,
          (A("answer.multi", "Voce, testo e widget", "Sceglie il formato più adatto.", 5, 4, 5, 5, default=True),)),
 )
 NODE_BY_ID = {n.id: n for n in NODES}
@@ -117,13 +125,15 @@ EDGES = tuple((a.id, b.id) for a, b in zip(NODES, NODES[1:]))
 TEMPLATES = {
     "default": {"name": "Predefinito", "hint": "Come ragiona oggi", "pick": {}},
     "fast": {"name": "Fulmine", "hint": "Risposte istantanee",
-             "pick": {"understanding": "understanding.score", "skills": "skills.reuse", "brain": "brain.fastest"}},
-    "precise": {"name": "Precisione", "hint": "Massima qualità", "pick": {"understanding": "understanding.arbiter", "brain": "brain.order"}},
+             "pick": {"understanding": "understanding.score", "skills": "skills.reuse", "brain": "brain.fastest",
+                      "widgets": "widgets.voice"}},
+    "precise": {"name": "Precisione", "hint": "Massima qualità",
+                "pick": {"understanding": "understanding.arbiter", "brain": "brain.order", "widgets": "widgets.rich"}},
     "private": {"name": "Fortezza privata", "hint": "Niente esce di casa", "pick": {"brain": "brain.home", "agent": "agent.standard"}},
     "eco": {"name": "Risparmio", "hint": "Costo minimo",
             "pick": {"understanding": "understanding.score", "brain": "brain.home_first", "skills": "skills.reuse"}},
     "kids": {"name": "Bambini", "hint": "Sicuro e semplice",
-             "pick": {"brain": "brain.home", "agent": "agent.standard", "skills": "skills.reuse"}},
+             "pick": {"brain": "brain.home", "agent": "agent.standard", "skills": "skills.reuse", "widgets": "widgets.rich"}},
 }
 
 

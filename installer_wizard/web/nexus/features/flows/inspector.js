@@ -1,6 +1,7 @@
 import { h } from "../../core/dom.js";
 import { allows } from "../../core/level.js";
 import { radar } from "../../components/charts.js";
+import { widgetLauncher } from "../../components/widget-launcher.js";
 
 const METERS = [["speed", "Velocità"], ["quality", "Qualità"], ["privacy", "Privacy"], ["saving", "Risparmio"]];
 
@@ -52,10 +53,11 @@ function nodeDetail(node, state, choose) {
       h("small", {}, a.description))))),
     chosen ? radar(chosen.traits, fallback && fallback !== chosen ? fallback.traits : null) : null,
     chosen && fallback && fallback !== chosen ? legend(chosen.name, fallback.name) : null,
+    node.id === "widgets" ? [h("p", { class: "ptitle" }, "Prova subito un widget sul display"), widgetLauncher({ limit: 6 })] : null,
   ];
 }
 
 export function renderInspector(box, state, selected, templateName, choose) {
   const node = selected && state.nodes.find((n) => n.id === selected);
-  box.replaceChildren(...[node ? nodeDetail(node, state, choose) : overview(state, templateName), pending(state)].flat().filter(Boolean));
+  box.replaceChildren(...[node ? nodeDetail(node, state, choose) : overview(state, templateName), pending(state)].flat(2).filter(Boolean));
 }

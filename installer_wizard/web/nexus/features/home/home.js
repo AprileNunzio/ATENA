@@ -6,6 +6,7 @@ import { ring } from "../../components/charts.js";
 import { Orb } from "../../components/orb.js";
 import { activityPanel, componentsPanel, freshPanel, statTiles, todoPanel } from "./panels.js";
 import { trackSystem } from "./series.js";
+import { widgetLauncher } from "../../components/widget-launcher.js";
 
 const KID_TILES = [
   { glyph: "❝", title: "Parla con me", text: "Scrivimi o usa il microfono", route: ["tools", "communication"] },
@@ -39,6 +40,8 @@ export function renderHome(outlet) {
           awakeningLink))),
     h("div", { class: "kid only-explorer" }, KID_TILES.map((t) => h("button", { type: "button", onclick: () => go(...t.route) },
       h("span", { class: "kg", "aria-hidden": "true" }, t.glyph), h("b", {}, t.title), h("span", {}, t.text)))),
+    h("div", { class: "panel" }, h("div", { class: "panel-head" }, h("p", { class: "ptitle" }, "Widget rapidi"),
+      h("a", { class: "btn ghost", href: "#/widgets" }, "Tutti i widget")), widgetLauncher({ limit: 8 })),
     fresh,
     stats,
     h("div", { class: "cols min-pilot" }, todos, activity),

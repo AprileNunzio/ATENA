@@ -18,7 +18,7 @@ from features.flows.infrastructure.signed_store import SignedVersionStore
 HEADERS = {"X-Atena-Request": "1"}
 DEFAULT_SETTINGS = {"understanding.enabled": "1", "understanding.arbiter": "1", "skills.enabled": "1", "skills.generate": "1",
                     "memory.enabled": "1", "agent.enabled": "1", "agent.access": "completo", "brain.strategy": "order",
-                    "brain.scope": "anywhere"}
+                    "brain.scope": "anywhere", "presentation.mode": "smart"}
 
 
 class CatalogTest(unittest.TestCase):

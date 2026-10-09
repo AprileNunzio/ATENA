@@ -161,6 +161,17 @@ async def admin_widget_test(wid: str, _: str = Depends(require_admin)):
     return desk.listing()
 
 
+@admin_routes.post("/api/widgets/{wid}/recall")
+async def admin_widget_recall(wid: str, _: str = Depends(require_admin)):
+    if wid == "alarm":
+        raise HTTPException(400, "L'allarme non si richiama a mano: usa la prova dal pannello")
+    try:
+        origin = desk.recall(wid)
+    except KeyError:
+        raise HTTPException(404, "Widget sconosciuto")
+    return {"ok": True, "origin": origin}
+
+
 @admin_routes.delete("/api/desk/{key:path}")
 async def admin_desk_hide(key: str, _: str = Depends(require_admin)):
     desk.hide(key=key)

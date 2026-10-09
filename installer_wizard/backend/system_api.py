@@ -102,7 +102,10 @@ async def admin_index(request: Request):
     if not setup_api.done():
         port = "" if PUBLIC_PORT == 80 else f":{PUBLIC_PORT}"
         return RedirectResponse(f"http://{request.url.hostname}{port}/setup", status_code=303)
-    return page("admin/admin.html", page_language(request, admin=True))
+    response = page("admin/admin.html", page_language(request, admin=True))
+    response.headers["Content-Security-Policy"] = "frame-ancestors 'self'"
+    response.headers["X-Frame-Options"] = "SAMEORIGIN"
+    return response
 
 
 @admin_routes.post("/api/auth/login")

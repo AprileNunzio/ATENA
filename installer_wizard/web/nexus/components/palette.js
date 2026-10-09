@@ -7,17 +7,24 @@ let overlay = null, input = null, list = null, items = [], index = 0, opener = n
 export const addSource = (provider) => providers.add(provider);
 
 function normalize(text) {
-  return text.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 }
 
-function matches(item, words) {
-  const haystack = normalize(`${item.title} ${item.keywords || ""}`);
-  return words.every((w) => haystack.includes(w));
+function score(item, words) {
+  const title = normalize(item.title), haystack = `${title} ${normalize(item.keywords || "")}`;
+  if (!words.every((w) => haystack.includes(w))) return 0;
+  const phrase = words.join(" ");
+  if (!phrase) return 1;
+  if (title === phrase) return 5;
+  if (title.startsWith(phrase)) return 4;
+  if (title.split(/[\s·]+/).some((word) => word.startsWith(phrase))) return 3;
+  return title.includes(phrase) ? 2 : 1;
 }
 
 function render() {
   const words = normalize(input.value.trim()).split(/\s+/).filter(Boolean);
-  items = [...providers].flatMap((p) => p()).filter((item) => matches(item, words)).slice(0, LIMIT);
+  items = [...providers].flatMap((p) => p()).map((item, order) => ({ item, order, rank: score(item, words) }))
+    .filter((x) => x.rank > 0).sort((a, b) => b.rank - a.rank || a.order - b.order).slice(0, LIMIT).map((x) => x.item);
   index = Math.min(index, Math.max(0, items.length - 1));
   if (!items.length) { mount(list, h("li", { class: "pal-empty" }, "Nessun risultato. Prova con un'altra parola.")); return; }
   mount(list, items.map((item, i) => h("li", {},

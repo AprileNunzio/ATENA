@@ -33,6 +33,7 @@ class Desk:
         self.errors: list[dict] = []
         self.signature = ""
         self.instances: dict[str, dict] = {}
+        self.last: dict[str, dict] = {}
         self.sources: dict = {}
         self.suppressed: set = set()
         self.request_at = 0.0
@@ -159,6 +160,8 @@ class Desk:
         if self.snoozed(key, data):
             return
         ttl = ttl if ttl is not None else m.get("ttl")
+        if data and not key.startswith(("test:", "recall:")):
+            self.last[wid] = data
         old = self.instances.get(key)
         self.instances[key] = {
             "key": key, "id": wid, "data": data or {}, "priority": priority, "intent": intent,
@@ -298,6 +301,34 @@ class Desk:
     def publish(self) -> None:
         store.desk = self.active()
         store.touch()
+
+    def _bound_value(self, m: dict):
+        bind = m.get("bind")
+        attr = bind if isinstance(bind, str) else (bind or {}).get("attr")
+        if not attr:
+            return None
+        source = self.sources.get(attr)
+        try:
+            return source() if source else getattr(store, attr, None)
+        except Exception:
+            log.exception("Sorgente del widget %s", m["id"])
+            return None
+
+    def recall(self, wid: str) -> str:
+        m = self.widgets.get(wid)
+        if not m:
+            raise KeyError(wid)
+        live = self._bound_value(m)
+        if live:
+            origin, data = "live", live if isinstance(live, dict) else {"value": live}
+        elif self.last.get(wid):
+            origin, data = "last", self.last[wid]
+        else:
+            origin = "preview" if m.get("demo") else "live"
+            data = {**m.get("demo", {}), "started_at": time.time() - 30}
+        self.dismissed.pop(f"recall:{wid}", None)
+        self.show(wid, data, key=f"recall:{wid}", ttl=m.get("ttl") or 120, intent=True)
+        return origin
 
     def register_source(self, name: str, fn) -> None:
         self.sources[name] = fn

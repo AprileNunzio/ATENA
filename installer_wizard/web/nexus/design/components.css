@@ -64,3 +64,13 @@
 .badge.updated::before { content: "↻"; }
 .count-badge { margin-left: auto; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; display: inline-grid; place-items: center; font: 600 11px var(--mono); color: #1a0f2e; background: linear-gradient(135deg, var(--violet), var(--cyan)); box-shadow: 0 0 12px rgba(169, 139, 255, 0.5); }
 .nv .badge { margin-left: auto; }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 12px; }
+.panel-head .ptitle { margin: 0; }
+.wl-box { display: flex; flex-direction: column; gap: 14px; }
+.wl-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+.wl-tile { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(8, 18, 32, 0.55); cursor: pointer; text-align: left; transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s; min-width: 0; }
+.wl-tile:hover { border-color: var(--line-strong); transform: translateY(-2px); box-shadow: 0 6px 24px rgba(41, 224, 255, 0.12); }
+.wl-tile:disabled { opacity: 0.6; }
+.wl-icon { width: 32px; height: 32px; flex: none; display: grid; place-items: center; border-radius: 10px; background: rgba(41, 224, 255, 0.08); font-size: 17px; }
+.wl-name { min-width: 0; overflow-wrap: break-word; font-size: 13px; }
+.wl-skeleton { height: 54px; grid-column: 1 / -1; }

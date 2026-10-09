@@ -9,12 +9,19 @@ import { freshBadge, markSeen } from "../../components/badge.js";
 import { MODES, modeControl, setMode } from "./mode.js";
 import { settingsForm } from "./settings-form.js";
 import { wizardPanel } from "./wizard.js";
+import { classicFrame } from "../../components/classic-frame.js";
 
 const TABS = [
   { id: "guide", label: "Configura con me", min: "explorer" },
   { id: "settings", label: "Impostazioni", min: "pilot" },
+  { id: "full", label: "Pannello completo", min: "explorer" },
   { id: "advanced", label: "Avanzate", min: "architect" },
 ];
+
+function initialTab(tool) {
+  if (!allows("pilot")) return tool.wizard.length ? "guide" : "full";
+  return tool.panel || !tool.settings.length ? "full" : "settings";
+}
 
 export async function toggleFavorite(fid) {
   const current = store.get().favorites;
@@ -37,7 +44,7 @@ export function renderTool(outlet, route) {
   const fid = route.param;
   const view = h("section", { class: "view" }, h("div", { class: "skeleton skeleton-block" }));
   mount(outlet, view);
-  let tab = allows("pilot") ? "settings" : "guide";
+  let tab = null;
   load();
 
   async function load() {
@@ -51,6 +58,7 @@ export function renderTool(outlet, route) {
     }
     if (!view.isConnected) return;
     document.title = `${tool.name} · Atena Nexus`;
+    tab = tab || initialTab(tool);
     paint(tool);
     if (tool.badge) { markSeen(freshKey(tool)); refresh().catch(() => {}); }
   }
@@ -74,7 +82,8 @@ export function renderTool(outlet, route) {
     const favorite = store.get().favorites.includes(tool.id);
     const tabs = TABS.filter((t) => allows(t.min));
     if (!tabs.some((t) => t.id === tab)) tab = tabs[0].id;
-    const body = tab === "guide" ? wizardPanel(tool, after) : tab === "settings" ? settingsForm(tool, after) : advanced(tool);
+    const body = tab === "guide" ? wizardPanel(tool, after) : tab === "settings" ? settingsForm(tool, after)
+      : tab === "full" ? classicFrame(`f/${tool.id}`, `Pannello completo di ${tool.name}`) : advanced(tool);
     mount(view,
       h("a", { class: "back", href: `#/${tool.zone === "tools" ? `tools/${tool.family}` : tool.zone}` }, "← ", tool.family_label || "Indietro"),
       h("header", { class: "tool-hero panel" },
@@ -96,6 +105,6 @@ export function renderTool(outlet, route) {
         type: "button", role: "tab", "aria-selected": String(t.id === tab), "aria-pressed": String(t.id === tab),
         onclick: () => { tab = t.id; paint(tool); },
       }, t.label))),
-      h("div", { class: "panel", role: "tabpanel" }, body));
+      h("div", { class: `panel${tab === "full" ? " panel-flush" : ""}`, role: "tabpanel" }, body));
   }
 }

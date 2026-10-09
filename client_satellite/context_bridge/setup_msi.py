@@ -28,7 +28,7 @@ executables = [
 
 setup(
     name="ATENA Satellite",
-    version="4.1.48",
+    version="4.1.49",
     description="Client Desktop Interattivo e Context Bridge per ATENA",
     author="NunzioTech",
     options={"build_exe": build_exe_options},

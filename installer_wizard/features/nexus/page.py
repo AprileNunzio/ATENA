@@ -14,6 +14,7 @@ CSP = "; ".join((
     "img-src 'self' data: blob:",
     "font-src 'self'",
     "connect-src 'self'",
+    "frame-src 'self'",
     "media-src 'self' blob:",
     "manifest-src 'self'",
     "base-uri 'none'",

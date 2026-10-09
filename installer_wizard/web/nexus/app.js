@@ -14,6 +14,9 @@ import { renderZone } from "./features/zone/zone.js";
 import { renderTool } from "./features/tool/tool.js";
 import { renderAwakening } from "./features/awakening/awakening.js";
 import { renderFlows } from "./features/flows/flows.js";
+import { classicSections, renderClassic } from "./features/classic/classic.js";
+import { renderWidgets } from "./features/widgets/widgets.js";
+import { cachedWidgets, recall, widgets } from "./core/widgets.js";
 
 const root = document.getElementById("nexus");
 
@@ -23,6 +26,8 @@ function registerRoutes() {
   define("tool", renderTool);
   define("awakening", renderAwakening);
   define("flows", renderFlows);
+  define("classic", renderClassic);
+  define("widgets", renderWidgets);
   setFallback("home");
 }
 
@@ -36,6 +41,13 @@ function registerPalette() {
   })));
   addSource(() => (summary()?.tools || []).filter((t) => allows(t.level)).map((t) => ({
     glyph: t.icon, title: t.name, kind: t.badge === "new" ? "Strumento · Novità" : t.badge === "updated" ? "Strumento · Aggiornato" : "Strumento", keywords: `${t.description} ${t.id}`, run: () => go("tool", t.id),
+  })));
+  addSource(() => classicSections().filter((s) => allows(s.zone.min)).map((s) => ({
+    glyph: s.zone.glyph, title: s.label, kind: `Sezione · ${s.zone.title}`, keywords: s.tab, run: () => go("classic", s.tab),
+  })));
+  addSource(() => cachedWidgets().map((w) => ({
+    glyph: w.icon || "▣", title: w.name, kind: "Widget · mostra sul display", keywords: `widget ${w.description || ""} ${w.id}`,
+    run: () => recall(w).catch(fail),
   })));
   addSource(() => [{ glyph: "▤", title: "Apri il pannello classico", kind: "Azione", keywords: "vecchio admin", run: () => location.assign("/") }]);
 }
@@ -55,6 +67,7 @@ async function enter(user) {
   await loadPreferences();
   const shell = createShell(root);
   startSummary().catch(fail);
+  widgets().catch(() => {});
   stream("/api/stream", (snapshot) => store.set({ snapshot }), (link) => store.set({ link }));
   start((route) => shell.show(route, view(route.id)));
   store.subscribe((_, changed) => {

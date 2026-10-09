@@ -15591,6 +15591,10 @@
     [
       "Versione del flusso inesistente",
       "This flow version does not exist"
+    ],
+    [
+      "L'allarme non si richiama a mano: usa la prova dal pannello",
+      "The alarm cannot be recalled by hand: use the test from the panel"
     ]
   ],
   "reverse": [
@@ -30846,6 +30850,10 @@
     [
       "Versione del flusso inesistente",
       "Cette version du flux n'existe pas"
+    ],
+    [
+      "L'allarme non si richiama a mano: usa la prova dal pannello",
+      "L'alarme ne se rappelle pas à la main : utilisez le test depuis le panneau"
     ]
   ]
 }

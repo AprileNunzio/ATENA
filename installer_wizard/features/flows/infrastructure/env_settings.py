@@ -12,6 +12,7 @@ FLAGS = {
     "memory.enabled": ("ATENA_MIND", "1"),
     "agent.enabled": ("ATENA_AGENT", "1"),
     "agent.access": ("ATENA_AGENT_ACCESS", "completo"),
+    "presentation.mode": ("ATENA_PRESENTATION", "smart"),
 }
 ROLE_KEYS = {"brain.strategy": ("strategy_key", DEFAULT_STRATEGY), "brain.scope": ("scope_key", DEFAULT_SCOPE)}
 

@@ -2,11 +2,11 @@ import asyncio
 import logging
 from typing import Optional, Tuple
 
-from config import STATE_DIR
+from config import STATE_DIR, env_get
 from tasks import background
 
 from features.brain.llm import generate
-from features.presentation.application.gate import worth_planning
+from features.presentation.application.gate import MODES, worth_planning
 from features.presentation.application.planner import PresentationPlanner
 from features.presentation.infrastructure.commons_images import CommonsImages, http_fetchers
 from features.presentation.infrastructure.image_store import ImageStore
@@ -36,7 +36,8 @@ planner = PresentationPlanner(_complete, CommonsImages(_fetch_json, _fetch_bytes
 
 
 async def compose(question: str, reply: str) -> Optional[Tuple[str, dict]]:
-    if not worth_planning(question, reply):
+    mode = env_get("ATENA_PRESENTATION", "smart")
+    if not worth_planning(question, reply, mode if mode in MODES else "smart"):
         return None
     try:
         outcome = await asyncio.wait_for(planner.compose(question, reply), BUDGET_SECONDS)

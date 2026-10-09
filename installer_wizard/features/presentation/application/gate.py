@@ -8,9 +8,14 @@ _SHOW = re.compile(
 _TRIVIAL = re.compile(r"^\s*(ciao|grazie|ok|okay|va bene|perfetto|buongiorno|buonasera|buonanotte|salve)\b", re.I)
 
 
-def worth_planning(question: str, reply: str) -> bool:
-    if _TRIVIAL.match(question) and len(question) < 40:
+MODES = ("smart", "rich", "voice")
+
+
+def worth_planning(question: str, reply: str, mode: str = "smart") -> bool:
+    if mode == "voice" or (_TRIVIAL.match(question) and len(question) < 40):
         return False
+    if mode == "rich":
+        return len(reply.strip()) >= MIN_SHOW_REPLY_CHARS
     if _SHOW.search(question):
         return len(reply.strip()) >= MIN_SHOW_REPLY_CHARS
     return len(reply.strip()) >= MIN_REPLY_CHARS

@@ -112,6 +112,10 @@ class GateTest(unittest.TestCase):
 
     def test_long_answers_are_planned_anyway(self):
         self.assertTrue(worth_planning("parlami di roma", "x" * 400))
+        self.assertFalse(worth_planning("parlami di roma", "x" * 400, "voice"))
+        self.assertTrue(worth_planning("quanto è alto il monte bianco", "x" * 40, "rich"))
+        self.assertFalse(worth_planning("quanto è alto il monte bianco", "x" * 40))
+        self.assertFalse(worth_planning("ciao", "x" * 400, "rich"))
 
 
 class FakeImages:

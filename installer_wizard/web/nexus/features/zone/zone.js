@@ -6,8 +6,9 @@ import { toolCard } from "../../components/tool-card.js";
 import { zone } from "../shell/zones.js";
 
 function classicLinks(z) {
-  const links = (z.classic || []).map(([tab, label]) => h("a", { class: "btn ghost", href: `/#${tab}` }, label, h("span", { "aria-hidden": "true" }, " ↗")));
-  return links.length ? h("div", { class: "panel" }, h("p", { class: "ptitle" }, "Nel pannello classico"), h("div", { class: "chips" }, links)) : null;
+  const links = (z.classic || []).map(([tab, label]) => h("a", { class: "btn ghost",
+    href: tab.startsWith("f/") ? `#/tool/${tab.slice(2)}` : `#/classic/${tab}` }, label));
+  return links.length ? h("div", { class: "panel" }, h("p", { class: "ptitle" }, "Sezioni complete"), h("div", { class: "chips" }, links)) : null;
 }
 
 function familyChips(families, active) {
