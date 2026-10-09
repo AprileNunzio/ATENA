@@ -58,7 +58,7 @@ class Link:
     async def open(self) -> dict:
         self.counter += 1
         response = await self.post({"jsonrpc": "2.0", "id": self.counter, "method": "initialize",
-                                    "params": {"protocolVersion": PROTOCOL, "capabilities": {}, "clientInfo": {"name": "atena-os", "version": "4.1.19"}}})
+                                    "params": {"protocolVersion": PROTOCOL, "capabilities": {}, "clientInfo": {"name": "atena-os", "version": "4.1.20"}}})
         self.session = response.headers.get("mcp-session-id", "")
         info = decode(response, self.counter)
         if "error" in info:
