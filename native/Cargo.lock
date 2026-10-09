@@ -4,11 +4,11 @@ version = 4
 
 [[package]]
 name = "atena-bus-core"
-version = "4.1.12"
+version = "4.1.13"
 
 [[package]]
 name = "atena-egress"
-version = "4.1.12"
+version = "4.1.13"
 dependencies = [
  "landlock",
  "serde",
@@ -18,7 +18,7 @@ dependencies = [
 
 [[package]]
 name = "atena-native"
-version = "4.1.12"
+version = "4.1.13"
 dependencies = [
  "atena-bus-core",
  "pyo3",
@@ -26,7 +26,7 @@ dependencies = [
 
 [[package]]
 name = "atena-netguard"
-version = "4.1.12"
+version = "4.1.13"
 dependencies = [
  "serde",
  "serde_json",

@@ -14,6 +14,7 @@ from features.chat.compose import compose_generic
 from features.chat.intents import detect_intent
 from features.chat.skill_dispatch import run_skill
 from features.chat.skills.people import person_info_skill
+from features.locale.pivot import pivot
 from features.chat.templates import remember_template
 from features.understanding import router as understanding
 
@@ -85,6 +86,23 @@ async def _home(text: str, started: float) -> dict | None:
 
 
 async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
+    lang = (speech_lang or {}).get("lang", "it")
+    switched = bool((speech_lang or {}).get("switched"))
+    routing = text if switched else await pivot.to_pivot(text, lang)
+
+    generated = {"by_model": False}
+
+    async def ask(_query: str) -> dict:
+        generated["by_model"] = True
+        return await core_call(text)
+
+    result = await _route(routing, ask, speech_lang)
+    if lang != pivot.PIVOT and result.get("reply"):
+        result["reply"] = await pivot.from_pivot(result["reply"], lang, force=not generated["by_model"])
+    return result
+
+
+async def _route(text: str, core_call, speech_lang: dict | None = None) -> dict:
     started = time.time()
     from features.automations.bus import emit
     emit("voice_command", {"text": text})
@@ -99,7 +117,7 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
     try:
         from features.scene import voice as scene_voice
         from features.scene.service import scene
-        spatial = scene_voice.answer(text, scene.graph, (speech_lang or {}).get("lang", "it"))
+        spatial = scene_voice.answer(text, scene.graph, pivot.PIVOT)
     except Exception:
         spatial = None
     if spatial:
@@ -111,45 +129,41 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
     from features.agent import commands as agent_cmd
     if agent_cmd.strong(text):
         return await _agent(text, started)
-    lang = (speech_lang or {}).get("lang", "it")
     tried: set[str] = set()
-    if lang == "it":
-        async with stages.stage("classifier", "Classificatore Intenti", "Analisi semantica e instradamento") as probe:
-            decision = await understanding.route(text, request_context.device.get())
-            probe.note(understanding.describe(decision))
-        domains = decision.domains if understanding.enabled() else list(EARLY)
-        if understanding.enabled() and domains and (refused := _refused(domains[0], started)):
-            return refused
-        for domain in domains:
-            tried.add(domain)
-            if domain == "people":
-                if not gate.connector_allowed("people"):
-                    continue
-                speech, ui = await person_info_skill(text)
-                ui["personal"] = True
-                return {"reply": speech, "ui": ui, "intent": "people", "agent": "persone", "elapsed_ms": int((time.time() - started) * 1000)}
-            out = await (_home(text, started) if domain == "home" else _connect(text, started, (domain,)))
-            if out:
-                return out
+    async with stages.stage("classifier", "Classificatore Intenti", "Analisi semantica e instradamento") as probe:
+        decision = await understanding.route(text, request_context.device.get())
+        probe.note(understanding.describe(decision))
+    domains = decision.domains if understanding.enabled() else list(EARLY)
+    if understanding.enabled() and domains and (refused := _refused(domains[0], started)):
+        return refused
+    for domain in domains:
+        tried.add(domain)
+        if domain == "people":
+            if not gate.connector_allowed("people"):
+                continue
+            speech, ui = await person_info_skill(text)
+            ui["personal"] = True
+            return {"reply": speech, "ui": ui, "intent": "people", "agent": "persone", "elapsed_ms": int((time.time() - started) * 1000)}
+        out = await (_home(text, started) if domain == "home" else _connect(text, started, (domain,)))
+        if out:
+            return out
     if "home" not in tried:
         out = await _home(text, started)
         if out:
             return out
-    if lang == "it" or actions.match(text):
-        async with stages.attempt("tool", "Azioni") as probe:
-            act = await actions.handle(text)
-            if not act:
-                probe.skip()
-        if act:
-            speech, ui, agent = act
-            elapsed = int((time.time() - started) * 1000)
-            return {"reply": speech, "ui": ui, "intent": "action", "agent": agent, "elapsed_ms": elapsed}
-    if lang == "it":
-        found = await _connect(text, started, None, tuple(tried))
-        if found:
-            return found
+    async with stages.attempt("tool", "Azioni") as probe:
+        act = await actions.handle(text)
+        if not act:
+            probe.skip()
+    if act:
+        speech, ui, agent = act
+        elapsed = int((time.time() - started) * 1000)
+        return {"reply": speech, "ui": ui, "intent": "action", "agent": agent, "elapsed_ms": elapsed}
+    found = await _connect(text, started, None, tuple(tried))
+    if found:
+        return found
     intent = detect_intent(text)
-    if (lang != "it" or (speech_lang or {}).get("switched")) and intent not in ("voices",):
+    if (speech_lang or {}).get("switched") and intent not in ("voices",):
         intent = "conversation"
     agent = "atena_ui"
     refused = _refused(intent, started)
