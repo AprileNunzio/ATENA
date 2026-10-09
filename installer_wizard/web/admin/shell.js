@@ -80,6 +80,7 @@
     A.loadFeatures().then(() => {
       const h = location.hash.slice(1);
       if (h.startsWith("f/")) A.openFeature(h.slice(2)); else if (h) A.openTab(h);
+      else if (A.uiMode && !A.uiMode.expert() && A.tabs.hub) A.openTab("hub");
     });
   };
 

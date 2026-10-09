@@ -1,0 +1,12 @@
+{
+  "name": "Tableau de bord",
+  "description": "La maison numérique d'Atena en 3D : un camion transporte chaque question le long du flux cognitif, les agents quittent le salon et s'assoient à leur bureau quand ils travaillent, et chaque zone s'ouvre en touchant son bâtiment.",
+  "capabilities": [
+    "Flux cognitif en 3D : Entrée, Lois, Mémoire, Aiguillage, Planification, Agents, Outils, Jugement, Réponse",
+    "Bureau des agents en temps réel avec le modèle qu'ils utilisent",
+    "Bâtiments cliquables pour Maison, Cerveau, Sport, TV, Google, Personnes et autres zones",
+    "Demandez à Atena depuis le tableau de bord et regardez la question voyager",
+    "Page d'accueil du mode Simple ; le mode Expert garde l'affichage détaillé",
+    "Repli 2D automatique sur les appareils sans WebGL"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "Dashboard",
+  "description": "Atena's digital home in 3D: a truck carries each question along the cognitive flow, agents leave the lounge and sit at their desk when they work, and every area opens by tapping its building.",
+  "capabilities": [
+    "3D cognitive flow: Entrance, Laws, Memory, Routing, Planning, Agents, Tools, Judgement, Answer",
+    "Live agents' office with the model they are using",
+    "Clickable buildings for Home, Brain, Sports, TV, Google, People and other areas",
+    "Ask Atena from the dashboard and watch the question travel",
+    "Home page of Simple mode; Expert mode keeps the detailed view",
+    "Automatic 2D fallback on devices without WebGL"
+  ]
+}

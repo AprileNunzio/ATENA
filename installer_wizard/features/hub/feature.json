@@ -1,0 +1,18 @@
+{
+  "id": "hub",
+  "name": "Plancia",
+  "icon": "🌐",
+  "category": "assistente",
+  "order": 1,
+  "pinned": true,
+  "panel": "hub",
+  "description": "La casa digitale di Atena in 3D: un camion porta ogni domanda lungo il flusso cognitivo, gli agenti lasciano il salottino e si siedono alla loro scrivania quando lavorano, e ogni area si apre toccando il suo edificio.",
+  "capabilities": [
+    "Flusso cognitivo in 3D: Ingresso, Leggi, Memoria, Smistamento, Pianificazione, Agenti, Strumenti, Giudizio, Risposta",
+    "Ufficio degli agenti in tempo reale con il modello che stanno usando",
+    "Edifici cliccabili per Casa, Cervello, Sport, TV, Google, Persone e altre aree",
+    "Chiedi ad Atena dalla plancia e guarda la domanda viaggiare",
+    "Pagina iniziale della modalità Semplice; in Esperto resta la grafica dettagliata",
+    "Ripiego 2D automatico sui dispositivi senza WebGL"
+  ]
+}

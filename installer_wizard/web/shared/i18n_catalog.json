@@ -14331,6 +14331,122 @@
     [
       "📺 Canali",
       "📺 Channels"
+    ],
+    [
+      "Agenti",
+      "Agents"
+    ],
+    [
+      "Chiedi",
+      "Ask"
+    ],
+    [
+      "Chiedi ad Atena dalla plancia e guarda la domanda viaggiare",
+      "Ask Atena from the dashboard and watch the question travel"
+    ],
+    [
+      "Chiedi qualcosa ad Atena e guarda la domanda viaggiare…",
+      "Ask Atena something and watch the question travel…"
+    ],
+    [
+      "Edifici cliccabili per Casa, Cervello, Sport, TV, Google, Persone e altre aree",
+      "Clickable buildings for Home, Brain, Sports, TV, Google, People and other areas"
+    ],
+    [
+      "Flusso cognitivo",
+      "Cognitive flow"
+    ],
+    [
+      "Flusso cognitivo in 3D: Ingresso, Leggi, Memoria, Smistamento, Pianificazione, Agenti, Strumenti, Giudizio, Risposta",
+      "3D cognitive flow: Entrance, Laws, Memory, Routing, Planning, Agents, Tools, Judgement, Answer"
+    ],
+    [
+      "La casa digitale di Atena in 3D: un camion porta ogni domanda lungo il flusso cognitivo, gli agenti lasciano il salottino e si siedono alla loro scrivania quando lavorano, e ogni area si apre toccando il suo edificio.",
+      "Atena's digital home in 3D: a truck carries each question along the cognitive flow, agents leave the lounge and sit at their desk when they work, and every area opens by tapping its building."
+    ],
+    [
+      "Pagina iniziale della modalità Semplice; in Esperto resta la grafica dettagliata",
+      "Home page of Simple mode; Expert mode keeps the detailed view"
+    ],
+    [
+      "Plancia",
+      "Dashboard"
+    ],
+    [
+      "Ripiego 2D automatico sui dispositivi senza WebGL",
+      "Automatic 2D fallback on devices without WebGL"
+    ],
+    [
+      "Trascina per ruotare · rotella per lo zoom · tocca un edificio per aprirlo",
+      "Drag to rotate · wheel to zoom · tap a building to open it"
+    ],
+    [
+      "Ufficio degli agenti",
+      "Agents' office"
+    ],
+    [
+      "Ufficio degli agenti in tempo reale con il modello che stanno usando",
+      "Live agents' office with the model they are using"
+    ],
+    [
+      "in casa: {0}",
+      "at home: {0}"
+    ],
+    [
+      "nessuno riconosciuto davanti allo schermo",
+      "nobody recognised in front of the screen"
+    ],
+    [
+      "tutto funziona",
+      "everything works"
+    ],
+    [
+      "{0} agenti al lavoro",
+      "{0} agents at work"
+    ],
+    [
+      "{0} componenti da controllare",
+      "{0} components to check"
+    ],
+    [
+      "Ingresso",
+      "Entrance"
+    ],
+    [
+      "Memoria rapida",
+      "Quick memory"
+    ],
+    [
+      "Smistamento",
+      "Routing"
+    ],
+    [
+      "Pianificazione",
+      "Planning"
+    ],
+    [
+      "Giudizio",
+      "Judgement"
+    ],
+    [
+      "Risposta",
+      "Answer"
+    ],
+    [
+      "Ciao!",
+      "Hi!"
+    ],
+    [
+      "Nessuna domanda in viaggio: chiedi qualcosa qui sopra.",
+      "No question travelling: ask something above."
+    ],
+    [
+      "Tutti gli agenti sono in attesa nel salottino.",
+      "All agents are waiting in the lounge."
+    ],
+    [
+      "al lavoro",
+      "at work"
     ]
   ],
   "reverse": [
@@ -14758,7 +14874,8 @@
     "wk-row ic",
     "LEC, HAM",
     "#tv-grid .tv-ch",
-    "color:var(--amber); font-size:12px"
+    "color:var(--amber); font-size:12px",
+    "600 {0}px system-ui, sans-serif"
   ],
   "fr": [
     [
@@ -28308,6 +28425,122 @@
     [
       "📺 Canali",
       "📺 Chaînes"
+    ],
+    [
+      "Agenti",
+      "Agents"
+    ],
+    [
+      "Chiedi",
+      "Demander"
+    ],
+    [
+      "Chiedi ad Atena dalla plancia e guarda la domanda viaggiare",
+      "Demandez à Atena depuis le tableau de bord et regardez la question voyager"
+    ],
+    [
+      "Chiedi qualcosa ad Atena e guarda la domanda viaggiare…",
+      "Demandez quelque chose à Atena et regardez la question voyager…"
+    ],
+    [
+      "Edifici cliccabili per Casa, Cervello, Sport, TV, Google, Persone e altre aree",
+      "Bâtiments cliquables pour Maison, Cerveau, Sport, TV, Google, Personnes et autres zones"
+    ],
+    [
+      "Flusso cognitivo",
+      "Flux cognitif"
+    ],
+    [
+      "Flusso cognitivo in 3D: Ingresso, Leggi, Memoria, Smistamento, Pianificazione, Agenti, Strumenti, Giudizio, Risposta",
+      "Flux cognitif en 3D : Entrée, Lois, Mémoire, Aiguillage, Planification, Agents, Outils, Jugement, Réponse"
+    ],
+    [
+      "La casa digitale di Atena in 3D: un camion porta ogni domanda lungo il flusso cognitivo, gli agenti lasciano il salottino e si siedono alla loro scrivania quando lavorano, e ogni area si apre toccando il suo edificio.",
+      "La maison numérique d'Atena en 3D : un camion transporte chaque question le long du flux cognitif, les agents quittent le salon et s'assoient à leur bureau quand ils travaillent, et chaque zone s'ouvre en touchant son bâtiment."
+    ],
+    [
+      "Pagina iniziale della modalità Semplice; in Esperto resta la grafica dettagliata",
+      "Page d'accueil du mode Simple ; le mode Expert garde l'affichage détaillé"
+    ],
+    [
+      "Plancia",
+      "Tableau de bord"
+    ],
+    [
+      "Ripiego 2D automatico sui dispositivi senza WebGL",
+      "Repli 2D automatique sur les appareils sans WebGL"
+    ],
+    [
+      "Trascina per ruotare · rotella per lo zoom · tocca un edificio per aprirlo",
+      "Glissez pour tourner · molette pour zoomer · touchez un bâtiment pour l'ouvrir"
+    ],
+    [
+      "Ufficio degli agenti",
+      "Bureau des agents"
+    ],
+    [
+      "Ufficio degli agenti in tempo reale con il modello che stanno usando",
+      "Bureau des agents en temps réel avec le modèle qu'ils utilisent"
+    ],
+    [
+      "in casa: {0}",
+      "à la maison : {0}"
+    ],
+    [
+      "nessuno riconosciuto davanti allo schermo",
+      "personne de reconnu devant l'écran"
+    ],
+    [
+      "tutto funziona",
+      "tout fonctionne"
+    ],
+    [
+      "{0} agenti al lavoro",
+      "{0} agents au travail"
+    ],
+    [
+      "{0} componenti da controllare",
+      "{0} composants à vérifier"
+    ],
+    [
+      "Ingresso",
+      "Entrée"
+    ],
+    [
+      "Memoria rapida",
+      "Mémoire rapide"
+    ],
+    [
+      "Smistamento",
+      "Aiguillage"
+    ],
+    [
+      "Pianificazione",
+      "Planification"
+    ],
+    [
+      "Giudizio",
+      "Jugement"
+    ],
+    [
+      "Risposta",
+      "Réponse"
+    ],
+    [
+      "Ciao!",
+      "Salut !"
+    ],
+    [
+      "Nessuna domanda in viaggio: chiedi qualcosa qui sopra.",
+      "Aucune question en route : demandez quelque chose ci-dessus."
+    ],
+    [
+      "Tutti gli agenti sono in attesa nel salottino.",
+      "Tous les agents attendent dans le salon."
+    ],
+    [
+      "al lavoro",
+      "au travail"
     ]
   ]
 }
