@@ -23,6 +23,7 @@ FILES = {"widget.js": "application/javascript", "widget.css": "text/css"}
 _ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{1,40}$")
 REQUEST_HOLD = 120
 SNOOZE = 600
+AUTO_PREFIXES = ("briefing:", "welcome:", "sport-near:")
 SNOOZE_FORGET = 6 * 3600
 
 
@@ -224,6 +225,15 @@ class Desk:
 
     def request_started(self) -> None:
         self.request_at = time.time()
+
+    def wake(self) -> int:
+        self.request_started()
+        keys = [k for k in self.instances if k.startswith(AUTO_PREFIXES)]
+        for k in keys:
+            self.instances.pop(k, None)
+        if keys:
+            self.publish()
+        return len(keys)
 
     def on_intent(self, intent: str, ui: dict) -> None:
         self.request_started()

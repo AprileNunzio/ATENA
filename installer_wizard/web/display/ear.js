@@ -174,7 +174,7 @@
       const ev = JSON.parse(e.data);
       if (ev.type === "level") { heardAt = Date.now(); level(ev.rms); if (state === "off") setState("idle"); }
       else if (ev.type === "state") { setState(ev.state); document.body.classList.toggle("conversing", !!ev.conversation); }
-      else if (ev.type === "wake") { D.lastInteraction = Date.now(); D.pingActivity(true); setState("listening"); if (D.mode === "brain") D.setMode("face"); }
+      else if (ev.type === "wake") { D.lastInteraction = Date.now(); D.pingActivity(true); setState("listening"); if (D.mode === "brain") D.setMode("face"); if (D.wakeDesk) D.wakeDesk(); }
       else if (ev.type === "barge") { if (D.hush) D.hush(); }
       else if (ev.type === "mic_level") micLevelAdvice(ev.advice);
       else if (ev.type === "wake_only") D.greetWake();

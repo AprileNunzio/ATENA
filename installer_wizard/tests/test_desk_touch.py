@@ -45,6 +45,21 @@ class SnoozeTest(unittest.TestCase):
         self.assertFalse(self.desk.dismiss("missing"))
 
 
+class WakeTest(unittest.TestCase):
+    def test_wake_closes_only_automatic_widgets_and_pauses_the_secretary(self):
+        desk = Desk()
+        desk.scan()
+        desk.show("brief", {"lines": ["x"]}, key="briefing:news")
+        desk.show("weather", {}, key="welcome:weather", intent=True)
+        desk.show("notice", {"title": "Allarme acqua"}, key="net:aa")
+        desk.show("alarm", {"title": "Fumo"}, key="alarm:smoke:")
+        self.assertEqual(desk.wake(), 2)
+        self.assertEqual(sorted(desk.instances), ["alarm:smoke:", "net:aa"])
+        self.assertTrue(desk.in_request())
+        desk.went_idle()
+        self.assertFalse(desk.in_request())
+
+
 class NewsDetailTest(unittest.TestCase):
     def test_items_carry_safe_details(self):
         first, second = News.parse(RSS)

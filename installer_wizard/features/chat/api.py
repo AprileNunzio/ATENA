@@ -278,6 +278,7 @@ async def public_wake(request: Request):
     install_queue.note_activity()
     from features.automations.bus import emit
     emit("wake", {"device": request_context.device.get()})
+    desk.wake()
     result = await wake.greeting()
     desk.show("g_notify", result["card"], key="wake", ttl=25)
     dialogue.remember(request_context.device.get(), "Atena", result["reply"], "wake")

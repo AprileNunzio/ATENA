@@ -15415,6 +15415,10 @@
     [
       "Internet",
       "Internet"
+    ],
+    [
+      "Chiusura dei widget automatici non riuscita:",
+      "Closing the automatic widgets failed:"
     ]
   ],
   "reverse": [
@@ -30494,6 +30498,10 @@
     [
       "Internet",
       "Internet"
+    ],
+    [
+      "Chiusura dei widget automatici non riuscita:",
+      "Fermeture des widgets automatiques échouée :"
     ]
   ]
 }

@@ -50,6 +50,12 @@ async def desk_idle(request: Request):
     return {"ok": True}
 
 
+@public_routes.post("/api/desk/wake")
+async def desk_wake(request: Request):
+    require_display(request, "Solo dal display")
+    return {"ok": True, "closed": desk.wake()}
+
+
 @public_routes.post("/api/desk/position")
 async def desk_position(request: Request):
     require_display(request, "Solo dal display")

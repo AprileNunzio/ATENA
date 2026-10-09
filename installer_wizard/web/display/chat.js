@@ -8,6 +8,11 @@
     if (avatar.face) avatar.face.thinking = on;
   }
 
+  D.wakeDesk = () => {
+    if (window.AtenaTouch) { window.AtenaTouch.hideMenu(); window.AtenaTouch.hideSheet(); }
+    fetch("/api/desk/wake", { method: "POST" }).catch((err) => console.warn("Chiusura dei widget automatici non riuscita:", err));
+  };
+
   D.greetWake = async () => {
     if (D.busy) return;
     D.busy = true; D.lastInteraction = Date.now();
