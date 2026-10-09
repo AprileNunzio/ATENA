@@ -3,12 +3,14 @@ import unittest
 from unittest import mock
 
 from features.agent import registry
+from features.authz.principal import SYSTEM, act_as, current
 from features.team import runner
 from features.team.board import board
 
 
 class VerificationTest(unittest.TestCase):
     def setUp(self):
+        self.addCleanup(current.reset, act_as(SYSTEM))
         board.messages.clear()
         patcher = mock.patch.object(runner, "SETTLE", 0)
         patcher.start()

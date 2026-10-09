@@ -1,4 +1,5 @@
 import json
+import threading
 import time
 import uuid
 
@@ -14,6 +15,7 @@ MAX_FACTS = 400
 class LongTermMemory:
     def __init__(self) -> None:
         MIND_DIR.mkdir(parents=True, exist_ok=True)
+        self.lock = threading.RLock()
         self.facts: list = []
         try:
             self.facts = json.loads(FACTS_FILE.read_text(encoding="utf-8"))
@@ -21,14 +23,19 @@ class LongTermMemory:
             self.facts = []
 
     def save(self) -> None:
-        tmp = FACTS_FILE.with_suffix(".tmp")
-        tmp.write_text(json.dumps(self.facts, ensure_ascii=False, indent=1), encoding="utf-8")
-        tmp.replace(FACTS_FILE)
+        with self.lock:
+            tmp = FACTS_FILE.with_suffix(".tmp")
+            tmp.write_text(json.dumps(self.facts, ensure_ascii=False, indent=1), encoding="utf-8")
+            tmp.replace(FACTS_FILE)
 
     def add(self, text: str, kind: str = "fatto", score: float = 0.6, who: str = "") -> dict | None:
         text = " ".join(text.split())[:200]
         if len(text) < 3:
             return None
+        with self.lock:
+            return self._add(text, kind, score, who)
+
+    def _add(self, text: str, kind: str, score: float, who: str) -> dict:
         for f in self.facts:
             if T.jaccard(f["text"], text) >= 0.6:
                 f.update(text=text, score=max(f["score"], score), updated=time.time(),
@@ -44,9 +51,13 @@ class LongTermMemory:
         return fact
 
     def recall(self, query: str, k: int = 4, who: str = "") -> list:
+        with self.lock:
+            return self._recall(query, k, who)
+
+    def _recall(self, query: str, k: int, who: str) -> list:
         scored = []
         for f in self.facts:
-            if who and f.get("who") and f["who"] != who:
+            if f.get("who", "") not in ("", who):
                 continue
             rel = T.overlap(query, f["text"])
             if rel >= 0.34:
@@ -60,21 +71,24 @@ class LongTermMemory:
         return hits
 
     def forget(self, fid: str) -> bool:
-        before = len(self.facts)
-        self.facts = [f for f in self.facts if f["id"] != fid]
-        if len(self.facts) != before:
+        with self.lock:
+            before = len(self.facts)
+            self.facts = [f for f in self.facts if f["id"] != fid]
+            if len(self.facts) == before:
+                return False
             self.save()
             return True
-        return False
 
     def clear(self) -> int:
-        n = len(self.facts)
-        self.facts = []
-        self.save()
-        return n
+        with self.lock:
+            n = len(self.facts)
+            self.facts = []
+            self.save()
+            return n
 
     def listing(self) -> list:
-        return sorted(self.facts, key=lambda x: -x["updated"])
+        with self.lock:
+            return sorted(self.facts, key=lambda x: -x["updated"])
 
     def stats(self) -> dict:
         kinds: dict = {}

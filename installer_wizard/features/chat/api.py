@@ -15,7 +15,7 @@ from state import store
 from tasks import background
 
 from features.authz import resolve as authz_resolve
-from features.authz.principal import act_as
+from features.authz.principal import act_as, acting
 from features.brain.brains import brains
 from features.brain.residency import primary
 from features.brain.trace import trace
@@ -67,7 +67,7 @@ async def _core_call(query: str, device: str, speech_lang: dict) -> dict:
     knowledge = await study.engine.recall(query)
     if knowledge:
         context["knowledge"] = knowledge
-    long_term = mind.recall(query, who=request_context.voice.get())
+    long_term = mind.recall(query, who=acting().slug)
     if long_term:
         context["long_term"] = long_term
     route = await brains.route(query)
