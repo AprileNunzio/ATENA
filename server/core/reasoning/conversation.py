@@ -1,7 +1,7 @@
 import logging
 import time
 from collections import defaultdict, deque
-from typing import Deque, Dict, List, Optional, Tuple
+from typing import AsyncIterator, Deque, Dict, List, Optional, Tuple
 
 from server.config.env import settings
 from server.features.llm_gateway.contracts import LLMMessage, LLMRequest
@@ -28,7 +28,7 @@ _PERSONA = (
     "Non affermare mai di aver creato, mostrato, inviato, salvato, acceso o eseguito qualcosa: le azioni "
     "le fanno gli strumenti di Atena, non tu. Se ti chiedono un'azione e nel contesto non c'è la "
     "conferma che sia stata fatta, dì che non è stata eseguita e suggerisci come chiederla. "
-    "Data e ora correnti: {now}."
+    ""
 )
 
 HISTORY_TURNS = 10
@@ -42,16 +42,13 @@ class ConversationEngine:
         self._history: Dict[str, Deque[Tuple[str, str]]] = defaultdict(lambda: deque(maxlen=HISTORY_TURNS * 2))
         self.last_model = ""
 
-    async def reply(self, query: str, device_id: str, people_context: str = "", knowledge: str = "",
-                    models: Optional[List[str]] = None, max_tokens: int = 400, reply_language: str = "",
-                    speaker: str = "", dialogue: str = "", long_term: str = "", laws: str = "",
-                    pinned: str = "", capabilities: str = "") -> str:
+    def _prompt(self, query: str, device_id: str, people_context: str = "", knowledge: str = "",
+                reply_language: str = "", speaker: str = "", dialogue: str = "", long_term: str = "",
+                laws: str = "", capabilities: str = "") -> tuple[list[LLMMessage], str]:
         history = self._history[device_id]
         messages = [LLMMessage(role=role, content=content) for role, content in history]
         messages.append(LLMMessage(role="user", content=query))
-        now = time.localtime()
-        persona = _PERSONA.format(now=f"{_DAYS[now.tm_wday]} {now.tm_mday} {_MONTHS[now.tm_mon - 1]} "
-                                      f"{now.tm_year}, ore {now.tm_hour}:{now.tm_min:02d}")
+        persona = _PERSONA
         if laws:
             persona = laws[:8000] + "\n\n" + persona
         if capabilities:
@@ -75,27 +72,53 @@ class ConversationEngine:
         if long_term:
             persona += ("\nCose che ricordi su chi ti parla (memoria a lungo termine: tienine conto con "
                         "naturalezza, senza elencarle):\n" + long_term[:1200])
+        now = time.localtime()
+        persona += (f"\nData e ora correnti: {_DAYS[now.tm_wday]} {now.tm_mday} {_MONTHS[now.tm_mon - 1]} "
+                    f"{now.tm_year}, ore {now.tm_hour}:{now.tm_min:02d}.")
+        return messages, persona
 
-        response = await llm_gateway.generate_completion(
-            LLMRequest(
-                model_name=settings.ATENA_LLM_MODEL or "granite3.3:2b",
-                messages=messages,
-                system_prompt=persona,
-                temperature=0.6,
-                max_tokens=max(64, min(int(max_tokens or 400), 2048)),
-                models=list(models or []),
-                pinned=pinned,
-            )
-        )
+    def _request(self, messages: list[LLMMessage], persona: str, models: Optional[List[str]], max_tokens: int,
+                 pinned: str) -> LLMRequest:
+        return LLMRequest(model_name=settings.ATENA_LLM_MODEL or "granite3.3:2b", messages=messages, system_prompt=persona,
+                          temperature=0.6, max_tokens=max(64, min(int(max_tokens or 400), 2048)),
+                          models=list(models or []), pinned=pinned)
+
+    def _remember(self, device_id: str, query: str, answer: str) -> None:
+        history = self._history[device_id]
+        history.append(("user", query))
+        history.append(("assistant", answer))
+
+    async def reply(self, query: str, device_id: str, people_context: str = "", knowledge: str = "",
+                    models: Optional[List[str]] = None, max_tokens: int = 400, reply_language: str = "",
+                    speaker: str = "", dialogue: str = "", long_term: str = "", laws: str = "",
+                    pinned: str = "", capabilities: str = "") -> str:
+        messages, persona = self._prompt(query, device_id, people_context, knowledge, reply_language, speaker,
+                                         dialogue, long_term, laws, capabilities)
+        response = await llm_gateway.generate_completion(self._request(messages, persona, models, max_tokens, pinned))
         if response.is_synthetic:
             raise AgentExecutionException("atena_conversation", "nessun modello linguistico disponibile",
                                           {"reason": "no_model"})
         self.last_model = response.model_used
         answer = response.content.strip() or "Mi scuso, non sono riuscito a formulare una risposta."
-        history.append(("user", query))
-        history.append(("assistant", answer))
+        self._remember(device_id, query, answer)
         logger.info("Risposta conversazionale in %.0f ms (%s)", response.duration_ms, response.model_used)
         return answer
+
+    async def reply_stream(self, query: str, device_id: str, people_context: str = "", knowledge: str = "",
+                           models: Optional[List[str]] = None, max_tokens: int = 400, reply_language: str = "",
+                           speaker: str = "", dialogue: str = "", long_term: str = "", laws: str = "",
+                           pinned: str = "", capabilities: str = "") -> AsyncIterator[str]:
+        messages, persona = self._prompt(query, device_id, people_context, knowledge, reply_language, speaker,
+                                         dialogue, long_term, laws, capabilities)
+        parts: list[str] = []
+        async for chunk in llm_gateway.stream_completion(self._request(messages, persona, models, max_tokens, pinned)):
+            parts.append(chunk)
+            yield chunk
+        answer = "".join(parts).strip()
+        if not answer:
+            raise AgentExecutionException("atena_conversation", "risposta vuota", {"reason": "empty"})
+        self.last_model = llm_gateway.last_stream_model
+        self._remember(device_id, query, answer)
 
 
 conversation_engine = ConversationEngine()

@@ -197,6 +197,40 @@ async def handle_user_command(payload: UserCommandPayload) -> Dict[str, Any]:
         "result_data": response.result_data,
     }
 
+CONTEXT_KEYS = ("people_present", "knowledge", "models", "max_tokens", "reply_language", "speaker", "dialogue",
+                "long_term", "laws", "pinned", "capabilities")
+
+
+def _event(data: Dict[str, Any]) -> str:
+    return "data: " + json.dumps(data, ensure_ascii=False) + "\n\n"
+
+
+async def _conversation_events(payload: UserCommandPayload) -> AsyncGenerator[str, None]:
+    from server.core.reasoning.conversation import conversation_engine
+    from server.shared.errors.domain_errors import AgentExecutionException
+    context = {k: v for k, v in (payload.context or {}).items() if k in CONTEXT_KEYS}
+    try:
+        async for piece in conversation_engine.reply_stream(
+                payload.query, payload.device_id,
+                people_context=str(context.get("people_present") or ""), knowledge=str(context.get("knowledge") or ""),
+                models=list(context.get("models") or []) or None, max_tokens=int(context.get("max_tokens") or 400),
+                reply_language=str(context.get("reply_language") or ""), speaker=str(context.get("speaker") or ""),
+                dialogue=str(context.get("dialogue") or ""), long_term=str(context.get("long_term") or ""),
+                laws=str(context.get("laws") or ""), pinned=str(context.get("pinned") or ""),
+                capabilities=str(context.get("capabilities") or "")):
+            yield _event({"t": piece})
+    except (AgentExecutionException, RuntimeError) as exc:
+        yield _event({"error": str(exc)[:300]})
+        return
+    yield _event({"done": True, "model": conversation_engine.last_model})
+
+
+@router.post("/conversation/stream")
+async def conversation_stream(payload: UserCommandPayload) -> StreamingResponse:
+    return StreamingResponse(_conversation_events(payload), media_type="text/event-stream",
+                             headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"})
+
+
 @router.get("/knowledge/graph")
 async def get_knowledge_graph_snapshot() -> Dict[str, Any]:
     snapshot = graph_client.export_snapshot()

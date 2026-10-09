@@ -1,5 +1,6 @@
 import asyncio
 import time
+from typing import AsyncIterator
 import httpx
 import logging
 import os
@@ -16,6 +17,7 @@ class LLMGateway:
     def __init__(self) -> None:
         self._module_path = "features/llm_gateway"
         self._alarms: set[asyncio.Task] = set()
+        self.last_stream_model = ""
         self._ollama_url = settings.OLLAMA_BASE_URL
         self._gemini_api_key = os.getenv("GEMINI_API_KEY", "") or settings.GEMINI_API_KEY
         self._claude_api_key = os.getenv("ANTHROPIC_API_KEY", "") or settings.ANTHROPIC_API_KEY
@@ -27,6 +29,10 @@ class LLMGateway:
             if p not in chain:
                 chain.append(p)
         self._provider_chain = chain
+
+    def stream_completion(self, request: LLMRequest) -> AsyncIterator[str]:
+        from server.features.llm_gateway.streaming import stream
+        return stream(self, request)
 
     async def generate_completion(self, request: LLMRequest) -> LLMResponse:
         request = apply_tuning(request)
