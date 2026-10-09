@@ -20,17 +20,6 @@
     $("hm-summary").textContent = h.summary ? `Ho studiato la casa: ${h.summary}.` : "";
   }
 
-  function renderRooms(h) {
-    $("hm-rooms").innerHTML = h.rooms.map((r) => `<div class="room ${r.occupied ? "occ" : ""}">
-        <div class="nm"><span class="dot ${r.occupied ? "ok" : r.has_sensors ? "idle" : ""}"></span>${fmt.esc(r.name)}</div>
-        <div class="fl">${fmt.esc(r.floor || "")}${r.devices ? ` · ${r.devices} dispositivi` : ""}</div>
-        <div class="lb">${fmt.esc(r.label)}</div>
-        <div class="mt">${r.temperature != null ? `<span>🌡 ${r.temperature} °C</span>` : ""}${r.humidity != null ? `<span>💧 ${Math.round(r.humidity)}%</span>` : ""}
-          ${r.lights_on ? `<span>💡 ${r.lights_on} accese</span>` : ""}${r.open.length ? `<span style="color:var(--amber)">🚪 ${fmt.esc(r.open.join(", "))}</span>` : ""}</div>
-        <input data-alias="area:${fmt.esc(r.area_id)}" value="${fmt.esc(r.aliases.join(", "))}" placeholder="Altri nomi${r.ha_aliases.length ? " (HA: " + fmt.esc(r.ha_aliases.join(", ")) + ")" : ""}"></div>`).join("")
-      || '<div class="faint">Nessuna stanza: assegna le aree ai dispositivi in Home Assistant.</div>';
-  }
-
   function renderFilters(h) {
     const pSel = $("hm-proto"), aSel = $("hm-area"), pv = pSel.value, av = aSel.value;
     pSel.innerHTML = '<option value="">Tutti i protocolli</option>' + h.protocols.filter((p) => p.key !== "matter_all").map((p) => `<option value="${fmt.esc(p.key)}">${fmt.esc(p.label)}</option>`).join("") + (h.protocols.some((p) => p.key === "matter_all") ? '<option value="matter_all">Matter (tutti)</option>' : "");
@@ -39,11 +28,12 @@
   }
 
   async function loadHome() {
-    let h;
-    try { [h, hmDev] = await Promise.all([A.api("GET", "/api/home"), A.api("GET", "/api/home/devices")]); } catch (e) { A.toast(e.message, true); return; }
+    let h, ents;
+    try { [h, hmDev, ents] = await Promise.all([A.api("GET", "/api/home"), A.api("GET", "/api/home/devices"), A.api("GET", "/api/home/entities")]); } catch (e) { A.toast(e.message, true); return; }
     renderSummary(h);
     renderHomeConnect(h);
-    renderRooms(h);
+    A.homeData = ents;
+    A.homeRooms.render(h, ents);
     renderFilters(h);
     renderHomeDevices();
     if (hmSel) showHomeDevice(hmSel);
@@ -72,7 +62,7 @@
         <td style="font-size:12px">${fmt.esc(d.area || "—")}</td>
         <td style="font-size:12px">${fmt.esc(d.manufacturer || "—")}<div class="faint">${fmt.esc(d.model || "")}${d.sw_version ? " · fw " + fmt.esc(d.sw_version) : ""}</div></td>
         <td><span class="proto ${fmt.esc(d.protocol)}">${fmt.esc(d.protocol_label)}</span>${d.matter && d.protocol !== "matter" ? ' <span class="proto matter">Matter</span>' : ""}</td>
-        <td class="mono">${fmt.esc(d.integration || "")}</td>
+        <td class="mono x-expert">${fmt.esc(d.integration || "")}</td>
         <td class="mono">${d.entities.length}</td></tr>`).join("")
       || '<tr><td colspan="6" class="faint">Nessun dispositivo corrisponde ai filtri.</td></tr>';
   }
@@ -108,7 +98,18 @@
     } catch (e) { A.toast(e.message, true); }
   }
 
+  function showSub(id) {
+    $("hm-subnav").querySelectorAll("[data-hsub]").forEach((b) => b.classList.toggle("on", b.dataset.hsub === id));
+    ["rooms", "autos", "devices", "activity"].forEach((x) => $(`hm-sub-${x}`).classList.toggle("on", x === id));
+    try { localStorage.setItem("atena_home_sub", id); } catch { A.toast("Preferenza non salvata nel browser", true); }
+    if (id === "autos" && A.homeAutos) A.homeAutos.load();
+  }
+
   function init() {
+    A.homeRooms.init();
+    if (A.homeAutos) A.homeAutos.init();
+    $("hm-subnav").addEventListener("click", (e) => { const b = e.target.closest("[data-hsub]"); if (b) showSub(b.dataset.hsub); });
+    try { const saved = localStorage.getItem("atena_home_sub"); if (["rooms", "autos", "devices", "activity"].includes(saved)) showSub(saved); } catch { showSub("rooms"); }
     $("hm-try").addEventListener("click", () => homeTest(false));
     $("hm-run").addEventListener("click", () => homeTest(true));
     $("hm-q").addEventListener("keydown", (e) => { if (e.key === "Enter") homeTest(false); });
@@ -146,5 +147,6 @@
     if (A.isOn("home") && !$("tab-home").contains(document.activeElement)) loadHome();
   }
 
+  A.homeReload = loadHome;
   A.tab("home", { title: "Casa", init, load: loadHome, onState });
 })();

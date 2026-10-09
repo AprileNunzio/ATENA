@@ -6,40 +6,78 @@
     <div class="panel stat"><div class="panel-title">Dispositivi</div><div class="v" id="hm-devices">—</div><div class="s" id="hm-devices2"></div></div>
     <div class="panel stat"><div class="panel-title">Comandi</div><div class="v" id="hm-cmds">—</div><div class="s" id="hm-cmds2"></div></div>
   </div>
-  <div class="panel" style="margin-bottom:18px">
-    <div class="row" style="justify-content:space-between; flex-wrap:wrap; margin-bottom:12px">
-      <div class="panel-title" style="margin:0">Protocolli</div>
-      <div class="row"><button class="btn" id="hm-sync">⟳ Ristudia la casa</button></div>
+
+  <div class="hm-subnav" id="hm-subnav">
+    <button type="button" class="on" data-hsub="rooms"><span>🏠</span>Stanze</button>
+    <button type="button" data-hsub="autos"><span>⚙️</span>Automazioni</button>
+    <button type="button" data-hsub="devices"><span>📟</span>Dispositivi</button>
+    <button type="button" data-hsub="activity"><span>📈</span>Attività</button>
+  </div>
+
+  <div class="hm-sub on" id="hm-sub-rooms">
+    <div class="panel" style="margin-bottom:18px">
+      <div class="row" style="justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:12px">
+        <div><div class="panel-title" style="margin:0">La casa adesso</div>
+          <div class="muted-note">Tocca un dispositivo per accenderlo o spegnerlo. Le stanze occupate si illuminano.</div></div>
+        <div class="seg" id="hm-floors"></div>
+      </div>
+      <div class="rooms" id="hm-rooms"></div>
+      <div class="muted-note x-expert" style="margin-top:10px">Una stanza è occupata se un sensore di presenza è attivo, se c'è movimento o se l'ultimo movimento è recente. «Altri nomi» sono i modi in cui la chiami tu (es. «sala» per Soggiorno): Atena li usa subito.</div>
     </div>
-    <div class="chips" id="hm-protos" style="margin:0"></div>
-    <div class="muted-note" id="hm-summary" style="margin-top:10px"></div>
   </div>
-  <div class="panel" style="margin-bottom:18px">
-    <div class="panel-title">Prova un comando</div>
-    <div class="row" style="flex-wrap:wrap"><input id="hm-q" placeholder="es. accendi le luci della cucina al 40% · c'è qualcuno in salotto?" style="flex:1; min-width:240px">
-      <button class="btn" id="hm-try">Analizza</button><button class="btn primary" id="hm-run">Esegui</button></div>
-    <div id="hm-out"></div>
-  </div>
-  <div class="panel" style="margin-bottom:18px">
-    <div class="panel-title">Stanze, movimento e presenza</div>
-    <div class="rooms" id="hm-rooms"></div>
-    <div class="muted-note">Una stanza è occupata se un sensore di presenza è attivo, se c'è movimento o se l'ultimo movimento è recente. «Altri nomi» sono i modi in cui la chiami tu (es. «sala» per Soggiorno): Atena li usa subito.</div>
-  </div>
-  <div class="panel" style="margin-bottom:18px">
-    <div class="row" style="justify-content:space-between; flex-wrap:wrap; margin-bottom:14px">
-      <div class="panel-title" style="margin:0">Dispositivi</div>
-      <div class="row" style="flex-wrap:wrap"><input id="hm-filter" placeholder="Filtra…" style="max-width:200px">
-        <select id="hm-proto" style="max-width:170px"><option value="">Tutti i protocolli</option></select>
-        <select id="hm-area" style="max-width:170px"><option value="">Tutte le stanze</option></select></div>
+
+  <div class="hm-sub" id="hm-sub-autos">
+    <div class="panel" style="margin-bottom:18px">
+      <div class="row" style="justify-content:space-between; flex-wrap:wrap; gap:10px">
+        <div><div class="panel-title" style="margin:0">Automazioni di Home Assistant</div>
+          <div class="muted-note">Le regole che girano dentro Home Assistant: vedile, accendile, spegnile, modificale o creane di nuove.</div></div>
+        <div class="row" style="gap:8px; flex-wrap:wrap"><input id="ha-au-q" placeholder="Cerca…" style="max-width:180px">
+          <button class="btn primary" id="ha-au-new">+ Nuova</button></div>
+      </div>
+      <form class="ha-au-ai" id="ha-au-ai">
+        <span class="ha-au-ai-ic">✨</span>
+        <input id="ha-au-ai-text" autocomplete="off" placeholder="Descrivila a parole: «quando apro la porta di notte accendi la luce dell'ingresso»">
+        <button class="btn">Progettala</button>
+      </form>
     </div>
-    <table><thead><tr><th>Dispositivo</th><th>Stanza</th><th>Produttore / modello</th><th>Protocollo</th><th>Integrazione</th><th>Entità</th></tr></thead>
-      <tbody id="hm-body"></tbody></table>
+    <div id="ha-au-editor"></div>
+    <div class="ha-au-grid" id="ha-au-list"></div>
   </div>
-  <div class="panel" id="hm-detail" style="display:none; margin-bottom:18px"></div>
-  <div class="grid g2">
-    <div class="panel"><div class="panel-title">Attività (24 ore)</div><div class="journal" id="hm-activity" style="max-height:360px; overflow:auto"></div></div>
-    <div class="panel"><div class="row" style="justify-content:space-between"><div class="panel-title" style="margin:0">Ultimi comandi</div>
-      <button class="btn sm" id="hm-forget" title="Dimentica le frasi tradotte dal cervello">Dimentica frasi imparate</button></div>
-      <div class="journal" id="hm-commands" style="max-height:360px; overflow:auto; margin-top:10px"></div></div>
+
+  <div class="hm-sub" id="hm-sub-devices">
+    <div class="panel x-expert" style="margin-bottom:18px">
+      <div class="row" style="justify-content:space-between; flex-wrap:wrap; margin-bottom:12px">
+        <div class="panel-title" style="margin:0">Protocolli</div>
+        <div class="row"><button class="btn" id="hm-sync">⟳ Ristudia la casa</button></div>
+      </div>
+      <div class="chips" id="hm-protos" style="margin:0"></div>
+      <div class="muted-note" id="hm-summary" style="margin-top:10px"></div>
+    </div>
+    <div class="panel" style="margin-bottom:18px">
+      <div class="row" style="justify-content:space-between; flex-wrap:wrap; margin-bottom:14px">
+        <div class="panel-title" style="margin:0">Dispositivi</div>
+        <div class="row" style="flex-wrap:wrap"><input id="hm-filter" placeholder="Filtra…" style="max-width:200px">
+          <select id="hm-proto" style="max-width:170px"><option value="">Tutti i protocolli</option></select>
+          <select id="hm-area" style="max-width:170px"><option value="">Tutte le stanze</option></select></div>
+      </div>
+      <div class="table-wrap"><table><thead><tr><th>Dispositivo</th><th>Stanza</th><th>Produttore / modello</th><th>Protocollo</th><th class="x-expert">Integrazione</th><th>Entità</th></tr></thead>
+        <tbody id="hm-body"></tbody></table></div>
+    </div>
+    <div class="panel" id="hm-detail" style="display:none; margin-bottom:18px"></div>
+  </div>
+
+  <div class="hm-sub" id="hm-sub-activity">
+    <div class="panel" style="margin-bottom:18px">
+      <div class="panel-title">Prova un comando</div>
+      <div class="row" style="flex-wrap:wrap"><input id="hm-q" placeholder="es. accendi le luci della cucina al 40% · c'è qualcuno in salotto?" style="flex:1; min-width:240px">
+        <button class="btn" id="hm-try">Analizza</button><button class="btn primary" id="hm-run">Esegui</button></div>
+      <div id="hm-out"></div>
+    </div>
+    <div class="grid g2">
+      <div class="panel"><div class="panel-title">Attività (24 ore)</div><div class="journal" id="hm-activity" style="max-height:360px; overflow:auto"></div></div>
+      <div class="panel"><div class="row" style="justify-content:space-between"><div class="panel-title" style="margin:0">Ultimi comandi</div>
+        <button class="btn sm x-expert" id="hm-forget" title="Dimentica le frasi tradotte dal cervello">Dimentica frasi imparate</button></div>
+        <div class="journal" id="hm-commands" style="max-height:360px; overflow:auto; margin-top:10px"></div></div>
+    </div>
   </div>
 </section>

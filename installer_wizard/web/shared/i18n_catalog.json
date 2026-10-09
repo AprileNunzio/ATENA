@@ -13599,6 +13599,318 @@
     [
       "🖧 Server in rete",
       "🖧 Network servers"
+    ],
+    [
+      "+ Nuova",
+      "+ New"
+    ],
+    [
+      "+ altro",
+      "+ another"
+    ],
+    [
+      "A un orario",
+      "At a time"
+    ],
+    [
+      "Accendi",
+      "Turn on"
+    ],
+    [
+      "Aggiungi un innesco",
+      "Add a trigger"
+    ],
+    [
+      "Aggiungi un'azione",
+      "Add an action"
+    ],
+    [
+      "Aggiungi una condizione",
+      "Add a condition"
+    ],
+    [
+      "Alba o tramonto",
+      "Sunrise or sunset"
+    ],
+    [
+      "Apri serratura",
+      "Unlock"
+    ],
+    [
+      "Aspetta",
+      "Wait"
+    ],
+    [
+      "Attenzione: il cervello ha usato dispositivi che non trovo ({0}). Controlla prima di salvare.",
+      "Warning: the brain used devices I cannot find ({0}). Check before saving."
+    ],
+    [
+      "Attività",
+      "Activity"
+    ],
+    [
+      "Automazione attivata",
+      "Automation enabled"
+    ],
+    [
+      "Automazione avviata",
+      "Automation started"
+    ],
+    [
+      "Automazione eliminata",
+      "Automation deleted"
+    ],
+    [
+      "Automazione salvata in Home Assistant",
+      "Automation saved in Home Assistant"
+    ],
+    [
+      "Automazione spenta",
+      "Automation disabled"
+    ],
+    [
+      "Automazioni di Home Assistant",
+      "Home Assistant automations"
+    ],
+    [
+      "Automazioni di Home Assistant: vedi, accendi, spegni, esegui, modifica, crea ed elimina con un editor visuale «Quando / Solo se / Allora»",
+      "Home Assistant automations: view, enable, disable, run, edit, create and delete with a visual «When / Only if / Then» editor"
+    ],
+    [
+      "Automazioni progettate a parole dal cervello, con controllo dei dispositivi usati",
+      "Automations designed from words by the brain, with a check of the devices used"
+    ],
+    [
+      "Blocco avanzato",
+      "Advanced block"
+    ],
+    [
+      "Blocco avanzato creato in Home Assistant: resta com'è. Passa a «Esperto» per modificarlo.",
+      "Advanced block created in Home Assistant: it stays as is. Switch to «Expert» to edit it."
+    ],
+    [
+      "Bozza preparata dal cervello: controlla e salva.",
+      "Draft prepared by the brain: check and save."
+    ],
+    [
+      "Cerca…",
+      "Search…"
+    ],
+    [
+      "Chiudi a chiave",
+      "Lock"
+    ],
+    [
+      "Comanda un dispositivo",
+      "Control a device"
+    ],
+    [
+      "Comandi rapidi per stanza e per piano direttamente dal pannello",
+      "Quick controls per room and floor right from the panel"
+    ],
+    [
+      "Comando delicato: conferma per procedere",
+      "Sensitive command: confirm to proceed"
+    ],
+    [
+      "Comando non disponibile per questo dispositivo",
+      "Command not available for this device"
+    ],
+    [
+      "Configurazione non leggibile",
+      "Configuration not readable"
+    ],
+    [
+      "Cosa fare",
+      "What to do"
+    ],
+    [
+      "Da almeno (minuti)",
+      "For at least (minutes)"
+    ],
+    [
+      "Descrivila a parole: «quando apro la porta di notte accendi la luce dell'ingresso»",
+      "Describe it in words: «when I open the door at night turn on the hall light»"
+    ],
+    [
+      "Di giorno",
+      "By day"
+    ],
+    [
+      "Di giorno o di notte",
+      "By day or by night"
+    ],
+    [
+      "Di notte",
+      "At night"
+    ],
+    [
+      "Dispositivo non comandabile",
+      "Device cannot be controlled"
+    ],
+    [
+      "Diventa (vuoto = qualsiasi cambio)",
+      "Becomes (empty = any change)"
+    ],
+    [
+      "Dopo le",
+      "After"
+    ],
+    [
+      "Eliminare questa automazione da Home Assistant? Non si può annullare.",
+      "Delete this automation from Home Assistant? This cannot be undone."
+    ],
+    [
+      "Giorni",
+      "Days"
+    ],
+    [
+      "Home Assistant si avvia",
+      "Home Assistant starts"
+    ],
+    [
+      "In parallelo",
+      "In parallel"
+    ],
+    [
+      "In una fascia oraria o in certi giorni",
+      "In a time window or on certain days"
+    ],
+    [
+      "Inverti",
+      "Toggle"
+    ],
+    [
+      "JSON non valido",
+      "Invalid JSON"
+    ],
+    [
+      "La casa adesso",
+      "The home right now"
+    ],
+    [
+      "Le regole che girano dentro Home Assistant: vedile, accendile, spegnile, modificale o creane di nuove.",
+      "The rules running inside Home Assistant: view, enable, disable, edit them or create new ones."
+    ],
+    [
+      "Luminosità % (solo luci)",
+      "Brightness % (lights only)"
+    ],
+    [
+      "Manda una notifica",
+      "Send a notification"
+    ],
+    [
+      "Messaggio",
+      "Message"
+    ],
+    [
+      "Metti in coda",
+      "Queue it"
+    ],
+    [
+      "Minuti",
+      "Minutes"
+    ],
+    [
+      "Momento",
+      "Moment"
+    ],
+    [
+      "Orario",
+      "Time"
+    ],
+    [
+      "Pausa",
+      "Pause"
+    ],
+    [
+      "Prima delle",
+      "Before"
+    ],
+    [
+      "Progettala",
+      "Design it"
+    ],
+    [
+      "Riparti da capo",
+      "Restart from the beginning"
+    ],
+    [
+      "Salva in Home Assistant",
+      "Save in Home Assistant"
+    ],
+    [
+      "Salvata, ma questi dispositivi non esistono: {0}",
+      "Saved, but these devices do not exist: {0}"
+    ],
+    [
+      "Sensore",
+      "Sensor"
+    ],
+    [
+      "Sopra",
+      "Above"
+    ],
+    [
+      "Sotto",
+      "Below"
+    ],
+    [
+      "Spostamento (minuti, anche negativo)",
+      "Offset (minutes, can be negative)"
+    ],
+    [
+      "Tocca un dispositivo per accenderlo o spegnerlo. Le stanze occupate si illuminano.",
+      "Tap a device to turn it on or off. Occupied rooms light up."
+    ],
+    [
+      "Togli",
+      "Remove"
+    ],
+    [
+      "Torna alla base",
+      "Return to base"
+    ],
+    [
+      "Tracce",
+      "Traces"
+    ],
+    [
+      "Tutti",
+      "All"
+    ],
+    [
+      "Ultima volta: {0}",
+      "Last time: {0}"
+    ],
+    [
+      "Un blocco avanzato non è JSON valido",
+      "An advanced block is not valid JSON"
+    ],
+    [
+      "Un dispositivo cambia stato",
+      "A device changes state"
+    ],
+    [
+      "Un dispositivo è in uno stato",
+      "A device is in a state"
+    ],
+    [
+      "Un valore supera una soglia",
+      "A value crosses a threshold"
+    ],
+    [
+      "Una alla volta (ignora se già in corso)",
+      "One at a time (ignore if already running)"
+    ],
+    [
+      "es. Luce ingresso di notte",
+      "e.g. Hall light at night"
+    ],
+    [
+      "▶ Esegui ora",
+      "▶ Run now"
     ]
   ],
   "reverse": [
@@ -26839,6 +27151,318 @@
     [
       "🖧 Server in rete",
       "🖧 Serveurs du réseau"
+    ],
+    [
+      "+ Nuova",
+      "+ Nouvelle"
+    ],
+    [
+      "+ altro",
+      "+ autre"
+    ],
+    [
+      "A un orario",
+      "À une heure"
+    ],
+    [
+      "Accendi",
+      "Allumer"
+    ],
+    [
+      "Aggiungi un innesco",
+      "Ajouter un déclencheur"
+    ],
+    [
+      "Aggiungi un'azione",
+      "Ajouter une action"
+    ],
+    [
+      "Aggiungi una condizione",
+      "Ajouter une condition"
+    ],
+    [
+      "Alba o tramonto",
+      "Lever ou coucher du soleil"
+    ],
+    [
+      "Apri serratura",
+      "Déverrouiller"
+    ],
+    [
+      "Aspetta",
+      "Attendre"
+    ],
+    [
+      "Attenzione: il cervello ha usato dispositivi che non trovo ({0}). Controlla prima di salvare.",
+      "Attention : le cerveau a utilisé des appareils introuvables ({0}). Vérifiez avant d'enregistrer."
+    ],
+    [
+      "Attività",
+      "Activité"
+    ],
+    [
+      "Automazione attivata",
+      "Automatisation activée"
+    ],
+    [
+      "Automazione avviata",
+      "Automatisation lancée"
+    ],
+    [
+      "Automazione eliminata",
+      "Automatisation supprimée"
+    ],
+    [
+      "Automazione salvata in Home Assistant",
+      "Automatisation enregistrée dans Home Assistant"
+    ],
+    [
+      "Automazione spenta",
+      "Automatisation désactivée"
+    ],
+    [
+      "Automazioni di Home Assistant",
+      "Automatisations Home Assistant"
+    ],
+    [
+      "Automazioni di Home Assistant: vedi, accendi, spegni, esegui, modifica, crea ed elimina con un editor visuale «Quando / Solo se / Allora»",
+      "Automatisations Home Assistant : voir, activer, désactiver, lancer, modifier, créer et supprimer avec un éditeur visuel « Quand / Seulement si / Alors »"
+    ],
+    [
+      "Automazioni progettate a parole dal cervello, con controllo dei dispositivi usati",
+      "Automatisations conçues à partir de mots par le cerveau, avec vérification des appareils utilisés"
+    ],
+    [
+      "Blocco avanzato",
+      "Bloc avancé"
+    ],
+    [
+      "Blocco avanzato creato in Home Assistant: resta com'è. Passa a «Esperto» per modificarlo.",
+      "Bloc avancé créé dans Home Assistant : il reste tel quel. Passez en « Expert » pour le modifier."
+    ],
+    [
+      "Bozza preparata dal cervello: controlla e salva.",
+      "Brouillon préparé par le cerveau : vérifiez et enregistrez."
+    ],
+    [
+      "Cerca…",
+      "Rechercher…"
+    ],
+    [
+      "Chiudi a chiave",
+      "Verrouiller"
+    ],
+    [
+      "Comanda un dispositivo",
+      "Commander un appareil"
+    ],
+    [
+      "Comandi rapidi per stanza e per piano direttamente dal pannello",
+      "Commandes rapides par pièce et par étage depuis le panneau"
+    ],
+    [
+      "Comando delicato: conferma per procedere",
+      "Commande sensible : confirmez pour continuer"
+    ],
+    [
+      "Comando non disponibile per questo dispositivo",
+      "Commande non disponible pour cet appareil"
+    ],
+    [
+      "Configurazione non leggibile",
+      "Configuration illisible"
+    ],
+    [
+      "Cosa fare",
+      "Que faire"
+    ],
+    [
+      "Da almeno (minuti)",
+      "Depuis au moins (minutes)"
+    ],
+    [
+      "Descrivila a parole: «quando apro la porta di notte accendi la luce dell'ingresso»",
+      "Décrivez-la avec des mots : « quand j'ouvre la porte la nuit allume la lumière de l'entrée »"
+    ],
+    [
+      "Di giorno",
+      "De jour"
+    ],
+    [
+      "Di giorno o di notte",
+      "De jour ou de nuit"
+    ],
+    [
+      "Di notte",
+      "La nuit"
+    ],
+    [
+      "Dispositivo non comandabile",
+      "Appareil non commandable"
+    ],
+    [
+      "Diventa (vuoto = qualsiasi cambio)",
+      "Devient (vide = tout changement)"
+    ],
+    [
+      "Dopo le",
+      "Après"
+    ],
+    [
+      "Eliminare questa automazione da Home Assistant? Non si può annullare.",
+      "Supprimer cette automatisation de Home Assistant ? Action irréversible."
+    ],
+    [
+      "Giorni",
+      "Jours"
+    ],
+    [
+      "Home Assistant si avvia",
+      "Home Assistant démarre"
+    ],
+    [
+      "In parallelo",
+      "En parallèle"
+    ],
+    [
+      "In una fascia oraria o in certi giorni",
+      "Dans une plage horaire ou certains jours"
+    ],
+    [
+      "Inverti",
+      "Inverser"
+    ],
+    [
+      "JSON non valido",
+      "JSON non valide"
+    ],
+    [
+      "La casa adesso",
+      "La maison maintenant"
+    ],
+    [
+      "Le regole che girano dentro Home Assistant: vedile, accendile, spegnile, modificale o creane di nuove.",
+      "Les règles qui tournent dans Home Assistant : voyez-les, activez-les, désactivez-les, modifiez-les ou créez-en de nouvelles."
+    ],
+    [
+      "Luminosità % (solo luci)",
+      "Luminosité % (lumières uniquement)"
+    ],
+    [
+      "Manda una notifica",
+      "Envoyer une notification"
+    ],
+    [
+      "Messaggio",
+      "Message"
+    ],
+    [
+      "Metti in coda",
+      "Mettre en file"
+    ],
+    [
+      "Minuti",
+      "Minutes"
+    ],
+    [
+      "Momento",
+      "Moment"
+    ],
+    [
+      "Orario",
+      "Heure"
+    ],
+    [
+      "Pausa",
+      "Pause"
+    ],
+    [
+      "Prima delle",
+      "Avant"
+    ],
+    [
+      "Progettala",
+      "Concevoir"
+    ],
+    [
+      "Riparti da capo",
+      "Recommencer depuis le début"
+    ],
+    [
+      "Salva in Home Assistant",
+      "Enregistrer dans Home Assistant"
+    ],
+    [
+      "Salvata, ma questi dispositivi non esistono: {0}",
+      "Enregistrée, mais ces appareils n'existent pas : {0}"
+    ],
+    [
+      "Sensore",
+      "Capteur"
+    ],
+    [
+      "Sopra",
+      "Au-dessus"
+    ],
+    [
+      "Sotto",
+      "En dessous"
+    ],
+    [
+      "Spostamento (minuti, anche negativo)",
+      "Décalage (minutes, peut être négatif)"
+    ],
+    [
+      "Tocca un dispositivo per accenderlo o spegnerlo. Le stanze occupate si illuminano.",
+      "Touchez un appareil pour l'allumer ou l'éteindre. Les pièces occupées s'illuminent."
+    ],
+    [
+      "Togli",
+      "Retirer"
+    ],
+    [
+      "Torna alla base",
+      "Retour à la base"
+    ],
+    [
+      "Tracce",
+      "Traces"
+    ],
+    [
+      "Tutti",
+      "Tous"
+    ],
+    [
+      "Ultima volta: {0}",
+      "Dernière fois : {0}"
+    ],
+    [
+      "Un blocco avanzato non è JSON valido",
+      "Un bloc avancé n'est pas un JSON valide"
+    ],
+    [
+      "Un dispositivo cambia stato",
+      "Un appareil change d'état"
+    ],
+    [
+      "Un dispositivo è in uno stato",
+      "Un appareil est dans un état"
+    ],
+    [
+      "Un valore supera una soglia",
+      "Une valeur franchit un seuil"
+    ],
+    [
+      "Una alla volta (ignora se già in corso)",
+      "Une à la fois (ignorer si déjà en cours)"
+    ],
+    [
+      "es. Luce ingresso di notte",
+      "ex. Lumière de l'entrée la nuit"
+    ],
+    [
+      "▶ Esegui ora",
+      "▶ Lancer maintenant"
     ]
   ]
 }

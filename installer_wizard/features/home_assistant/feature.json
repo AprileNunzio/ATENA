@@ -23,7 +23,10 @@
     "Movimento e presenza per stanza",
     "Temperatura, umidità, porte e finestre aperte",
     "Conferma per serrature, allarme, cancelli e garage",
-    "Impara le frasi nuove e le ricorda"
+    "Impara le frasi nuove e le ricorda",
+    "Automazioni di Home Assistant: vedi, accendi, spegni, esegui, modifica, crea ed elimina con un editor visuale «Quando / Solo se / Allora»",
+    "Automazioni progettate a parole dal cervello, con controllo dei dispositivi usati",
+    "Comandi rapidi per stanza e per piano direttamente dal pannello"
   ],
   "settings": [
     {
