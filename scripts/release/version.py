@@ -32,6 +32,7 @@ TARGETS = (
     Target("native/Cargo.lock", rf'(name = "atena-egress"\r?\nversion = "){V}(")'),
     Target("native/Cargo.lock", rf'(name = "atena-native"\r?\nversion = "){V}(")'),
     Target("native/Cargo.lock", rf'(name = "atena-netguard"\r?\nversion = "){V}(")'),
+    Target("native/Cargo.lock", rf'(name = "atena-langid"\r?\nversion = "){V}(")'),
     Target("native/crates/atena-native/pyproject.toml", rf'(?m)^(version = "){V}(")'),
     Target("client_apk/app/build.gradle.kts", rf'(versionName = "){V}(")'),
     Target("client_satellite/context_bridge/setup_msi.py", rf'(version="){V}(")'),

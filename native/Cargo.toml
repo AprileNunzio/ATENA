@@ -1,9 +1,9 @@
 [workspace]
 resolver = "3"
-members = ["crates/bus-core", "crates/atena-native", "crates/egress", "crates/netguard"]
+members = ["crates/bus-core", "crates/atena-native", "crates/egress", "crates/netguard", "crates/langid"]
 
 [workspace.package]
-version = "4.1.13"
+version = "4.1.14"
 edition = "2024"
 rust-version = "1.85"
 license = "MIT"

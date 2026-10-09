@@ -12,6 +12,7 @@ crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 atena-bus-core = { path = "../bus-core" }
+atena-langid = { path = "../langid" }
 pyo3 = { version = "0.27.2", features = ["abi3-py311"] }
 
 [features]

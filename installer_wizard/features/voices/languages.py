@@ -107,11 +107,38 @@ _SCRIPTS = [
 _TOKEN = re.compile(r"[a-zà-ÿ']+", re.I)
 
 
+def _native():
+    import os
+    if os.environ.get("ATENA_NATIVE", "auto").strip() == "0":
+        return None
+    try:
+        import atena_native
+    except ImportError:
+        return None
+    return atena_native if hasattr(atena_native, "detect_language") else None
+
+
+NATIVE = _native()
+NATIVE_MIN_CHARS = 12
+
+
+def detect_native(text: str, allowed: str = "") -> str | None:
+    if NATIVE is None or len(text.strip()) < NATIVE_MIN_CHARS:
+        return None
+    guess = NATIVE.detect_language(text, allowed)
+    if guess and (guess[2] or guess[1] >= 0.5) and guess[0] in LANGS:
+        return guess[0]
+    return None
+
+
 def detect(text: str, default: str = DEFAULT) -> str:
     text = text or ""
     for pattern, lang in _SCRIPTS:
         if len(pattern.findall(text)) >= 2:
             return lang
+    native = detect_native(text)
+    if native:
+        return native
     tokens = [t.lower().strip("'") for t in _TOKEN.findall(text)]
     if not tokens:
         return default

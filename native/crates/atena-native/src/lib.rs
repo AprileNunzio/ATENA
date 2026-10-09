@@ -77,6 +77,24 @@ fn valid_origin(origin: &str) -> bool {
     atena_bus_core::valid_origin(origin)
 }
 
+#[pyfunction]
+#[pyo3(signature = (text, allowed = ""))]
+fn detect_language(py: Python<'_>, text: &str, allowed: &str) -> Option<(String, f64, bool)> {
+    py.detach(|| {
+        let codes: Vec<&str> = allowed
+            .split(',')
+            .map(str::trim)
+            .filter(|c| !c.is_empty())
+            .collect();
+        atena_langid::detect(text, &codes).map(|g| (g.code.to_owned(), g.confidence, g.reliable))
+    })
+}
+
+#[pyfunction]
+fn supported_languages() -> Vec<&'static str> {
+    atena_langid::supported()
+}
+
 #[pymodule(gil_used = false)]
 fn atena_native(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add("__version__", env!("CARGO_PKG_VERSION"))?;
@@ -86,5 +104,7 @@ fn atena_native(m: &Bound<'_, PyModule>) -> PyResult<()> {
     m.add_function(wrap_pyfunction!(valid_topic, m)?)?;
     m.add_function(wrap_pyfunction!(valid_pattern, m)?)?;
     m.add_function(wrap_pyfunction!(valid_origin, m)?)?;
+    m.add_function(wrap_pyfunction!(detect_language, m)?)?;
+    m.add_function(wrap_pyfunction!(supported_languages, m)?)?;
     Ok(())
 }

@@ -109,7 +109,7 @@ jobs:
 
       - name: Native Parity and Bus Tests
         working-directory: ./installer_wizard
-        run: python -m unittest tests.test_bus_router tests.test_atena_bus tests.test_nvr -v
+        run: python -m unittest tests.test_bus_router tests.test_atena_bus tests.test_nvr tests.test_language_native -v
 
       - name: Native Egress Proxy Tests
         working-directory: .

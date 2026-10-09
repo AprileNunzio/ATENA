@@ -80,7 +80,8 @@ Matplotlib (PSF-based), PyYAML (MIT), SQLAlchemy (MIT), sherpa-onnx (Apache-2.0)
 
 ### Native core (Rust)
 
-PyO3, tokio, serde, serde_json and landlock (MIT or Apache-2.0); unicode-ident (MIT or Apache-2.0, and Unicode-3.0).
+PyO3, tokio, serde, serde_json, socket2 and landlock (MIT or Apache-2.0); whatlang by Sergey Potapov (MIT) for language
+detection; unicode-ident (MIT or Apache-2.0, and Unicode-3.0).
 `cargo metadata` lists every crate with its license.
 
 ### Web
