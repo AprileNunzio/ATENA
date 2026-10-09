@@ -30,7 +30,7 @@ from features.laws.laws import laws
 from features.mind.mind import mind
 from features.chat import context as request_context
 from features.desktop.desk import desk
-from features.people import identity, people
+from features.people import people
 from features.skills.library import library as skill_library
 from features.study import study
 from features.voices import languages
@@ -145,8 +145,7 @@ async def assistant_chat(text: str, device: str, heard_lang: str | None = None, 
         if not verdict.directed:
             return JSONResponse({"ignored": True, "reason": verdict.reason, "score": verdict.score})
     said, text = text, dialogue.resolve(device, text)
-    speaker_slug = (identity.current(heard.get("speaker") or "") or {}).get("slug")
-    speech_lang = languages.resolve(text, device, heard_lang, people.preferred_languages(speaker_slug)[1])
+    speech_lang = languages.resolve(text, device, heard_lang, principal.slug)
     if speech_lang["lang"] != home_lang():
         background(ensure_language(speech_lang["lang"]))
 

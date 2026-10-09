@@ -3,6 +3,7 @@ import unittest
 from pathlib import Path
 from unittest import mock
 
+from features.locale import store as locale_store
 from features.people import people
 from features.people.presence import PresenceMonitor
 from features.voices import languages
@@ -13,11 +14,16 @@ class PersonLanguagesTest(unittest.TestCase):
         self.tmp = tempfile.TemporaryDirectory()
         self.patch = mock.patch.object(people, "PEOPLE_DIR", Path(self.tmp.name))
         self.patch.start()
+        self.prefs = mock.patch.object(locale_store, "PREFS_FILE", Path(self.tmp.name) / "prefs.json")
+        self.prefs.start()
+        locale_store.store.load()
+        locale_store.store._data = {scope: {} for scope in locale_store.SCOPES}
         profile = people.ensure("claire", "Claire")
         profile.update(ui_language="fr", voice_language="fr")
         people.save(profile)
 
     def tearDown(self):
+        self.prefs.stop()
         self.patch.stop()
         self.tmp.cleanup()
 
@@ -27,12 +33,12 @@ class PersonLanguagesTest(unittest.TestCase):
         self.assertEqual(people.preferred_languages(None), ("", ""))
 
     def test_ambiguous_speech_uses_the_person_voice_language(self):
-        self.assertEqual(languages.resolve("ok", "test-a", None, "fr")["lang"], "fr")
+        self.assertEqual(languages.resolve("ok", "test-a", None, "claire")["lang"], "fr")
         self.assertEqual(languages.resolve("ok", "test-b", None, "")["lang"], languages.DEFAULT)
         self.assertEqual(languages.resolve("ok", "test-c", None, "klingon")["lang"], languages.DEFAULT)
 
     def test_clear_speech_in_another_language_still_wins(self):
-        heard = languages.resolve("what is the weather like today in London", "test-d", "en", "fr")
+        heard = languages.resolve("what is the weather like today in London", "test-d", "en", "claire")
         self.assertEqual(heard["lang"], "en")
 
     def test_presence_carries_the_screen_language_of_known_people(self):

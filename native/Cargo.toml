@@ -3,7 +3,7 @@ resolver = "3"
 members = ["crates/bus-core", "crates/atena-native", "crates/egress"]
 
 [workspace.package]
-version = "4.1.0"
+version = "4.1.1"
 edition = "2024"
 rust-version = "1.85"
 license = "MIT"

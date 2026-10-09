@@ -1,5 +1,4 @@
 import re
-import time
 
 DEFAULT = "it"
 
@@ -140,8 +139,8 @@ _BACK_RE = re.compile(r"\b(?:basta|smettila|smetti|stop|enough)\s+(?:di\s+|with\
 
 
 def requested(text: str) -> tuple[str, bool] | None:
-    if m := _BACK_RE.search(text or ""):
-        return DEFAULT, False
+    if _BACK_RE.search(text or ""):
+        return "", False
     if m := _TEACH_RE.search(text or ""):
         code = _NAMES[m.group(1).lower()]
         return code, code != DEFAULT
@@ -150,34 +149,22 @@ def requested(text: str) -> tuple[str, bool] | None:
     return None
 
 
-STICKY_TTL = 3 * 3600
-_sessions: dict[str, dict] = {}
-
-
-def resolve(text: str, device: str, heard: str | None = None, preferred: str = "") -> dict:
-    now = time.time()
-    s = _sessions.get(device)
-    if s and now - s["at"] > STICKY_TTL:
-        s = None
+def resolve(text: str, device: str, heard: str | None = None, person: str = "") -> dict:
+    from features.locale import service
     req = requested(text)
     if req:
         lang, teach = req
-        s = None if lang == DEFAULT else {"lang": lang, "teach": teach, "at": now}
-        _sessions.pop(device, None)
-        if s:
-            _sessions[device] = s
-        return {"lang": lang, "teach": teach, "sticky": s is not None, "switched": True}
-    if s:
-        s["at"] = now
-        return {"lang": s["lang"], "teach": s["teach"], "sticky": True, "switched": False}
+        if lang:
+            choice = service.choose(lang, teach, person=person, device=device)
+            return {"lang": choice.lang, "teach": choice.teach, "sticky": True, "switched": True}
+        return {"lang": service.forget_choice(person=person, device=device), "teach": False, "sticky": False,
+                "switched": True}
+    choice = service.chosen(person, device)
+    if choice:
+        return {"lang": choice.lang, "teach": choice.teach, "sticky": True, "switched": False}
     heard = base(heard or "")
-    spoken = heard if heard in LANGS else detect(text, preferred if preferred in LANGS else DEFAULT)
+    spoken = heard if heard in LANGS else detect(text, service.preferred(person))
     return {"lang": spoken, "teach": False, "sticky": False, "switched": False}
-
-
-def current(device: str) -> str:
-    s = _sessions.get(device)
-    return s["lang"] if s and time.time() - s["at"] <= STICKY_TTL else DEFAULT
 
 
 def instruction(lang: str, teach: bool) -> str:
