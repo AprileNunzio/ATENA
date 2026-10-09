@@ -26,6 +26,7 @@ VENDOR = {
     "Xbot.glb": "https://raw.githubusercontent.com/mrdoob/three.js/r170/examples/models/gltf/Xbot.glb",
     "occt-import-js.js": "https://cdn.jsdelivr.net/npm/occt-import-js@0.0.22/dist/occt-import-js.js",
     "occt-import-js.wasm": "https://cdn.jsdelivr.net/npm/occt-import-js@0.0.22/dist/occt-import-js.wasm",
+    "qrcode.js": "https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js",
     "vision_bundle.mjs": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs",
     "vision_wasm_internal.js": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm/vision_wasm_internal.js",
     "vision_wasm_internal.wasm": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm/vision_wasm_internal.wasm",

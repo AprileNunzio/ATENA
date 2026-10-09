@@ -85,7 +85,7 @@ PyO3, tokio, serde, serde_json and landlock (MIT or Apache-2.0); unicode-ident (
 
 ### Web
 
-three.js (MIT), React (MIT), lucide-react (ISC), Leaflet (BSD-2-Clause), occt-import-js (LGPL-2.1, loaded unmodified
+three.js (MIT), qrcode-generator by Kazuhiko Arase (MIT, downloaded at runtime for VPN QR codes), React (MIT), lucide-react (ISC), Leaflet (BSD-2-Clause), occt-import-js (LGPL-2.1, loaded unmodified
 as a separate file), Tailwind CSS, Vite, PostCSS, Autoprefixer, TypeScript (MIT or Apache-2.0), Rajdhani and Inter
 fonts through Fontsource ([SIL OFL 1.1](https://openfontlicense.org)), bundled locally so no request reaches Google.
 
@@ -97,7 +97,8 @@ AndroidX, Material Components, OkHttp, Kotlin coroutines (Apache-2.0); ArduinoJs
 ### External programs started by Atena
 
 Blender (GPL-2.0-or-later), LibreDWG (GPL-3.0), FFmpeg (LGPL/GPL), LibreOffice (MPL-2.0), CUPS (Apache-2.0),
-Docker (Apache-2.0), gVisor (Apache-2.0), Firecracker (Apache-2.0), Ollama (MIT), Piper engine (MIT),
+Docker (Apache-2.0), gVisor (Apache-2.0), Firecracker (Apache-2.0), Ollama (MIT), Piper engine (MIT), nftables (GPL-2.0),
+WireGuard tools (GPL-2.0), OpenVPN (GPL-2.0), strongSwan (GPL-2.0), Tailscale client (BSD-3-Clause), ZeroTier One (MPL-2.0),
 linux-enable-ir-emitter (MIT), NVIDIA drivers (proprietary, installed from the distribution). They run as separate
 programs and are not part of Atena's code.
 

@@ -17,7 +17,7 @@ import urllib.request
 import zlib
 from pathlib import Path
 
-VERSION = "4.1.8"
+VERSION = "4.1.9"
 CONFIG = Path(os.environ.get("ATENA_NODE_CONFIG", "/etc/atena-node.json"))
 log = logging.getLogger("atena-rpa")
 
