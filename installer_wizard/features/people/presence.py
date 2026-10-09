@@ -86,7 +86,20 @@ class PresenceMonitor:
             self.unknown_held = ([], 0.0)
         return [p for p, _ in self.held.values()] + self.unknown_held[0]
 
-    def _greet(self, text: str, names: list) -> None:
+    def _greet(self, text: str, names: list, slug: str = "") -> None:
+        from features.locale import service
+        lang = service.preferred(slug)
+        if lang == "it":
+            self._announce(text, names)
+            return
+        from tasks import background
+        background(self._translated(text, names, lang))
+
+    async def _translated(self, text: str, names: list, lang: str) -> None:
+        from features.locale.pivot import pivot
+        self._announce(await pivot.from_pivot(text, lang, force=True), names)
+
+    def _announce(self, text: str, names: list) -> None:
         self.greeting_id += 1
         store.greeting = {"id": self.greeting_id, "text": text, "names": names, "at": time.time()}
         store.event("INFO", f"Saluto: {text}", "vision")
@@ -131,7 +144,7 @@ class PresenceMonitor:
                     text += f" Le ricordo: {r['title']}."
             if len(stable) > len(arrivals):
                 text += " " + describe(stable)
-            self._greet(text, names)
+            self._greet(text, names, arrivals[0]["slug"])
             from features.people.welcome import welcome
             from tasks import background
             background(welcome([p["slug"] for p in arrivals]))

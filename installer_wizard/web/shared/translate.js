@@ -54,7 +54,12 @@
         }
       }
     }
-    if (out === undefined) return text;
+    if (out === undefined) {
+      const icon = norm.match(/^([^\p{L}\p{N}«"'(]+)(\p{L}.*)$/u);
+      const inner = icon && state.exact.get(icon[2]);
+      if (inner === undefined || inner === null) return text;
+      out = icon[1] + inner;
+    }
     const lead = text.match(/^\s*/)[0], tail = text.match(/\s*$/)[0];
     return lead + out + tail;
   }

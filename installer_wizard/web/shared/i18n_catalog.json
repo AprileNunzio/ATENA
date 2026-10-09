@@ -15595,6 +15595,330 @@
     [
       "L'allarme non si richiama a mano: usa la prova dal pannello",
       "The alarm cannot be recalled by hand: use the test from the panel"
+    ],
+    [
+      "Passa a «Esperto»",
+      "Switch to «Expert»"
+    ],
+    [
+      "per ordinare ogni passo a mano.",
+      "to order every step by hand."
+    ],
+    [
+      "Abilità",
+      "Skills"
+    ],
+    [
+      "Agente Home Assistant",
+      "Home Assistant agent"
+    ],
+    [
+      "Agente di sistema",
+      "System agent"
+    ],
+    [
+      "Agente di sistema (Core)",
+      "System agent (Core)"
+    ],
+    [
+      "Agente di sorveglianza",
+      "Surveillance agent"
+    ],
+    [
+      "Agenti del Core",
+      "Core agents"
+    ],
+    [
+      "Analisi e ragionamento puro.",
+      "Analysis and pure reasoning."
+    ],
+    [
+      "Analista di sicurezza di rete",
+      "Network security analyst"
+    ],
+    [
+      "Architetto web",
+      "Web architect"
+    ],
+    [
+      "Architetto web (coder)",
+      "Web architect (coder)"
+    ],
+    [
+      "Automazione e manutenzione del sistema.",
+      "System automation and maintenance."
+    ],
+    [
+      "Calcoli e comandi brevi.",
+      "Calculations and short commands."
+    ],
+    [
+      "Capisce cosa vuoi fare prima di instradare.",
+      "Understands what you want to do before routing."
+    ],
+    [
+      "Cervello cognitivo",
+      "Cognitive brain"
+    ],
+    [
+      "Classificatore di intenti",
+      "Intent classifier"
+    ],
+    [
+      "Comandi domotici",
+      "Home automation commands"
+    ],
+    [
+      "Comandi e scene per la casa.",
+      "Commands and scenes for the home."
+    ],
+    [
+      "Controlla i dispositivi tramite Home Assistant.",
+      "Controls devices through Home Assistant."
+    ],
+    [
+      "Conversazione",
+      "Conversation"
+    ],
+    [
+      "Conversazione veloce",
+      "Quick conversation"
+    ],
+    [
+      "Costruisce strumenti nei piani a grafo.",
+      "Builds tools inside graph plans."
+    ],
+    [
+      "Costruttore di strumenti",
+      "Tool builder"
+    ],
+    [
+      "Critico finale",
+      "Final critic"
+    ],
+    [
+      "Da richiesta a specifica e file CAD.",
+      "From request to specification and CAD file."
+    ],
+    [
+      "Dialogo",
+      "Dialogue"
+    ],
+    [
+      "Disegno di oggetti nell'editor.",
+      "Drawing objects in the editor."
+    ],
+    [
+      "Domotico",
+      "Home automation"
+    ],
+    [
+      "Editor modelli 3D",
+      "3D model editor"
+    ],
+    [
+      "Esecuzione di scene e comandi per la casa.",
+      "Running scenes and commands for the home."
+    ],
+    [
+      "Estrae e ordina ciò che Atena ricorda di te.",
+      "Extracts and sorts what Atena remembers about you."
+    ],
+    [
+      "Generatore 3D",
+      "3D generator"
+    ],
+    [
+      "Generazione di modelli tridimensionali.",
+      "Generation of three-dimensional models."
+    ],
+    [
+      "Generazione di nuove abilità.",
+      "Generation of new skills."
+    ],
+    [
+      "Giudica il risultato prima di consegnarlo.",
+      "Judges the result before delivering it."
+    ],
+    [
+      "Impaginazione dei contenuti",
+      "Content layout"
+    ],
+    [
+      "Interpreta eventi e immagini delle telecamere.",
+      "Interprets camera events and images."
+    ],
+    [
+      "Interpreta i comandi per luci, scene e dispositivi.",
+      "Interprets commands for lights, scenes and devices."
+    ],
+    [
+      "Lettura di fonti, esercizi ed esami a riposo.",
+      "Reading sources, exercises and exams while idle."
+    ],
+    [
+      "Massima intelligenza",
+      "Maximum intelligence"
+    ],
+    [
+      "Memoria e ricordi",
+      "Memory and memories"
+    ],
+    [
+      "Modellazione 3D",
+      "3D modelling"
+    ],
+    [
+      "Per il profilo «{preset.label}» serve {need}",
+      "The «{preset.label}» profile needs {need}"
+    ],
+    [
+      "Piani e stesura di documenti.",
+      "Plans and document writing."
+    ],
+    [
+      "Pianificatore a grafo",
+      "Graph planner"
+    ],
+    [
+      "Prima il cloud più capace, la casa come riserva.",
+      "The most capable cloud first, home as a fallback."
+    ],
+    [
+      "Prima in casa; il cloud solo se la casa non risponde.",
+      "Home first; the cloud only if home does not answer."
+    ],
+    [
+      "Privato",
+      "Private"
+    ],
+    [
+      "Profilo sconosciuto",
+      "Unknown profile"
+    ],
+    [
+      "Progettazione e scrittura di siti e app.",
+      "Designing and writing websites and apps."
+    ],
+    [
+      "Progettista parametrico",
+      "Parametric designer"
+    ],
+    [
+      "Ragionatore analitico",
+      "Analytical reasoner"
+    ],
+    [
+      "Riassunti della giornata.",
+      "Daily summaries."
+    ],
+    [
+      "Ricercatore",
+      "Researcher"
+    ],
+    [
+      "Ricerche sul web e sintesi di fonti.",
+      "Web searches and source summaries."
+    ],
+    [
+      "Risposte parlate e chat; il sistema sceglie tra veloce e ragionamento.",
+      "Spoken and chat answers; the system chooses between quick and reasoning."
+    ],
+    [
+      "Saluti e domande brevi: risponde il primo cervello disponibile.",
+      "Greetings and short questions: the first available brain answers."
+    ],
+    [
+      "Sceglie come mostrare le risposte: testo, passi, tabelle, immagini, modelli 3D.",
+      "Chooses how to show answers: text, steps, tables, images, 3D models."
+    ],
+    [
+      "Sceglie ed esegue gli strumenti del sistema operativo.",
+      "Chooses and runs the operating system tools."
+    ],
+    [
+      "Scompone i compiti complessi in un DAG.",
+      "Breaks complex tasks down into a DAG."
+    ],
+    [
+      "Scrive siti e app e li ripara da solo.",
+      "Writes websites and apps and fixes them by itself."
+    ],
+    [
+      "Scrive strumenti dinamici in sandbox.",
+      "Writes dynamic tools in a sandbox."
+    ],
+    [
+      "Sintetizzatore di strumenti",
+      "Tool synthesiser"
+    ],
+    [
+      "Solo cloud",
+      "Cloud only"
+    ],
+    [
+      "Solo modelli in casa: nessun dato esce dalla rete.",
+      "Home models only: no data leaves the network."
+    ],
+    [
+      "Solo servizi cloud collegati, niente modelli locali.",
+      "Linked cloud services only, no local models."
+    ],
+    [
+      "Spiegazioni, analisi, codice, testi lunghi, azioni.",
+      "Explanations, analysis, code, long texts, actions."
+    ],
+    [
+      "Strumento di generazione 3D.",
+      "3D generation tool."
+    ],
+    [
+      "Studio, esercizi ed esami a riposo.",
+      "Study, exercises and exams while idle."
+    ],
+    [
+      "Trasforma una frase in una regola automatica.",
+      "Turns a sentence into an automatic rule."
+    ],
+    [
+      "Valuta gli allarmi del firewall e propone contromisure.",
+      "Assesses firewall alarms and proposes countermeasures."
+    ],
+    [
+      "Voto con veto sulle operazioni distruttive.",
+      "Vote with veto on destructive operations."
+    ],
+    [
+      "Voto sulla necessità dei passi.",
+      "Vote on whether the steps are needed."
+    ],
+    [
+      "Voto sulla recuperabilità degli errori.",
+      "Vote on whether errors can be recovered."
+    ],
+    [
+      "almeno un modello installato o un server in rete",
+      "at least one installed model or a network server"
+    ],
+    [
+      "un servizio cloud collegato",
+      "a linked cloud service"
+    ],
+    [
+      "Semplice",
+      "Simple"
+    ],
+    [
+      "Esperto",
+      "Expert"
+    ],
+    [
+      "Interfaccia essenziale e guidata",
+      "Essential, guided interface"
+    ],
+    [
+      "Tutti i dettagli, le priorità e le impostazioni avanzate",
+      "Every detail, priority and advanced setting"
     ]
   ],
   "reverse": [
@@ -30854,6 +31178,334 @@
     [
       "L'allarme non si richiama a mano: usa la prova dal pannello",
       "L'alarme ne se rappelle pas à la main : utilisez le test depuis le panneau"
+    ],
+    [
+      "Passa a «Esperto»",
+      "Passez en mode «Expert»"
+    ],
+    [
+      "per ordinare ogni passo a mano.",
+      "pour ordonner chaque étape à la main."
+    ],
+    [
+      "Abilità",
+      "Compétences"
+    ],
+    [
+      "Agente Home Assistant",
+      "Agent Home Assistant"
+    ],
+    [
+      "Agente di sistema",
+      "Agent système"
+    ],
+    [
+      "Agente di sistema (Core)",
+      "Agent système (Core)"
+    ],
+    [
+      "Agente di sorveglianza",
+      "Agent de surveillance"
+    ],
+    [
+      "Agenti del Core",
+      "Agents du Core"
+    ],
+    [
+      "Analisi e ragionamento puro.",
+      "Analyse et raisonnement pur."
+    ],
+    [
+      "Analista di sicurezza di rete",
+      "Analyste de sécurité réseau"
+    ],
+    [
+      "Architetto web",
+      "Architecte web"
+    ],
+    [
+      "Architetto web (coder)",
+      "Architecte web (codeur)"
+    ],
+    [
+      "Atena sceglie da sola in base all'hardware.",
+      "Atena choisit seule en fonction du matériel."
+    ],
+    [
+      "Automazione e manutenzione del sistema.",
+      "Automatisation et maintenance du système."
+    ],
+    [
+      "Calcoli e comandi brevi.",
+      "Calculs et commandes courtes."
+    ],
+    [
+      "Capisce cosa vuoi fare prima di instradare.",
+      "Comprend ce que vous voulez faire avant d'aiguiller."
+    ],
+    [
+      "Cervello cognitivo",
+      "Cerveau cognitif"
+    ],
+    [
+      "Classificatore di intenti",
+      "Classificateur d'intentions"
+    ],
+    [
+      "Comandi domotici",
+      "Commandes domotiques"
+    ],
+    [
+      "Comandi e scene per la casa.",
+      "Commandes et scènes pour la maison."
+    ],
+    [
+      "Controlla i dispositivi tramite Home Assistant.",
+      "Contrôle les appareils via Home Assistant."
+    ],
+    [
+      "Conversazione",
+      "Conversation"
+    ],
+    [
+      "Conversazione veloce",
+      "Conversation rapide"
+    ],
+    [
+      "Costruisce strumenti nei piani a grafo.",
+      "Construit des outils dans les plans en graphe."
+    ],
+    [
+      "Costruttore di strumenti",
+      "Constructeur d'outils"
+    ],
+    [
+      "Critico finale",
+      "Critique final"
+    ],
+    [
+      "Da richiesta a specifica e file CAD.",
+      "De la demande à la spécification et au fichier CAO."
+    ],
+    [
+      "Dialogo",
+      "Dialogue"
+    ],
+    [
+      "Disegno di oggetti nell'editor.",
+      "Dessin d'objets dans l'éditeur."
+    ],
+    [
+      "Domotico",
+      "Domotique"
+    ],
+    [
+      "Editor modelli 3D",
+      "Éditeur de modèles 3D"
+    ],
+    [
+      "Esecuzione di scene e comandi per la casa.",
+      "Exécution de scènes et de commandes pour la maison."
+    ],
+    [
+      "Estrae e ordina ciò che Atena ricorda di te.",
+      "Extrait et organise ce qu'Atena retient de vous."
+    ],
+    [
+      "Generatore 3D",
+      "Générateur 3D"
+    ],
+    [
+      "Generazione di modelli tridimensionali.",
+      "Génération de modèles tridimensionnels."
+    ],
+    [
+      "Generazione di nuove abilità.",
+      "Génération de nouvelles compétences."
+    ],
+    [
+      "Giudica il risultato prima di consegnarlo.",
+      "Juge le résultat avant de le livrer."
+    ],
+    [
+      "Impaginazione dei contenuti",
+      "Mise en page des contenus"
+    ],
+    [
+      "Interpreta eventi e immagini delle telecamere.",
+      "Interprète les événements et les images des caméras."
+    ],
+    [
+      "Interpreta i comandi per luci, scene e dispositivi.",
+      "Interprète les commandes pour les lumières, les scènes et les appareils."
+    ],
+    [
+      "Lettura di fonti, esercizi ed esami a riposo.",
+      "Lecture de sources, exercices et examens au repos."
+    ],
+    [
+      "Massima intelligenza",
+      "Intelligence maximale"
+    ],
+    [
+      "Memoria e ricordi",
+      "Mémoire et souvenirs"
+    ],
+    [
+      "Modellazione 3D",
+      "Modélisation 3D"
+    ],
+    [
+      "Per il profilo «{preset.label}» serve {need}",
+      "Le profil «{preset.label}» nécessite {need}"
+    ],
+    [
+      "Piani e stesura di documenti.",
+      "Plans et rédaction de documents."
+    ],
+    [
+      "Pianificatore a grafo",
+      "Planificateur en graphe"
+    ],
+    [
+      "Prima il cloud più capace, la casa come riserva.",
+      "D'abord le cloud le plus performant, la maison en réserve."
+    ],
+    [
+      "Prima in casa; il cloud solo se la casa non risponde.",
+      "D'abord la maison ; le cloud seulement si la maison ne répond pas."
+    ],
+    [
+      "Privato",
+      "Privé"
+    ],
+    [
+      "Profilo sconosciuto",
+      "Profil inconnu"
+    ],
+    [
+      "Progettazione e scrittura di siti e app.",
+      "Conception et écriture de sites et d'applications."
+    ],
+    [
+      "Progettista parametrico",
+      "Concepteur paramétrique"
+    ],
+    [
+      "Ragionatore analitico",
+      "Raisonneur analytique"
+    ],
+    [
+      "Riassunti della giornata.",
+      "Résumés de la journée."
+    ],
+    [
+      "Ricercatore",
+      "Chercheur"
+    ],
+    [
+      "Ricerche sul web e sintesi di fonti.",
+      "Recherches sur le web et synthèse de sources."
+    ],
+    [
+      "Risposte parlate e chat; il sistema sceglie tra veloce e ragionamento.",
+      "Réponses vocales et chat ; le système choisit entre rapide et raisonnement."
+    ],
+    [
+      "Saluti e domande brevi: risponde il primo cervello disponibile.",
+      "Salutations et questions courtes : le premier cerveau disponible répond."
+    ],
+    [
+      "Sceglie come mostrare le risposte: testo, passi, tabelle, immagini, modelli 3D.",
+      "Choisit comment afficher les réponses : texte, étapes, tableaux, images, modèles 3D."
+    ],
+    [
+      "Sceglie ed esegue gli strumenti del sistema operativo.",
+      "Choisit et exécute les outils du système d'exploitation."
+    ],
+    [
+      "Scompone i compiti complessi in un DAG.",
+      "Décompose les tâches complexes en un DAG."
+    ],
+    [
+      "Scrive siti e app e li ripara da solo.",
+      "Écrit des sites et des applications et les répare seul."
+    ],
+    [
+      "Scrive strumenti dinamici in sandbox.",
+      "Écrit des outils dynamiques en bac à sable."
+    ],
+    [
+      "Sintetizzatore di strumenti",
+      "Synthétiseur d'outils"
+    ],
+    [
+      "Solo cloud",
+      "Cloud uniquement"
+    ],
+    [
+      "Solo modelli in casa: nessun dato esce dalla rete.",
+      "Modèles locaux uniquement : aucune donnée ne quitte le réseau."
+    ],
+    [
+      "Solo servizi cloud collegati, niente modelli locali.",
+      "Services cloud connectés uniquement, aucun modèle local."
+    ],
+    [
+      "Spiegazioni, analisi, codice, testi lunghi, azioni.",
+      "Explications, analyses, code, textes longs, actions."
+    ],
+    [
+      "Strumento di generazione 3D.",
+      "Outil de génération 3D."
+    ],
+    [
+      "Studio, esercizi ed esami a riposo.",
+      "Étude, exercices et examens au repos."
+    ],
+    [
+      "Trasforma una frase in una regola automatica.",
+      "Transforme une phrase en règle automatique."
+    ],
+    [
+      "Valuta gli allarmi del firewall e propone contromisure.",
+      "Évalue les alarmes du pare-feu et propose des contre-mesures."
+    ],
+    [
+      "Voto con veto sulle operazioni distruttive.",
+      "Vote avec veto sur les opérations destructrices."
+    ],
+    [
+      "Voto sulla necessità dei passi.",
+      "Vote sur la nécessité des étapes."
+    ],
+    [
+      "Voto sulla recuperabilità degli errori.",
+      "Vote sur la récupérabilité des erreurs."
+    ],
+    [
+      "almeno un modello installato o un server in rete",
+      "au moins un modèle installé ou un serveur sur le réseau"
+    ],
+    [
+      "un servizio cloud collegato",
+      "un service cloud connecté"
+    ],
+    [
+      "Semplice",
+      "Simple"
+    ],
+    [
+      "Esperto",
+      "Expert"
+    ],
+    [
+      "Interfaccia essenziale e guidata",
+      "Interface essentielle et guidée"
+    ],
+    [
+      "Tutti i dettagli, le priorità e le impostazioni avanzate",
+      "Tous les détails, les priorités et les réglages avancés"
     ]
   ]
 }

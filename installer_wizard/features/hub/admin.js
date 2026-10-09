@@ -27,7 +27,7 @@
     const parts = [d.health.down.length ? `${d.health.down.length} componenti da controllare` : "tutto funziona"];
     parts.push(people.length ? `in casa: ${people.join(", ")}` : "nessuno riconosciuto davanti allo schermo");
     if (busy) parts.push(`${busy} agenti al lavoro`);
-    return parts.join(" · ");
+    return parts;
   }
 
   function live(d) {
@@ -64,7 +64,11 @@
     try {
       const d = await A.api("GET", "/api/hub");
       data = d;
-      $("hub-status").textContent = sentence(d);
+      $("hub-status").replaceChildren(...sentence(d).flatMap((part, i) => {
+        const span = document.createElement("span");
+        span.textContent = part;
+        return i ? [" · ", span] : [span];
+      }));
       $("hub-live").innerHTML = live(d);
       await build(d);
       document.getElementById("tab-hub").classList.toggle("flat", failed);

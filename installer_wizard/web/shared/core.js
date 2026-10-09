@@ -46,8 +46,9 @@
       if (m) return `${m}m ${s % 60}s`;
       return `${s}s`;
     },
-    clock(d = new Date()) { return d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", second: "2-digit" }); },
-    date(d = new Date()) { return d.toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" }); },
+    locale: () => document.documentElement.lang || "it",
+    clock(d = new Date()) { return d.toLocaleTimeString(document.documentElement.lang || "it", { hour: "2-digit", minute: "2-digit", second: "2-digit" }); },
+    date(d = new Date()) { return d.toLocaleDateString(document.documentElement.lang || "it", { weekday: "long", day: "numeric", month: "long", year: "numeric" }); },
     esc(s) { return String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); },
   };
 

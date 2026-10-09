@@ -127,6 +127,7 @@ def from_python(text: str) -> list[str]:
     return out
 
 
+LITERAL_FILES = {"features/brain/roles.py", "features/brain/presets.py", "features/brain/components.py"}
 DICT_BLOCKS = {"backend/config.py": "EDITABLE_KEYS", "backend/feature_registry.py": "CATEGORIES", "backend/state.py": "PHASES"}
 DICT_VALUE = re.compile(r"^\s*\"[A-Za-z0-9_]+\"\s*:\s*\"((?:[^\"\\]|\\.)+)\"", re.M)
 
@@ -157,6 +158,8 @@ def extract() -> dict[str, list[str]]:
         elif path.suffix == ".py":
             rel_path = path.relative_to(ROOT).as_posix()
             strings = from_python(text) + (from_dict_block(text, DICT_BLOCKS[rel_path]) if rel_path in DICT_BLOCKS else [])
+            if rel_path in LITERAL_FILES:
+                strings += [s for s in from_js(text) if s not in strings]
             if rel_path.startswith("backend/"):
                 strings += [s for s in status_strings(text) if s not in strings]
         else:

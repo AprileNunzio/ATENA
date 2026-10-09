@@ -28,7 +28,7 @@
 
   function tick() {
     const d = new Date();
-    $("clock").textContent = d.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" });
+    $("clock").textContent = d.toLocaleTimeString(document.documentElement.lang || "it", { hour: "2-digit", minute: "2-digit" });
     $("date").textContent = fmt.date(d);
     const h = d.getHours();
     const g = h < 6 ? "Buonanotte" : h < 13 ? "Buongiorno" : h < 18 ? "Buon pomeriggio" : "Buonasera";

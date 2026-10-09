@@ -21,8 +21,10 @@ def system_ui() -> str:
 
 
 def system_reply() -> str:
-    value = languages.base(env_get("ATENA_REPLY_LANG", "")) or languages.DEFAULT
-    return value if value in languages.LANGS else languages.DEFAULT
+    for value in (languages.base(env_get("ATENA_REPLY_LANG", "")), languages.base(env_get("ATENA_UI_LANG", ""))):
+        if value in languages.LANGS:
+            return value
+    return languages.DEFAULT
 
 
 def _profile(slug: str) -> dict:
