@@ -1,0 +1,62 @@
+{
+  "id": "voicestudio",
+  "name": "Studio delle voci",
+  "icon": "🎙",
+  "category": "assistente",
+  "order": 31,
+  "pinned": true,
+  "panel": "voicestudio",
+  "description": "Crea nuove voci per Atena: inventale scegliendo com'è fatta o copia la tua leggendo una frase. Funziona con VoiceStudio, un programma separato che gira su questo computer o su un altro PC di casa.",
+  "toggle": {
+    "env": "ATENA_VOICESTUDIO",
+    "default": "0",
+    "initial": "0",
+    "apply": [
+      "voicestudio"
+    ]
+  },
+  "requires": {
+    "ram_gb": 8
+  },
+  "capabilities": [
+    "Voci inventate scegliendo figure: donna o uomo, età, tono, sussurro",
+    "Copia della tua voce leggendo una frase, con il consenso registrato",
+    "Atena parla con la voce che scegli, in oltre 600 lingue",
+    "Trascrizione di audio e video della cartella condivisa",
+    "Audiolibri e letture di documenti salvati come file audio",
+    "Installazione con un clic su questo computer o collegamento a un altro PC di casa"
+  ],
+  "settings": [
+    {
+      "key": "ATENA_VOICESTUDIO_WHERE",
+      "label": "Dove funziona lo Studio delle voci",
+      "type": "select",
+      "default": "local",
+      "apply": [
+        "voicestudio"
+      ],
+      "options": [
+        {
+          "value": "local",
+          "label": "Su questo computer"
+        },
+        {
+          "value": "remote",
+          "label": "Su un altro computer"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_VOICESTUDIO_URL",
+      "label": "Indirizzo dell'altro computer",
+      "type": "text",
+      "default": ""
+    },
+    {
+      "key": "ATENA_VOICESTUDIO_KEY",
+      "label": "Chiave dello Studio delle voci",
+      "type": "secret",
+      "default": ""
+    }
+  ]
+}

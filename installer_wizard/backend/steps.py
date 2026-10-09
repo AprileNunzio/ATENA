@@ -64,6 +64,8 @@ STEPS = [
          critical=False),
     Step("office", "64-office.sh", "Ufficio", "LibreOffice, caratteri e librerie per documenti Office, ODF e PDF", 2,
          critical=False, background=True, priority=60, size_gb=1.5),
+    Step("voicestudio", "66-voicestudio.sh", "Studio delle voci", "Voci copiate e inventate e trascrizione in oltre 600 lingue", 1,
+         critical=False, background=True, priority=95, size_gb=6.0),
     Step("convert3d", "62-convert3d.sh", "Conversione 3D", "Blender e LibreDWG per aprire BLEND, USD e DWG", 1,
          critical=False, background=True, priority=70, size_gb=1.0),
     Step("models", "60-models.sh", "Reti neurali essenziali", "Modello linguistico veloce e memoria semantica", 12),

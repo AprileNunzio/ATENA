@@ -1,0 +1,17 @@
+{
+  "name": "Voice studio",
+  "description": "Create new voices for Atena: invent one by choosing how it sounds or copy yours by reading a sentence. It works with VoiceStudio, a separate program running on this computer or on another home PC.",
+  "capabilities": [
+    "Voices invented by picking pictures: woman or man, age, pitch, whisper",
+    "Copy of your voice by reading a sentence, with recorded consent",
+    "Atena speaks with the voice you choose, in over 600 languages",
+    "Transcription of audio and video from the shared folder",
+    "Audiobooks and document readings saved as audio files",
+    "One-click install on this computer or connection to another home PC"
+  ],
+  "settings": {
+    "ATENA_VOICESTUDIO_WHERE": "Where the Voice studio runs",
+    "ATENA_VOICESTUDIO_URL": "Address of the other computer",
+    "ATENA_VOICESTUDIO_KEY": "Voice studio key"
+  }
+}

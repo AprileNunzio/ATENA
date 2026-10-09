@@ -95,7 +95,14 @@ def is_online(voice: str) -> bool:
     return bool(_ONLINE_RE.match(voice))
 
 
+def is_studio(voice: str) -> bool:
+    from features.voicestudio.client import VOICE_PREFIX
+    return str(voice or "").startswith(VOICE_PREFIX)
+
+
 def engine(voice: str) -> str:
+    if is_studio(voice):
+        return "studio"
     return "piper" if is_piper(voice) else "online" if is_online(voice) else "kokoro"
 
 
@@ -107,6 +114,9 @@ def online_enabled() -> bool:
 
 
 def allowed(voice: str) -> bool:
+    if is_studio(voice):
+        from features.voicestudio.client import client
+        return client.enabled()
     return online_enabled() if is_online(voice) else True
 
 
@@ -247,6 +257,10 @@ def piper_voice_path(voice: str) -> str:
 
 def describe(voice: str, piper: dict | None = None, online: dict | None = None) -> dict:
     kind = engine(voice)
+    if kind == "studio":
+        from features.voicestudio.client import client
+        return {"id": voice, "name": client.name_of(voice), "gender": "", "lang": HOME_LANG, "locale": HOME_LANG,
+                "engine": "studio", "size_mb": None, "quality": "personalizzata", "rank": 0, "multi": True}
     if kind == "piper":
         info = (piper if piper is not None else piper_catalog()).get(voice) or {}
         name = info.get("name") or voice.split("-")[1]

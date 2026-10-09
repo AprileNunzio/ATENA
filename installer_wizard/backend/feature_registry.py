@@ -145,6 +145,8 @@ class Registry:
                 return value
             if value == "0":
                 return "0"
+        if t.get("initial") in MODES and not (t.get("env") and read_env().get(t["env"], "")):
+            return t["initial"]
         if t.get("hook") and t["hook"] in self.hooks:
             try:
                 if not self.hooks[t["hook"]]["get"]():

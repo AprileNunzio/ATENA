@@ -88,6 +88,7 @@ from features.hub import api as hub_api
 from features.tv import service as tv_service
 from features.sports.watch import watcher as sports_watcher
 from features.proxmox import api as proxmox_api
+from features.voicestudio import api as voicestudio_api
 from features.places import service as places_service
 from features.locale import household as locale_household
 from features.vpn.service import service as vpn_service
@@ -177,6 +178,7 @@ FEATURE_APIS = (
     tv_api,
     hub_api,
     proxmox_api,
+    voicestudio_api,
     laws_api,
     cameras_api,
     models3d_api,

@@ -135,8 +135,18 @@ def _prune_cache() -> None:
         old.unlink(missing_ok=True)
 
 
-async def speak_with(text: str, voice: str, speed: float) -> bytes:
+async def _studio(text: str, voice: str, speed: float, lang: str | None = None) -> bytes:
+    from features.voicestudio.client import StudioError, client
+    try:
+        return await client.speech(text, voice, speed, lang)
+    except StudioError as exc:
+        raise RuntimeError(f"Studio delle voci: {exc}") from exc
+
+
+async def speak_with(text: str, voice: str, speed: float, lang: str | None = None) -> bytes:
     kind = engine(voice)
+    if kind == "studio":
+        return await _studio(text, voice, speed, lang)
     return await (_piper(text, voice, speed) if kind == "piper" else
                   _online(text, voice, speed) if kind == "online" else _kokoro(text, voice, speed))
 
@@ -151,7 +161,7 @@ async def synthesize(text: str, voice: str | None = None, speed: float | None = 
     speed = speed or _speed()
     pitch = _pitch() if pitch is None else max(-6.0, min(6.0, pitch))
     volume = _volume() if volume is None else max(0.4, min(2.0, volume))
-    if voice and describe(voice)["lang"] != lang and "Multilingual" not in voice:
+    if voice and describe(voice)["lang"] != lang and "Multilingual" not in voice and not describe(voice).get("multi"):
         voice = None
     chain = [voice] if voice else []
     if lang != home:
@@ -162,7 +172,7 @@ async def synthesize(text: str, voice: str | None = None, speed: float | None = 
                 store.event("INFO", f"Nessuna voce in {languages.label(lang).lower()}: scarico {target}", "voice")
     chain = list(dict.fromkeys(chain + voice_order()))
 
-    errors, kokoro_down, online_down = [], False, False
+    errors, kokoro_down, online_down, studio_down = [], False, False, False
     for i, v in enumerate(chain):
         cached = CACHE_DIR / f"{hashlib.sha1(f'{v}|{speed}|{pitch}|{volume}|{text}'.encode()).hexdigest()}.wav"
         if cached.exists():
@@ -170,14 +180,15 @@ async def synthesize(text: str, voice: str | None = None, speed: float | None = 
             return cached.read_bytes()
         kind = engine(v)
         if ((kind == "piper" and not piper_installed(v)) or (kind == "kokoro" and kokoro_down)
-                or (kind == "online" and online_down)):
+                or (kind == "online" and online_down) or (kind == "studio" and studio_down)):
             errors.append(f"{v}: non disponibile")
             continue
         try:
-            data = await _retune(await speak_with(text, v, speed), pitch, volume)
+            data = await _retune(await speak_with(text, v, speed, lang), pitch, volume)
         except (httpx.HTTPError, RuntimeError, OSError, asyncio.TimeoutError) as exc:
             kokoro_down = kokoro_down or (kind == "kokoro" and isinstance(exc, httpx.TransportError))
             online_down = online_down or kind == "online"
+            studio_down = studio_down or kind == "studio"
             errors.append(f"{v}: {exc}")
             continue
         if i and errors:

@@ -28,7 +28,7 @@ ADMIN_PORT = int(os.environ.get("ATENA_ADMIN_PORT", 8001 if DEMO else 8080))
 CORE_URL = os.environ.get("ATENA_CORE_URL", "http://127.0.0.1:8443")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 
-VERSION = "4.1.35"
+VERSION = "4.1.36"
 UI_LANGUAGES = {"it": "Italiano", "en": "English", "fr": "Français", "es": "Español", "de": "Deutsch", "pt": "Português",
                 "nl": "Nederlands", "pl": "Polski", "ro": "Română", "ru": "Русский", "uk": "Українська", "el": "Ελληνικά",
                 "tr": "Türkçe", "ar": "العربية", "he": "עברית", "fa": "فارسی", "zh": "中文", "ja": "日本語", "ko": "한국어",

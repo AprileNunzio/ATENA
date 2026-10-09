@@ -14883,6 +14883,430 @@
     [
       "Widget del proprietario sul display: risorse, sistemi, firewall, aggiornamenti e notizie quando ti avvicini",
       "Owner's widgets on the display: resources, systems, firewall, updates and news when you come close"
+    ],
+    [
+      "1 voce",
+      "1 voice"
+    ],
+    [
+      "Accendo lo Studio delle voci",
+      "Turning on the Voice studio"
+    ],
+    [
+      "Atena parla con la voce che scegli, in oltre 600 lingue",
+      "Atena speaks with the voice you choose, in over 600 languages"
+    ],
+    [
+      "Atena è tornata alla voce di prima",
+      "Atena is back to the previous voice"
+    ],
+    [
+      "Audiolibri e letture di documenti salvati come file audio",
+      "Audiobooks and document readings saved as audio files"
+    ],
+    [
+      "Che tono ha?",
+      "What pitch does it have?"
+    ],
+    [
+      "Chi parla?",
+      "Who is speaking?"
+    ],
+    [
+      "Chiave dello Studio",
+      "Studio key"
+    ],
+    [
+      "Chiave dello Studio delle voci",
+      "Voice studio key"
+    ],
+    [
+      "Come parla?",
+      "How does it speak?"
+    ],
+    [
+      "Come si chiama la voce?",
+      "What is the voice called?"
+    ],
+    [
+      "Copia della tua voce leggendo una frase, con il consenso registrato",
+      "Copy of your voice by reading a sentence, with recorded consent"
+    ],
+    [
+      "Crea nuove voci per Atena: inventale o copia la tua.",
+      "Create new voices for Atena: invent them or copy yours."
+    ],
+    [
+      "Crea nuove voci per Atena: inventale scegliendo com'è fatta o copia la tua leggendo una frase. Funziona con VoiceStudio, un programma separato che gira su questo computer o su un altro PC di casa.",
+      "Create new voices for Atena: invent one by choosing how it sounds or copy yours by reading a sentence. It works with VoiceStudio, a separate program running on this computer or on another home PC."
+    ],
+    [
+      "Crea una voce",
+      "Create a voice"
+    ],
+    [
+      "Dai alla voce un nome breve (lettere e numeri)",
+      "Give the voice a short name (letters and numbers)"
+    ],
+    [
+      "Dove funziona",
+      "Where it runs"
+    ],
+    [
+      "Dove funziona lo Studio delle voci",
+      "Where the Voice studio runs"
+    ],
+    [
+      "Eliminare questa voce? Non si potrà recuperare.",
+      "Delete this voice? It cannot be recovered."
+    ],
+    [
+      "File troppo grande (massimo 25 MB)",
+      "File too large (maximum 25 MB)"
+    ],
+    [
+      "Il file non è una registrazione audio",
+      "The file is not an audio recording"
+    ],
+    [
+      "Impostazioni salvate",
+      "Settings saved"
+    ],
+    [
+      "Indirizzo dell'altro computer",
+      "Address of the other computer"
+    ],
+    [
+      "Installazione con un clic su questo computer o collegamento a un altro PC di casa",
+      "One-click install on this computer or connection to another home PC"
+    ],
+    [
+      "Inventala o copiala",
+      "Invent it or copy it"
+    ],
+    [
+      "La persona di cui copio la voce è d'accordo e leggerà lei la frase. Se sei tu, va benissimo.",
+      "The person whose voice I am copying agrees and will read the sentence themselves. If it is you, that is perfect."
+    ],
+    [
+      "La prima volta scarica circa 6 GB: può volerci un po'. Puoi chiudere questa pagina.",
+      "The first time it downloads about 6 GB: it may take a while. You can close this page."
+    ],
+    [
+      "Le mie voci",
+      "My voices"
+    ],
+    [
+      "Leggi questa frase con calma",
+      "Read this sentence calmly"
+    ],
+    [
+      "Lingua della frase",
+      "Sentence language"
+    ],
+    [
+      "Lo Studio delle voci è un programma a parte che Atena usa per parlare con voci nuove. Scegli dove deve funzionare e premi il pulsante.",
+      "The Voice studio is a separate program Atena uses to speak with new voices. Choose where it should run and press the button."
+    ],
+    [
+      "Non hai ancora creato nessuna voce.",
+      "You have not created any voice yet."
+    ],
+    [
+      "Non posso usare il microfono: controlla i permessi del browser",
+      "I cannot use the microphone: check the browser permissions"
+    ],
+    [
+      "Non risponde",
+      "Not responding"
+    ],
+    [
+      "Ora Atena parla con questa voce",
+      "Atena now speaks with this voice"
+    ],
+    [
+      "Per esempio: Nonno Pino",
+      "For example: Grandpa Joe"
+    ],
+    [
+      "Premi «Ascolta» per sentirla e «Usa per Atena» per farla parlare con quella voce.",
+      "Press «Listen» to hear it and «Use for Atena» to make Atena speak with that voice."
+    ],
+    [
+      "Prima accendi lo Studio",
+      "Turn on the Studio first"
+    ],
+    [
+      "Pronto",
+      "Ready"
+    ],
+    [
+      "Quanti anni ha?",
+      "How old is it?"
+    ],
+    [
+      "Questo browser non può registrare qui: scegli un file audio con la frase letta.",
+      "This browser cannot record here: choose an audio file with the sentence read aloud."
+    ],
+    [
+      "Registrazione troppo corta o troppo lunga: leggi tutta la frase",
+      "Recording too short or too long: read the whole sentence"
+    ],
+    [
+      "Serve il consenso della persona di cui copi la voce",
+      "You need the consent of the person whose voice you copy"
+    ],
+    [
+      "Si sta accendendo",
+      "Turning on"
+    ],
+    [
+      "Si sta preparando",
+      "Getting ready"
+    ],
+    [
+      "Spegnere lo Studio delle voci? Le voci create restano salvate.",
+      "Turn off the Voice studio? The voices you created stay saved."
+    ],
+    [
+      "Studio delle voci",
+      "Voice studio"
+    ],
+    [
+      "Studio delle voci spento",
+      "Voice studio turned off"
+    ],
+    [
+      "Trascrizione di audio e video della cartella condivisa",
+      "Transcription of audio and video from the shared folder"
+    ],
+    [
+      "Voce di Atena",
+      "Atena's voice"
+    ],
+    [
+      "Voce eliminata",
+      "Voice deleted"
+    ],
+    [
+      "Voce non trovata nello Studio",
+      "Voice not found in the Studio"
+    ],
+    [
+      "Voce «{0}» creata!",
+      "Voice «{0}» created!"
+    ],
+    [
+      "Voci copiate e inventate e trascrizione in oltre 600 lingue",
+      "Copied and invented voices and transcription in over 600 languages"
+    ],
+    [
+      "Voci inventate scegliendo figure: donna o uomo, età, tono, sussurro",
+      "Voices invented by picking pictures: woman or man, age, pitch, whisper"
+    ],
+    [
+      "▶ Riascolta",
+      "▶ Play again"
+    ],
+    [
+      "✅ Collegamento riuscito",
+      "✅ Connection successful"
+    ],
+    [
+      "✅ Lo Studio è pronto. Vai al passo 2 per creare una voce.",
+      "✅ The Studio is ready. Go to step 2 to create a voice."
+    ],
+    [
+      "✨ Crea la prima voce",
+      "✨ Create the first voice"
+    ],
+    [
+      "⭐ Usa per Atena",
+      "⭐ Use for Atena"
+    ],
+    [
+      "🎙 Studio delle voci",
+      "🎙 Voice studio"
+    ],
+    [
+      "📁 Oppure scegli un file audio",
+      "📁 Or choose an audio file"
+    ],
+    [
+      "🔁 Rifai",
+      "🔁 Redo"
+    ],
+    [
+      "Donna",
+      "Woman"
+    ],
+    [
+      "Uomo",
+      "Man"
+    ],
+    [
+      "Bambino",
+      "Child"
+    ],
+    [
+      "Ragazzo",
+      "Teenager"
+    ],
+    [
+      "Giovane",
+      "Young"
+    ],
+    [
+      "Adulto",
+      "Adult"
+    ],
+    [
+      "Anziano",
+      "Elderly"
+    ],
+    [
+      "Molto grave",
+      "Very deep"
+    ],
+    [
+      "Grave",
+      "Deep"
+    ],
+    [
+      "Acuta",
+      "High"
+    ],
+    [
+      "Molto acuta",
+      "Very high"
+    ],
+    [
+      "Sussurrata",
+      "Whispered"
+    ],
+    [
+      "Inventa una voce",
+      "Invent a voice"
+    ],
+    [
+      "Copia una voce",
+      "Copy a voice"
+    ],
+    [
+      "Scegli com'è fatta con le figure",
+      "Choose how it sounds with pictures"
+    ],
+    [
+      "Leggi una frase e Atena impara quella voce",
+      "Read a sentence and Atena learns that voice"
+    ],
+    [
+      "✨ Crea la voce",
+      "✨ Create the voice"
+    ],
+    [
+      "⏳ Sto creando la voce…",
+      "⏳ Creating the voice…"
+    ],
+    [
+      "⏳ Sto imparando la voce…",
+      "⏳ Learning the voice…"
+    ],
+    [
+      "Leggi la frase ad alta voce, poi premi ⏹",
+      "Read the sentence aloud, then press ⏹"
+    ],
+    [
+      "Registrazione pronta",
+      "Recording ready"
+    ],
+    [
+      "Premi il pallino rosso e leggi la frase",
+      "Press the red dot and read the sentence"
+    ],
+    [
+      "⏻ Accendi lo Studio",
+      "⏻ Turn on the Studio"
+    ],
+    [
+      "⏻ Spegni lo Studio",
+      "⏻ Turn off the Studio"
+    ],
+    [
+      "💾 Salva",
+      "💾 Save"
+    ],
+    [
+      "Verifico…",
+      "Checking…"
+    ],
+    [
+      "Preparazione in corso",
+      "Preparing"
+    ],
+    [
+      "Lo Studio non risponde ancora",
+      "The Studio is not responding yet"
+    ],
+    [
+      "Atena lo installa da sola. Serve un computer potente con 12 GB liberi.",
+      "Atena installs it by itself. It needs a powerful computer with 12 GB free."
+    ],
+    [
+      "Hai già VoiceStudio su un altro PC di casa, magari con una scheda video.",
+      "You already have VoiceStudio on another home PC, perhaps with a graphics card."
+    ],
+    [
+      "Chiave salvata: incollane una nuova per cambiarla",
+      "Key saved: paste a new one to change it"
+    ],
+    [
+      "Incolla qui la chiave (OMNIVOICE_API_KEY)",
+      "Paste the key here (OMNIVOICE_API_KEY)"
+    ],
+    [
+      "▶ Ascolta",
+      "▶ Listen"
+    ],
+    [
+      "🗑 Elimina",
+      "🗑 Delete"
+    ],
+    [
+      "↩ Torna alla voce di prima",
+      "↩ Back to the previous voice"
+    ],
+    [
+      "Registra",
+      "Record"
+    ],
+    [
+      "Voci copiate e inventate",
+      "Copied and invented voices"
+    ],
+    [
+      "Lo Studio locale non è acceso",
+      "The local Studio is not on"
+    ],
+    [
+      "Riprovo l'installazione",
+      "Retrying the installation"
+    ],
+    [
+      "🔁 Riprova",
+      "🔁 Try again"
+    ],
+    [
+      "L'altro computer non risponde: controlla che VoiceStudio sia acceso e che indirizzo e chiave siano giusti.",
+      "The other computer is not responding: check that VoiceStudio is on and that address and key are right."
+    ],
+    [
+      "L'installazione non è riuscita: premi «Riprova».",
+      "The installation did not succeed: press «Try again»."
+    ],
+    [
+      "In coda: l'installazione parte tra poco",
+      "Queued: the installation starts shortly"
     ]
   ],
   "reverse": [
@@ -15313,7 +15737,13 @@
     "color:var(--amber); font-size:12px",
     "600 {0}px system-ui, sans-serif",
     "i18n refresh failed",
-    "ear-keymsg bad"
+    "ear-keymsg bad",
+    "🇩🇪 Deutsch",
+    "🇪🇸 Español",
+    "🇫🇷 Français",
+    "🇬🇧 English",
+    "🇮🇹 Italiano",
+    "🇵🇹 Português"
   ],
   "fr": [
     [
@@ -29419,6 +29849,430 @@
     [
       "Widget del proprietario sul display: risorse, sistemi, firewall, aggiornamenti e notizie quando ti avvicini",
       "Widgets du propriétaire sur l'écran : ressources, systèmes, pare-feu, mises à jour et actualités quand vous vous approchez"
+    ],
+    [
+      "1 voce",
+      "1 voix"
+    ],
+    [
+      "Accendo lo Studio delle voci",
+      "J'allume le Studio des voix"
+    ],
+    [
+      "Atena parla con la voce che scegli, in oltre 600 lingue",
+      "Atena parle avec la voix que vous choisissez, dans plus de 600 langues"
+    ],
+    [
+      "Atena è tornata alla voce di prima",
+      "Atena est revenue à la voix précédente"
+    ],
+    [
+      "Audiolibri e letture di documenti salvati come file audio",
+      "Livres audio et lectures de documents enregistrés en fichiers audio"
+    ],
+    [
+      "Che tono ha?",
+      "Quel ton a-t-elle ?"
+    ],
+    [
+      "Chi parla?",
+      "Qui parle ?"
+    ],
+    [
+      "Chiave dello Studio",
+      "Clé du Studio"
+    ],
+    [
+      "Chiave dello Studio delle voci",
+      "Clé du Studio des voix"
+    ],
+    [
+      "Come parla?",
+      "Comment parle-t-elle ?"
+    ],
+    [
+      "Come si chiama la voce?",
+      "Comment s'appelle la voix ?"
+    ],
+    [
+      "Copia della tua voce leggendo una frase, con il consenso registrato",
+      "Copie de votre voix en lisant une phrase, avec consentement enregistré"
+    ],
+    [
+      "Crea nuove voci per Atena: inventale o copia la tua.",
+      "Créez de nouvelles voix pour Atena : inventez-les ou copiez la vôtre."
+    ],
+    [
+      "Crea nuove voci per Atena: inventale scegliendo com'è fatta o copia la tua leggendo una frase. Funziona con VoiceStudio, un programma separato che gira su questo computer o su un altro PC di casa.",
+      "Créez de nouvelles voix pour Atena : inventez-en une en choisissant comment elle sonne ou copiez la vôtre en lisant une phrase. Fonctionne avec VoiceStudio, un programme séparé sur cet ordinateur ou sur un autre PC de la maison."
+    ],
+    [
+      "Crea una voce",
+      "Créer une voix"
+    ],
+    [
+      "Dai alla voce un nome breve (lettere e numeri)",
+      "Donnez à la voix un nom court (lettres et chiffres)"
+    ],
+    [
+      "Dove funziona",
+      "Où il fonctionne"
+    ],
+    [
+      "Dove funziona lo Studio delle voci",
+      "Où fonctionne le Studio des voix"
+    ],
+    [
+      "Eliminare questa voce? Non si potrà recuperare.",
+      "Supprimer cette voix ? Elle ne pourra pas être récupérée."
+    ],
+    [
+      "File troppo grande (massimo 25 MB)",
+      "Fichier trop volumineux (25 Mo maximum)"
+    ],
+    [
+      "Il file non è una registrazione audio",
+      "Le fichier n'est pas un enregistrement audio"
+    ],
+    [
+      "Impostazioni salvate",
+      "Paramètres enregistrés"
+    ],
+    [
+      "Indirizzo dell'altro computer",
+      "Adresse de l'autre ordinateur"
+    ],
+    [
+      "Installazione con un clic su questo computer o collegamento a un altro PC di casa",
+      "Installation en un clic sur cet ordinateur ou connexion à un autre PC de la maison"
+    ],
+    [
+      "Inventala o copiala",
+      "Inventez-la ou copiez-la"
+    ],
+    [
+      "La persona di cui copio la voce è d'accordo e leggerà lei la frase. Se sei tu, va benissimo.",
+      "La personne dont je copie la voix est d'accord et lira elle-même la phrase. Si c'est vous, c'est parfait."
+    ],
+    [
+      "La prima volta scarica circa 6 GB: può volerci un po'. Puoi chiudere questa pagina.",
+      "La première fois, il télécharge environ 6 Go : cela peut prendre un moment. Vous pouvez fermer cette page."
+    ],
+    [
+      "Le mie voci",
+      "Mes voix"
+    ],
+    [
+      "Leggi questa frase con calma",
+      "Lisez cette phrase calmement"
+    ],
+    [
+      "Lingua della frase",
+      "Langue de la phrase"
+    ],
+    [
+      "Lo Studio delle voci è un programma a parte che Atena usa per parlare con voci nuove. Scegli dove deve funzionare e premi il pulsante.",
+      "Le Studio des voix est un programme séparé qu'Atena utilise pour parler avec de nouvelles voix. Choisissez où il doit fonctionner et appuyez sur le bouton."
+    ],
+    [
+      "Non hai ancora creato nessuna voce.",
+      "Vous n'avez encore créé aucune voix."
+    ],
+    [
+      "Non posso usare il microfono: controlla i permessi del browser",
+      "Je ne peux pas utiliser le micro : vérifiez les autorisations du navigateur"
+    ],
+    [
+      "Non risponde",
+      "Ne répond pas"
+    ],
+    [
+      "Ora Atena parla con questa voce",
+      "Atena parle maintenant avec cette voix"
+    ],
+    [
+      "Per esempio: Nonno Pino",
+      "Par exemple : Papi Jo"
+    ],
+    [
+      "Premi «Ascolta» per sentirla e «Usa per Atena» per farla parlare con quella voce.",
+      "Appuyez sur «Écouter» pour l'entendre et «Utiliser pour Atena» pour qu'Atena parle avec cette voix."
+    ],
+    [
+      "Prima accendi lo Studio",
+      "Allumez d'abord le Studio"
+    ],
+    [
+      "Pronto",
+      "Prêt"
+    ],
+    [
+      "Quanti anni ha?",
+      "Quel âge a-t-elle ?"
+    ],
+    [
+      "Questo browser non può registrare qui: scegli un file audio con la frase letta.",
+      "Ce navigateur ne peut pas enregistrer ici : choisissez un fichier audio avec la phrase lue."
+    ],
+    [
+      "Registrazione troppo corta o troppo lunga: leggi tutta la frase",
+      "Enregistrement trop court ou trop long : lisez toute la phrase"
+    ],
+    [
+      "Serve il consenso della persona di cui copi la voce",
+      "Il faut le consentement de la personne dont vous copiez la voix"
+    ],
+    [
+      "Si sta accendendo",
+      "En cours d'allumage"
+    ],
+    [
+      "Si sta preparando",
+      "En préparation"
+    ],
+    [
+      "Spegnere lo Studio delle voci? Le voci create restano salvate.",
+      "Éteindre le Studio des voix ? Les voix créées restent enregistrées."
+    ],
+    [
+      "Studio delle voci",
+      "Studio des voix"
+    ],
+    [
+      "Studio delle voci spento",
+      "Studio des voix éteint"
+    ],
+    [
+      "Trascrizione di audio e video della cartella condivisa",
+      "Transcription des audios et vidéos du dossier partagé"
+    ],
+    [
+      "Voce di Atena",
+      "Voix d'Atena"
+    ],
+    [
+      "Voce eliminata",
+      "Voix supprimée"
+    ],
+    [
+      "Voce non trovata nello Studio",
+      "Voix introuvable dans le Studio"
+    ],
+    [
+      "Voce «{0}» creata!",
+      "Voix «{0}» créée !"
+    ],
+    [
+      "Voci copiate e inventate e trascrizione in oltre 600 lingue",
+      "Voix copiées et inventées et transcription dans plus de 600 langues"
+    ],
+    [
+      "Voci inventate scegliendo figure: donna o uomo, età, tono, sussurro",
+      "Voix inventées en choisissant des images : femme ou homme, âge, ton, chuchotement"
+    ],
+    [
+      "▶ Riascolta",
+      "▶ Réécouter"
+    ],
+    [
+      "✅ Collegamento riuscito",
+      "✅ Connexion réussie"
+    ],
+    [
+      "✅ Lo Studio è pronto. Vai al passo 2 per creare una voce.",
+      "✅ Le Studio est prêt. Passez à l'étape 2 pour créer une voix."
+    ],
+    [
+      "✨ Crea la prima voce",
+      "✨ Créer la première voix"
+    ],
+    [
+      "⭐ Usa per Atena",
+      "⭐ Utiliser pour Atena"
+    ],
+    [
+      "🎙 Studio delle voci",
+      "🎙 Studio des voix"
+    ],
+    [
+      "📁 Oppure scegli un file audio",
+      "📁 Ou choisissez un fichier audio"
+    ],
+    [
+      "🔁 Rifai",
+      "🔁 Refaire"
+    ],
+    [
+      "Donna",
+      "Femme"
+    ],
+    [
+      "Uomo",
+      "Homme"
+    ],
+    [
+      "Bambino",
+      "Enfant"
+    ],
+    [
+      "Ragazzo",
+      "Adolescent"
+    ],
+    [
+      "Giovane",
+      "Jeune"
+    ],
+    [
+      "Adulto",
+      "Adulte"
+    ],
+    [
+      "Anziano",
+      "Âgé"
+    ],
+    [
+      "Molto grave",
+      "Très grave"
+    ],
+    [
+      "Grave",
+      "Grave"
+    ],
+    [
+      "Acuta",
+      "Aiguë"
+    ],
+    [
+      "Molto acuta",
+      "Très aiguë"
+    ],
+    [
+      "Sussurrata",
+      "Chuchotée"
+    ],
+    [
+      "Inventa una voce",
+      "Inventer une voix"
+    ],
+    [
+      "Copia una voce",
+      "Copier une voix"
+    ],
+    [
+      "Scegli com'è fatta con le figure",
+      "Choisissez comment elle sonne avec des images"
+    ],
+    [
+      "Leggi una frase e Atena impara quella voce",
+      "Lisez une phrase et Atena apprend cette voix"
+    ],
+    [
+      "✨ Crea la voce",
+      "✨ Créer la voix"
+    ],
+    [
+      "⏳ Sto creando la voce…",
+      "⏳ Création de la voix…"
+    ],
+    [
+      "⏳ Sto imparando la voce…",
+      "⏳ Apprentissage de la voix…"
+    ],
+    [
+      "Leggi la frase ad alta voce, poi premi ⏹",
+      "Lisez la phrase à voix haute, puis appuyez sur ⏹"
+    ],
+    [
+      "Registrazione pronta",
+      "Enregistrement prêt"
+    ],
+    [
+      "Premi il pallino rosso e leggi la frase",
+      "Appuyez sur le point rouge et lisez la phrase"
+    ],
+    [
+      "⏻ Accendi lo Studio",
+      "⏻ Allumer le Studio"
+    ],
+    [
+      "⏻ Spegni lo Studio",
+      "⏻ Éteindre le Studio"
+    ],
+    [
+      "💾 Salva",
+      "💾 Enregistrer"
+    ],
+    [
+      "Verifico…",
+      "Vérification…"
+    ],
+    [
+      "Preparazione in corso",
+      "Préparation en cours"
+    ],
+    [
+      "Lo Studio non risponde ancora",
+      "Le Studio ne répond pas encore"
+    ],
+    [
+      "Atena lo installa da sola. Serve un computer potente con 12 GB liberi.",
+      "Atena l'installe toute seule. Il faut un ordinateur puissant avec 12 Go libres."
+    ],
+    [
+      "Hai già VoiceStudio su un altro PC di casa, magari con una scheda video.",
+      "Vous avez déjà VoiceStudio sur un autre PC de la maison, peut-être avec une carte graphique."
+    ],
+    [
+      "Chiave salvata: incollane una nuova per cambiarla",
+      "Clé enregistrée : collez-en une nouvelle pour la changer"
+    ],
+    [
+      "Incolla qui la chiave (OMNIVOICE_API_KEY)",
+      "Collez la clé ici (OMNIVOICE_API_KEY)"
+    ],
+    [
+      "▶ Ascolta",
+      "▶ Écouter"
+    ],
+    [
+      "🗑 Elimina",
+      "🗑 Supprimer"
+    ],
+    [
+      "↩ Torna alla voce di prima",
+      "↩ Revenir à la voix précédente"
+    ],
+    [
+      "Registra",
+      "Enregistrer"
+    ],
+    [
+      "Voci copiate e inventate",
+      "Voix copiées et inventées"
+    ],
+    [
+      "Lo Studio locale non è acceso",
+      "Le Studio local n'est pas allumé"
+    ],
+    [
+      "Riprovo l'installazione",
+      "Je relance l'installation"
+    ],
+    [
+      "🔁 Riprova",
+      "🔁 Réessayer"
+    ],
+    [
+      "L'altro computer non risponde: controlla che VoiceStudio sia acceso e che indirizzo e chiave siano giusti.",
+      "L'autre ordinateur ne répond pas : vérifiez que VoiceStudio est allumé et que l'adresse et la clé sont correctes."
+    ],
+    [
+      "L'installazione non è riuscita: premi «Riprova».",
+      "L'installation n'a pas réussi : appuyez sur «Réessayer»."
+    ],
+    [
+      "In coda: l'installazione parte tra poco",
+      "En file d'attente : l'installation démarre bientôt"
     ]
   ]
 }

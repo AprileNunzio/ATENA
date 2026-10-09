@@ -1,0 +1,53 @@
+.vs-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.vs-light { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: 14px; }
+.vs-light i { width: 12px; height: 12px; border-radius: 50%; background: var(--text-faint); }
+.vs-light.ok i { background: var(--green); box-shadow: 0 0 10px var(--green); }
+.vs-light.wait i { background: var(--amber); animation: vs-pulse 1.2s infinite; }
+.vs-light.bad i { background: var(--red, #ff5d6c); }
+@keyframes vs-pulse { 50% { opacity: 0.35; } }
+.vs-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.vs-step { font: inherit; display: grid; grid-template-columns: auto auto 1fr; gap: 10px; align-items: center; text-align: left; padding: 14px;
+  border-radius: 14px; border: 1px solid var(--line); background: rgba(2, 8, 16, 0.45); color: var(--text-dim); cursor: pointer; min-width: 0; }
+.vs-step.on { border-color: var(--cyan); background: rgba(41, 224, 255, 0.08); color: var(--text); }
+.vs-step:disabled { opacity: 0.45; cursor: not-allowed; }
+.vs-step-n { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font: 600 13px/1 var(--mono); background: var(--cyan-soft); color: var(--cyan); }
+.vs-step-ic { font-size: 24px; }
+.vs-step-t { display: flex; flex-direction: column; min-width: 0; }
+.vs-step-t small { font-size: 12px; color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vs-body { display: flex; flex-direction: column; gap: 18px; }
+.vs-label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 8px; }
+.vs-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr)); gap: 12px; }
+.vs-card { font: inherit; display: flex; flex-direction: column; gap: 6px; align-items: flex-start; text-align: left; padding: 18px; border-radius: 16px;
+  border: 1px solid var(--line); background: rgba(2, 8, 16, 0.4); color: var(--text); cursor: pointer; }
+.vs-card:hover { border-color: var(--line-strong); }
+.vs-card.on { border-color: var(--cyan); background: rgba(41, 224, 255, 0.08); box-shadow: 0 0 16px rgba(41, 224, 255, 0.12); }
+.vs-card .vs-ic { font-size: 34px; line-height: 1; }
+.vs-card b { font-size: 16px; }
+.vs-card small { color: var(--text-dim); font-size: 13px; }
+.vs-tiles { display: flex; flex-wrap: wrap; gap: 8px; }
+.vs-tile { font: inherit; display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 92px; padding: 12px 10px; border-radius: 14px;
+  border: 1px solid var(--line); background: rgba(2, 8, 16, 0.4); color: var(--text); cursor: pointer; }
+.vs-tile span { font-size: 30px; line-height: 1; }
+.vs-tile.on { border-color: var(--cyan); background: rgba(41, 224, 255, 0.1); }
+.vs-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.vs-row input[type="text"], .vs-row input[type="password"], .vs-row select { flex: 1; min-width: 180px; font-size: 16px; padding: 12px; }
+.vs-big { font-size: 17px; padding: 14px 22px; border-radius: 14px; }
+.vs-msg { font-size: 14px; min-height: 1px; }
+.vs-msg.ok { color: var(--green); } .vs-msg.bad { color: var(--amber); }
+.vs-progress { height: 12px; border-radius: 12px; background: rgba(120, 140, 160, 0.2); overflow: hidden; }
+.vs-progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--cyan), var(--green)); transition: width 0.6s; }
+.vs-sentence { font-size: 20px; line-height: 1.5; padding: 18px; border-radius: 14px; border: 1px dashed var(--cyan); background: rgba(41, 224, 255, 0.05); }
+.vs-rec { width: 86px; height: 86px; border-radius: 50%; border: 0; font-size: 34px; cursor: pointer; background: #e5484d; color: #fff; box-shadow: 0 0 0 6px rgba(229, 72, 77, 0.2); }
+.vs-rec.on { animation: vs-pulse 1s infinite; }
+.vs-timer { font: 600 22px/1 var(--mono); }
+.vs-consent { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; padding: 12px; border-radius: 12px; border: 1px solid var(--line); cursor: pointer; }
+.vs-consent input { width: 22px; height: 22px; flex: none; }
+.vs-voices { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); gap: 12px; }
+.vs-voice { display: flex; flex-direction: column; gap: 10px; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: rgba(2, 8, 16, 0.4); }
+.vs-voice.main { border-color: var(--green); box-shadow: 0 0 16px rgba(60, 220, 140, 0.15); }
+.vs-voice-name { display: flex; gap: 10px; align-items: center; font-size: 17px; }
+.vs-voice-name span { font-size: 28px; }
+.vs-voice .vs-row .btn { flex: 1; }
+.vs-empty { text-align: center; padding: 26px; color: var(--text-dim); font-size: 15px; }
+.vs-nav { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; }
+@media (max-width: 760px) { .vs-steps { grid-template-columns: 1fr; } .vs-tile { min-width: 76px; } }
