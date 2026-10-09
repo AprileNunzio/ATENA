@@ -48,9 +48,6 @@ Atena 4.0.0 introduce potenti innovazioni per l'automazione IT e l'interattivit�
 
 ---
 
-**ATTENZIONE: CODICE SOTTO STRETTA DIRETTIVA ARCHITETTURALE**
-Qualsiasi intelligenza artificiale, LLM o sviluppatore umano che modifichi questo repository **DEVE** aver prima letto, compreso e applicato in modo assoluto le direttive presenti in `AI_ARCH_STANDARDS.md`. Nessun compromesso sulla qualità del codice, sulla Clean Architecture o sull'assenza di commenti inline sarà tollerato.
-
 ## Architettura di Livello Enterprise (I 5 Pilastri)
 Atena non è un semplice script Python, ma un **Sistema Operativo Distribuito e Autonomo** basato su:
 

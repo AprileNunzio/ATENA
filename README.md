@@ -48,9 +48,6 @@ Even a coffee makes a difference, and every contribution goes straight into maki
 
 ---
 
-**WARNING: CODE UNDER STRICT ARCHITECTURAL DIRECTIVE**
-Any artificial intelligence, LLM, or human developer modifying this repository **MUST** have first read, understood, and strictly applied the directives found in `AI_ARCH_STANDARDS.md`. No compromises on code quality, Clean Architecture, or the absence of inline comments will be tolerated.
-
 ## Enterprise-Grade Architecture (The 5 Pillars)
 Atena is not a simple Python script, but a **Distributed and Autonomous Operating System** based on:
 

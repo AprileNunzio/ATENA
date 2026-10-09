@@ -48,9 +48,6 @@ Atena 4.0.0 introduit de puissantes innovations en matière d'automatisation inf
 
 ---
 
-**ATTENTION : CODE SOUS DIRECTIVE ARCHITECTURALE STRICTE**
-Tout développeur IA, LLM ou humain modifiant ce référentiel **DOIT** avoir d'abord lu, compris et appliqué absolument les directives de `AI_ARCH_STANDARDS.md`. Aucun compromis sur la qualité du code, sur l'architecture propre ou sur l'absence de commentaires en ligne ne sera toléré.
-
 ## Architecture de niveau entreprise (les 5 piliers)
 Athena n'est pas un simple script Python, mais un **Système d'exploitation distribué et autonome** basé sur :
 

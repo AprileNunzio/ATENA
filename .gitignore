@@ -71,6 +71,5 @@ screenshots*/
 *.db
 secrets*
 credentials*
-AI_ARCH_STANDARDS.md
 
 target/
