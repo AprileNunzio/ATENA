@@ -17,6 +17,7 @@ class Principal:
     strength: Strength = Strength.NONE
     factors: tuple[str, ...] = field(default_factory=tuple)
     override: str = ""
+    source: str = ""
 
     @property
     def known(self) -> bool:

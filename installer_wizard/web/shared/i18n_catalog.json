@@ -13235,6 +13235,134 @@
     [
       "WireGuard, OpenVPN e IPsec per entrare in casa da fuori e collegarsi ad altre reti",
       "WireGuard, OpenVPN and IPsec to reach home from outside and connect to other networks"
+    ],
+    [
+      "Piani e stanze",
+      "Floors and rooms"
+    ],
+    [
+      "Importa da Home Assistant",
+      "Import from Home Assistant"
+    ],
+    [
+      "Nuovo piano",
+      "New floor"
+    ],
+    [
+      "Assegna a ogni dispositivo la sua stanza: Atena capirà dove sei da chi ti sente e ti vede, e «accendi la luce» accenderà quella della stanza giusta.",
+      "Give every device its room: Atena will understand where you are from who hears and sees you, and \"turn on the light\" will turn on the one in the right room."
+    ],
+    [
+      "— nessuna stanza —",
+      "— no room —"
+    ],
+    [
+      "Nuova stanza (es. Studio)",
+      "New room (e.g. Study)"
+    ],
+    [
+      "Cosa fa",
+      "What it does"
+    ],
+    [
+      "Nome del piano (es. Piano terra, Primo piano):",
+      "Floor name (e.g. Ground floor, First floor):"
+    ],
+    [
+      "Livello (0 = terra, 1 = primo, -1 = seminterrato):",
+      "Level (0 = ground, 1 = first, -1 = basement):"
+    ],
+    [
+      "Importate {0} stanze da Home Assistant",
+      "Imported {0} rooms from Home Assistant"
+    ],
+    [
+      "Eliminare il piano? Le stanze restano senza piano.",
+      "Delete the floor? Its rooms stay without a floor."
+    ],
+    [
+      "Nuovo nome del piano:",
+      "New floor name:"
+    ],
+    [
+      "Eliminare la stanza?",
+      "Delete the room?"
+    ],
+    [
+      "Nuovo nome della stanza:",
+      "New room name:"
+    ],
+    [
+      "Piano sconosciuto",
+      "Unknown floor"
+    ],
+    [
+      "Stanza sconosciuta",
+      "Unknown room"
+    ],
+    [
+      "Nessuna area da importare: collega prima Home Assistant",
+      "No areas to import: connect Home Assistant first"
+    ],
+    [
+      "Mappa di piani e stanze: dove si trovano server, satelliti, PC, telecamere e microfoni, e in che stanza sei per capire comandi come «accendi la luce»",
+      "Map of floors and rooms: where servers, satellites, PCs, cameras and microphones are, and which room you are in to understand commands like \"turn on the light\""
+    ],
+    [
+      "Stanze senza piano",
+      "Rooms without a floor"
+    ],
+    [
+      "livello {0}",
+      "level {0}"
+    ],
+    [
+      "nessun dispositivo",
+      "no device"
+    ],
+    [
+      "indicata: {0}",
+      "suggested: {0}"
+    ],
+    [
+      "vede",
+      "sees"
+    ],
+    [
+      "sente",
+      "hears"
+    ],
+    [
+      "mostra",
+      "shows"
+    ],
+    [
+      "parla",
+      "speaks"
+    ],
+    [
+      "In questo momento non so in che stanza si trovi nessuno.",
+      "Right now I don't know which room anyone is in."
+    ],
+    [
+      "Crea il primo piano (es. Piano terra) oppure importa le aree da Home Assistant.",
+      "Create the first floor (e.g. Ground floor) or import the areas from Home Assistant."
+    ],
+    [
+      "Server di Atena",
+      "Atena server"
+    ],
+    [
+      "Display di Atena",
+      "Atena display"
+    ],
+    [
+      "Microfono di Atena",
+      "Atena microphone"
+    ],
+    [
+      "Webcam di Atena",
+      "Atena webcam"
     ]
   ],
   "reverse": [
@@ -26109,6 +26237,134 @@
     [
       "WireGuard, OpenVPN e IPsec per entrare in casa da fuori e collegarsi ad altre reti",
       "WireGuard, OpenVPN et IPsec pour accéder à la maison depuis l'extérieur et se connecter à d'autres réseaux"
+    ],
+    [
+      "Piani e stanze",
+      "Étages et pièces"
+    ],
+    [
+      "Importa da Home Assistant",
+      "Importer depuis Home Assistant"
+    ],
+    [
+      "Nuovo piano",
+      "Nouvel étage"
+    ],
+    [
+      "Assegna a ogni dispositivo la sua stanza: Atena capirà dove sei da chi ti sente e ti vede, e «accendi la luce» accenderà quella della stanza giusta.",
+      "Attribuez à chaque appareil sa pièce : Atena comprendra où vous êtes grâce à qui vous entend et vous voit, et « allume la lumière » allumera celle de la bonne pièce."
+    ],
+    [
+      "— nessuna stanza —",
+      "— aucune pièce —"
+    ],
+    [
+      "Nuova stanza (es. Studio)",
+      "Nouvelle pièce (ex. Bureau)"
+    ],
+    [
+      "Cosa fa",
+      "Ce qu'il fait"
+    ],
+    [
+      "Nome del piano (es. Piano terra, Primo piano):",
+      "Nom de l'étage (ex. Rez-de-chaussée, Premier étage) :"
+    ],
+    [
+      "Livello (0 = terra, 1 = primo, -1 = seminterrato):",
+      "Niveau (0 = rez-de-chaussée, 1 = premier, -1 = sous-sol) :"
+    ],
+    [
+      "Importate {0} stanze da Home Assistant",
+      "{0} pièces importées depuis Home Assistant"
+    ],
+    [
+      "Eliminare il piano? Le stanze restano senza piano.",
+      "Supprimer l'étage ? Les pièces restent sans étage."
+    ],
+    [
+      "Nuovo nome del piano:",
+      "Nouveau nom de l'étage :"
+    ],
+    [
+      "Eliminare la stanza?",
+      "Supprimer la pièce ?"
+    ],
+    [
+      "Nuovo nome della stanza:",
+      "Nouveau nom de la pièce :"
+    ],
+    [
+      "Piano sconosciuto",
+      "Étage inconnu"
+    ],
+    [
+      "Stanza sconosciuta",
+      "Pièce inconnue"
+    ],
+    [
+      "Nessuna area da importare: collega prima Home Assistant",
+      "Aucune zone à importer : connectez d'abord Home Assistant"
+    ],
+    [
+      "Mappa di piani e stanze: dove si trovano server, satelliti, PC, telecamere e microfoni, e in che stanza sei per capire comandi come «accendi la luce»",
+      "Carte des étages et des pièces : où se trouvent serveurs, satellites, PC, caméras et micros, et dans quelle pièce vous êtes pour comprendre des commandes comme « allume la lumière »"
+    ],
+    [
+      "Stanze senza piano",
+      "Pièces sans étage"
+    ],
+    [
+      "livello {0}",
+      "niveau {0}"
+    ],
+    [
+      "nessun dispositivo",
+      "aucun appareil"
+    ],
+    [
+      "indicata: {0}",
+      "indiquée : {0}"
+    ],
+    [
+      "vede",
+      "voit"
+    ],
+    [
+      "sente",
+      "entend"
+    ],
+    [
+      "mostra",
+      "affiche"
+    ],
+    [
+      "parla",
+      "parle"
+    ],
+    [
+      "In questo momento non so in che stanza si trovi nessuno.",
+      "Pour l'instant je ne sais dans quelle pièce se trouve personne."
+    ],
+    [
+      "Crea il primo piano (es. Piano terra) oppure importa le aree da Home Assistant.",
+      "Créez le premier étage (ex. Rez-de-chaussée) ou importez les zones depuis Home Assistant."
+    ],
+    [
+      "Server di Atena",
+      "Serveur d'Atena"
+    ],
+    [
+      "Display di Atena",
+      "Écran d'Atena"
+    ],
+    [
+      "Microfono di Atena",
+      "Micro d'Atena"
+    ],
+    [
+      "Webcam di Atena",
+      "Webcam d'Atena"
     ]
   ]
 }

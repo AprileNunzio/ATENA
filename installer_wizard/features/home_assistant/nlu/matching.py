@@ -165,9 +165,12 @@ def resolve_targets(t: str, cat: Catalog, action: str | None, domains: list[str]
         chosen, how = pool, "casa"
     else:
         chosen, how = [], ""
-        for aid in [cat.default_area] + list(cat.occupied):
+        from features.places.context import area as speaker_area
+        here = speaker_area()
+        for aid in [here, cat.default_area] + list(cat.occupied):
             if aid and (c := [e for e in pool if e.get("area_id") == aid]):
-                chosen, how, area_ids = c, "stanza di Atena" if aid == cat.default_area else "stanza occupata", [aid]
+                chosen, area_ids = c, [aid]
+                how = "stanza in cui sei" if aid == here else "stanza di Atena" if aid == cat.default_area else "stanza occupata"
                 break
         if not chosen and len(pool) == 1:
             chosen, how = pool, "unico"

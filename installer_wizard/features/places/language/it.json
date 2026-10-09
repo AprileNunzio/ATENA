@@ -1,0 +1,11 @@
+{
+  "name": "Piani e stanze",
+  "description": "Mappa di piani e stanze: dove si trovano server, satelliti, PC, telecamere e microfoni, e in che stanza sei per capire comandi come «accendi la luce»",
+  "capabilities": [
+    "Piani e stanze, anche importati da Home Assistant",
+    "Posizione di server, satelliti, PC, telecamere e microfoni",
+    "Stanza in cui sei, stimata da chi ti sente e ti vede",
+    "«Accendi la luce» agisce nella stanza giusta",
+    "Domanda «dove sono?»"
+  ]
+}

@@ -1,0 +1,16 @@
+.pl-head { display: flex; flex-direction: column; gap: 10px; margin-bottom: 18px; }
+.pl-people { display: flex; flex-wrap: wrap; gap: 6px; }
+.pl-floors { display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px; }
+.pl-floor { display: flex; flex-direction: column; gap: 10px; }
+.pl-rooms { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 10px; }
+.pl-room { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.pl-room-icons { font-size: 18px; }
+.pl-inline { display: flex; gap: 6px; align-items: center; border: 1px dashed var(--line); border-radius: 10px; padding: 10px; }
+.pl-inline input { flex: 1 1 120px; min-width: 0; }
+.pl-table-wrap { overflow-x: auto; }
+.pl-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.pl-table th, .pl-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.pl-senses { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 720px) {
+  .pl-rooms { grid-template-columns: 1fr; }
+}

@@ -15,6 +15,7 @@ class VoiceProof:
     score: float
     text: str
     at: float
+    device: str = "mic:local"
 
 
 def normalize(text: str) -> str:
@@ -27,13 +28,16 @@ class HeardLog:
         self._items: deque[VoiceProof] = deque(maxlen=64)
         self._lock = threading.Lock()
 
-    def record(self, slug: str, score: float, text: str, at: float | None = None) -> None:
+    def record(self, slug: str, score: float, text: str, at: float | None = None, device: str = "mic:local") -> None:
         if not slug or not text:
             return
+        moment = at or time.time()
         with self._lock:
-            self._items.append(VoiceProof(slug, float(score), normalize(text), at or time.time()))
+            self._items.append(VoiceProof(slug, float(score), normalize(text), moment, device))
+        from features.places.locate import locator
+        locator.note(slug, "voice", device, min(1.0, max(0.3, float(score))), moment)
 
-    def tap(self, message: str | bytes) -> None:
+    def tap(self, message: str | bytes, device: str = "mic:local") -> None:
         if not isinstance(message, str) or '"transcript"' not in message:
             return
         try:
@@ -41,7 +45,8 @@ class HeardLog:
         except ValueError:
             return
         if isinstance(event, dict) and event.get("type") == "transcript":
-            self.record(str(event.get("speaker") or ""), float(event.get("speaker_score") or 0.0), str(event.get("text") or ""))
+            self.record(str(event.get("speaker") or ""), float(event.get("speaker_score") or 0.0), str(event.get("text") or ""),
+                        device=device)
 
     def verify(self, slug: str, text: str, now: float | None = None) -> VoiceProof | None:
         wanted = normalize(text)

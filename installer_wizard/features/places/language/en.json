@@ -1,0 +1,11 @@
+{
+  "name": "Floors and rooms",
+  "description": "Map of floors and rooms: where servers, satellites, PCs, cameras and microphones are, and which room you are in to understand commands like \"turn on the light\"",
+  "capabilities": [
+    "Floors and rooms, also imported from Home Assistant",
+    "Location of servers, satellites, PCs, cameras and microphones",
+    "The room you are in, estimated from who hears and sees you",
+    "\"Turn on the light\" acts in the right room",
+    "\"Where am I?\" question"
+  ]
+}

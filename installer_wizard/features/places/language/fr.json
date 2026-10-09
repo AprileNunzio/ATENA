@@ -1,0 +1,11 @@
+{
+  "name": "Étages et pièces",
+  "description": "Carte des étages et des pièces : où se trouvent serveurs, satellites, PC, caméras et micros, et dans quelle pièce vous êtes pour comprendre des commandes comme « allume la lumière »",
+  "capabilities": [
+    "Étages et pièces, aussi importés depuis Home Assistant",
+    "Emplacement des serveurs, satellites, PC, caméras et micros",
+    "Pièce où vous êtes, estimée par qui vous entend et vous voit",
+    "« Allume la lumière » agit dans la bonne pièce",
+    "Question « où suis-je ? »"
+  ]
+}

@@ -45,9 +45,9 @@ def strangers() -> int:
     return sum(1 for p in people if not p.get("known"))
 
 
-def _principal(profile: dict, strength: Strength, factors: tuple[str, ...]) -> Principal:
+def _principal(profile: dict, strength: Strength, factors: tuple[str, ...], source: str = "") -> Principal:
     return Principal(slug=profile["slug"], role=str(profile.get("role") or "guest"), strength=strength,
-                     factors=factors, override=str(profile.get("authorization") or ""))
+                     factors=factors, override=str(profile.get("authorization") or ""), source=source)
 
 
 def for_session() -> Principal:
@@ -68,12 +68,12 @@ def for_request(device: str, speaker: str, text: str) -> Principal:
             return ANONYMOUS
         face = next((f for f in seen if f["slug"] == proof.slug), None)
         if face and face["live"]:
-            return _principal(profile, Strength.STRONG, ("voice", "face"))
+            return _principal(profile, Strength.STRONG, ("voice", "face"), proof.device)
         if face or proof.score >= voice_strong():
-            return _principal(profile, Strength.SINGLE, ("voice", "face") if face else ("voice",))
-        return _principal(profile, Strength.WEAK, ("voice",))
+            return _principal(profile, Strength.SINGLE, ("voice", "face") if face else ("voice",), proof.device)
+        return _principal(profile, Strength.WEAK, ("voice",), proof.device)
     if len(seen) == 1 and strangers() == 0:
         profile = _profile(seen[0]["slug"])
         if profile:
-            return _principal(profile, Strength.SINGLE if seen[0]["live"] else Strength.WEAK, ("face",))
+            return _principal(profile, Strength.SINGLE if seen[0]["live"] else Strength.WEAK, ("face",), "camera:main")
     return ANONYMOUS

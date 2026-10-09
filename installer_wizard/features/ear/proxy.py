@@ -43,17 +43,22 @@ async def _up(client: Any, upstream: Any) -> None:
             await upstream.send(message["text"])
 
 
-async def _down(client: Any, upstream: Any) -> None:
+async def _down(client: Any, upstream: Any, device: str) -> None:
     async for message in upstream:
         if isinstance(message, bytes):
             await client.send_bytes(message)
         else:
-            heard.tap(message)
+            heard.tap(message, device)
             await client.send_text(message)
 
 
-async def pump(client: Any, upstream: Any) -> None:
-    tasks = [asyncio.create_task(_up(client, upstream)), asyncio.create_task(_down(client, upstream))]
+def device_of(socket: Any) -> str:
+    node_id = socket.headers.get("x-atena-node", "") if hasattr(socket, "headers") else ""
+    return f"node:{node_id}" if node_id and _node_allowed(socket) else "mic:local"
+
+
+async def pump(client: Any, upstream: Any, device: str = "mic:local") -> None:
+    tasks = [asyncio.create_task(_up(client, upstream)), asyncio.create_task(_down(client, upstream, device))]
     try:
         await asyncio.wait(tasks, return_when=asyncio.FIRST_COMPLETED)
     finally:
@@ -69,7 +74,7 @@ async def proxy(socket: WebSocket) -> None:
     await socket.accept()
     try:
         async with websockets.connect(UPSTREAM, max_size=MAX_MESSAGE) as upstream:
-            await pump(socket, upstream)
+            await pump(socket, upstream, device_of(socket))
     except (OSError, websockets.WebSocketException, WebSocketDisconnect, RuntimeError) as exc:
         logger.info("ear proxy closed: %s", exc)
     try:

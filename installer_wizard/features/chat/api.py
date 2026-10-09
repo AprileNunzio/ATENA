@@ -16,6 +16,7 @@ from tasks import background
 
 from features.authz import resolve as authz_resolve
 from features.authz.principal import act_as, acting
+from features.places import context as place_context
 from features.brain.brains import brains
 from features.brain.residency import primary
 from features.brain.trace import trace
@@ -131,6 +132,7 @@ async def assistant_chat(text: str, device: str, heard_lang: str | None = None, 
     request_context.voice.set(heard.get("speaker") or "")
     principal = authz_resolve.for_request(device, heard.get("speaker") or "", text)
     act_as(principal)
+    room = place_context.enter(principal.slug, principal.source, device)
     if heard.get("speaker"):
         try:
             from atena_bus import BusError, atena_bus
@@ -176,6 +178,7 @@ async def assistant_chat(text: str, device: str, heard_lang: str | None = None, 
     result["lang"] = languages.detect(result.get("reply") or "", speech_lang["lang"])
     result["language"] = {**speech_lang, "label": languages.label(speech_lang["lang"])}
     result["identity"] = principal.describe()
+    result["room"] = {"id": room.id, "name": room.name} if room else None
     study.engine.note_query(text, result.get("intent", ""))
     desk.on_intent(result.get("intent", ""), result.get("ui") or {})
     if not str(result.get("agent", "")).startswith("algoritmo") and skill_library.needs_algorithm(text):

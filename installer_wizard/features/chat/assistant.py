@@ -17,7 +17,7 @@ from features.chat.skills.people import person_info_skill
 from features.chat.templates import remember_template
 from features.understanding import router as understanding
 
-CONNECTORS = {"vault": "features.vault.commands", "selftest": "features.selftest.commands", "sounds": "features.sounds.commands", "whiteboard": "features.whiteboard.commands", "screens": "features.desktop.commands", "models3d": "features.models3d.commands", "documents": "features.documents.commands", "music": "features.music.commands", "livecam": "features.cameras.commands", "vision": "features.vision.sight", "gservices": "features.google.commands", "maps": "features.maps.maps"}
+CONNECTORS = {"places": "features.places.commands", "vault": "features.vault.commands", "selftest": "features.selftest.commands", "sounds": "features.sounds.commands", "whiteboard": "features.whiteboard.commands", "screens": "features.desktop.commands", "models3d": "features.models3d.commands", "documents": "features.documents.commands", "music": "features.music.commands", "livecam": "features.cameras.commands", "vision": "features.vision.sight", "gservices": "features.google.commands", "maps": "features.maps.maps"}
 
 EARLY = ("whiteboard", "livecam")
 PERSONAL = {"gservices", "vault", "documents", "maps", "vision", "livecam"}
@@ -105,6 +105,9 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
     if spatial:
         return {"reply": spatial, "ui": {"mode": "face"}, "intent": "scene", "agent": "scena",
                 "elapsed_ms": int((time.time() - started) * 1000)}
+    located = await _connect(text, started, ("places",))
+    if located:
+        return located
     from features.agent import commands as agent_cmd
     if agent_cmd.strong(text):
         return await _agent(text, started)

@@ -70,7 +70,9 @@ class HomeAnswers:
         return "Ultimo movimento: " + join_words(parts[:6]) + ".", {"mode": "face"}
 
     def _a_climate_read(self, q: dict) -> tuple[str, dict]:
-        ids = q.get("area_ids") or ([self.catalog.default_area] if self.catalog.default_area else self._rooms_for(q))
+        from features.places.context import area as speaker_area
+        here = speaker_area() or self.catalog.default_area
+        ids = q.get("area_ids") or ([here] if here else self._rooms_for(q))
         rooms = [r for r in (self.room_status(a) for a in ids) if r["temperature"] is not None or r["humidity"] is not None]
         if not rooms:
             return "Non ho sensori di temperatura in quella stanza.", {"mode": "face"}
