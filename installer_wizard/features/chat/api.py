@@ -289,6 +289,16 @@ async def admin_chat(request: Request, _: str = Depends(require_admin)):
     return await assistant_chat(body.get("text", ""), "admin", lang_of(body))
 
 
+@admin_routes.delete("/api/assistant/history")
+async def admin_forget_history(user: str = Depends(require_admin)):
+    from features.chat.history import history
+    removed = history.forget()
+    dialogue.turns.clear()
+    dialogue.loaded.clear()
+    store.event("INFO", f"Storia delle conversazioni cancellata da {user} ({removed} scambi)", "chat")
+    return {"removed": removed}
+
+
 @public_routes.post("/api/activity")
 async def public_activity(request: Request):
     require_display(request)

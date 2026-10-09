@@ -45,7 +45,7 @@ class ConversationEngine:
     def _prompt(self, query: str, device_id: str, people_context: str = "", knowledge: str = "",
                 reply_language: str = "", speaker: str = "", dialogue: str = "", long_term: str = "",
                 laws: str = "", capabilities: str = "") -> tuple[list[LLMMessage], str]:
-        history = self._history[device_id]
+        history = [] if dialogue else self._history[device_id]
         messages = [LLMMessage(role=role, content=content) for role, content in history]
         messages.append(LLMMessage(role="user", content=query))
         persona = _PERSONA

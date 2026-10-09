@@ -3,6 +3,8 @@ import time
 from collections import defaultdict, deque
 from dataclasses import dataclass
 
+from features.chat.history import history
+
 KEEP = 10
 STALE_SECONDS = 15 * 60
 ELLIPSIS = re.compile(r"^\s*(?:e|ed|invece|anche|mentre)\s+(?P<rest>.{1,60}?)\s*\??\s*$", re.I)
@@ -25,11 +27,25 @@ class Dialogue:
 
     def __init__(self) -> None:
         self.turns: dict[str, deque] = defaultdict(lambda: deque(maxlen=KEEP))
+        self.loaded: set[str] = set()
+
+    def _load(self, device: str) -> None:
+        if device in self.loaded:
+            return
+        self.loaded.add(device)
+        stored = [Turn(*row) for row in history.recent(device, time.time() - STALE_SECONDS, KEEP)]
+        known = {(t.text, t.at) for t in self.turns[device]}
+        merged = sorted([t for t in stored if (t.text, t.at) not in known] + list(self.turns[device]), key=lambda t: t.at)
+        self.turns[device] = deque(merged[-KEEP:], maxlen=KEEP)
 
     def remember(self, device: str, text: str, reply: str, intent: str) -> None:
-        self.turns[device].append(Turn(text[:400], reply[:600], intent or "", time.time()))
+        self._load(device)
+        turn = Turn(text[:400], reply[:600], intent or "", time.time())
+        self.turns[device].append(turn)
+        history.add(device, turn.text, turn.reply, turn.intent, turn.at)
 
     def recent(self, device: str) -> list[Turn]:
+        self._load(device)
         now = time.time()
         return [t for t in self.turns[device] if now - t.at < STALE_SECONDS]
 
