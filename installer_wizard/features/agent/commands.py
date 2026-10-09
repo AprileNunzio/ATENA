@@ -61,5 +61,5 @@ async def answer(text: str) -> tuple[str, dict]:
             return await agent.confirm(True), {"mode": "face"}
         if NO.search(text):
             return await agent.confirm(False), {"mode": "face"}
-        agent.pending = None
+        agent.drop_pending()
     return await agent.run(text), {"mode": "face"}

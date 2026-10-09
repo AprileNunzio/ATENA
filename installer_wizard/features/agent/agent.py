@@ -9,6 +9,7 @@ from features.automations import tools as tools_automations
 from features.documents import tools as tools_documents
 from features.autonomy import tools as tools_autonomy
 from features.brain.llm import BrainUnavailable, generate
+from features.chat.context import session_key
 from features.forge import tools as tools_forge
 from features.team import runner
 from features.team import tools as tools_team
@@ -56,7 +57,7 @@ def _summary(name: str, args: dict) -> str:
 
 class Agent:
     def __init__(self) -> None:
-        self.pending: dict | None = None
+        self.pending: dict[str, dict] = {}
         self.last_steps: list[dict] = []
 
     async def tools(self, request: str) -> str:
@@ -64,7 +65,8 @@ class Agent:
             from features.team.router import tool_router
             relevant_agents = await tool_router.retrieve(request, top_k=7)
             return registry.describe_for_agents(level(), relevant_agents)
-        except Exception:
+        except Exception as exc:
+            store.event("WARN", f"Selezione strumenti per agente non riuscita: {exc}", "agent")
             return registry.describe(level())
 
     async def _decide(self, request: str, steps: list[dict]) -> dict:
@@ -82,15 +84,13 @@ class Agent:
             result = f"NEGATO: {exc}"
         except Exception as exc:
             result = f"ERRORE: {str(exc)[:300]}"
-        
         if not result.startswith(("ERRORE", "NEGATO")):
             try:
-                from features.team.router import tool_router
                 from features.team import roster
+                from features.team.router import tool_router
                 tool_router.learn_success(roster.owner(name), registry.REQUEST.get())
-            except Exception:
-                pass
-                
+            except Exception as exc:
+                store.event("WARN", f"Apprendimento instradamento non riuscito: {exc}", "agent")
         steps.append({"tool": name, "args": registry.clean_args(name, args), "result": result})
         store.event("INFO", f"Agente · {name}: {result[:140]}", "agent")
 
@@ -117,7 +117,7 @@ class Agent:
                     item = approvals.add(auto, _summary(name, args), request, steps, name, args, routine)
                     await self.on_approval(item)
                     return f"In attesa della sua approvazione, signore: {_summary(name, args)}."
-                self.pending = {"request": request, "steps": steps, "tool": name, "args": args, "at": time.time()}
+                self.pending[session_key()] = {"request": request, "steps": steps, "tool": name, "args": args, "at": time.time()}
                 return f"Prima di procedere: {_summary(name, args)}. Confermi?"
             await self._execute(name, args, steps)
         done = [s for s in steps if not s["result"].startswith(("ERRORE", "NEGATO"))]
@@ -134,13 +134,21 @@ class Agent:
         return await self.run(item["request"], steps, auto=item["title"], trusted=bool(item.get("trusted")),
                               routine=item.get("routine", ""))
 
+    def _expire(self) -> None:
+        now = time.time()
+        for key in [k for k, v in self.pending.items() if now - v["at"] > PENDING_TTL]:
+            del self.pending[key]
+
     def has_pending(self) -> bool:
-        if self.pending and time.time() - self.pending["at"] > PENDING_TTL:
-            self.pending = None
-        return bool(self.pending)
+        self._expire()
+        return session_key() in self.pending
+
+    def drop_pending(self) -> None:
+        self.pending.pop(session_key(), None)
 
     async def confirm(self, yes: bool) -> str:
-        p, self.pending = self.pending, None
+        self._expire()
+        p = self.pending.pop(session_key(), None)
         if not p:
             return "Non avevo nulla in sospeso."
         if not yes:
