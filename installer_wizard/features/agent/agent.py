@@ -12,6 +12,7 @@ from features.vpn import tools as tools_vpn
 from features.proxmox import tools as tools_proxmox
 from features.voicestudio import tools as tools_voicestudio
 from features.network import tools as tools_network
+from features.redalert import tools as tools_redalert
 from features.autonomy import tools as tools_autonomy
 from features.authz import gate
 from features.authz.principal import SYSTEM, act_as, current
@@ -24,7 +25,7 @@ from features.team.board import board
 from features.shares import archive
 from features.whiteboard import tools as tools_whiteboard
 
-MODULES = (tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_packages, tools_rpa, tools_system, tools_autonomy, tools_automations, tools_documents, tools_team, tools_forge, tools_whiteboard, tools_firewall, tools_vpn, tools_proxmox, tools_voicestudio, tools_network)
+MODULES = (tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_packages, tools_rpa, tools_system, tools_autonomy, tools_automations, tools_documents, tools_team, tools_forge, tools_whiteboard, tools_firewall, tools_vpn, tools_proxmox, tools_voicestudio, tools_network, tools_redalert)
 MAX_STEPS = 8
 PENDING_TTL = 180
 

@@ -1,0 +1,79 @@
+{
+  "id": "redalert",
+  "name": "Allarme rosso",
+  "icon": "🚨",
+  "category": "casa",
+  "order": 118,
+  "panel": "redalert",
+  "description": "Quando scatta un allarme (fumo, acqua, intrusione…) Atena fa lampeggiare lentamente di rosso tutte le luci di Home Assistant e ripete il messaggio urgente su tutti i Chromecast; finito l'allarme le luci tornano come prima.",
+  "toggle": {
+    "env": "ATENA_REDALERT",
+    "default": "1",
+    "apply": []
+  },
+  "capabilities": [
+    "Luci di casa rosse lampeggianti (lente, sicure per chi è sensibile alla luce)",
+    "Messaggio vocale urgente su tutti i Chromecast, ripetuto ogni 25 secondi",
+    "Ripristino automatico delle luci com'erano",
+    "Si ferma chiudendo il widget dell'allarme o quando l'allarme rientra",
+    "Prova con un pulsante"
+  ],
+  "settings": [
+    {
+      "key": "ATENA_REDALERT_LIGHTS",
+      "label": "Fai lampeggiare le luci di rosso",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_REDALERT_CAST",
+      "label": "Avvisa a voce su tutti i Chromecast",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
+    {
+      "key": "ATENA_REDALERT_SECONDS",
+      "label": "Per quanto tempo",
+      "type": "select",
+      "default": "60",
+      "options": [
+        {
+          "value": "30",
+          "label": "30 secondi"
+        },
+        {
+          "value": "60",
+          "label": "1 minuto"
+        },
+        {
+          "value": "120",
+          "label": "2 minuti"
+        },
+        {
+          "value": "300",
+          "label": "5 minuti"
+        }
+      ]
+    }
+  ]
+}

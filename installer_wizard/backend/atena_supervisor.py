@@ -91,6 +91,7 @@ from features.proxmox import api as proxmox_api
 from features.voicestudio import api as voicestudio_api
 from features.nodes import display_link as display_link_api
 from features.ducking import api as ducking_api
+from features.redalert import api as redalert_api
 from features.ducking.ducker import ducker
 from features.places import service as places_service
 from features.locale import household as locale_household
@@ -184,6 +185,7 @@ FEATURE_APIS = (
     voicestudio_api,
     display_link_api,
     ducking_api,
+    redalert_api,
     laws_api,
     cameras_api,
     models3d_api,

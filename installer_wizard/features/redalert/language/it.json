@@ -1,0 +1,16 @@
+{
+  "name": "Allarme rosso",
+  "description": "Quando scatta un allarme (fumo, acqua, intrusione…) Atena fa lampeggiare lentamente di rosso tutte le luci di Home Assistant e ripete il messaggio urgente su tutti i Chromecast; finito l'allarme le luci tornano come prima.",
+  "capabilities": [
+    "Luci di casa rosse lampeggianti (lente, sicure per chi è sensibile alla luce)",
+    "Messaggio vocale urgente su tutti i Chromecast, ripetuto ogni 25 secondi",
+    "Ripristino automatico delle luci com'erano",
+    "Si ferma chiudendo il widget dell'allarme o quando l'allarme rientra",
+    "Prova con un pulsante"
+  ],
+  "settings": {
+    "ATENA_REDALERT_LIGHTS": "Fai lampeggiare le luci di rosso",
+    "ATENA_REDALERT_CAST": "Avvisa a voce su tutti i Chromecast",
+    "ATENA_REDALERT_SECONDS": "Per quanto tempo"
+  }
+}

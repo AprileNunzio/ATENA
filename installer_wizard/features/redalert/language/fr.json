@@ -1,0 +1,16 @@
+{
+  "name": "Alerte rouge",
+  "description": "Quand une alarme se déclenche (fumée, eau, intrusion…) Atena fait clignoter lentement en rouge toutes les lumières Home Assistant et répète le message urgent sur tous les Chromecast ; à la fin de l'alarme les lumières reviennent comme avant.",
+  "capabilities": [
+    "Lumières de la maison rouges clignotantes (lentes, sûres pour les personnes sensibles à la lumière)",
+    "Message vocal urgent sur tous les Chromecast, répété toutes les 25 secondes",
+    "Lumières rétablies automatiquement comme avant",
+    "S'arrête en fermant le widget de l'alarme ou quand l'alarme cesse",
+    "Test avec un bouton"
+  ],
+  "settings": {
+    "ATENA_REDALERT_LIGHTS": "Faire clignoter les lumières en rouge",
+    "ATENA_REDALERT_CAST": "Prévenir à voix haute sur tous les Chromecast",
+    "ATENA_REDALERT_SECONDS": "Pendant combien de temps"
+  }
+}

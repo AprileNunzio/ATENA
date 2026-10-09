@@ -1,0 +1,16 @@
+{
+  "name": "Red alert",
+  "description": "When an alarm goes off (smoke, water, intrusion…) Atena slowly flashes all Home Assistant lights red and repeats the urgent message on every Chromecast; when the alarm ends the lights go back as they were.",
+  "capabilities": [
+    "Red flashing house lights (slow, safe for light-sensitive people)",
+    "Urgent voice message on every Chromecast, repeated every 25 seconds",
+    "Lights automatically restored as they were",
+    "Stops by closing the alarm widget or when the alarm clears",
+    "Test with one button"
+  ],
+  "settings": {
+    "ATENA_REDALERT_LIGHTS": "Flash the lights red",
+    "ATENA_REDALERT_CAST": "Announce on every Chromecast",
+    "ATENA_REDALERT_SECONDS": "For how long"
+  }
+}

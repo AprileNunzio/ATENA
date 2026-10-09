@@ -19,10 +19,12 @@ for _name, _fn in SOURCES.items():
     desk.register_source(_name, _fn)
 
 
-def _alert(body: dict) -> dict:
+def _alert(body: dict, red: bool = True) -> dict:
     kind = str(body.get("kind") or "generic")[:30]
     key = f"alarm:{kind}:{str(body.get('room') or '')[:40]}"
+    from features.redalert.service import redalert
     if body.get("clear"):
+        redalert.stop()
         desk.hide(key=key)
         store.event("INFO", f"Allarme {kind} rientrato", "alarm")
         return {"ok": True, "cleared": key}
@@ -31,6 +33,8 @@ def _alert(body: dict) -> dict:
     where = ("in " + data["room"]) if data["room"] else ""
     data["speak"] = str(body.get("speak") or f"Attenzione! {data['title'] or 'Allarme'} {where}.")[:200]
     desk.show("alarm", data, key=key, priority=int(body.get("priority", 100)))
+    if red:
+        redalert.trigger(data["speak"] + (" " + data["message"] if data["message"] else ""))
     store.event("ERROR", f"ALLARME {kind} {data['room']}: {data['message']}", "alarm")
     return {"ok": True, "key": key}
 
@@ -84,8 +88,12 @@ async def desk_fullscreen(request: Request):
 @public_routes.post("/api/desk/close")
 async def desk_close(request: Request):
     require_display(request, "Solo dal display")
-    if not desk.dismiss(str((await request.json()).get("key") or "")[:120]):
+    key = str((await request.json()).get("key") or "")[:120]
+    if not desk.dismiss(key):
         raise HTTPException(404, "Widget non trovato")
+    if key.startswith("alarm:"):
+        from features.redalert.service import redalert
+        redalert.stop()
     return {"ok": True}
 
 
@@ -146,7 +154,7 @@ async def admin_widget_test(wid: str, _: str = Depends(require_admin)):
     if not m:
         raise HTTPException(404, "Widget sconosciuto")
     if wid == "alarm":
-        _alert({**m.get("demo", {}), "title": "Prova allarme", "message": "Questa è una prova dal pannello: nessun pericolo."})
+        _alert({**m.get("demo", {}), "title": "Prova allarme", "message": "Questa è una prova dal pannello: nessun pericolo."}, red=False)
         desk.instances[next(k for k in desk.instances if k.startswith("alarm:"))]["expires_at"] = time.time() + 20
     else:
         desk.show(wid, {**m.get("demo", {}), "started_at": time.time() - 30}, key=f"test:{wid}", ttl=30)

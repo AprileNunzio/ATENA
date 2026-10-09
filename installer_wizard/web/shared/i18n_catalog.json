@@ -15475,6 +15475,106 @@
     [
       "Volume ripristinato: {0}",
       "Volume restored: {0}"
+    ],
+    [
+      "Allarme rosso",
+      "Red alert"
+    ],
+    [
+      "Allarme rosso fermato",
+      "Red alert stopped"
+    ],
+    [
+      "Avvisa a voce su tutti i Chromecast",
+      "Announce on every Chromecast"
+    ],
+    [
+      "Fai lampeggiare le luci di rosso",
+      "Flash the lights red"
+    ],
+    [
+      "L'allarme rosso è disattivato",
+      "The red alert is turned off"
+    ],
+    [
+      "L'allarme rosso è spento: accendilo dalla scheda della funzionalità qui sopra.",
+      "The red alert is off: turn it on from the feature card above."
+    ],
+    [
+      "Luci di casa rosse lampeggianti (lente, sicure per chi è sensibile alla luce)",
+      "Red flashing house lights (slow, safe for light-sensitive people)"
+    ],
+    [
+      "Messaggio scaduto",
+      "Message expired"
+    ],
+    [
+      "Messaggio vocale urgente su tutti i Chromecast, ripetuto ogni 25 secondi",
+      "Urgent voice message on every Chromecast, repeated every 25 seconds"
+    ],
+    [
+      "Per quanto tempo",
+      "For how long"
+    ],
+    [
+      "Prova con un pulsante",
+      "Test with one button"
+    ],
+    [
+      "Prova in corso: luci e Chromecast per 12 secondi",
+      "Test running: lights and Chromecasts for 12 seconds"
+    ],
+    [
+      "Quando scatta un allarme (fumo, acqua, intrusione…) Atena fa lampeggiare lentamente di rosso tutte le luci di Home Assistant e ripete il messaggio urgente su tutti i Chromecast; finito l'allarme le luci tornano come prima.",
+      "When an alarm goes off (smoke, water, intrusion…) Atena slowly flashes all Home Assistant lights red and repeats the urgent message on every Chromecast; when the alarm ends the lights go back as they were."
+    ],
+    [
+      "Quando scatta un allarme, la casa lampeggia di rosso e Atena avvisa a voce su tutti i Chromecast.",
+      "When an alarm goes off, the house flashes red and Atena announces it on every Chromecast."
+    ],
+    [
+      "Ripristino automatico delle luci com'erano",
+      "Lights automatically restored as they were"
+    ],
+    [
+      "Si ferma chiudendo il widget dell'allarme o quando l'allarme rientra",
+      "Stops by closing the alarm widget or when the alarm clears"
+    ],
+    [
+      "⏹ Ferma",
+      "⏹ Stop"
+    ],
+    [
+      "▶ Prova per 12 secondi",
+      "▶ Test for 12 seconds"
+    ],
+    [
+      "Luci rosse",
+      "Red lights"
+    ],
+    [
+      "Avviso a voce",
+      "Voice announcement"
+    ],
+    [
+      "Tutte le luci di Home Assistant lampeggiano piano, poi tornano come prima.",
+      "All Home Assistant lights flash slowly, then go back as they were."
+    ],
+    [
+      "Il messaggio urgente si sente su tutti i Chromecast di casa.",
+      "The urgent message plays on every Chromecast at home."
+    ],
+    [
+      "Allarme rosso: {0}",
+      "Red alert: {0}"
+    ],
+    [
+      "Allarme rosso terminato",
+      "Red alert ended"
+    ],
+    [
+      "Messaggio urgente su: {0}",
+      "Urgent message on: {0}"
     ]
   ],
   "reverse": [
@@ -30614,6 +30714,106 @@
     [
       "Volume ripristinato: {0}",
       "Volume rétabli : {0}"
+    ],
+    [
+      "Allarme rosso",
+      "Alerte rouge"
+    ],
+    [
+      "Allarme rosso fermato",
+      "Alerte rouge arrêtée"
+    ],
+    [
+      "Avvisa a voce su tutti i Chromecast",
+      "Prévenir à voix haute sur tous les Chromecast"
+    ],
+    [
+      "Fai lampeggiare le luci di rosso",
+      "Faire clignoter les lumières en rouge"
+    ],
+    [
+      "L'allarme rosso è disattivato",
+      "L'alerte rouge est désactivée"
+    ],
+    [
+      "L'allarme rosso è spento: accendilo dalla scheda della funzionalità qui sopra.",
+      "L'alerte rouge est éteinte : allumez-la depuis la fiche de la fonctionnalité ci-dessus."
+    ],
+    [
+      "Luci di casa rosse lampeggianti (lente, sicure per chi è sensibile alla luce)",
+      "Lumières de la maison rouges clignotantes (lentes, sûres pour les personnes sensibles à la lumière)"
+    ],
+    [
+      "Messaggio scaduto",
+      "Message expiré"
+    ],
+    [
+      "Messaggio vocale urgente su tutti i Chromecast, ripetuto ogni 25 secondi",
+      "Message vocal urgent sur tous les Chromecast, répété toutes les 25 secondes"
+    ],
+    [
+      "Per quanto tempo",
+      "Pendant combien de temps"
+    ],
+    [
+      "Prova con un pulsante",
+      "Test avec un bouton"
+    ],
+    [
+      "Prova in corso: luci e Chromecast per 12 secondi",
+      "Test en cours : lumières et Chromecast pendant 12 secondes"
+    ],
+    [
+      "Quando scatta un allarme (fumo, acqua, intrusione…) Atena fa lampeggiare lentamente di rosso tutte le luci di Home Assistant e ripete il messaggio urgente su tutti i Chromecast; finito l'allarme le luci tornano come prima.",
+      "Quand une alarme se déclenche (fumée, eau, intrusion…) Atena fait clignoter lentement en rouge toutes les lumières Home Assistant et répète le message urgent sur tous les Chromecast ; à la fin de l'alarme les lumières reviennent comme avant."
+    ],
+    [
+      "Quando scatta un allarme, la casa lampeggia di rosso e Atena avvisa a voce su tutti i Chromecast.",
+      "Quand une alarme se déclenche, la maison clignote en rouge et Atena prévient à voix haute sur tous les Chromecast."
+    ],
+    [
+      "Ripristino automatico delle luci com'erano",
+      "Lumières rétablies automatiquement comme avant"
+    ],
+    [
+      "Si ferma chiudendo il widget dell'allarme o quando l'allarme rientra",
+      "S'arrête en fermant le widget de l'alarme ou quand l'alarme cesse"
+    ],
+    [
+      "⏹ Ferma",
+      "⏹ Arrêter"
+    ],
+    [
+      "▶ Prova per 12 secondi",
+      "▶ Tester pendant 12 secondes"
+    ],
+    [
+      "Luci rosse",
+      "Lumières rouges"
+    ],
+    [
+      "Avviso a voce",
+      "Annonce vocale"
+    ],
+    [
+      "Tutte le luci di Home Assistant lampeggiano piano, poi tornano come prima.",
+      "Toutes les lumières Home Assistant clignotent lentement, puis reviennent comme avant."
+    ],
+    [
+      "Il messaggio urgente si sente su tutti i Chromecast di casa.",
+      "Le message urgent est diffusé sur tous les Chromecast de la maison."
+    ],
+    [
+      "Allarme rosso: {0}",
+      "Alerte rouge : {0}"
+    ],
+    [
+      "Allarme rosso terminato",
+      "Alerte rouge terminée"
+    ],
+    [
+      "Messaggio urgente su: {0}",
+      "Message urgent sur : {0}"
     ]
   ]
 }

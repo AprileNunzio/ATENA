@@ -1,0 +1,21 @@
+.ra-head { display: flex; gap: 16px; align-items: center; margin-bottom: 14px; }
+.ra-icon { font-size: 42px; line-height: 1; }
+.ra-body { display: flex; flex-direction: column; gap: 14px; }
+.ra-off { padding: 12px 14px; border-radius: 12px; border: 1px solid var(--amber); color: var(--amber); }
+.ra-toggle { display: flex; gap: 14px; align-items: center; padding: 16px; border-radius: 16px; border: 1px solid var(--line);
+  background: rgba(2, 8, 16, 0.4); cursor: pointer; text-transform: none; letter-spacing: 0; margin: 0; }
+.ra-toggle > span:nth-child(2) { flex: 1; display: flex; flex-direction: column; gap: 4px; font-size: 16px; color: var(--text); }
+.ra-toggle small { font-size: 13px; color: var(--text-dim); }
+.ra-ic { font-size: 30px; }
+.ra-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+.ra-toggle i { position: relative; width: 52px; height: 30px; flex: none; border-radius: 30px; background: rgba(120, 140, 160, 0.35); transition: background 0.2s; }
+.ra-toggle i::after { content: ""; position: absolute; left: 4px; top: 4px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: transform 0.2s; }
+.ra-toggle input:checked + i { background: #e5484d; }
+.ra-toggle input:checked + i::after { transform: translateX(22px); }
+.ra-toggle input:focus-visible + i { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.ra-label { font-size: 13px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); margin-bottom: 8px; }
+.ra-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.ra-chip { font: inherit; font-size: 15px; padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; }
+.ra-chip.on { border-color: #e5484d; background: rgba(229, 72, 77, 0.15); }
+.ra-row { display: flex; gap: 10px; flex-wrap: wrap; }
+.ra-big { font-size: 17px; padding: 14px 22px; border-radius: 14px; }
