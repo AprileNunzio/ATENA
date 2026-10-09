@@ -15379,6 +15379,42 @@
     [
       "Allarmi nelle ultime 24 ore: {0} ({1} gravi)",
       "Alarms in the last 24 hours: {0} ({1} serious)"
+    ],
+    [
+      "(ultimo: {0})",
+      "(last: {0})"
+    ],
+    [
+      "bloccato dal firewall",
+      "blocked by the firewall"
+    ],
+    [
+      "{0} allarmi del firewall in 24 ore",
+      "{0} firewall alarms in 24 hours"
+    ],
+    [
+      "· bloccato",
+      "· blocked"
+    ],
+    [
+      "bloccato",
+      "blocked"
+    ],
+    [
+      "nessun allarme",
+      "no alarms"
+    ],
+    [
+      "{0} allarmi nelle ultime 24 ore",
+      "{0} alarms in the last 24 hours"
+    ],
+    [
+      "dispositivo sconosciuto",
+      "unknown device"
+    ],
+    [
+      "Internet",
+      "Internet"
     ]
   ],
   "reverse": [
@@ -30422,6 +30458,42 @@
     [
       "Allarmi nelle ultime 24 ore: {0} ({1} gravi)",
       "Alarmes des dernières 24 heures : {0} ({1} graves)"
+    ],
+    [
+      "(ultimo: {0})",
+      "(dernier : {0})"
+    ],
+    [
+      "bloccato dal firewall",
+      "bloqué par le pare-feu"
+    ],
+    [
+      "{0} allarmi del firewall in 24 ore",
+      "{0} alarmes du pare-feu en 24 heures"
+    ],
+    [
+      "· bloccato",
+      "· bloqué"
+    ],
+    [
+      "bloccato",
+      "bloqué"
+    ],
+    [
+      "nessun allarme",
+      "aucune alarme"
+    ],
+    [
+      "{0} allarmi nelle ultime 24 ore",
+      "{0} alarmes dans les dernières 24 heures"
+    ],
+    [
+      "dispositivo sconosciuto",
+      "appareil inconnu"
+    ],
+    [
+      "Internet",
+      "Internet"
     ]
   ]
 }

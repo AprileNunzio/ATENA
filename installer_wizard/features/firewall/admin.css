@@ -33,3 +33,7 @@
   .fw-row-actions { white-space: normal; }
 }
 .fw-confirm[hidden], .fw-rule-form[hidden] { display: none; }
+.fw-who { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px; font-size: 12px; border: 1px solid var(--line); color: var(--text); }
+.fw-who.trusted { border-color: var(--green); color: var(--green); }
+.fw-who.unknown { border-color: var(--amber); color: var(--amber); }
+.fw-who.internet { color: var(--text-dim); }

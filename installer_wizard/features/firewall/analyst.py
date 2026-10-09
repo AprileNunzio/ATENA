@@ -30,12 +30,19 @@ PROMPT = ("Riassunto degli ultimi {minutes} minuti:\n{digest}\n\nRispondi con qu
           '"advice": ["consigli pratici per il proprietario"]}}')
 
 
+def _names(addresses) -> dict:
+    from features.network.whois import names
+    return names(addresses)
+
+
 def digest(alerts: list[dict], summary: dict) -> dict:
     grouped = Counter((a["kind"], a["src"], a["severity"]) for a in alerts)
     return {
         "mode": store.policy.mode,
         "alerts": [{"kind": k, "src": s, "severity": sev, "times": n} for (k, s, sev), n in grouped.most_common(40)],
         "examples": [{"kind": a["kind"], "src": a["src"], "dst": a["dst"], "detail": a["detail"][:120]} for a in alerts[-8:]],
+        "devices": {ip: {"name": i["label"][:60], "trusted": i.get("trusted", False), "type": i.get("type", "")}
+                    for ip, i in _names({a["src"] for a in alerts} | {a["dst"] for a in alerts[-8:]}).items()},
         "top_talkers": (summary.get("top_talkers") or [])[:10],
         "active_blocks": len(store.blocks),
     }

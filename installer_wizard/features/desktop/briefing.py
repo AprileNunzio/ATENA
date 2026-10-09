@@ -61,7 +61,8 @@ def firewall() -> tuple[str, dict, int]:
              f"Allarmi nelle ultime 24 ore: {len(recent)} ({len(serious)} gravi)"]
     if recent:
         a = recent[-1]
-        lines.append(f"Ultimo: {a.get('kind', '?')} da {a.get('src', '?')}"[:120])
+        from features.network.whois import describe
+        lines.append(f"Ultimo: {a.get('kind', '?')} da {describe(a.get('src', '?'))}"[:120])
     return "brief", {"title": "Firewall", "lines": lines}, 85 if serious else 40
 
 

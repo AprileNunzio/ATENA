@@ -28,7 +28,7 @@
   }
 
   function blocks(items) {
-    const rows = items.map((b) => `<div class="fw-item"><span class="mono">${fmt.esc(b.address)}</span>
+    const rows = items.map((b) => `<div class="fw-item"><span><span class="mono">${fmt.esc(b.address)}</span>${FW.who ? FW.who(b.address) : ""}</span>
       <span class="faint">${b.expires ? `fino alle ${new Date(b.expires * 1000).toLocaleString()}` : "finché non lo sblocchi"} · ${fmt.esc(b.reason)}</span>
       <button class="btn sm" data-unblock="${fmt.esc(b.address)}">Sblocca</button></div>`);
     $("fw-blocks").innerHTML = rows.join("") || '<div class="faint">Nessun indirizzo bloccato.</div>';

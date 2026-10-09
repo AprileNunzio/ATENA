@@ -13,6 +13,14 @@
   const when = (s) => new Date(s * 1000).toLocaleString();
   const size = (b) => (b > 1e9 ? `${(b / 1e9).toFixed(1)} GB` : b > 1e6 ? `${(b / 1e6).toFixed(1)} MB` : `${Math.round((b || 0) / 1e3)} kB`);
 
+  FW.who = (ip) => {
+    const n = ((FW.data || {}).names || {})[ip];
+    if (!n) return "";
+    const cls = !n.known ? (n.local ? "unknown" : "internet") : n.trusted ? "trusted" : "";
+    const where = [n.type, n.room, n.owner].filter(Boolean).join(" · ");
+    return ` <span class="fw-who ${cls}" title="${fmt.esc(where)}">${fmt.esc(n.label)}</span>`;
+  };
+
   FW.call = async (method, url, body) => {
     try { const r = await A.api(method, url, body); FW.render(r); return r; }
     catch (e) { A.toast(e.message, true); return null; }
@@ -49,7 +57,7 @@
     }
     $("fw-stats").innerHTML = `<span><b>${(sum.packets || 0).toLocaleString()}</b> pacchetti</span>
       <span><b>${size(sum.bytes)}</b> analizzati</span><span><b>${sum.flows || 0}</b> flussi attivi</span>`;
-    const rows = (sum.top_talkers || []).map((t) => `<tr><td class="mono">${fmt.esc(t.host)}</td><td>${size(t.bytes_out)}</td>
+    const rows = (sum.top_talkers || []).map((t) => `<tr><td><span class="mono">${fmt.esc(t.host)}</span>${FW.who(t.host)}</td><td>${size(t.bytes_out)}</td>
       <td>${size(t.bytes_in)}</td><td>${t.flows}</td><td><button class="btn sm danger" data-block="${fmt.esc(t.host)}">Blocca</button></td></tr>`);
     $("fw-talkers").innerHTML = rows.length ? `<table class="fw-table"><thead><tr><th>Dispositivo</th><th>Inviati</th><th>Ricevuti</th>
       <th>Flussi</th><th></th></tr></thead><tbody>${rows.join("")}</tbody></table>` : "";
@@ -57,7 +65,7 @@
 
   function alerts(items) {
     const rows = (items || []).slice().reverse().map((a) => `<div class="fw-item sev-${fmt.esc(a.severity)}">
-      <div><b>${fmt.esc(KINDS[a.kind] || a.kind)}</b> · gravità ${fmt.esc(LEVELS[a.severity] || a.severity)} · <span class="mono">${fmt.esc(a.src)}</span> → <span class="mono">${fmt.esc(a.dst)}</span></div>
+      <div><b>${fmt.esc(KINDS[a.kind] || a.kind)}</b> · gravità ${fmt.esc(LEVELS[a.severity] || a.severity)} · <span class="mono">${fmt.esc(a.src)}</span>${FW.who(a.src)} → <span class="mono">${fmt.esc(a.dst)}</span>${FW.who(a.dst)}</div>
       <div class="faint">${fmt.esc(a.detail)} · ${when(a.at)}</div>
       <button class="btn sm danger" data-block="${fmt.esc(a.src)}">Blocca</button></div>`);
     $("fw-alerts").innerHTML = rows.join("") || '<div class="faint">Nessun allarme: la rete è tranquilla.</div>';

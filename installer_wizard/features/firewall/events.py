@@ -90,9 +90,11 @@ class Monitor:
         if self_inflicted(alert):
             self.ignored_self += 1
             return
+        from features.network.whois import describe, label
+        alert["who"], alert["dst_who"] = label(alert["src"]), label(alert["dst"])
         self.alerts.append(alert)
         level = "ERROR" if SEVERITY[alert["severity"]] >= SEVERITY["high"] else "WARN"
-        system_store.event(level, f"Firewall · {alert['kind']} da {alert['src']}: {alert['detail']}", "firewall")
+        system_store.event(level, f"Firewall · {alert['kind']} da {describe(alert['src'])}: {alert['detail']}", "firewall")
         self._publish(alert)
         address = self.block_candidate(alert)
         if address is not None:

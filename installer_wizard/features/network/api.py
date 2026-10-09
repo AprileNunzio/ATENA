@@ -32,7 +32,14 @@ explorer.on_device_learned = _learned
 
 @admin_routes.get("/api/network")
 async def admin_network(_: str = Depends(require_admin)):
-    return explorer.listing()
+    from features.firewall.events import monitor
+    from features.firewall.store import store as firewall
+    from features.network.whois import firewall_view
+    out = explorer.listing()
+    view = firewall_view(list(monitor.alerts), firewall.blocks)
+    for d in out["devices"]:
+        d["firewall"] = view.get(d["key"])
+    return out
 
 
 @admin_routes.post("/api/network/scan")

@@ -48,8 +48,12 @@ async def _change(user: str, reason: str, mutate, confirm: bool = True) -> dict:
 
 @admin_routes.get("/api/firewall")
 async def admin_firewall(_: str = Depends(require_admin)):
-    return JSONResponse({**store.snapshot(), "status": applier.status(), "engine": {"connected": monitor.connected},
-                         "summary": monitor.summary, "alerts": list(monitor.alerts)[-50:],
+    from features.network.whois import names
+    snap, alerts = store.snapshot(), list(monitor.alerts)[-50:]
+    seen = [a["src"] for a in alerts] + [a["dst"] for a in alerts] + [b["address"] for b in snap["blocks"]]
+    seen += [t.get("host") for t in (monitor.summary.get("top_talkers") or [])]
+    return JSONResponse({**snap, "status": applier.status(), "engine": {"connected": monitor.connected},
+                         "summary": monitor.summary, "alerts": alerts, "names": names(seen),
                          "reports": list(analyst.reports)[-10:]}, headers=NO_CACHE)
 
 

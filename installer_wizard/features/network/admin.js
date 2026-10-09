@@ -10,12 +10,19 @@
     if (netSel) showDevice(netSel);
   }
 
+  const shield = (d) => {
+    const f = d.firewall;
+    if (!f) return "";
+    const text = f.blocked ? "bloccato dal firewall" : `${f.alerts_24h} allarmi del firewall in 24 ore`;
+    return ` <span class="badge warn" title="${fmt.esc(text)}">🛡 ${fmt.esc(f.blocked ? "bloccato" : String(f.alerts_24h))}</span>`;
+  };
+
   function renderNetwork() {
     const q = ($("net-filter").value || "").toLowerCase();
     $("net-body").innerHTML = netData.devices.filter((d) => !q || JSON.stringify([d.label, d.ip, d.vendor, d.type_label, d.room]).toLowerCase().includes(q)).map((d) => `
       <tr data-key="${fmt.esc(d.key)}" style="cursor:pointer">
         <td><span class="dot ${d.online ? "ok" : "idle"}"></span></td>
-        <td>${d.icon} ${fmt.esc(d.label)}${d.room ? `<div class="faint" style="font-size:11px">${fmt.esc(d.room)}</div>` : ""}</td>
+        <td>${d.icon} ${fmt.esc(d.label)}${shield(d)}${d.room ? `<div class="faint" style="font-size:11px">${fmt.esc(d.room)}</div>` : ""}</td>
         <td class="mono">${fmt.esc(d.ip || "")}</td>
         <td style="font-size:12px">${fmt.esc(d.vendor || "—")}<div class="faint mono">${fmt.esc(d.mac || "")}</div></td>
         <td style="font-size:12px">${fmt.esc(d.type_label)}</td>
@@ -44,6 +51,7 @@
         <tr><td class="dim">Pagina web</td><td>${fmt.esc(d.web_title || "—")}</td></tr>
         <tr><td class="dim">Servizi mDNS</td><td class="mono">${fmt.esc((d.mdns || []).join(", ") || "—")}</td></tr>
         <tr><td class="dim">Porte aperte</td><td class="mono">${(d.ports || []).map((p) => `${p.port}/${fmt.esc(p.service)}${p.product ? " (" + fmt.esc(p.product) + ")" : ""}`).join("<br>") || "—"}</td></tr>
+        <tr><td class="dim">Firewall</td><td>${d.firewall ? fmt.esc(`${d.firewall.alerts_24h} allarmi nelle ultime 24 ore${d.firewall.last ? ` (ultimo: ${d.firewall.last})` : ""}${d.firewall.blocked ? " · bloccato" : ""}`) : "nessun allarme"}</td></tr>
         <tr><td class="dim">Visto la prima volta</td><td>${d.first_seen ? new Date(d.first_seen * 1000).toLocaleString("it-IT") : "—"}</td></tr>
         <tr><td class="dim">Ultimo studio</td><td>${d.studied ? new Date(d.studied * 1000).toLocaleString("it-IT") : "in coda"}</td></tr>
       </tbody></table>`;
