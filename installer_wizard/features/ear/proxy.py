@@ -6,6 +6,7 @@ import websockets
 from fastapi import WebSocket, WebSocketDisconnect
 
 import auth
+from features.authz.heard import heard
 
 logger = logging.getLogger("atena.ear.proxy")
 UPSTREAM = "ws://127.0.0.1:8093"
@@ -47,6 +48,7 @@ async def _down(client: Any, upstream: Any) -> None:
         if isinstance(message, bytes):
             await client.send_bytes(message)
         else:
+            heard.tap(message)
             await client.send_text(message)
 
 

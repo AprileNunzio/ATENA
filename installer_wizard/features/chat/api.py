@@ -14,6 +14,8 @@ from fastapi.responses import JSONResponse, StreamingResponse
 from state import store
 from tasks import background
 
+from features.authz import resolve as authz_resolve
+from features.authz.principal import act_as
 from features.brain.brains import brains
 from features.brain.residency import primary
 from features.brain.trace import trace
@@ -127,6 +129,8 @@ async def assistant_chat(text: str, device: str, heard_lang: str | None = None, 
     study.engine.activity("chat")
     request_context.device.set(device)
     request_context.voice.set(heard.get("speaker") or "")
+    principal = authz_resolve.for_request(device, heard.get("speaker") or "", text)
+    act_as(principal)
     if heard.get("speaker"):
         try:
             from atena_bus import BusError, atena_bus
@@ -172,6 +176,7 @@ async def assistant_chat(text: str, device: str, heard_lang: str | None = None, 
     dialogue.remember(device, said, result["reply"], result.get("intent", ""))
     result["lang"] = languages.detect(result.get("reply") or "", speech_lang["lang"])
     result["language"] = {**speech_lang, "label": languages.label(speech_lang["lang"])}
+    result["identity"] = principal.describe()
     study.engine.note_query(text, result.get("intent", ""))
     desk.on_intent(result.get("intent", ""), result.get("ui") or {})
     if not str(result.get("agent", "")).startswith("algoritmo") and skill_library.needs_algorithm(text):

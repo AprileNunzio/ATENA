@@ -29,10 +29,12 @@ def available(level: str) -> list[dict]:
 def describe(level: str) -> str:
     return describe_for_agents(level, None)
 
-def describe_for_agents(level: str, agents: set[str] | None) -> str:
+def describe_for_agents(level: str, agents: set[str] | None, permitted=None) -> str:
     from features.team import roster
     rows = []
     for t in available(level):
+        if permitted is not None and not permitted(t["name"]):
+            continue
         if agents is not None:
             owner = roster.owner(t["name"])
             if owner not in agents:

@@ -12595,6 +12595,38 @@
     [
       "🗑 Elimina Foto",
       "🗑 Delete Photo"
+    ],
+    [
+      "Autorizzazioni con volto e voce",
+      "Face and voice permissions"
+    ],
+    [
+      "Come il ruolo",
+      "Same as the role"
+    ],
+    [
+      "Solo informazioni",
+      "Information only"
+    ],
+    [
+      "Casa e dispositivi",
+      "Home and devices"
+    ],
+    [
+      "Anche dati personali",
+      "Personal data too"
+    ],
+    [
+      "Anche creare e modificare file",
+      "Also create and edit files"
+    ],
+    [
+      "Tutto, anche azioni delicate",
+      "Everything, sensitive actions included"
+    ],
+    [
+      "Policy non valida",
+      "Invalid policy"
     ]
   ],
   "reverse": [
@@ -24818,6 +24850,38 @@
     [
       "🗑 Elimina Foto",
       "🗑 Supprimer la photo"
+    ],
+    [
+      "Autorizzazioni con volto e voce",
+      "Autorisations par visage et voix"
+    ],
+    [
+      "Come il ruolo",
+      "Comme le rôle"
+    ],
+    [
+      "Solo informazioni",
+      "Informations uniquement"
+    ],
+    [
+      "Casa e dispositivi",
+      "Maison et appareils"
+    ],
+    [
+      "Anche dati personali",
+      "Données personnelles aussi"
+    ],
+    [
+      "Anche creare e modificare file",
+      "Créer et modifier des fichiers aussi"
+    ],
+    [
+      "Tutto, anche azioni delicate",
+      "Tout, actions sensibles comprises"
+    ],
+    [
+      "Policy non valida",
+      "Politique non valide"
     ]
   ]
 }

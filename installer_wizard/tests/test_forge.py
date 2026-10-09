@@ -6,6 +6,7 @@ from unittest import mock
 
 import feature_registry
 from features.agent import registry
+from features.authz.principal import SYSTEM, act_as, current
 from features.capabilities import catalog, mcp
 from features.desktop import desk as desk_module
 from features.desktop.desk import desk
@@ -20,6 +21,8 @@ def call(tool_name: str, **args) -> str:
 
 class ForgeBase(unittest.TestCase):
     def setUp(self):
+        self.principal = act_as(SYSTEM)
+        self.addCleanup(current.reset, self.principal)
         self.folder = tempfile.TemporaryDirectory()
         self.addCleanup(self.folder.cleanup)
         root = Path(self.folder.name)

@@ -2,6 +2,7 @@ import asyncio
 import json
 
 from features.agent import registry
+from features.authz import gate
 from features.team import roster
 from features.team.board import ACTING, board
 
@@ -36,6 +37,7 @@ async def execute(name: str, args: dict, agent_id: str) -> str:
 
 
 async def run_as(name: str, args: dict) -> str:
+    gate.require_tool(name)
     agent_id = roster.owner(name)
     shown = json.dumps(registry.clean_args(name, args), ensure_ascii=False)[:120]
     token = ACTING.set(agent_id)

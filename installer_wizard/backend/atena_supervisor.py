@@ -74,6 +74,7 @@ from features.cameras.recorder import recorder as cameras_recorder
 from features.laws import api as laws_api
 from features.maps import api as maps_api
 from features.mind import api as mind_api
+from features.authz import api as authz_api
 from features.maps.maps import maps
 from features.mcpclient import api as mcpclient_api
 from features.mcpclient.service import run as mcpclient_run
@@ -151,6 +152,7 @@ FEATURE_APIS = (
     skills_api,
     nodes_api,
     mind_api,
+    authz_api,
     laws_api,
     cameras_api,
     models3d_api,

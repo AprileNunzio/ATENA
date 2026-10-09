@@ -8,6 +8,8 @@ from features.agent.paths import FILES, AccessDenied, level
 from features.automations import tools as tools_automations
 from features.documents import tools as tools_documents
 from features.autonomy import tools as tools_autonomy
+from features.authz import gate
+from features.authz.principal import SYSTEM, act_as, current
 from features.brain.llm import BrainUnavailable, generate
 from features.chat.context import session_key
 from features.forge import tools as tools_forge
@@ -64,10 +66,10 @@ class Agent:
         try:
             from features.team.router import tool_router
             relevant_agents = await tool_router.retrieve(request, top_k=7)
-            return registry.describe_for_agents(level(), relevant_agents)
         except Exception as exc:
             store.event("WARN", f"Selezione strumenti per agente non riuscita: {exc}", "agent")
-            return registry.describe(level())
+            relevant_agents = None
+        return registry.describe_for_agents(level(), relevant_agents, gate.within_role)
 
     async def _decide(self, request: str, steps: list[dict]) -> dict:
         history = "\n".join(f"{i + 1}. {s['tool']}({json.dumps(s['args'], ensure_ascii=False)[:300]}) → {s['result'][:1200]}"
@@ -96,11 +98,19 @@ class Agent:
 
     async def run(self, request: str, steps: list[dict] | None = None, auto: str = "", trusted: bool = False,
                   routine: str = "") -> str:
+        token = act_as(SYSTEM) if auto else None
+        try:
+            return await self._run(request, steps, auto, trusted, routine)
+        finally:
+            if token is not None:
+                current.reset(token)
+
+    async def _run(self, request: str, steps: list[dict] | None, auto: str, trusted: bool, routine: str) -> str:
         steps = [] if steps is None else steps
         self.last_steps = steps
         registry.REQUEST.set(request)
         for _ in range(MAX_STEPS):
-            allowed = {t["name"] for t in registry.available(level())}
+            allowed = {t["name"] for t in registry.available(level()) if gate.within_role(t["name"])}
             try:
                 move = await self._decide(request, steps)
             except BrainUnavailable as exc:
@@ -111,6 +121,9 @@ class Agent:
             if name not in allowed:
                 steps.append({"tool": name, "args": {}, "result": "ERRORE: strumento inesistente o non consentito"})
                 continue
+            decision = gate.tool(name)
+            if not decision.allowed:
+                return gate.refusal(decision)
             if registry.needs_confirm(name, args) and not (auto and trusted):
                 if auto:
                     from features.autonomy import approvals

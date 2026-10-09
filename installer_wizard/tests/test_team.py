@@ -3,6 +3,7 @@ import unittest
 from unittest import mock
 
 from features.agent import registry
+from features.authz.principal import SYSTEM, act_as, current
 from features.capabilities import manifest
 from features.team import roster, runner
 from features.team import tools as team_tools
@@ -65,6 +66,8 @@ class BoardTest(unittest.TestCase):
 
 class CollaborationTest(unittest.TestCase):
     def setUp(self):
+        self.principal = act_as(SYSTEM)
+        self.addCleanup(current.reset, self.principal)
         board.doing.clear()
         board.messages.clear()
         board.inbox.clear()

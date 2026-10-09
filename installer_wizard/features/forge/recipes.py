@@ -4,6 +4,7 @@ import re
 
 from config import STATE_DIR
 from features.agent import registry
+from features.authz import risk
 
 DIR = STATE_DIR / "tools"
 NAME = re.compile(r"^[a-z][a-z0-9_]{2,40}$")
@@ -85,6 +86,7 @@ def register(spec: dict) -> None:
     registry.TOOLS[spec["name"]] = {"name": spec["name"], "description": spec["description"] + " (strumento creato da Atena)", "args": spec["params"], "fn": run,
                                     "confirm": lambda args: risky(spec, args), "full_only": False, "agent": spec["agent"], "verify": None, "custom": True}
     CUSTOM[spec["name"]] = spec
+    risk.compose(spec["name"], [step["tool"] for step in spec["steps"]])
 
 
 def save(spec: dict) -> dict:
@@ -100,6 +102,7 @@ def remove(name: str) -> bool:
         return False
     CUSTOM.pop(name)
     registry.TOOLS.pop(name, None)
+    risk.forget(name)
     (DIR / f"{name}.json").unlink(missing_ok=True)
     return True
 

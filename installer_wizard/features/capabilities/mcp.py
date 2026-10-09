@@ -2,6 +2,7 @@ import time
 
 from features.agent import registry
 from features.agent.paths import level
+from features.authz.principal import Principal, Strength, act_as, current
 from features.capabilities import audit, catalog, schema
 from features.team import roster, runner
 
@@ -51,10 +52,15 @@ async def call(params: dict, token: dict) -> dict:
         if not confirmed:
             return text("azione delicata: chiedi conferma all'utente e richiama con _confirm=true", True)
     started = time.time()
+    principal = Principal(slug=f"mcp:{token.get('name') or token.get('id') or 'token'}", role="system",
+                          strength=Strength.STRONG, factors=("token",))
+    acting = act_as(principal)
     try:
         reply = text(await runner.run_as(name, args))
     except Exception as exc:
         reply = text(f"errore: {str(exc)[:300]}", True)
+    finally:
+        current.reset(acting)
     audit.record(token, "tools/call", name, not reply["isError"], (time.time() - started) * 1000)
     return reply
 

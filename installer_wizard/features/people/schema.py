@@ -17,6 +17,8 @@ RELATIONS = {
 
 ROLES = {"owner": "Proprietario", "family": "Famiglia", "friend": "Amico", "guest": "Ospite", "staff": "Collaboratore",
          "service": "Servizi (medico, tecnico…)"}
+AUTHORIZATIONS = {"": "Come il ruolo", "info": "Solo informazioni", "home": "Casa e dispositivi", "personal": "Anche dati personali",
+                  "files": "Anche creare e modificare file", "critical": "Tutto, anche azioni delicate"}
 
 SECTIONS = [
     {"id": "identity", "title": "Anagrafica", "icon": "👤", "fields": [
@@ -40,6 +42,8 @@ SECTIONS = [
         {"key": "religion", "label": "Religione", "type": "text"},
         {"key": "marital_status", "label": "Stato civile", "type": "select", "options": ["", "Celibe/Nubile", "Fidanzato/a", "Convivente", "Sposato/a", "Unito/a civilmente", "Separato/a", "Divorziato/a", "Vedovo/a"]},
         {"key": "role", "label": "Ruolo per Atena", "type": "select", "options": list(ROLES), "labels": ROLES},
+        {"key": "authorization", "label": "Autorizzazioni con volto e voce", "type": "select", "options": list(AUTHORIZATIONS),
+         "labels": AUTHORIZATIONS},
         {"key": "deceased", "label": "Deceduto/a", "type": "bool"},
         {"key": "death_date", "label": "Data di decesso", "type": "date"},
     ]},

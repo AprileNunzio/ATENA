@@ -5,6 +5,7 @@ import httpx
 from state import store
 
 from features.actions import router as actions
+from features.authz import gate
 from features.brain import stages
 from features.brain.llm import BrainUnavailable
 from features.chat import code
@@ -22,6 +23,14 @@ EARLY = ("whiteboard", "livecam")
 PERSONAL = {"gservices", "vault", "documents", "maps", "vision", "livecam"}
 
 
+def _refused(name: str, started: float) -> dict | None:
+    decision = gate.connector(name)
+    if decision.allowed:
+        return None
+    return {"reply": gate.refusal(decision), "ui": {"mode": "face"}, "intent": "authz", "agent": f"autorizzazioni · {name}",
+            "elapsed_ms": int((time.time() - started) * 1000)}
+
+
 async def _agent(text: str, started: float) -> dict:
     from features.agent import commands as agent_cmd
     async with stages.stage("agent", "Agente con strumenti"):
@@ -33,6 +42,8 @@ async def _agent(text: str, started: float) -> dict:
 async def _connect(text: str, started: float, only: tuple | None = None, skip: tuple = ()) -> dict | None:
     for connector, module in CONNECTORS.items():
         if (only and connector not in only) or connector in skip:
+            continue
+        if not gate.connector_allowed(connector):
             continue
         try:
             async with stages.attempt("tool", f"Connettore · {connector}", misses=(LookupError,)):
@@ -103,9 +114,14 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
         async with stages.stage("classifier", "Classificatore Intenti", "Analisi semantica e instradamento") as probe:
             decision = await understanding.route(text, request_context.device.get())
             probe.note(understanding.describe(decision))
-        for domain in (decision.domains if understanding.enabled() else EARLY):
+        domains = decision.domains if understanding.enabled() else list(EARLY)
+        if understanding.enabled() and domains and (refused := _refused(domains[0], started)):
+            return refused
+        for domain in domains:
             tried.add(domain)
             if domain == "people":
+                if not gate.connector_allowed("people"):
+                    continue
                 speech, ui = await person_info_skill(text)
                 ui["personal"] = True
                 return {"reply": speech, "ui": ui, "intent": "people", "agent": "persone", "elapsed_ms": int((time.time() - started) * 1000)}
@@ -133,6 +149,9 @@ async def handle(text: str, core_call, speech_lang: dict | None = None) -> dict:
     if (lang != "it" or (speech_lang or {}).get("switched")) and intent not in ("voices",):
         intent = "conversation"
     agent = "atena_ui"
+    refused = _refused(intent, started)
+    if refused:
+        return refused
     try:
         async with stages.attempt("skill", f"Abilità · {intent}", misses=(LookupError,)):
             speech, ui = await run_skill(intent, text)
