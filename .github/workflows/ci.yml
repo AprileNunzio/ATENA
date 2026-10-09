@@ -47,6 +47,12 @@ jobs:
         working-directory: ./installer_wizard
         run: python -m unittest discover -s tests -t . -v
 
+      - name: Firewall Rules Against Real nftables
+        working-directory: ./installer_wizard
+        run: |
+          sudo apt-get install -y -qq nftables
+          sudo "$(command -v python)" -m unittest tests.test_firewall_rules -v
+
   kernel-tests:
     runs-on: ubuntu-latest
     steps:

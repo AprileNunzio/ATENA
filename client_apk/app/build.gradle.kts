@@ -11,8 +11,8 @@ android {
         applicationId = "com.atena.edge"
         minSdk = 26
         targetSdk = 34
-        versionCode = 4001003
-        versionName = "4.1.3"
+        versionCode = 4001004
+        versionName = "4.1.4"
 
         ndk {
             abiFilters += listOf("armeabi-v7a", "arm64-v8a", "x86_64")
