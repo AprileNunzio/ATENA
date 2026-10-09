@@ -1,0 +1,12 @@
+{
+  "name": "Sport",
+  "description": "Football et Formule 1 pour chaque personne : équipes favorites, scores en direct, buts et fin de match annoncés, classements et calendrier des Grands Prix, avec des widgets qui apparaissent quand il le faut ou quand vous vous approchez.",
+  "capabilities": [
+    "Équipes favorites par personne ou pour toute la maison (Serie A, B, coupes européennes, principaux championnats, sélections)",
+    "Surveillance continue en arrière-plan : coup d'envoi, buts, cartons rouges et fin de match avec widget et annonce vocale",
+    "Formule 1 : calendrier des séances, course en cours, résultats et classements pilotes et constructeurs",
+    "Questions vocales : « comment a fini Naples ? », « classement Serie A », « quand court la F1 ? »",
+    "Widgets rappelés quand vous vous approchez de l'écran si rien de plus important n'est affiché",
+    "Aucune clé nécessaire : sources publiques, données en cache et aucune donnée personnelle envoyée"
+  ]
+}

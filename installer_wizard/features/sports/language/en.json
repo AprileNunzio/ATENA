@@ -1,0 +1,12 @@
+{
+  "name": "Sports",
+  "description": "Football and Formula 1 for every person: favourite teams, live scores, goals and full time announced, standings and the Grand Prix calendar, with widgets appearing when needed or when you come closer.",
+  "capabilities": [
+    "Favourite teams per person or for the whole home (Serie A, B, European cups, main leagues, national teams)",
+    "Continuous background watch: kick-off, goals, red cards and full time with widget and voice announcement",
+    "Formula 1: session calendar, race in progress, results and driver and constructor standings",
+    "Voice questions: «how did Napoli do?», «Serie A table», «when is the next F1 race?»",
+    "Widgets recalled when you come close to the screen if nothing more important is showing",
+    "No key needed: public sources, cached data and no personal data sent"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "sport_match",
+  "name": "Partita",
+  "icon": "⚽",
+  "priority": 60,
+  "size": "m",
+  "intents": [],
+  "ttl": 120,
+  "description": "Partita della squadra preferita: diretta, gol, risultato o prossimo incontro.",
+  "demo": {
+    "kind": "live",
+    "highlight": "Gol Napoli di Lukaku al 34'! Napoli 1 - 0 Inter",
+    "match": {
+      "id": "demo", "league": "ita.1", "league_name": "Serie A", "start": "2026-10-09T18:45:00Z", "state": "in", "clock": "34'",
+      "detail": "34'", "venue": "Stadio Diego Armando Maradona",
+      "home": {"id": "114", "name": "Napoli", "short": "Napoli", "abbr": "NAP", "color": "12a0d7", "score": 1},
+      "away": {"id": "110", "name": "Internazionale", "short": "Inter", "abbr": "INT", "color": "0068a8", "score": 0},
+      "events": [{"kind": "goal", "minute": "34'", "side": "home", "player": "Romelu Lukaku", "own_goal": false, "penalty": false}]
+    }
+  },
+  "tone": "green"
+}

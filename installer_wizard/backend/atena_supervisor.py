@@ -10,6 +10,7 @@ sys.path.insert(1, str(Path(__file__).resolve().parent.parent))
 import uvicorn
 from fastapi import FastAPI
 
+import body_errors
 import bus_api
 import licensing_api
 import health
@@ -80,6 +81,8 @@ from features.firewall import api as firewall_api
 from features.firewall.events import monitor as firewall_monitor
 from features.vpn import api as vpn_api
 from features.places import api as places_api
+from features.sports import api as sports_api
+from features.sports.watch import watcher as sports_watcher
 from features.proxmox import api as proxmox_api
 from features.places import service as places_service
 from features.locale import household as locale_household
@@ -166,6 +169,7 @@ FEATURE_APIS = (
     firewall_api,
     vpn_api,
     places_api,
+    sports_api,
     proxmox_api,
     laws_api,
     cameras_api,
@@ -198,6 +202,7 @@ FEATURE_APIS = (
 def build(admin: bool) -> FastAPI:
     title = "Atena OS Admin" if admin else "Atena OS"
     app = FastAPI(title=title, docs_url=None, redoc_url=None, openapi_url=None)
+    body_errors.install(app)
     if admin:
         pages.mount_static(app, "shared", "admin")
     else:
@@ -319,6 +324,7 @@ BACKGROUND = (
     ("firewall", firewall_monitor.run, 0.0),
     ("vpn", vpn_service.run, 0.0),
     ("stanze", places_service.run, 0.0),
+    ("sport", sports_watcher.run, 0.0),
     ("lingue-casa", locale_household.run, 0.0),
 )
 

@@ -27,6 +27,7 @@ CATEGORIES = {
     "casa": "Casa e persone",
     "conoscenza": "Conoscenza",
     "comunicazione": "Comunicazione",
+    "intrattenimento": "Intrattenimento e TV",
     "sistema": "Sistema",
     "altro": "Altro",
 }

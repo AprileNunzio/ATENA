@@ -1,0 +1,12 @@
+{
+  "name": "Sport",
+  "description": "Calcio e Formula 1 per ogni persona: squadre preferite, risultati in diretta, gol e fine partita annunciati, classifiche e calendario dei Gran Premi, con i widget che compaiono quando servono o quando ti avvicini.",
+  "capabilities": [
+    "Squadre preferite per persona o per tutta la casa (Serie A, B, coppe europee, principali campionati, nazionali)",
+    "Controllo continuo in background: inizio, gol, espulsioni e fine partita con widget e annuncio a voce",
+    "Formula 1: calendario delle sessioni, gara in corso, risultati e classifiche piloti e costruttori",
+    "Domande a voce: «com'è finito il Napoli?», «classifica Serie A», «quando corre la F1?»",
+    "Widget richiamati quando ti avvicini allo schermo se non ci sono avvisi più importanti",
+    "Nessuna chiave richiesta: fonti pubbliche, dati in cache e nessun dato personale inviato"
+  ]
+}

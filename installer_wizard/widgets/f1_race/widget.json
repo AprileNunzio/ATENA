@@ -1,0 +1,16 @@
+{
+  "id": "f1_race",
+  "name": "Formula 1",
+  "icon": "🏎️",
+  "priority": 55,
+  "size": "m",
+  "intents": [],
+  "ttl": 120,
+  "description": "Formula 1: prossima sessione con conto alla rovescia, gara in corso, risultati e classifiche.",
+  "demo": {
+    "mode": "next",
+    "race": {"round": 20, "name": "Mexico City Grand Prix", "circuit": "Autódromo Hermanos Rodríguez", "place": "Mexico City, Mexico", "start": "2026-10-25T20:00:00+00:00"},
+    "session": {"name": "Qualifiche", "start": "2026-10-24T22:00:00+00:00"}
+  },
+  "tone": "red"
+}

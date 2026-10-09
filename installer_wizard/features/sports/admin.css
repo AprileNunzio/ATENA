@@ -1,0 +1,15 @@
+#sp-people .chip { font: inherit; cursor: pointer; }
+#sp-people .chip.on { border-color: var(--cyan); background: var(--cyan-soft); color: var(--text); }
+.sp-teams { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.sp-team { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border: 1px solid var(--line); border-radius: 12px; background: rgba(2, 8, 16, 0.4); }
+.sp-crest { width: 32px; height: 32px; border-radius: 50%; display: inline-grid; place-items: center; font: 600 10px/1 var(--mono); color: #fff; background: var(--team); box-shadow: 0 0 10px color-mix(in srgb, var(--team) 55%, transparent); flex: none; }
+.sp-add { display: flex; gap: 8px; flex-wrap: wrap; }
+.sp-add select { flex: 1 1 160px; min-width: 0; }
+.sp-check { display: flex; gap: 8px; align-items: center; font-size: 13px; text-transform: none; letter-spacing: 0; margin: 6px 0; color: var(--text); }
+.sp-check input { width: auto; }
+.sp-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 12px; margin-top: 12px; }
+.sp-card { border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: rgba(2, 8, 16, 0.45); display: flex; flex-direction: column; gap: 8px; }
+.sp-card.live { border-color: rgba(61, 255, 168, 0.5); }
+.sp-card .badge { align-self: flex-start; }
+.sp-vs { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; }
+.sp-vs .sp-crest { width: 26px; height: 26px; font-size: 9px; }

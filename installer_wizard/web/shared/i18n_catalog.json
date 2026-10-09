@@ -13911,6 +13911,206 @@
     [
       "▶ Esegui ora",
       "▶ Run now"
+    ],
+    [
+      "Adesso per questa persona",
+      "Right now for this person"
+    ],
+    [
+      "Annuncia a voce",
+      "Announce by voice"
+    ],
+    [
+      "Calcio e Formula 1 per ogni persona: squadre preferite, risultati in diretta, gol e fine partita annunciati, classifiche e calendario dei Gran Premi, con i widget che compaiono quando servono o quando ti avvicini.",
+      "Football and Formula 1 for every person: favourite teams, live scores, goals and full time announced, standings and the Grand Prix calendar, with widgets appearing when needed or when you come closer."
+    ],
+    [
+      "Campionato",
+      "League"
+    ],
+    [
+      "Circuito",
+      "Circuit"
+    ],
+    [
+      "Classifica",
+      "Standings"
+    ],
+    [
+      "Classifica di un campionato con la squadra preferita evidenziata.",
+      "League standings with the favourite team highlighted."
+    ],
+    [
+      "Controllo continuo in background: inizio, gol, espulsioni e fine partita con widget e annuncio a voce",
+      "Continuous background watch: kick-off, goals, red cards and full time with widget and voice announcement"
+    ],
+    [
+      "Domande a voce: «com'è finito il Napoli?», «classifica Serie A», «quando corre la F1?»",
+      "Voice questions: «how did Napoli do?», «Serie A table», «when is the next F1 race?»"
+    ],
+    [
+      "Domani",
+      "Tomorrow"
+    ],
+    [
+      "Formula 1",
+      "Formula 1"
+    ],
+    [
+      "Formula 1: calendario delle sessioni, gara in corso, risultati e classifiche piloti e costruttori",
+      "Formula 1: session calendar, race in progress, results and driver and constructor standings"
+    ],
+    [
+      "Formula 1: prossima sessione con conto alla rovescia, gara in corso, risultati e classifiche.",
+      "Formula 1: next session with countdown, race in progress, results and standings."
+    ],
+    [
+      "Gol ed espulsioni",
+      "Goals and red cards"
+    ],
+    [
+      "In corso",
+      "Live"
+    ],
+    [
+      "Inizio partita (e 15 minuti prima)",
+      "Kick-off (and 15 minutes before)"
+    ],
+    [
+      "Intrattenimento e TV",
+      "Entertainment and TV"
+    ],
+    [
+      "Luogo",
+      "Place"
+    ],
+    [
+      "Mostra i risultati quando mi avvicino allo schermo (se non ci sono avvisi più importanti)",
+      "Show the scores when I come close to the screen (if nothing more important is showing)"
+    ],
+    [
+      "Mostra sullo schermo",
+      "Show on screen"
+    ],
+    [
+      "Mostrato sullo schermo di Atena",
+      "Shown on Atena's screen"
+    ],
+    [
+      "Nessuna chiave richiesta: fonti pubbliche, dati in cache e nessun dato personale inviato",
+      "No key needed: public sources, cached data and no personal data sent"
+    ],
+    [
+      "Niente da mostrare: aggiungi una squadra o la Formula 1",
+      "Nothing to show: add a team or Formula 1"
+    ],
+    [
+      "Oggi",
+      "Today"
+    ],
+    [
+      "Ogni persona ha le sue squadre: Atena mostra i risultati a chi riconosce, quando si avvicina allo schermo, e annuncia i gol.",
+      "Everyone has their own teams: Atena shows the scores to the person it recognises when they come close to the screen, and announces goals."
+    ],
+    [
+      "Partita",
+      "Match"
+    ],
+    [
+      "Partita della squadra preferita: diretta, gol, risultato o prossimo incontro.",
+      "Favourite team's match: live, goals, result or next fixture."
+    ],
+    [
+      "Per chi?",
+      "For whom?"
+    ],
+    [
+      "Persona sconosciuta",
+      "Unknown person"
+    ],
+    [
+      "Piloti preferiti (sigle, es. LEC, HAM)",
+      "Favourite drivers (codes, e.g. LEC, HAM)"
+    ],
+    [
+      "Preferenze sportive salvate",
+      "Sports preferences saved"
+    ],
+    [
+      "Prossima",
+      "Next"
+    ],
+    [
+      "Risultato",
+      "Result"
+    ],
+    [
+      "Risultato finale",
+      "Final result"
+    ],
+    [
+      "Round",
+      "Round"
+    ],
+    [
+      "Scegli prima il campionato",
+      "Choose the league first"
+    ],
+    [
+      "Scegli prima una squadra",
+      "Choose a team first"
+    ],
+    [
+      "Segui la Formula 1 (sessioni, gare, risultati)",
+      "Follow Formula 1 (sessions, races, results)"
+    ],
+    [
+      "Sessioni di Formula 1",
+      "Formula 1 sessions"
+    ],
+    [
+      "Sport",
+      "Sports"
+    ],
+    [
+      "Squadra",
+      "Team"
+    ],
+    [
+      "Squadre preferite per persona o per tutta la casa (Serie A, B, coppe europee, principali campionati, nazionali)",
+      "Favourite teams per person or for the whole home (Serie A, B, European cups, main leagues, national teams)"
+    ],
+    [
+      "Ultimo errore della fonte: {0}",
+      "Last source error: {0}"
+    ],
+    [
+      "Widget richiamati quando ti avvicini allo schermo se non ci sono avvisi più importanti",
+      "Widgets recalled when you come close to the screen if nothing more important is showing"
+    ],
+    [
+      "tra poco",
+      "soon"
+    ],
+    [
+      "{0} partite seguite oggi",
+      "{0} followed matches today"
+    ],
+    [
+      "⚽ Squadre del cuore",
+      "⚽ Favourite teams"
+    ],
+    [
+      "⟳ Aggiorna",
+      "⟳ Refresh"
+    ],
+    [
+      "🏎️ Formula 1",
+      "🏎️ Formula 1"
+    ],
+    [
+      "🔔 Avvisi e widget",
+      "🔔 Alerts and widgets"
     ]
   ],
   "reverse": [
@@ -14333,7 +14533,10 @@
     "Tailscale",
     "badge warn",
     "nav .spacer",
-    "seg ui-mode"
+    "seg ui-mode",
+    "#tab-sports [data-alert]",
+    "wk-row ic",
+    "LEC, HAM"
   ],
   "fr": [
     [
@@ -27463,6 +27666,206 @@
     [
       "▶ Esegui ora",
       "▶ Lancer maintenant"
+    ],
+    [
+      "Adesso per questa persona",
+      "En ce moment pour cette personne"
+    ],
+    [
+      "Annuncia a voce",
+      "Annoncer à voix haute"
+    ],
+    [
+      "Calcio e Formula 1 per ogni persona: squadre preferite, risultati in diretta, gol e fine partita annunciati, classifiche e calendario dei Gran Premi, con i widget che compaiono quando servono o quando ti avvicini.",
+      "Football et Formule 1 pour chaque personne : équipes favorites, scores en direct, buts et fin de match annoncés, classements et calendrier des Grands Prix, avec des widgets qui apparaissent quand il le faut ou quand vous vous approchez."
+    ],
+    [
+      "Campionato",
+      "Championnat"
+    ],
+    [
+      "Circuito",
+      "Circuit"
+    ],
+    [
+      "Classifica",
+      "Classement"
+    ],
+    [
+      "Classifica di un campionato con la squadra preferita evidenziata.",
+      "Classement d'un championnat avec l'équipe favorite en évidence."
+    ],
+    [
+      "Controllo continuo in background: inizio, gol, espulsioni e fine partita con widget e annuncio a voce",
+      "Surveillance continue en arrière-plan : coup d'envoi, buts, cartons rouges et fin de match avec widget et annonce vocale"
+    ],
+    [
+      "Domande a voce: «com'è finito il Napoli?», «classifica Serie A», «quando corre la F1?»",
+      "Questions vocales : « comment a fini Naples ? », « classement Serie A », « quand court la F1 ? »"
+    ],
+    [
+      "Domani",
+      "Demain"
+    ],
+    [
+      "Formula 1",
+      "Formule 1"
+    ],
+    [
+      "Formula 1: calendario delle sessioni, gara in corso, risultati e classifiche piloti e costruttori",
+      "Formule 1 : calendrier des séances, course en cours, résultats et classements pilotes et constructeurs"
+    ],
+    [
+      "Formula 1: prossima sessione con conto alla rovescia, gara in corso, risultati e classifiche.",
+      "Formule 1 : prochaine séance avec compte à rebours, course en cours, résultats et classements."
+    ],
+    [
+      "Gol ed espulsioni",
+      "Buts et expulsions"
+    ],
+    [
+      "In corso",
+      "En cours"
+    ],
+    [
+      "Inizio partita (e 15 minuti prima)",
+      "Coup d'envoi (et 15 minutes avant)"
+    ],
+    [
+      "Intrattenimento e TV",
+      "Divertissement et TV"
+    ],
+    [
+      "Luogo",
+      "Lieu"
+    ],
+    [
+      "Mostra i risultati quando mi avvicino allo schermo (se non ci sono avvisi più importanti)",
+      "Afficher les scores quand je m'approche de l'écran (s'il n'y a rien de plus important)"
+    ],
+    [
+      "Mostra sullo schermo",
+      "Afficher à l'écran"
+    ],
+    [
+      "Mostrato sullo schermo di Atena",
+      "Affiché sur l'écran d'Atena"
+    ],
+    [
+      "Nessuna chiave richiesta: fonti pubbliche, dati in cache e nessun dato personale inviato",
+      "Aucune clé nécessaire : sources publiques, données en cache et aucune donnée personnelle envoyée"
+    ],
+    [
+      "Niente da mostrare: aggiungi una squadra o la Formula 1",
+      "Rien à afficher : ajoutez une équipe ou la Formule 1"
+    ],
+    [
+      "Oggi",
+      "Aujourd'hui"
+    ],
+    [
+      "Ogni persona ha le sue squadre: Atena mostra i risultati a chi riconosce, quando si avvicina allo schermo, e annuncia i gol.",
+      "Chacun a ses équipes : Atena montre les scores à la personne qu'elle reconnaît quand elle s'approche de l'écran, et annonce les buts."
+    ],
+    [
+      "Partita",
+      "Match"
+    ],
+    [
+      "Partita della squadra preferita: diretta, gol, risultato o prossimo incontro.",
+      "Match de l'équipe favorite : direct, buts, résultat ou prochaine rencontre."
+    ],
+    [
+      "Per chi?",
+      "Pour qui ?"
+    ],
+    [
+      "Persona sconosciuta",
+      "Personne inconnue"
+    ],
+    [
+      "Piloti preferiti (sigle, es. LEC, HAM)",
+      "Pilotes favoris (codes, ex. LEC, HAM)"
+    ],
+    [
+      "Preferenze sportive salvate",
+      "Préférences sportives enregistrées"
+    ],
+    [
+      "Prossima",
+      "Prochain"
+    ],
+    [
+      "Risultato",
+      "Résultat"
+    ],
+    [
+      "Risultato finale",
+      "Résultat final"
+    ],
+    [
+      "Round",
+      "Manche"
+    ],
+    [
+      "Scegli prima il campionato",
+      "Choisissez d'abord le championnat"
+    ],
+    [
+      "Scegli prima una squadra",
+      "Choisissez d'abord une équipe"
+    ],
+    [
+      "Segui la Formula 1 (sessioni, gare, risultati)",
+      "Suivre la Formule 1 (séances, courses, résultats)"
+    ],
+    [
+      "Sessioni di Formula 1",
+      "Séances de Formule 1"
+    ],
+    [
+      "Sport",
+      "Sport"
+    ],
+    [
+      "Squadra",
+      "Équipe"
+    ],
+    [
+      "Squadre preferite per persona o per tutta la casa (Serie A, B, coppe europee, principali campionati, nazionali)",
+      "Équipes favorites par personne ou pour toute la maison (Serie A, B, coupes européennes, principaux championnats, sélections)"
+    ],
+    [
+      "Ultimo errore della fonte: {0}",
+      "Dernière erreur de la source : {0}"
+    ],
+    [
+      "Widget richiamati quando ti avvicini allo schermo se non ci sono avvisi più importanti",
+      "Widgets rappelés quand vous vous approchez de l'écran si rien de plus important n'est affiché"
+    ],
+    [
+      "tra poco",
+      "bientôt"
+    ],
+    [
+      "{0} partite seguite oggi",
+      "{0} matchs suivis aujourd'hui"
+    ],
+    [
+      "⚽ Squadre del cuore",
+      "⚽ Équipes de cœur"
+    ],
+    [
+      "⟳ Aggiorna",
+      "⟳ Actualiser"
+    ],
+    [
+      "🏎️ Formula 1",
+      "🏎️ Formule 1"
+    ],
+    [
+      "🔔 Avvisi e widget",
+      "🔔 Alertes et widgets"
     ]
   ]
 }

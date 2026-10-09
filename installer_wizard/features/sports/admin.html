@@ -1,0 +1,41 @@
+<section class="tab" id="tab-sports">
+  <div class="panel" style="margin-bottom:18px">
+    <div class="panel-title">Per chi?</div>
+    <div class="muted-note" style="margin-bottom:10px">Ogni persona ha le sue squadre: Atena mostra i risultati a chi riconosce, quando si avvicina allo schermo, e annuncia i gol.</div>
+    <div class="chips" id="sp-people" style="margin:0"></div>
+  </div>
+
+  <div class="grid g2" style="align-items:start">
+    <div class="panel">
+      <div class="panel-title">⚽ Squadre del cuore</div>
+      <div class="sp-teams" id="sp-teams"></div>
+      <div class="sp-add">
+        <select id="sp-league" aria-label="Campionato"></select>
+        <select id="sp-team" aria-label="Squadra"><option value="">Scegli prima il campionato</option></select>
+        <button type="button" class="btn primary" id="sp-add">Aggiungi</button>
+      </div>
+      <div class="panel-title" style="margin-top:18px">🏎️ Formula 1</div>
+      <label class="sp-check"><input type="checkbox" id="sp-f1"> Segui la Formula 1 (sessioni, gare, risultati)</label>
+      <div class="x-expert" style="margin-top:8px"><label>Piloti preferiti (sigle, es. LEC, HAM)</label><input id="sp-drivers" placeholder="LEC, HAM" autocomplete="off"></div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">🔔 Avvisi e widget</div>
+      <label class="sp-check"><input type="checkbox" data-alert="goals"> Gol ed espulsioni</label>
+      <label class="sp-check"><input type="checkbox" data-alert="kickoff"> Inizio partita (e 15 minuti prima)</label>
+      <label class="sp-check"><input type="checkbox" data-alert="results"> Risultato finale</label>
+      <label class="sp-check"><input type="checkbox" data-alert="f1"> Sessioni di Formula 1</label>
+      <label class="sp-check"><input type="checkbox" id="sp-voice"> Annuncia a voce</label>
+      <label class="sp-check"><input type="checkbox" id="sp-near"> Mostra i risultati quando mi avvicino allo schermo (se non ci sono avvisi più importanti)</label>
+      <div class="actions" style="margin-top:14px"><button type="button" class="btn primary" id="sp-save">Salva</button>
+        <button type="button" class="btn" id="sp-show">Mostra sullo schermo</button></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-top:18px">
+    <div class="row" style="justify-content:space-between"><div class="panel-title" style="margin:0">Adesso per questa persona</div>
+      <button type="button" class="btn sm" id="sp-refresh">⟳ Aggiorna</button></div>
+    <div class="sp-cards" id="sp-cards"></div>
+    <div class="muted-note x-expert" id="sp-status"></div>
+  </div>
+</section>

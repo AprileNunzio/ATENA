@@ -1,0 +1,8 @@
+.w-sport_table .st-table { width: 100%; border-collapse: collapse; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+.w-sport_table .st-table th { font: 500 9.5px/1.8 var(--mono); letter-spacing: 0.14em; color: var(--text-faint); text-align: right; }
+.w-sport_table .st-table th:nth-child(2), .w-sport_table .st-table td:nth-child(2) { text-align: left; }
+.w-sport_table .st-table td { padding: 4px 0; text-align: right; border-top: 1px solid rgba(255, 255, 255, 0.05); }
+.w-sport_table .st-table td:first-child { color: var(--text-faint); width: 22px; }
+.w-sport_table .st-table td i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--team); margin-right: 8px; vertical-align: 1px; }
+.w-sport_table .st-table tr.me td { color: var(--hud-text); background: rgba(var(--tone), 0.1); }
+.w-sport_table .st-table b { font-weight: 600; color: var(--hud-text); }

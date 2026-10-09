@@ -1,0 +1,19 @@
+{
+  "id": "sport_table",
+  "name": "Classifica",
+  "icon": "🏆",
+  "priority": 45,
+  "size": "m",
+  "intents": [],
+  "ttl": 120,
+  "description": "Classifica di un campionato con la squadra preferita evidenziata.",
+  "demo": {
+    "league": "ita.1", "league_name": "Serie A", "highlight": ["114"],
+    "rows": [
+      {"id": "104", "short": "Roma", "abbr": "ROM", "color": "8e1f2f", "rank": 1, "played": 6, "points": 16, "diff": 11},
+      {"id": "114", "short": "Napoli", "abbr": "NAP", "color": "12a0d7", "rank": 2, "played": 6, "points": 14, "diff": 8},
+      {"id": "110", "short": "Inter", "abbr": "INT", "color": "0068a8", "rank": 3, "played": 6, "points": 13, "diff": 7}
+    ]
+  },
+  "tone": "cyan"
+}
