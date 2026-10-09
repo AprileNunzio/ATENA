@@ -8,6 +8,7 @@ from typing import Mapping
 from config import STATE_DIR
 
 from features.brain import assignments as model
+from features.brain import scope
 from features.brain.assignments import Assignment
 from features.brain.brains import brains
 from features.brain.components import COMPONENTS
@@ -51,16 +52,20 @@ class AssignmentService:
         return own.tuning if own else Tuning()
 
     def role_orders(self) -> dict[str, list[str]]:
-        config = brains.config()
-        return {key: list(value) for key, value in config.items() if isinstance(value, list)}
+        return brains.orders()
+
+    def _keep(self, component_id: str, assignments: Mapping[str, Assignment], known: set[str]):
+        role_scope = brains.config()[f"{model.effective_role(component_id, assignments)}_scope"]
+        return lambda ref: scope.allowed(ref, role_scope) and brains.usable(ref, known)
 
     def chain(self, component_id: str, installed: set[str] | None = None) -> list[str]:
         known = installed if installed is not None else set()
-        return model.resolve(component_id, self.assignments(), self.role_orders(), lambda ref: brains.usable(ref, known))
+        assignments = self.assignments()
+        return model.resolve(component_id, assignments, self.role_orders(), self._keep(component_id, assignments, known))
 
     def chains(self) -> dict[str, list[str]]:
         assignments, orders = self.assignments(), self.role_orders()
-        return {c.id: model.resolve(c.id, assignments, orders, lambda ref: brains.usable(ref, set())) for c in COMPONENTS}
+        return {c.id: model.resolve(c.id, assignments, orders, self._keep(c.id, assignments, set())) for c in COMPONENTS}
 
     def publish(self) -> None:
         assignments = self.assignments()

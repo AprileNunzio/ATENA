@@ -53,10 +53,17 @@
       </div>
     </div>
 
-    <div class="panel" style="margin-bottom:18px">
-      <div class="panel-title">Catene di Priorità e Ripiego per Ruolo</div>
-      <div class="dim" style="font-size:13px; margin-bottom:12px">Per ogni ruolo puoi ordinare i cervelli trascinandoli. Se il primo modello non è disponibile o fallisce, Atena usa istantaneamente il successivo.</div>
-      <div class="grid g2 br-lists" id="br-roles"></div>
+    <div class="panel ch-panel">
+      <div class="ch-head">
+        <div>
+          <div class="panel-title" style="margin:0">Organizzazione del cervello</div>
+          <div class="dim" style="font-size:13px; margin-top:2px">Per ogni ruolo scegli un profilo: Atena prende i modelli da questo server, dai server in rete o dal cloud e passa al successivo se uno non risponde.<span class="x-simple"> Passa a «Esperto» per ordinare ogni passo a mano.</span></div>
+        </div>
+        <button type="button" class="btn sm x-expert" id="ch-refresh">⟳ Aggiorna sorgenti</button>
+      </div>
+      <div class="ch-all"><span class="dim">Applica a tutti i ruoli:</span><div class="seg" id="ch-all"></div></div>
+      <div class="ch-legend"><span>🖥 Questo server</span><span>🖧 Server in rete</span><span>☁ Cloud</span></div>
+      <div class="ch-grid" id="br-roles"></div>
     </div>
 
     <div class="panel br-edu-panel">

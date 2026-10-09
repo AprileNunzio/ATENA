@@ -60,55 +60,6 @@
       ${fbText}`;
   }
 
-  function autoNote(d, role) {
-    if (role.id === "chat") return `Automatico: scelto da Atena in base all'hardware (veloce: ${fmt.esc(d.fast)}).`;
-    if (role.id === "deep") return `Automatico: scelto da Atena in base all'hardware (potente: ${fmt.esc(d.main)}).`;
-    return "Nessun modello dedicato: questo agente usa gli stessi modelli del Ragionamento. Scegline uno qui sotto, oppure apri «Agenti e componenti» per personalizzare ogni singolo agente con parametri e istruzioni.";
-  }
-
-  function priorityList(d, role, cat) {
-    const activeRef = role.active && role.active.ref;
-    const items = role.entries.map((m, i) => {
-      const c = cat[m.name] || {}, st = m.stats;
-      const status = m.origin === "server"
-        ? (m.available ? '<span style="color:var(--green)">collegato</span>' : '<span style="color:var(--amber)">server rimosso</span>')
-        : m.origin === "cloud"
-        ? (m.available ? '<span style="color:var(--green)">collegato</span>' : '<span style="color:var(--amber)">chiave mancante</span>')
-        : (m.available ? '<span style="color:var(--green)">scaricato</span>' : '<span style="color:var(--amber)">da scaricare</span>');
-      const sub = [m.name === activeRef ? '<b style="color:var(--cyan)">• in uso</b>' : "", `${ICON[m.origin]} ${fmt.esc(m.provider)}`, status,
-        c.fit && c.fit.label, st ? `${st.ok} risposte · ~${seconds(st.avg_ms)}${st.fail ? ` · ${st.fail} err` : ""}` : ""].filter(Boolean).join(" · ");
-      return A.prioItem(m.name, i, c.label && c.label !== m.name ? `${c.label} · ${m.model}` : m.model, sub, !m.available, false);
-    }).join("");
-    return items + (role.custom ? "" : `<div class="muted-note" style="margin:4px 6px">${autoNote(d, role)}</div>`);
-  }
-
-  function rolePanel(role) {
-    return `<div class="panel" data-role="${role.id}">
-      <div class="panel-title">${role.icon} ${fmt.esc(role.label)}</div>
-      <div class="muted-note">${fmt.esc(role.hint)}</div>
-      <div class="prio" data-prio="${role.id}"></div>
-      <div class="br-pick" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px">
-        <select data-br-pick="${role.id}" style="flex:1; min-width:180px" aria-label="Modello per ${fmt.esc(role.label)}"></select>
-        <button class="btn sm primary" data-br-add="${role.id}">Usa questo modello</button></div>
-      <div class="actions" style="margin-top:10px"><button class="btn sm" data-br-reset="${role.id}">Ripristina Automatico</button>
-        <button class="btn sm" data-br-agents="1">Agenti e componenti →</button></div>
-    </div>`;
-  }
-
-  function pickOptions(d, role, cat) {
-    const mine = new Set(role.custom ? role.entries.map((e) => e.name) : []);
-    const known = new Map();
-    d.roles.flatMap((r) => r.entries).forEach((e) => known.set(e.name, `${ICON[e.origin] || ""} ${e.model}${e.available ? "" : " (non disponibile)"}`));
-    d.catalog.filter((m) => m.installed).forEach((m) => { if (!known.has(m.name)) known.set(m.name, `${ICON.local} ${(cat[m.name] || m).label || m.name}`); });
-    const items = [...known].filter(([name]) => !mine.has(name));
-    return `<option value="">Scegli un modello per questo agente…</option>${items.map(([name, label]) => `<option value="${fmt.esc(name)}">${fmt.esc(label)}</option>`).join("")}`;
-  }
-
-  function mountRoles(host, roles) {
-    host.innerHTML = roles.map(rolePanel).join("");
-    host.querySelectorAll("[data-prio]").forEach((list) => A.makeSortable(list, (items) => saveBrains({ [list.dataset.prio]: items })));
-  }
-
   function filterAndSortCatalog(catalog) {
     const q = catQuery.toLowerCase().trim();
     let list = catalog.filter((m) => {
@@ -216,17 +167,12 @@
   }
 
   function renderBrains() {
-    const d = brainData, cat = Object.fromEntries(d.catalog.map((m) => [m.name, m]));
+    const d = brainData;
     $("br-routing").querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.r === d.routing));
     $("br-now-grid").innerHTML = d.roles.map((r) => `<div class="br-now-card">${nowCard(r)}</div>`).join("");
     const l = d.last_used || {};
     $("br-last").innerHTML = l.model ? `Ultima risposta elaborata: <b>${fmt.esc(l.model)}</b> ${originBadge(l)} in ${seconds(l.ms)}` : "";
-    const host = $("br-roles");
-    if (host.children.length !== d.roles.length) mountRoles(host, d.roles);
-    d.roles.forEach((r) => {
-      host.querySelector(`[data-prio="${r.id}"]`).innerHTML = priorityList(d, r, cat);
-      host.querySelector(`[data-br-pick="${r.id}"]`).innerHTML = pickOptions(d, r, cat);
-    });
+    if (A.brainChains) A.brainChains.render(d);
     const hw = d.hardware || {};
     $("br-hw").textContent = `${hw.ram_gb || "?"} GB RAM · ${hw.gpu ? `${hw.gpu} ${hw.vram_gb} GB` : "solo CPU (nessuna GPU dedicata)"}`;
     renderCatalog();
@@ -334,20 +280,6 @@
       if (b) saveBrains({ routing: b.dataset.r }).then(() => A.toast("Modalità di instradamento aggiornata"));
     });
 
-    $("br-roles").addEventListener("click", (e) => {
-      const b = e.target.closest("[data-br-reset]");
-      if (b) saveBrains({ [b.dataset.brReset]: [] }).then(() => A.toast("Lista del ruolo ripristinata in automatico"));
-      const add = e.target.closest("[data-br-add]");
-      if (add) {
-        const id = add.dataset.brAdd, picked = $("br-roles").querySelector(`[data-br-pick="${id}"]`).value;
-        const role = brainData.roles.find((r) => r.id === id);
-        if (!picked || !role) { A.toast("Scegli prima un modello dall'elenco", true); return; }
-        const current = role.custom ? role.entries.map((x) => x.name).filter((n) => n !== picked) : [];
-        saveBrains({ [id]: [picked, ...current] }).then(() => A.toast(`${role.label}: ora usa ${picked} per primo`));
-      }
-      if (e.target.closest("[data-br-agents]")) showSubpage("assign");
-    });
-
     $("br-source").addEventListener("click", (e) => {
       const b = e.target.closest("[data-v]");
       if (b) showSource(b.dataset.v);
@@ -403,7 +335,8 @@
       if (!text) return;
       try {
         const r = await A.api("POST", "/api/brains/test", { text });
-        $("br-res").innerHTML = `${roleLabel(r.kind)} <span class="faint">— ${fmt.esc(r.reason)} · risponderà <b>${fmt.esc(r.models[0] || "nessuno")}</b>${r.models.length > 1 ? `, ripieghi ordinati: ${r.models.slice(1).map(fmt.esc).join(" → ")}` : ""}</span>`;
+        const skipped = (r.skipped || []).map((x) => `${fmt.esc(x.ref)} (${fmt.esc(x.why)})`).join(", ");
+        $("br-res").innerHTML = `${roleLabel(r.kind)} <span class="faint">— ${fmt.esc(r.reason)} · risponderà <b>${fmt.esc(r.models[0] || "nessuno")}</b>${r.models.length > 1 ? `, ripieghi ordinati: ${r.models.slice(1).map(fmt.esc).join(" → ")}` : ""}${skipped ? `<span class="x-expert"> · saltati: ${skipped}</span>` : ""}</span>`;
       } catch (err) { A.toast(err.message, true); }
     });
 
@@ -430,11 +363,13 @@
     }
   }
 
-  A.brain = { reload: loadBrains, addTo, lists: () => brainData, showSource, showSubpage };
+  A.brain = { reload: loadBrains, addTo, lists: () => brainData, showSource, showSubpage,
+    set(d) { brainData = d; renderBrains(); } };
   A.tab("models", {
     title: "Cervello",
     init() {
       init();
+      if (A.brainChains) A.brainChains.init(saveBrains);
       if (A.brainCloud) A.brainCloud.init();
       if (A.brainServers) A.brainServers.init();
       if (A.brainAssign) A.brainAssign.init();
@@ -443,6 +378,7 @@
       loadModels();
       loadOllama();
       await loadBrains();
+      if (A.brainChains) A.brainChains.loadSources();
       if (A.brainCloud) A.brainCloud.load();
       if (A.brainServers) A.brainServers.load();
       if (A.brainAssign) A.brainAssign.load();

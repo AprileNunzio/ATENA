@@ -22,7 +22,7 @@ class BrainUnavailable(RuntimeError):
 async def chain(kind: str = "deep") -> list[str]:
     cfg = brains.config()
     installed = {n if ":" in n else f"{n}:latest" for n in await brains.installed()}
-    order = cfg[kind] + cfg["deep" if kind == "chat" else "chat"]
+    order = brains.effective(kind, cfg, cfg["deep" if kind == "chat" else "chat"])
     usable = [m for m in dict.fromkeys(order) if brains.usable(m, installed)]
     return usable or [cfg["main"]]
 

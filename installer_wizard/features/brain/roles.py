@@ -10,10 +10,22 @@ class Role:
     hint: str
     max_tokens: int = 1200
 
+    @property
+    def scope_key(self) -> str:
+        return self.env_key.removesuffix("_ORDER") + "_SCOPE"
+
+    @property
+    def profile_key(self) -> str:
+        return self.env_key.removesuffix("_ORDER") + "_PROFILE"
+
+    @property
+    def strategy_key(self) -> str:
+        return self.env_key.removesuffix("_ORDER") + "_STRATEGY"
+
 
 ROLES: tuple[Role, ...] = (
     Role("chat", "ATENA_LLM_CHAT_ORDER", "⚡", "Conversazione veloce",
-         "Saluti e domande brevi. Trascina per cambiare l'ordine: risponde il primo disponibile.", 320),
+         "Saluti e domande brevi: risponde il primo cervello disponibile.", 320),
     Role("deep", "ATENA_LLM_DEEP_ORDER", "🧠", "Ragionamento",
          "Spiegazioni, analisi, codice, testi lunghi, azioni."),
     Role("ricercatore", "ATENA_LLM_RICERCATORE_ORDER", "🔎", "Ricercatore",

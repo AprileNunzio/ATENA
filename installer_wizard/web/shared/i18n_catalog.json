@@ -13471,6 +13471,134 @@
     [
       "e accetta.",
       "and accept."
+    ],
+    [
+      "Aggiungi un passo",
+      "Add a step"
+    ],
+    [
+      "Ambito non valido",
+      "Invalid scope"
+    ],
+    [
+      "Applica a tutti i ruoli:",
+      "Apply to all roles:"
+    ],
+    [
+      "Applicare questo profilo a tutti i ruoli? Le catene personalizzate verranno sostituite.",
+      "Apply this profile to all roles? Custom chains will be replaced."
+    ],
+    [
+      "Catena di ripiego",
+      "Fallback chain"
+    ],
+    [
+      "Chi risponde per primo {0}",
+      "Who answers first {0}"
+    ],
+    [
+      "Dove può pensare {0}",
+      "Where it may think {0}"
+    ],
+    [
+      "Download di {0} avviato",
+      "Download of {0} started"
+    ],
+    [
+      "Il più veloce misurato",
+      "Fastest measured"
+    ],
+    [
+      "In cima",
+      "On top"
+    ],
+    [
+      "In fondo",
+      "At the end"
+    ],
+    [
+      "Nell'ordine della lista",
+      "In list order"
+    ],
+    [
+      "Nessun altro modello",
+      "No other model"
+    ],
+    [
+      "Organizzazione del cervello",
+      "Brain organisation"
+    ],
+    [
+      "Ovunque, nell'ordine scelto",
+      "Anywhere, in the chosen order"
+    ],
+    [
+      "Passa a «Esperto» per ordinare ogni passo a mano.",
+      "Switch to «Expert» to order every step by hand."
+    ],
+    [
+      "Per ogni ruolo scegli un profilo: Atena prende i modelli da questo server, dai server in rete o dal cloud e passa al successivo se uno non risponde.",
+      "Choose a profile for each role: Atena takes models from this server, network servers or the cloud and moves to the next one if one does not answer."
+    ],
+    [
+      "Preferenza non salvata nel browser",
+      "Preference not saved in the browser"
+    ],
+    [
+      "Prima in casa, cloud solo di riserva",
+      "Home first, cloud only as backup"
+    ],
+    [
+      "Profilo «{0}» applicato",
+      "Profile «{0}» applied"
+    ],
+    [
+      "Ripristina automatico",
+      "Restore automatic"
+    ],
+    [
+      "Ruolo sconosciuto",
+      "Unknown role"
+    ],
+    [
+      "Scegli prima un modello",
+      "Choose a model first"
+    ],
+    [
+      "Server in rete",
+      "Network servers"
+    ],
+    [
+      "Solo in casa: nessun dato esce",
+      "Home only: no data leaves"
+    ],
+    [
+      "Sorgenti aggiornate",
+      "Sources refreshed"
+    ],
+    [
+      "Strategia non valida",
+      "Invalid strategy"
+    ],
+    [
+      "— trascina per riordinare, ✕ per togliere",
+      "— drag to reorder, ✕ to remove"
+    ],
+    [
+      "☁ Cloud",
+      "☁ Cloud"
+    ],
+    [
+      "⟳ Aggiorna sorgenti",
+      "⟳ Refresh sources"
+    ],
+    [
+      "🖥 Questo server",
+      "🖥 This server"
+    ],
+    [
+      "🖧 Server in rete",
+      "🖧 Network servers"
     ]
   ],
   "reverse": [
@@ -13891,7 +14019,9 @@
     "#vpn-form .vpn-kind",
     "IPsec IKEv2",
     "Tailscale",
-    "badge warn"
+    "badge warn",
+    "nav .spacer",
+    "seg ui-mode"
   ],
   "fr": [
     [
@@ -26581,6 +26711,134 @@
     [
       "e accetta.",
       "et acceptez."
+    ],
+    [
+      "Aggiungi un passo",
+      "Ajouter une étape"
+    ],
+    [
+      "Ambito non valido",
+      "Portée non valide"
+    ],
+    [
+      "Applica a tutti i ruoli:",
+      "Appliquer à tous les rôles :"
+    ],
+    [
+      "Applicare questo profilo a tutti i ruoli? Le catene personalizzate verranno sostituite.",
+      "Appliquer ce profil à tous les rôles ? Les chaînes personnalisées seront remplacées."
+    ],
+    [
+      "Catena di ripiego",
+      "Chaîne de repli"
+    ],
+    [
+      "Chi risponde per primo {0}",
+      "Qui répond en premier {0}"
+    ],
+    [
+      "Dove può pensare {0}",
+      "Où il peut réfléchir {0}"
+    ],
+    [
+      "Download di {0} avviato",
+      "Téléchargement de {0} lancé"
+    ],
+    [
+      "Il più veloce misurato",
+      "Le plus rapide mesuré"
+    ],
+    [
+      "In cima",
+      "En tête"
+    ],
+    [
+      "In fondo",
+      "À la fin"
+    ],
+    [
+      "Nell'ordine della lista",
+      "Dans l'ordre de la liste"
+    ],
+    [
+      "Nessun altro modello",
+      "Aucun autre modèle"
+    ],
+    [
+      "Organizzazione del cervello",
+      "Organisation du cerveau"
+    ],
+    [
+      "Ovunque, nell'ordine scelto",
+      "Partout, dans l'ordre choisi"
+    ],
+    [
+      "Passa a «Esperto» per ordinare ogni passo a mano.",
+      "Passez en « Expert » pour ordonner chaque étape à la main."
+    ],
+    [
+      "Per ogni ruolo scegli un profilo: Atena prende i modelli da questo server, dai server in rete o dal cloud e passa al successivo se uno non risponde.",
+      "Choisissez un profil pour chaque rôle : Atena prend les modèles de ce serveur, des serveurs du réseau ou du cloud et passe au suivant si l'un ne répond pas."
+    ],
+    [
+      "Preferenza non salvata nel browser",
+      "Préférence non enregistrée dans le navigateur"
+    ],
+    [
+      "Prima in casa, cloud solo di riserva",
+      "D'abord à la maison, cloud seulement en secours"
+    ],
+    [
+      "Profilo «{0}» applicato",
+      "Profil « {0} » appliqué"
+    ],
+    [
+      "Ripristina automatico",
+      "Rétablir l'automatique"
+    ],
+    [
+      "Ruolo sconosciuto",
+      "Rôle inconnu"
+    ],
+    [
+      "Scegli prima un modello",
+      "Choisissez d'abord un modèle"
+    ],
+    [
+      "Server in rete",
+      "Serveurs du réseau"
+    ],
+    [
+      "Solo in casa: nessun dato esce",
+      "Maison uniquement : aucune donnée ne sort"
+    ],
+    [
+      "Sorgenti aggiornate",
+      "Sources actualisées"
+    ],
+    [
+      "Strategia non valida",
+      "Stratégie non valide"
+    ],
+    [
+      "— trascina per riordinare, ✕ per togliere",
+      "— glissez pour réordonner, ✕ pour retirer"
+    ],
+    [
+      "☁ Cloud",
+      "☁ Cloud"
+    ],
+    [
+      "⟳ Aggiorna sorgenti",
+      "⟳ Actualiser les sources"
+    ],
+    [
+      "🖥 Questo server",
+      "🖥 Ce serveur"
+    ],
+    [
+      "🖧 Server in rete",
+      "🖧 Serveurs du réseau"
     ]
   ]
 }

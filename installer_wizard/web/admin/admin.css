@@ -157,3 +157,6 @@ pre.log { margin: 0; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--li
 }
 .tab.stack.on { display: flex; flex-direction: column; gap: 18px; }
 .tab.stack [hidden] { display: none !important; }
+.ui-mode { margin: 0 12px 10px; display: flex; }
+.ui-mode button { flex: 1; }
+body.ui-simple .x-expert, body.ui-expert .x-simple { display: none !important; }

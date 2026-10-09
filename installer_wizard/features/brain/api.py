@@ -8,7 +8,7 @@ import health
 from access import require_admin
 from config import DEMO, ollama_url, read_env, write_env
 from feature_registry import registry
-from features.brain import assignments_api, bridge
+from features.brain import assignments_api, bridge, chains_api
 from features.brain.brains import brains
 from features.brain.residency import rebalance
 from features.brain.roles import ROLES
@@ -19,6 +19,7 @@ from tasks import background
 admin_routes = APIRouter()
 admin_routes.include_router(assignments_api.admin_routes)
 admin_routes.include_router(bridge.admin_routes)
+admin_routes.include_router(chains_api.admin_routes)
 public_routes = assignments_api.public_routes
 _MODEL_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._:/-]{0,119}$")
 
@@ -103,6 +104,9 @@ async def admin_brains_set(request: Request, user: str = Depends(require_admin))
             if len(models) > 12 or not all(_MODEL_RE.match(m) for m in models):
                 raise HTTPException(400, "Elenco di modelli non valido")
             updates[role.env_key] = ",".join(dict.fromkeys(models))
+            updates[role.profile_key] = "custom" if models else "auto"
+            if not models:
+                updates.update({role.scope_key: "", role.strategy_key: ""})
     if updates:
         write_env(updates)
         brains.invalidate()

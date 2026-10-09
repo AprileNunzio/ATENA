@@ -5,8 +5,10 @@ import httpx
 import licensing
 from config import DEMO, ollama_remote, ollama_url, read_env
 
-from features.cloud.catalog import BY_ID, is_cloud, is_server, parse_ref
+from features.cloud.catalog import BY_ID, is_cloud, parse_ref
 from features.cloud.vault import vault
+from features.brain import scope
+from features.brain.presets import clean_profile
 from features.brain.roles import FALLBACK_ROLE, ROLES, split_order
 
 CATALOG = [
@@ -132,7 +134,19 @@ class Brains:
             "main": main, "fast": fast,
             **{rid: _dedupe(order) for rid, order in orders.items()},
             **{f"{rid}_custom": bool(order) for rid, order in custom.items()},
+            **{f"{r.id}_scope": scope.clean_scope(env.get(r.scope_key)) for r in ROLES},
+            **{f"{r.id}_strategy": scope.clean_strategy(env.get(r.strategy_key)) for r in ROLES},
+            **{f"{r.id}_profile": clean_profile(env.get(r.profile_key), bool(custom[r.id])) for r in ROLES},
         }
+
+    def effective(self, role_id: str, cfg: dict | None = None, extra: list[str] | None = None) -> list[str]:
+        cfg = cfg or self.config()
+        return scope.apply(cfg[role_id] + (extra or []), cfg[f"{role_id}_scope"], cfg[f"{role_id}_strategy"],
+                           self.stats)
+
+    def orders(self) -> dict[str, list[str]]:
+        cfg = self.config()
+        return {r.id: self.effective(r.id, cfg) for r in ROLES}
 
     async def installed(self) -> list[str]:
         ts, names = self._installed
@@ -166,7 +180,7 @@ class Brains:
                 provider, name = parse_ref(model)
             except ValueError:
                 return {"ref": model, "model": model, "origin": "cloud", "provider": "rimosso", "label": model}
-            return {"ref": model, "model": name, "origin": "server" if is_server(provider) else "cloud",
+            return {"ref": model, "model": name, "origin": scope.origin(model),
                     "provider": BY_ID[provider].name,
                     "label": f"{name} · {BY_ID[provider].name}"}
         where = ollama_url().split("//", 1)[-1] if ollama_remote() else "Questo server"
@@ -176,7 +190,7 @@ class Brains:
     def active_now(self, kind: str) -> dict | None:
         cfg = self.config()
         installed = {norm(n) for n in self._installed[1]}
-        for model in _dedupe(cfg[kind] + cfg["deep" if kind == "chat" else "chat"]):
+        for model in _dedupe(self.effective(kind, cfg, cfg["deep" if kind == "chat" else "chat"])):
             if self.usable(model, installed):
                 return self.describe(model)
         return None
@@ -212,12 +226,15 @@ class Brains:
         routing = cfg["routing"]
         split = routing == "1" or (routing == "auto" and norm(cfg["chat"][0]) != norm(cfg["deep"][0]))
         kind, reason = self.classify(text) if split else ("deep", "cervello unico")
-        primary = cfg[kind]
-        other = cfg["deep" if kind == "chat" else "chat"]
-        chain = [m for m in _dedupe(primary + other) if self.usable(m, installed)]
+        planned = self.effective(kind, cfg, cfg["deep" if kind == "chat" else "chat"])
+        chain = [m for m in _dedupe(planned) if self.usable(m, installed)]
+        skipped = [{"ref": m, "why": "non disponibile"} for m in _dedupe(planned) if m not in chain]
+        skipped += [{"ref": m, "why": "cloud escluso dalla privacy del ruolo"}
+                    for m in _dedupe(cfg[kind]) if not scope.allowed(m, cfg[f"{kind}_scope"])]
         if not chain:
-            chain = primary[:1]
-        return {"kind": kind, "reason": reason, "models": chain, "max_tokens": MAX_TOKENS[kind]}
+            chain = planned[:1]
+        return {"kind": kind, "reason": reason, "models": chain, "skipped": skipped,
+                "scope": cfg[f"{kind}_scope"], "strategy": cfg[f"{kind}_strategy"], "max_tokens": MAX_TOKENS[kind]}
 
     def record(self, model: str, ms: float, ok: bool, kind: str) -> None:
         s = self.stats.setdefault(model, {"ok": 0, "fail": 0, "avg_ms": ms})
@@ -263,6 +280,9 @@ class Brains:
         auto_fast, auto_main = self.auto_pick(hw)
         roles = [{"id": r.id, "icon": r.icon, "label": r.label, "hint": r.hint,
                   "custom": cfg[f"{r.id}_custom"], "entries": entries(cfg[r.id]),
+                  "scope": cfg[f"{r.id}_scope"], "strategy": cfg[f"{r.id}_strategy"],
+                  "profile": cfg[f"{r.id}_profile"],
+                  "effective": [m for m in self.effective(r.id, cfg) if self.usable(m, installed)],
                   "active": self.active_now(r.id)} for r in ROLES]
         last = {**self.last, **self.describe(self.last["model"])} if self.last.get("model") else {}
         return {"routing": cfg["routing"], "roles": roles, "last_used": last,
