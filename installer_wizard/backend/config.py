@@ -28,7 +28,7 @@ ADMIN_PORT = int(os.environ.get("ATENA_ADMIN_PORT", 8001 if DEMO else 8080))
 CORE_URL = os.environ.get("ATENA_CORE_URL", "http://127.0.0.1:8443")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 
-VERSION = "4.1.10"
+VERSION = "4.1.11"
 UI_LANGUAGES = {"it": "Italiano", "en": "English", "fr": "Français"}
 
 for _d in (ETC_DIR, STATE_DIR, LOG_DIR):
@@ -44,6 +44,7 @@ EDITABLE_KEYS = {
     "ATENA_NETGUARD": "Analisi del traffico per il firewall (1 = attiva, 0 = spenta)",
     "ATENA_NETGUARD_INTERFACES": "Interfacce analizzate dal firewall (es. eth0, wlan0; vuoto = tutte quelle ethernet e wifi)",
     "ATENA_GATEWAY_IP": "IP del router di casa, che il firewall non bloccherà mai",
+    "ATENA_VPN": "Strumenti VPN WireGuard, OpenVPN e IPsec (1 = installati, 0 = no)",
     "ATENA_OLLAMA_URL": "Server Ollama (vuoto = locale; es. http://192.168.1.50:11434 per usare un altro server)",
     "ATENA_ASSISTANT_NAME": "Nome dell'assistente (predefinito A.T.E.N.A.)",
     "ATENA_USER_NAME": "Nome dell'utente principale (come Atena ti chiama)",

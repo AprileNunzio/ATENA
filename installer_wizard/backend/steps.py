@@ -48,6 +48,8 @@ STEPS = [
     Step("security", "40-security.sh", "Scudi di sicurezza", "Firewall e hardening del kernel", 2),
     Step("netguard", "42-netguard.sh", "Analisi del traffico", "Motore Rust che analizza ethernet e wifi per il firewall di Atena", 1,
          critical=False),
+    Step("vpn", "43-vpn.sh", "VPN", "WireGuard, OpenVPN e IPsec per entrare in casa da fuori e collegarsi ad altre reti", 1,
+         critical=False),
     Step("ollama", "50-ollama.sh", "Motore neurale", "Runtime di inferenza locale Ollama", 8, critical=False),
     Step("voice", "55-voice.sh", "Voce neurale", "Sintesi vocale italiana offline", 4, critical=False,
          background=True, priority=10, size_gb=1.0),

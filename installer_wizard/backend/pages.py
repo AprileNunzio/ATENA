@@ -143,6 +143,7 @@ public_routes = APIRouter()
 admin_routes = APIRouter()
 
 
+@admin_routes.get("/vendor/{name}")
 @public_routes.get("/vendor/{name}")
 async def vendor(name: str):
     if name not in VENDOR:

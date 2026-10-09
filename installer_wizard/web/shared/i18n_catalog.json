@@ -13003,6 +13003,238 @@
     [
       "VPN universale: WireGuard client e server con QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale e ZeroTier, con kill switch, protezione DNS e split tunneling",
       "Universal VPN: WireGuard client and server with QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale and ZeroTier, with kill switch, DNS protection and split tunnelling"
+    ],
+    [
+      "VPN creata. Chiave pubblica da dare al server: {0}",
+      "VPN created. Public key to give to the server: {0}"
+    ],
+    [
+      "VPN creata",
+      "VPN created"
+    ],
+    [
+      "Nuova VPN",
+      "New VPN"
+    ],
+    [
+      "WireGuard · collegati a un server",
+      "WireGuard · connect to a server"
+    ],
+    [
+      "WireGuard · server per entrare in casa da fuori",
+      "WireGuard · server to reach home from outside"
+    ],
+    [
+      "OpenVPN · file .ovpn",
+      "OpenVPN · .ovpn file"
+    ],
+    [
+      "Tailscale o Headscale",
+      "Tailscale or Headscale"
+    ],
+    [
+      "File di configurazione WireGuard (.conf)",
+      "WireGuard configuration file (.conf)"
+    ],
+    [
+      "…oppure incollalo qui",
+      "…or paste it here"
+    ],
+    [
+      "Oppure inserisci i dati a mano",
+      "Or enter the details by hand"
+    ],
+    [
+      "Indirizzo del tunnel",
+      "Tunnel address"
+    ],
+    [
+      "Chiave pubblica del server",
+      "Server public key"
+    ],
+    [
+      "Server (host:porta)",
+      "Server (host:port)"
+    ],
+    [
+      "Rete della VPN",
+      "VPN network"
+    ],
+    [
+      "Porta UDP",
+      "UDP port"
+    ],
+    [
+      "Indirizzo pubblico di casa (dominio o IP)",
+      "Public home address (domain or IP)"
+    ],
+    [
+      "i dispositivi collegati vedono la rete di casa",
+      "connected devices see the home network"
+    ],
+    [
+      "File OpenVPN (.ovpn)",
+      "OpenVPN file (.ovpn)"
+    ],
+    [
+      "Nome utente",
+      "Username"
+    ],
+    [
+      "Autenticazione",
+      "Authentication"
+    ],
+    [
+      "chiave condivisa (PSK)",
+      "pre-shared key (PSK)"
+    ],
+    [
+      "utente e password (EAP)",
+      "username and password (EAP)"
+    ],
+    [
+      "Identità del server",
+      "Server identity"
+    ],
+    [
+      "Identità locale",
+      "Local identity"
+    ],
+    [
+      "Chiave condivisa o password",
+      "Pre-shared key or password"
+    ],
+    [
+      "Chiave di autorizzazione",
+      "Authorisation key"
+    ],
+    [
+      "Server Headscale (vuoto = Tailscale)",
+      "Headscale server (empty = Tailscale)"
+    ],
+    [
+      "Exit node (IP)",
+      "Exit node (IP)"
+    ],
+    [
+      "accetta le rotte condivise",
+      "accept shared routes"
+    ],
+    [
+      "ID della rete ZeroTier",
+      "ZeroTier network ID"
+    ],
+    [
+      "collega all'avvio di Atena",
+      "connect when Atena starts"
+    ],
+    [
+      "kill switch: se la VPN cade, niente esce fuori dal tunnel",
+      "kill switch: if the VPN drops, nothing leaves outside the tunnel"
+    ],
+    [
+      "impedisci le fughe DNS",
+      "prevent DNS leaks"
+    ],
+    [
+      "DNS da usare nel tunnel",
+      "DNS to use in the tunnel"
+    ],
+    [
+      "Traffico nella VPN",
+      "Traffic through the VPN"
+    ],
+    [
+      "solo queste reti",
+      "only these networks"
+    ],
+    [
+      "tutto tranne queste reti",
+      "everything except these networks"
+    ],
+    [
+      "Reti",
+      "Networks"
+    ],
+    [
+      "Crea la VPN",
+      "Create the VPN"
+    ],
+    [
+      "Scarica il file .conf",
+      "Download the .conf file"
+    ],
+    [
+      "tutto il traffico",
+      "all traffic"
+    ],
+    [
+      "solo alcune reti",
+      "only some networks"
+    ],
+    [
+      "tutto tranne alcune reti",
+      "everything except some networks"
+    ],
+    [
+      "QR e file",
+      "QR and file"
+    ],
+    [
+      "Dispositivi che possono entrare",
+      "Devices allowed in"
+    ],
+    [
+      "Nessun dispositivo.",
+      "No device."
+    ],
+    [
+      "Aggiungi dispositivo",
+      "Add device"
+    ],
+    [
+      "Apri sul router la porta UDP {0} verso Atena e usa l'indirizzo {1}.",
+      "Open UDP port {0} to Atena on the router and use the address {1}."
+    ],
+    [
+      "es. Telefono di Nunzio",
+      "e.g. Nunzio's phone"
+    ],
+    [
+      "blocco fughe DNS",
+      "DNS leak blocking"
+    ],
+    [
+      "Protezioni di rete non applicate: {0}",
+      "Network protections not applied: {0}"
+    ],
+    [
+      "Configurazione per {0}",
+      "Configuration for {0}"
+    ],
+    [
+      "QR non disponibile: usa il file .conf",
+      "QR not available: use the .conf file"
+    ],
+    [
+      "Eliminare questa VPN e le sue chiavi?",
+      "Delete this VPN and its keys?"
+    ],
+    [
+      "Togliere l'accesso a questo dispositivo?",
+      "Remove this device's access?"
+    ],
+    [
+      "Server",
+      "Server"
+    ],
+    [
+      "Strumenti VPN WireGuard, OpenVPN e IPsec (1 = installati, 0 = no)",
+      "WireGuard, OpenVPN and IPsec VPN tools (1 = installed, 0 = no)"
+    ],
+    [
+      "WireGuard, OpenVPN e IPsec per entrare in casa da fuori e collegarsi ad altre reti",
+      "WireGuard, OpenVPN and IPsec to reach home from outside and connect to other networks"
     ]
   ],
   "reverse": [
@@ -13419,7 +13651,11 @@
     "20/minute burst 5",
     "eth0, wlan0, wg0",
     "192.168.1.5, aa:bb:cc:dd:ee:ff",
-    "VPN"
+    "VPN",
+    "#vpn-form .vpn-kind",
+    "IPsec IKEv2",
+    "Tailscale",
+    "badge warn"
   ],
   "fr": [
     [
@@ -25641,6 +25877,238 @@
     [
       "VPN universale: WireGuard client e server con QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale e ZeroTier, con kill switch, protezione DNS e split tunneling",
       "VPN universel : client et serveur WireGuard avec QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale et ZeroTier, avec kill switch, protection DNS et split tunneling"
+    ],
+    [
+      "VPN creata. Chiave pubblica da dare al server: {0}",
+      "VPN créé. Clé publique à donner au serveur : {0}"
+    ],
+    [
+      "VPN creata",
+      "VPN créé"
+    ],
+    [
+      "Nuova VPN",
+      "Nouveau VPN"
+    ],
+    [
+      "WireGuard · collegati a un server",
+      "WireGuard · se connecter à un serveur"
+    ],
+    [
+      "WireGuard · server per entrare in casa da fuori",
+      "WireGuard · serveur pour accéder à la maison depuis l'extérieur"
+    ],
+    [
+      "OpenVPN · file .ovpn",
+      "OpenVPN · fichier .ovpn"
+    ],
+    [
+      "Tailscale o Headscale",
+      "Tailscale ou Headscale"
+    ],
+    [
+      "File di configurazione WireGuard (.conf)",
+      "Fichier de configuration WireGuard (.conf)"
+    ],
+    [
+      "…oppure incollalo qui",
+      "…ou collez-le ici"
+    ],
+    [
+      "Oppure inserisci i dati a mano",
+      "Ou saisissez les données à la main"
+    ],
+    [
+      "Indirizzo del tunnel",
+      "Adresse du tunnel"
+    ],
+    [
+      "Chiave pubblica del server",
+      "Clé publique du serveur"
+    ],
+    [
+      "Server (host:porta)",
+      "Serveur (hôte:port)"
+    ],
+    [
+      "Rete della VPN",
+      "Réseau du VPN"
+    ],
+    [
+      "Porta UDP",
+      "Port UDP"
+    ],
+    [
+      "Indirizzo pubblico di casa (dominio o IP)",
+      "Adresse publique de la maison (domaine ou IP)"
+    ],
+    [
+      "i dispositivi collegati vedono la rete di casa",
+      "les appareils connectés voient le réseau domestique"
+    ],
+    [
+      "File OpenVPN (.ovpn)",
+      "Fichier OpenVPN (.ovpn)"
+    ],
+    [
+      "Nome utente",
+      "Nom d'utilisateur"
+    ],
+    [
+      "Autenticazione",
+      "Authentification"
+    ],
+    [
+      "chiave condivisa (PSK)",
+      "clé partagée (PSK)"
+    ],
+    [
+      "utente e password (EAP)",
+      "utilisateur et mot de passe (EAP)"
+    ],
+    [
+      "Identità del server",
+      "Identité du serveur"
+    ],
+    [
+      "Identità locale",
+      "Identité locale"
+    ],
+    [
+      "Chiave condivisa o password",
+      "Clé partagée ou mot de passe"
+    ],
+    [
+      "Chiave di autorizzazione",
+      "Clé d'autorisation"
+    ],
+    [
+      "Server Headscale (vuoto = Tailscale)",
+      "Serveur Headscale (vide = Tailscale)"
+    ],
+    [
+      "Exit node (IP)",
+      "Nœud de sortie (IP)"
+    ],
+    [
+      "accetta le rotte condivise",
+      "accepter les routes partagées"
+    ],
+    [
+      "ID della rete ZeroTier",
+      "ID du réseau ZeroTier"
+    ],
+    [
+      "collega all'avvio di Atena",
+      "connecter au démarrage d'Atena"
+    ],
+    [
+      "kill switch: se la VPN cade, niente esce fuori dal tunnel",
+      "kill switch : si le VPN tombe, rien ne sort hors du tunnel"
+    ],
+    [
+      "impedisci le fughe DNS",
+      "empêcher les fuites DNS"
+    ],
+    [
+      "DNS da usare nel tunnel",
+      "DNS à utiliser dans le tunnel"
+    ],
+    [
+      "Traffico nella VPN",
+      "Trafic dans le VPN"
+    ],
+    [
+      "solo queste reti",
+      "seulement ces réseaux"
+    ],
+    [
+      "tutto tranne queste reti",
+      "tout sauf ces réseaux"
+    ],
+    [
+      "Reti",
+      "Réseaux"
+    ],
+    [
+      "Crea la VPN",
+      "Créer le VPN"
+    ],
+    [
+      "Scarica il file .conf",
+      "Télécharger le fichier .conf"
+    ],
+    [
+      "tutto il traffico",
+      "tout le trafic"
+    ],
+    [
+      "solo alcune reti",
+      "seulement certains réseaux"
+    ],
+    [
+      "tutto tranne alcune reti",
+      "tout sauf certains réseaux"
+    ],
+    [
+      "QR e file",
+      "QR et fichier"
+    ],
+    [
+      "Dispositivi che possono entrare",
+      "Appareils autorisés"
+    ],
+    [
+      "Nessun dispositivo.",
+      "Aucun appareil."
+    ],
+    [
+      "Aggiungi dispositivo",
+      "Ajouter un appareil"
+    ],
+    [
+      "Apri sul router la porta UDP {0} verso Atena e usa l'indirizzo {1}.",
+      "Ouvrez sur le routeur le port UDP {0} vers Atena et utilisez l'adresse {1}."
+    ],
+    [
+      "es. Telefono di Nunzio",
+      "ex. téléphone de Nunzio"
+    ],
+    [
+      "blocco fughe DNS",
+      "blocage des fuites DNS"
+    ],
+    [
+      "Protezioni di rete non applicate: {0}",
+      "Protections réseau non appliquées : {0}"
+    ],
+    [
+      "Configurazione per {0}",
+      "Configuration pour {0}"
+    ],
+    [
+      "QR non disponibile: usa il file .conf",
+      "QR indisponible : utilisez le fichier .conf"
+    ],
+    [
+      "Eliminare questa VPN e le sue chiavi?",
+      "Supprimer ce VPN et ses clés ?"
+    ],
+    [
+      "Togliere l'accesso a questo dispositivo?",
+      "Retirer l'accès de cet appareil ?"
+    ],
+    [
+      "Server",
+      "Serveur"
+    ],
+    [
+      "Strumenti VPN WireGuard, OpenVPN e IPsec (1 = installati, 0 = no)",
+      "Outils VPN WireGuard, OpenVPN et IPsec (1 = installés, 0 = non)"
+    ],
+    [
+      "WireGuard, OpenVPN e IPsec per entrare in casa da fuori e collegarsi ad altre reti",
+      "WireGuard, OpenVPN et IPsec pour accéder à la maison depuis l'extérieur et se connecter à d'autres réseaux"
     ]
   ]
 }

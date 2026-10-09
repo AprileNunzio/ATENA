@@ -1,0 +1,12 @@
+{
+  "name": "VPN",
+  "description": "VPN universel : client et serveur WireGuard avec QR, OpenVPN, IPsec IKEv2, Tailscale, Headscale et ZeroTier, avec kill switch, protection DNS et split tunneling",
+  "capabilities": [
+    "Serveur WireGuard pour accéder à la maison depuis l'extérieur, avec QR pour les téléphones",
+    "Import sécurisé de fichiers WireGuard et OpenVPN",
+    "IPsec IKEv2, Tailscale, Headscale et ZeroTier",
+    "Kill switch et blocage des fuites DNS",
+    "Split tunneling pour réseaux inclus ou exclus",
+    "Reconnexion automatique et clés chiffrées"
+  ]
+}

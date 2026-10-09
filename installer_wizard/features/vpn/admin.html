@@ -1,0 +1,95 @@
+<section class="tab" id="tab-vpn">
+  <div class="panel vpn-head">
+    <div class="row" style="justify-content:space-between; flex-wrap:wrap; gap:10px">
+      <div class="panel-title">VPN</div>
+      <button class="btn sm primary" id="vpn-new">Nuova VPN</button>
+    </div>
+    <div class="vpn-tools" id="vpn-tools"></div>
+    <div class="muted-note" id="vpn-guard"></div>
+  </div>
+
+  <form class="panel vpn-form" id="vpn-form" hidden>
+    <div class="panel-title">Nuova VPN</div>
+    <div class="vpn-grid">
+      <label>Nome <input name="name" maxlength="48" required></label>
+      <label>Tipo
+        <select name="kind">
+          <option value="wireguard:client">WireGuard · collegati a un server</option>
+          <option value="wireguard:server">WireGuard · server per entrare in casa da fuori</option>
+          <option value="openvpn:client">OpenVPN · file .ovpn</option>
+          <option value="ipsec:client">IPsec IKEv2</option>
+          <option value="tailscale:client">Tailscale o Headscale</option>
+          <option value="zerotier:client">ZeroTier</option>
+        </select></label>
+    </div>
+
+    <div class="vpn-kind" data-kind="wireguard:client">
+      <label>File di configurazione WireGuard (.conf) <input type="file" accept=".conf,text/plain" data-file="import"></label>
+      <label>…oppure incollalo qui <textarea name="import" rows="5" data-no-i18n></textarea></label>
+      <details><summary>Oppure inserisci i dati a mano</summary>
+        <div class="vpn-grid">
+          <label>Indirizzo del tunnel <input name="wg_address" placeholder="10.8.0.2/32"></label>
+          <label>Chiave pubblica del server <input name="wg_peer" data-no-i18n></label>
+          <label>Server (host:porta) <input name="wg_endpoint" placeholder="vpn.example.com:51820"></label>
+        </div>
+      </details>
+    </div>
+    <div class="vpn-kind" data-kind="wireguard:server" hidden>
+      <div class="vpn-grid">
+        <label>Rete della VPN <input name="srv_subnet" value="10.66.0.0/24"></label>
+        <label>Porta UDP <input name="srv_port" type="number" value="51820" min="1024" max="65535"></label>
+        <label>Indirizzo pubblico di casa (dominio o IP) <input name="srv_host" placeholder="casa.duckdns.org"></label>
+        <label class="switch"><input type="checkbox" name="srv_lan" checked> i dispositivi collegati vedono la rete di casa</label>
+      </div>
+    </div>
+    <div class="vpn-kind" data-kind="openvpn:client" hidden>
+      <label>File OpenVPN (.ovpn) <input type="file" accept=".ovpn,.conf,text/plain" data-file="ovpn"></label>
+      <label>…oppure incollalo qui <textarea name="ovpn" rows="5" data-no-i18n></textarea></label>
+      <div class="vpn-grid">
+        <label>Nome utente <input name="ovpn_user" autocomplete="off"></label>
+        <label>Password <input name="ovpn_pass" type="password" autocomplete="new-password"></label>
+      </div>
+    </div>
+    <div class="vpn-kind" data-kind="ipsec:client" hidden>
+      <div class="vpn-grid">
+        <label>Server <input name="ike_server" placeholder="vpn.example.com"></label>
+        <label>Autenticazione <select name="ike_auth"><option value="psk">chiave condivisa (PSK)</option><option value="eap">utente e password (EAP)</option></select></label>
+        <label>Identità del server <input name="ike_remote"></label>
+        <label>Identità locale <input name="ike_local"></label>
+        <label>Nome utente <input name="ike_user" autocomplete="off"></label>
+        <label>Chiave condivisa o password <input name="ike_secret" type="password" autocomplete="new-password"></label>
+      </div>
+    </div>
+    <div class="vpn-kind" data-kind="tailscale:client" hidden>
+      <div class="vpn-grid">
+        <label>Chiave di autorizzazione <input name="ts_key" type="password" autocomplete="off"></label>
+        <label>Server Headscale (vuoto = Tailscale) <input name="ts_server" placeholder="https://headscale.example.com"></label>
+        <label>Exit node (IP) <input name="ts_exit" placeholder="100.64.0.1"></label>
+        <label class="switch"><input type="checkbox" name="ts_routes" checked> accetta le rotte condivise</label>
+      </div>
+    </div>
+    <div class="vpn-kind" data-kind="zerotier:client" hidden>
+      <label>ID della rete ZeroTier <input name="zt_network" placeholder="8056c2e21c000001" data-no-i18n></label>
+    </div>
+
+    <div class="vpn-grid">
+      <label class="switch"><input type="checkbox" name="autostart"> collega all'avvio di Atena</label>
+      <label class="switch"><input type="checkbox" name="kill_switch"> kill switch: se la VPN cade, niente esce fuori dal tunnel</label>
+      <label class="switch"><input type="checkbox" name="block_dns_leaks" checked> impedisci le fughe DNS</label>
+      <label>DNS da usare nel tunnel <input name="dns" placeholder="10.8.0.1, 1.1.1.1"></label>
+      <label>Traffico nella VPN
+        <select name="split_mode"><option value="all">tutto</option><option value="include">solo queste reti</option><option value="exclude">tutto tranne queste reti</option></select></label>
+      <label>Reti <input name="split_networks" placeholder="10.20.0.0/16, 192.168.50.0/24"></label>
+    </div>
+    <div class="actions"><button class="btn primary" type="submit">Crea la VPN</button><button class="btn" type="button" id="vpn-cancel">Annulla</button></div>
+  </form>
+
+  <div id="vpn-list" class="vpn-list"></div>
+
+  <dialog id="vpn-peer-dialog" class="vpn-dialog">
+    <div class="panel-title" id="vpn-peer-title"></div>
+    <div class="vpn-qr" id="vpn-qr"></div>
+    <pre class="vpn-config" id="vpn-peer-config" data-no-i18n></pre>
+    <div class="actions"><button class="btn" id="vpn-peer-download">Scarica il file .conf</button><button class="btn" id="vpn-peer-close">Chiudi</button></div>
+  </dialog>
+</section>

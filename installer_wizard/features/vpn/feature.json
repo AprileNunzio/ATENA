@@ -6,7 +6,7 @@
   "icon": "🔐",
   "version": "1.0",
   "widgets": [],
-  "has_admin": false,
+  "has_admin": true,
   "panel": "vpn",
   "category": "sistema"
 }
