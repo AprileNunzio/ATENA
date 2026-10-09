@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>Atena TV</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; color: #dff6ff; font: 14px system-ui, sans-serif; overflow: hidden; }
+  video { width: 100%; height: 100%; object-fit: contain; background: #000; }
+  .bar { position: fixed; left: 0; right: 0; top: 0; display: flex; justify-content: space-between; align-items: center; padding: 10px 14px;
+    background: linear-gradient(#000c, #0000); opacity: 0; transition: opacity .3s; }
+  body:hover .bar, .bar.show { opacity: 1; }
+  .bar b { font-weight: 600; letter-spacing: .02em; }
+  .bar span { color: #8fb3c4; font-size: 12px; }
+  .msg { position: fixed; inset: 0; display: grid; place-items: center; text-align: center; padding: 20px; pointer-events: none; }
+  .msg:empty { display: none; }
+</style>
+</head>
+<body>
+<video id="v" playsinline controls></video>
+<div class="bar show" id="bar"><b id="name">Atena TV</b><span id="state">in collegamento…</span></div>
+<div class="msg" id="msg"></div>
+<script src="/static/shared/tvplayer.js"></script>
+<script>
+(() => {
+  const q = new URLSearchParams(location.search), c = q.get("c") || "", t = q.get("t") || "";
+  const label = { loading: "in collegamento…", playing: "in onda", blocked: "tocca per l'audio", error: "non disponibile" };
+  document.getElementById("name").textContent = (q.get("n") || "Atena TV").slice(0, 80);
+  document.title = document.getElementById("name").textContent;
+  if (!/^[a-f0-9]{16}$/.test(c)) { document.getElementById("msg").textContent = "Canale non valido"; return; }
+  const src = `/api/tv/live/${c}?t=${encodeURIComponent(t)}`;
+  window.AtenaTv.play(document.getElementById("v"), src, (s) => { document.getElementById("state").textContent = label[s] || s; })
+    .then(() => setTimeout(() => document.getElementById("bar").classList.remove("show"), 3000))
+    .catch((e) => { document.getElementById("msg").textContent = `Il canale non si apre: ${e.message}`; });
+})();
+</script>
+</body>
+</html>

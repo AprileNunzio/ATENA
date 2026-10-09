@@ -82,6 +82,8 @@ from features.firewall.events import monitor as firewall_monitor
 from features.vpn import api as vpn_api
 from features.places import api as places_api
 from features.sports import api as sports_api
+from features.tv import api as tv_api
+from features.tv import service as tv_service
 from features.sports.watch import watcher as sports_watcher
 from features.proxmox import api as proxmox_api
 from features.places import service as places_service
@@ -170,6 +172,7 @@ FEATURE_APIS = (
     vpn_api,
     places_api,
     sports_api,
+    tv_api,
     proxmox_api,
     laws_api,
     cameras_api,
@@ -325,6 +328,7 @@ BACKGROUND = (
     ("vpn", vpn_service.run, 0.0),
     ("stanze", places_service.run, 0.0),
     ("sport", sports_watcher.run, 0.0),
+    ("tv", tv_service.run, 0.0),
     ("lingue-casa", locale_household.run, 0.0),
 )
 

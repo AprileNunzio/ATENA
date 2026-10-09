@@ -18,7 +18,7 @@ from features.locale.pivot import pivot
 from features.chat.templates import remember_template
 from features.understanding import router as understanding
 
-CONNECTORS = {"places": "features.places.commands", "vault": "features.vault.commands", "selftest": "features.selftest.commands", "sounds": "features.sounds.commands", "whiteboard": "features.whiteboard.commands", "screens": "features.desktop.commands", "models3d": "features.models3d.commands", "documents": "features.documents.commands", "music": "features.music.commands", "livecam": "features.cameras.commands", "vision": "features.vision.sight", "gservices": "features.google.commands", "maps": "features.maps.maps", "sports": "features.sports.commands"}
+CONNECTORS = {"places": "features.places.commands", "vault": "features.vault.commands", "selftest": "features.selftest.commands", "sounds": "features.sounds.commands", "whiteboard": "features.whiteboard.commands", "screens": "features.desktop.commands", "models3d": "features.models3d.commands", "documents": "features.documents.commands", "music": "features.music.commands", "livecam": "features.cameras.commands", "vision": "features.vision.sight", "gservices": "features.google.commands", "maps": "features.maps.maps", "sports": "features.sports.commands", "tv": "features.tv.commands"}
 
 EARLY = ("whiteboard", "livecam")
 PERSONAL = {"gservices", "vault", "documents", "maps", "vision", "livecam"}

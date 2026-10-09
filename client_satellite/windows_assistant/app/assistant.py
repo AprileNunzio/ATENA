@@ -9,12 +9,14 @@ from actions.executor import Executor
 from app.conversation import Conversation
 from app.errors import errors
 from app.interface import Interface
+from app import tvwindow
 from app.voice import Voice
 from backup.scheduler import BackupScheduler
 from backup.snapshots import Snapshots
 from connection import tls
 from connection.client import Client
 from connection.heartbeat import Heartbeat
+from connection.inbox import Inbox
 from permissions.gate import Gate
 from permissions.policy import Policy
 from senses import places
@@ -47,6 +49,7 @@ class Assistant:
         self.voice.on_transcript = lambda text, lang: self.conversation.ask(text, lang, spoken=True)
         self.heartbeat = Heartbeat(self.client, self._report, self._on_reply,
                                    lambda: self.ui.dispatch.post(self.unpair, True), self._security)
+        self.inbox = Inbox(self.client, lambda actions: self.ui.dispatch.post(self._actions, actions))
         self.backup = BackupScheduler(cfg, self.snapshots, lambda text: self.ui.dispatch.post(self.ui.note, text))
         self.updater = Updater(lambda text: self.ui.dispatch.post(self.ui.note, text), self.quit)
         self.hotkeys: list = []
@@ -82,6 +85,19 @@ class Assistant:
                 self.restart()
             elif command == "update":
                 self.updater.check_now()
+        if reply.get("actions"):
+            self.ui.dispatch.post(self._actions, reply["actions"])
+
+    def _actions(self, actions: list) -> None:
+        for action in actions[:4]:
+            if not isinstance(action, dict) or action.get("type") != "tv":
+                continue
+            url = str(action.get("url") or "")
+            if not tvwindow.trusted(url, self.cfg["server"]):
+                log.warning("Finestra TV rifiutata: indirizzo non di ATENA (%s)", url[:80])
+                continue
+            tvwindow.open_window(url)
+            self.ui.note(f"📺 {str(action.get('title') or 'TV')[:60]}")
 
     def _security(self, message: str) -> None:
         log.error(message)
@@ -116,6 +132,7 @@ class Assistant:
         self.focus.start()
         self.voice.start()
         self.heartbeat.start()
+        self.inbox.start()
         self.backup.start()
         self.updater.start()
         self._bind_hotkeys()
@@ -138,6 +155,7 @@ class Assistant:
     def quit(self) -> None:
         self.voice.stop()
         self.heartbeat.stop()
+        self.inbox.stop()
         self.backup.stop()
         self.updater.stop()
         self.ui.quit()

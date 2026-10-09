@@ -1,0 +1,4 @@
+.w-tv_player .tv-frame { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; }
+.w-tv_player video { width: 100%; height: 100%; object-fit: contain; display: block; background: #000; }
+.w-tv_player .tv-msg { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; padding: 16px; font-size: 13px; color: var(--text-dim); pointer-events: none; }
+.w-tv_player .tv-msg:empty { display: none; }

@@ -1,0 +1,12 @@
+{
+  "name": "TV and IPTV",
+  "description": "IPTV (M3U) playlists with channels, groups and favourites: watch a channel on Atena's screens, on a Windows PC in a widget window, on Chromecast or DLNA TVs, by voice or with automatic rules.",
+  "capabilities": [
+    "M3U playlists from an address or a file, encrypted on disk because they contain the provider's credentials",
+    "Channels, groups, search and favourites",
+    "Viewing on Atena's screens, in a window on the Windows PC, on Chromecast and DLNA TVs",
+    "By voice: «put on Rai 1», «show Rai 1 on the pc», «watch Rai 3 on the living room Chromecast»",
+    "Rules: at a time, on waking up or when a person arrives, a channel on a device",
+    "Secure relay: signed, expiring links, no open proxy"
+  ]
+}

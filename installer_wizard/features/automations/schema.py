@@ -89,6 +89,8 @@ ACTIONS = {
     "notify": {"label": "Notifica", "icon": "🔔", "fields": [F("title", "Titolo"), F("text", "Testo", "textarea", required=True),
                                                             F("channels", "Canali", "multi", options=CHANNELS, default=["display"]),
                                                             F("to", "Email destinatario (per il canale email)")]},
+    "tv": {"label": "Guarda un canale TV", "icon": "📺", "fields": [F("channel", "Canale (nome)", required=True),
+                                                                 F("target", "Dove (display, pc:<id>, cast:<id>, dlna:<id>)")]},
     "widget": {"label": "Mostra un widget", "icon": "🪟", "fields": [F("widget", "Widget", "widget", required=True),
                                                                   F("data", "Dati (JSON)", "json"), F("ttl", "Per (secondi)", "number")]},
     "holo": {"label": "Ologramma", "icon": "🧑‍🚀", "fields": [F("express", "Espressione (es. sorriso)"), F("play", "Animazione"),

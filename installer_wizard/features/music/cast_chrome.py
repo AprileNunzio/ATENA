@@ -49,7 +49,8 @@ async def discover() -> list[dict]:
 
 async def load(device: dict, url: str, meta: dict, start: float = 0.0) -> None:
     await run({"command": "play", **target(device), "url": url, "mime": meta.get("mime", "audio/mpeg"), "title": meta.get("title", ""),
-               "artist": meta.get("artist", ""), "album": meta.get("album", ""), "art": meta.get("art", ""), "start": start})
+               "artist": meta.get("artist", ""), "album": meta.get("album", ""), "art": meta.get("art", ""), "start": start,
+               "video": bool(meta.get("video"))})
 
 
 async def status(device: dict) -> dict:

@@ -31,9 +31,12 @@ def connect(request: dict):
 def play(request: dict) -> dict:
     cast = connect(request)
     media = cast.media_controller
-    meta = {"metadataType": 3, "title": request.get("title", ""), "artist": request.get("artist", ""), "albumName": request.get("album", "")}
+    video = bool(request.get("video"))
+    meta = ({"metadataType": 0, "title": request.get("title", ""), "subtitle": request.get("artist", "")} if video else
+            {"metadataType": 3, "title": request.get("title", ""), "artist": request.get("artist", ""), "albumName": request.get("album", "")})
     media.play_media(request["url"], request.get("mime", "audio/mpeg"), title=request.get("title", ""), thumb=request.get("art") or None,
-                     metadata=meta, current_time=float(request.get("start") or 0), autoplay=True)
+                     metadata=meta, current_time=None if video else float(request.get("start") or 0), autoplay=True,
+                     stream_type="LIVE" if video else "BUFFERED")
     media.block_until_active(timeout=CONNECT_SECONDS)
     return {"ok": True}
 

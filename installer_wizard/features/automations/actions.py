@@ -118,6 +118,18 @@ async def widget(a: dict, run) -> str:
     return f"widget {wid} mostrato"
 
 
+async def tv(a: dict, run) -> str:
+    from features.tv import targets
+    from features.tv.store import tv_store
+    channel = tv_store.find(str(a.get("channel") or ""))
+    if not channel:
+        raise ActionError(f"canale «{a.get('channel')}» non trovato nelle playlist")
+    try:
+        return f"{channel['name']} " + await targets.play(channel, str(a.get("target") or "display"), f"automazione {run.name}")
+    except targets.TargetError as exc:
+        raise ActionError(str(exc)) from exc
+
+
 async def holo(a: dict, run) -> str:
     action = {k: a[k] for k in ("express", "play", "tint") if a.get(k)}
     if a.get("accessory"):
@@ -188,5 +200,5 @@ async def log(a: dict, run) -> str:
     return text[:200]
 
 
-LEAF = {"ha": ha, "speak": speak, "notify": notify, "widget": widget, "holo": holo, "sound": sound, "agent": agent,
+LEAF = {"ha": ha, "speak": speak, "notify": notify, "widget": widget, "tv": tv, "holo": holo, "sound": sound, "agent": agent,
         "email": email, "http": http, "event": event, "log": log}

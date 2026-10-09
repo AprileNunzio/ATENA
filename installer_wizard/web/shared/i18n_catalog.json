@@ -14111,6 +14111,226 @@
     [
       "🔔 Avvisi e widget",
       "🔔 Alerts and widgets"
+    ],
+    [
+      "(al mattino)",
+      "(in the morning)"
+    ],
+    [
+      "A voce: «metti Rai 1», «visualizza Rai 1 sul pc», «guarda Rai 3 sul Chromecast del salotto»",
+      "By voice: «put on Rai 1», «show Rai 1 on the pc», «watch Rai 3 on the living room Chromecast»"
+    ],
+    [
+      "Aggiorna le playlist ogni (ore)",
+      "Refresh playlists every (hours)"
+    ],
+    [
+      "Al risveglio (la prima volta che mi vede al mattino)",
+      "On waking up (the first time it sees me in the morning)"
+    ],
+    [
+      "Canale",
+      "Channel"
+    ],
+    [
+      "Canale TV in diretta da una playlist IPTV.",
+      "Live TV channel from an IPTV playlist."
+    ],
+    [
+      "Canale inviato {0}",
+      "Channel sent {0}"
+    ],
+    [
+      "Canale sconosciuto",
+      "Unknown channel"
+    ],
+    [
+      "Canali, gruppi, ricerca e preferiti",
+      "Channels, groups, search and favourites"
+    ],
+    [
+      "Carica file",
+      "Upload file"
+    ],
+    [
+      "Cerca Chromecast e TV in rete",
+      "Look for Chromecasts and TVs on the network"
+    ],
+    [
+      "Cerca canale…",
+      "Search channel…"
+    ],
+    [
+      "Chiudi sugli schermi",
+      "Close on screens"
+    ],
+    [
+      "Crea regola",
+      "Create rule"
+    ],
+    [
+      "Dove guardarlo",
+      "Where to watch it"
+    ],
+    [
+      "Esempi: «al risveglio voglio Rai 1 sul satellite della camera», «quando arrivo vicino al server metti il TG».",
+      "Examples: «when I wake up I want Rai 1 on the bedroom satellite», «when I get close to the server put on the news»."
+    ],
+    [
+      "Guarda qui",
+      "Watch here"
+    ],
+    [
+      "HLS non supportato",
+      "HLS not supported"
+    ],
+    [
+      "Il canale non si apre: {0}",
+      "The channel does not open: {0}"
+    ],
+    [
+      "In onda {0}.",
+      "On air {0}."
+    ],
+    [
+      "Incolla l'indirizzo M3U del tuo fornitore o carica un file .m3u. Le playlist restano cifrate su questo server.",
+      "Paste your provider's M3U address or upload a .m3u file. Playlists stay encrypted on this server."
+    ],
+    [
+      "Incolla un indirizzo o scegli un file",
+      "Paste an address or choose a file"
+    ],
+    [
+      "Lettore non disponibile",
+      "Player not available"
+    ],
+    [
+      "Nessun canale",
+      "No channel"
+    ],
+    [
+      "Nome (es. Fornitore TV)",
+      "Name (e.g. TV provider)"
+    ],
+    [
+      "Persona (vuoto = chiunque)",
+      "Person (empty = anyone)"
+    ],
+    [
+      "Playlist IPTV (M3U) con canali, gruppi e preferiti: guarda un canale sugli schermi di Atena, su un PC Windows in una finestra-widget, su Chromecast o TV DLNA, a voce o con regole automatiche.",
+      "IPTV (M3U) playlists with channels, groups and favourites: watch a channel on Atena's screens, on a Windows PC in a widget window, on Chromecast or DLNA TVs, by voice or with automatic rules."
+    ],
+    [
+      "Playlist M3U da indirizzo o da file, cifrate sul disco perché contengono le credenziali del fornitore",
+      "M3U playlists from an address or a file, encrypted on disk because they contain the provider's credentials"
+    ],
+    [
+      "Quando una persona arriva davanti ad Atena",
+      "When a person arrives in front of Atena"
+    ],
+    [
+      "Regola creata",
+      "Rule created"
+    ],
+    [
+      "Regole: a un orario, al risveglio o quando una persona arriva, un canale su un dispositivo",
+      "Rules: at a time, on waking up or when a person arrives, a channel on a device"
+    ],
+    [
+      "Ricerca dispositivi completata",
+      "Device search completed"
+    ],
+    [
+      "Rimuovere questa playlist e i suoi canali?",
+      "Remove this playlist and its channels?"
+    ],
+    [
+      "Ritrasmissione sicura: collegamenti firmati e a scadenza, nessun proxy aperto",
+      "Secure relay: signed, expiring links, no open proxy"
+    ],
+    [
+      "Scegli il canale",
+      "Choose the channel"
+    ],
+    [
+      "Scegli un canale",
+      "Choose a channel"
+    ],
+    [
+      "Solo preferiti",
+      "Favourites only"
+    ],
+    [
+      "Sorgente non ammessa",
+      "Source not allowed"
+    ],
+    [
+      "TV",
+      "TV"
+    ],
+    [
+      "TV e IPTV",
+      "TV and IPTV"
+    ],
+    [
+      "Tutti i gruppi",
+      "All groups"
+    ],
+    [
+      "Visione sugli schermi di Atena, in una finestra sul PC Windows, su Chromecast e TV DLNA",
+      "Viewing on Atena's screens, in a window on the Windows PC, on Chromecast and DLNA TVs"
+    ],
+    [
+      "audio disattivato",
+      "audio muted"
+    ],
+    [
+      "errore HLS",
+      "HLS error"
+    ],
+    [
+      "flusso TS non supportato",
+      "TS stream not supported"
+    ],
+    [
+      "in collegamento",
+      "connecting"
+    ],
+    [
+      "in onda",
+      "on air"
+    ],
+    [
+      "lettore non disponibile",
+      "player not available"
+    ],
+    [
+      "libreria {0} non disponibile",
+      "library {0} not available"
+    ],
+    [
+      "quando arriva qualcuno",
+      "when someone arrives"
+    ],
+    [
+      "quando arriva {0}",
+      "when {0} arrives"
+    ],
+    [
+      "{0} canali importati",
+      "{0} channels imported"
+    ],
+    [
+      "⏰ Regole automatiche",
+      "⏰ Automatic rules"
+    ],
+    [
+      "▶ Guarda",
+      "▶ Watch"
+    ],
+    [
+      "📺 Canali",
+      "📺 Channels"
     ]
   ],
   "reverse": [
@@ -14536,7 +14756,9 @@
     "seg ui-mode",
     "#tab-sports [data-alert]",
     "wk-row ic",
-    "LEC, HAM"
+    "LEC, HAM",
+    "#tv-grid .tv-ch",
+    "color:var(--amber); font-size:12px"
   ],
   "fr": [
     [
@@ -27866,6 +28088,226 @@
     [
       "🔔 Avvisi e widget",
       "🔔 Alertes et widgets"
+    ],
+    [
+      "(al mattino)",
+      "(le matin)"
+    ],
+    [
+      "A voce: «metti Rai 1», «visualizza Rai 1 sul pc», «guarda Rai 3 sul Chromecast del salotto»",
+      "À la voix : « mets Rai 1 », « affiche Rai 1 sur le pc », « regarde Rai 3 sur le Chromecast du salon »"
+    ],
+    [
+      "Aggiorna le playlist ogni (ore)",
+      "Actualiser les playlists toutes les (heures)"
+    ],
+    [
+      "Al risveglio (la prima volta che mi vede al mattino)",
+      "Au réveil (la première fois qu'elle me voit le matin)"
+    ],
+    [
+      "Canale",
+      "Chaîne"
+    ],
+    [
+      "Canale TV in diretta da una playlist IPTV.",
+      "Chaîne TV en direct depuis une playlist IPTV."
+    ],
+    [
+      "Canale inviato {0}",
+      "Chaîne envoyée {0}"
+    ],
+    [
+      "Canale sconosciuto",
+      "Chaîne inconnue"
+    ],
+    [
+      "Canali, gruppi, ricerca e preferiti",
+      "Chaînes, groupes, recherche et favoris"
+    ],
+    [
+      "Carica file",
+      "Charger un fichier"
+    ],
+    [
+      "Cerca Chromecast e TV in rete",
+      "Chercher Chromecast et TV sur le réseau"
+    ],
+    [
+      "Cerca canale…",
+      "Chercher une chaîne…"
+    ],
+    [
+      "Chiudi sugli schermi",
+      "Fermer sur les écrans"
+    ],
+    [
+      "Crea regola",
+      "Créer la règle"
+    ],
+    [
+      "Dove guardarlo",
+      "Où la regarder"
+    ],
+    [
+      "Esempi: «al risveglio voglio Rai 1 sul satellite della camera», «quando arrivo vicino al server metti il TG».",
+      "Exemples : « au réveil je veux Rai 1 sur le satellite de la chambre », « quand j'arrive près du serveur mets le JT »."
+    ],
+    [
+      "Guarda qui",
+      "Regarder ici"
+    ],
+    [
+      "HLS non supportato",
+      "HLS non pris en charge"
+    ],
+    [
+      "Il canale non si apre: {0}",
+      "La chaîne ne s'ouvre pas : {0}"
+    ],
+    [
+      "In onda {0}.",
+      "À l'antenne {0}."
+    ],
+    [
+      "Incolla l'indirizzo M3U del tuo fornitore o carica un file .m3u. Le playlist restano cifrate su questo server.",
+      "Collez l'adresse M3U de votre fournisseur ou chargez un fichier .m3u. Les playlists restent chiffrées sur ce serveur."
+    ],
+    [
+      "Incolla un indirizzo o scegli un file",
+      "Collez une adresse ou choisissez un fichier"
+    ],
+    [
+      "Lettore non disponibile",
+      "Lecteur non disponible"
+    ],
+    [
+      "Nessun canale",
+      "Aucune chaîne"
+    ],
+    [
+      "Nome (es. Fornitore TV)",
+      "Nom (ex. Fournisseur TV)"
+    ],
+    [
+      "Persona (vuoto = chiunque)",
+      "Personne (vide = n'importe qui)"
+    ],
+    [
+      "Playlist IPTV (M3U) con canali, gruppi e preferiti: guarda un canale sugli schermi di Atena, su un PC Windows in una finestra-widget, su Chromecast o TV DLNA, a voce o con regole automatiche.",
+      "Playlists IPTV (M3U) avec chaînes, groupes et favoris : regardez une chaîne sur les écrans d'Atena, sur un PC Windows dans une fenêtre-widget, sur Chromecast ou TV DLNA, à la voix ou avec des règles automatiques."
+    ],
+    [
+      "Playlist M3U da indirizzo o da file, cifrate sul disco perché contengono le credenziali del fornitore",
+      "Playlists M3U depuis une adresse ou un fichier, chiffrées sur le disque car elles contiennent les identifiants du fournisseur"
+    ],
+    [
+      "Quando una persona arriva davanti ad Atena",
+      "Quand une personne arrive devant Atena"
+    ],
+    [
+      "Regola creata",
+      "Règle créée"
+    ],
+    [
+      "Regole: a un orario, al risveglio o quando una persona arriva, un canale su un dispositivo",
+      "Règles : à une heure, au réveil ou quand une personne arrive, une chaîne sur un appareil"
+    ],
+    [
+      "Ricerca dispositivi completata",
+      "Recherche d'appareils terminée"
+    ],
+    [
+      "Rimuovere questa playlist e i suoi canali?",
+      "Supprimer cette playlist et ses chaînes ?"
+    ],
+    [
+      "Ritrasmissione sicura: collegamenti firmati e a scadenza, nessun proxy aperto",
+      "Relais sécurisé : liens signés et à durée limitée, aucun proxy ouvert"
+    ],
+    [
+      "Scegli il canale",
+      "Choisissez la chaîne"
+    ],
+    [
+      "Scegli un canale",
+      "Choisissez une chaîne"
+    ],
+    [
+      "Solo preferiti",
+      "Favoris uniquement"
+    ],
+    [
+      "Sorgente non ammessa",
+      "Source non autorisée"
+    ],
+    [
+      "TV",
+      "TV"
+    ],
+    [
+      "TV e IPTV",
+      "TV et IPTV"
+    ],
+    [
+      "Tutti i gruppi",
+      "Tous les groupes"
+    ],
+    [
+      "Visione sugli schermi di Atena, in una finestra sul PC Windows, su Chromecast e TV DLNA",
+      "Visionnage sur les écrans d'Atena, dans une fenêtre sur le PC Windows, sur Chromecast et TV DLNA"
+    ],
+    [
+      "audio disattivato",
+      "son coupé"
+    ],
+    [
+      "errore HLS",
+      "erreur HLS"
+    ],
+    [
+      "flusso TS non supportato",
+      "flux TS non pris en charge"
+    ],
+    [
+      "in collegamento",
+      "connexion"
+    ],
+    [
+      "in onda",
+      "à l'antenne"
+    ],
+    [
+      "lettore non disponibile",
+      "lecteur non disponible"
+    ],
+    [
+      "libreria {0} non disponibile",
+      "bibliothèque {0} non disponible"
+    ],
+    [
+      "quando arriva qualcuno",
+      "quand quelqu'un arrive"
+    ],
+    [
+      "quando arriva {0}",
+      "quand {0} arrive"
+    ],
+    [
+      "{0} canali importati",
+      "{0} chaînes importées"
+    ],
+    [
+      "⏰ Regole automatiche",
+      "⏰ Règles automatiques"
+    ],
+    [
+      "▶ Guarda",
+      "▶ Regarder"
+    ],
+    [
+      "📺 Canali",
+      "📺 Chaînes"
     ]
   ]
 }

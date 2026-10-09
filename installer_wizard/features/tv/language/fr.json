@@ -1,0 +1,12 @@
+{
+  "name": "TV et IPTV",
+  "description": "Playlists IPTV (M3U) avec chaînes, groupes et favoris : regardez une chaîne sur les écrans d'Atena, sur un PC Windows dans une fenêtre-widget, sur Chromecast ou TV DLNA, à la voix ou avec des règles automatiques.",
+  "capabilities": [
+    "Playlists M3U depuis une adresse ou un fichier, chiffrées sur le disque car elles contiennent les identifiants du fournisseur",
+    "Chaînes, groupes, recherche et favoris",
+    "Visionnage sur les écrans d'Atena, dans une fenêtre sur le PC Windows, sur Chromecast et TV DLNA",
+    "À la voix : « mets Rai 1 », « affiche Rai 1 sur le pc », « regarde Rai 3 sur le Chromecast du salon »",
+    "Règles : à une heure, au réveil ou quand une personne arrive, une chaîne sur un appareil",
+    "Relais sécurisé : liens signés et à durée limitée, aucun proxy ouvert"
+  ]
+}

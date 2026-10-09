@@ -127,12 +127,16 @@ def envelope(service: str, action: str, arguments: dict) -> bytes:
             f'<u:{action} xmlns:u="{service}"><InstanceID>0</InstanceID>{inner}</u:{action}></s:Body></s:Envelope>').encode("utf-8")
 
 
+UPNP_AUDIO = "object.item.audioItem.musicTrack"
+UPNP_VIDEO = "object.item.videoItem.videoBroadcast"
+
+
 def didl(title: str, artist: str, album: str, url: str, art: str, mime: str) -> str:
     cover = f"<upnp:albumArtURI>{escape(art)}</upnp:albumArtURI>" if art else ""
     return ('<DIDL-Lite xmlns="urn:schemas-upnp-org:metadata-1-0/DIDL-Lite/" xmlns:dc="http://purl.org/dc/elements/1.1/" '
             'xmlns:upnp="urn:schemas-upnp-org:metadata-1-0/upnp/"><item id="0" parentID="-1" restricted="1">'
             f"<dc:title>{escape(title)}</dc:title><dc:creator>{escape(artist)}</dc:creator><upnp:artist>{escape(artist)}</upnp:artist>"
-            f"<upnp:album>{escape(album)}</upnp:album><upnp:class>object.item.audioItem.musicTrack</upnp:class>{cover}"
+            f"<upnp:album>{escape(album)}</upnp:album><upnp:class>{UPNP_VIDEO if mime.startswith('video') else UPNP_AUDIO}</upnp:class>{cover}"
             f'<res protocolInfo="http-get:*:{mime}:*">{escape(url)}</res></item></DIDL-Lite>')
 
 

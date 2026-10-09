@@ -10,7 +10,10 @@ from state import store
 from features.nodes import server
 from features.nodes.beacon import beacon
 from features.nodes.requests import requests
+from features.nodes.inbox import inbox
 from features.nodes.registry import COMMANDS, TYPES, registry
+
+INBOX_WAIT = 25.0
 
 public_routes = APIRouter()
 admin_routes = APIRouter()
@@ -66,8 +69,18 @@ async def node_heartbeat(request: Request):
     commands = registry.heartbeat(node, body, _ip(request))
     if not was_online:
         store.event("INFO", f"Nodo online: {node['name']}", "nodes")
-    return {"commands": commands, "heartbeat": 30, "agent": _agent_sha(), "settings": registry.effective(node["id"]),
-            "custom": sorted(node.get("settings") or {})}
+    return {"commands": commands, "actions": inbox.take(node["id"]), "heartbeat": 30, "agent": _agent_sha(),
+            "settings": registry.effective(node["id"]), "custom": sorted(node.get("settings") or {})}
+
+
+@public_routes.post("/api/nodes/inbox")
+async def node_inbox(request: Request):
+    auth = request.headers.get("authorization", "")
+    try:
+        node = registry.authenticate(request.headers.get("x-atena-node", ""), auth.removeprefix("Bearer ").strip())
+    except PermissionError as exc:
+        raise HTTPException(401, str(exc))
+    return {"actions": await inbox.wait(node["id"], INBOX_WAIT)}
 
 
 def _agent_path():

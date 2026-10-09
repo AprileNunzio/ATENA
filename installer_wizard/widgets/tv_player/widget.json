@@ -1,0 +1,12 @@
+{
+  "id": "tv_player",
+  "name": "TV",
+  "icon": "📺",
+  "priority": 72,
+  "size": "l",
+  "intents": [],
+  "ttl": 0,
+  "description": "Canale TV in diretta da una playlist IPTV.",
+  "demo": {"channel": "0000000000000000", "name": "Canale di prova", "group": "Demo", "src": ""},
+  "tone": "violet"
+}

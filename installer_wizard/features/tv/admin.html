@@ -1,0 +1,54 @@
+<section class="tab" id="tab-tv">
+  <div class="grid g2" style="align-items:start; margin-bottom:18px">
+    <div class="panel">
+      <div class="panel-title">📋 Playlist IPTV</div>
+      <div class="muted-note" style="margin-bottom:10px">Incolla l'indirizzo M3U del tuo fornitore o carica un file .m3u. Le playlist restano cifrate su questo server.</div>
+      <form class="tv-add" id="tv-add">
+        <input id="tv-name" placeholder="Nome (es. Fornitore TV)" autocomplete="off">
+        <input id="tv-url" placeholder="http://…/playlist.m3u" autocomplete="off">
+        <label class="btn" for="tv-file">Carica file</label><input id="tv-file" type="file" accept=".m3u,.m3u8,audio/x-mpegurl" hidden>
+        <button class="btn primary">Aggiungi</button>
+      </form>
+      <div class="tv-lists" id="tv-lists"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">▶ Guarda</div>
+      <div class="tv-preview"><video id="tv-video" playsinline controls muted></video><div class="tv-pmsg" id="tv-pmsg">Scegli un canale</div></div>
+      <div class="tv-send">
+        <select id="tv-target" aria-label="Dove guardarlo"></select>
+        <button type="button" class="btn sm" id="tv-scan" title="Cerca Chromecast e TV in rete">⟳</button>
+        <button type="button" class="btn primary" id="tv-go" disabled>Guarda qui</button>
+        <button type="button" class="btn" id="tv-stop">Chiudi sugli schermi</button>
+      </div>
+      <div class="muted-note" id="tv-now"></div>
+    </div>
+  </div>
+
+  <div class="panel" style="margin-bottom:18px">
+    <div class="row" style="justify-content:space-between; flex-wrap:wrap; gap:8px">
+      <div class="panel-title" style="margin:0">📺 Canali <span class="faint" id="tv-count"></span></div>
+      <div class="row" style="gap:8px; flex-wrap:wrap">
+        <input id="tv-q" placeholder="Cerca canale…" style="max-width:200px">
+        <select id="tv-group" style="max-width:200px"><option value="">Tutti i gruppi</option></select>
+        <label class="tv-fav-only"><input type="checkbox" id="tv-fav"> Solo preferiti</label>
+      </div>
+    </div>
+    <div class="tv-grid" id="tv-grid"></div>
+    <div class="row" style="justify-content:center; gap:8px; margin-top:12px"><button class="btn sm" id="tv-prev">←</button><span class="faint" id="tv-page"></span><button class="btn sm" id="tv-next">→</button></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">⏰ Regole automatiche</div>
+    <div class="muted-note" style="margin-bottom:10px">Esempi: «al risveglio voglio Rai 1 sul satellite della camera», «quando arrivo vicino al server metti il TG».</div>
+    <form class="tv-rule" id="tv-rule">
+      <select id="tv-when"><option value="time">A un orario</option><option value="wake">Al risveglio (la prima volta che mi vede al mattino)</option><option value="arrive">Quando una persona arriva davanti ad Atena</option></select>
+      <input id="tv-at" type="time" value="07:00">
+      <input id="tv-person" placeholder="Persona (vuoto = chiunque)">
+      <input id="tv-channel" list="tv-chlist" placeholder="Canale">
+      <datalist id="tv-chlist"></datalist>
+      <select id="tv-rtarget"></select>
+      <button class="btn primary">Crea regola</button>
+    </form>
+    <div class="tv-rules" id="tv-rules"></div>
+  </div>
+</section>

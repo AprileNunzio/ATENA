@@ -1,0 +1,22 @@
+.tv-add, .tv-send, .tv-rule { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.tv-add input, .tv-rule input, .tv-rule select { flex: 1 1 160px; min-width: 0; }
+.tv-send select { flex: 1 1 200px; min-width: 0; }
+.tv-lists, .tv-rules { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.tv-list { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(2, 8, 16, 0.4); }
+.tv-list .actions { display: flex; gap: 6px; }
+.tv-preview { position: relative; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden; background: #000; margin-bottom: 10px; }
+.tv-preview video { width: 100%; height: 100%; object-fit: contain; display: block; }
+.tv-pmsg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--text-dim); font-size: 13px; pointer-events: none; text-align: center; padding: 12px; }
+.tv-pmsg:empty { display: none; }
+.tv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: 8px; margin-top: 12px; }
+.tv-ch { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 8px 10px; border-radius: 12px; border: 1px solid var(--line); background: rgba(2, 8, 16, 0.4); cursor: pointer; min-width: 0; }
+.tv-ch:hover { border-color: var(--line-strong); }
+.tv-ch.on { border-color: var(--cyan); background: var(--cyan-soft); }
+.tv-logo { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font: 600 11px/1 var(--mono); background: linear-gradient(135deg, rgba(199, 146, 255, 0.4), rgba(41, 224, 255, 0.3)); color: #fff; }
+.tv-ch-nm { display: flex; flex-direction: column; min-width: 0; font-size: 13px; }
+.tv-ch-nm b, .tv-ch-nm span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+.tv-ch-nm span { font-size: 11px; }
+.tv-star { font: inherit; background: none; border: 0; color: var(--text-faint); cursor: pointer; font-size: 16px; }
+.tv-star.on { color: var(--amber); }
+.tv-fav-only { display: flex; gap: 6px; align-items: center; font-size: 12px; text-transform: none; letter-spacing: 0; margin: 0; }
+.tv-fav-only input { width: auto; }
