@@ -20,7 +20,7 @@ MAX_LINE = 1 << 20
 log = logging.getLogger("atena.firewall")
 
 
-def _protected() -> set[str]:
+def protected() -> set[str]:
     import tls
     addresses = set(tls.local_addresses()) | {"127.0.0.1", "::1"}
     gateway = env_get("ATENA_GATEWAY_IP", "")
@@ -56,7 +56,7 @@ class Monitor:
             address = model.address(alert["src"])
         except ValueError:
             return None
-        if address.family == "set" or address.value in _protected() or store.trusted(address):
+        if address.family == "set" or address.value in protected() or store.trusted(address):
             return None
         return address
 

@@ -7,6 +7,7 @@ from access import NO_CACHE, require_admin
 from state import store as system_store
 
 from features.firewall import model
+from features.firewall.analyst import analyst
 from features.firewall.applier import FirewallError, applier, render
 from features.firewall.events import monitor
 from features.firewall.nft import Block
@@ -48,7 +49,8 @@ async def _change(user: str, reason: str, mutate, confirm: bool = True) -> dict:
 @admin_routes.get("/api/firewall")
 async def admin_firewall(_: str = Depends(require_admin)):
     return JSONResponse({**store.snapshot(), "status": applier.status(), "engine": {"connected": monitor.connected},
-                         "summary": monitor.summary, "alerts": list(monitor.alerts)[-50:]}, headers=NO_CACHE)
+                         "summary": monitor.summary, "alerts": list(monitor.alerts)[-50:],
+                         "reports": list(analyst.reports)[-10:]}, headers=NO_CACHE)
 
 
 @admin_routes.put("/api/firewall/policy")
@@ -159,3 +161,31 @@ async def admin_rollback(user: str = Depends(require_admin)):
     except FirewallError as exc:
         raise HTTPException(400, f"nftables ha rifiutato il ripristino: {exc}")
     return {"restored": entry["reason"], **store.snapshot()}
+
+
+@admin_routes.post("/api/firewall/analyze")
+async def admin_analyze(user: str = Depends(require_admin)):
+    report = await analyst.analyse(f"richiesta di {user}")
+    if report is None:
+        raise HTTPException(409, "Analisi non disponibile: nessun dato recente, analisi già in corso o nessun modello")
+    return report
+
+
+@admin_routes.post("/api/firewall/reports/{rid}")
+async def admin_report_decision(rid: str, request: Request, user: str = Depends(require_admin)):
+    report = analyst.find(rid)
+    if report is None:
+        raise HTTPException(404, "Analisi sconosciuta")
+    if report["status"] != "pending":
+        raise HTTPException(409, "Analisi già gestita")
+    body = await _body(request)
+    if not body.get("approve"):
+        report["status"] = f"rifiutato da {user}"
+        return report
+    chosen = body.get("actions")
+    actions = [a for i, a in enumerate(report["actions"]) if not isinstance(chosen, list) or i in chosen]
+    try:
+        done = await analyst.apply(report, actions, user)
+    except FirewallError as exc:
+        raise HTTPException(400, f"nftables ha rifiutato la modifica: {exc}")
+    return {**report, "done": done}

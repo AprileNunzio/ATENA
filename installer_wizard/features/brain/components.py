@@ -21,6 +21,7 @@ COMPONENTS: tuple[Component, ...] = (
     Component("home_commands", "Comandi domotici", "Casa", "domotico", "Interpreta i comandi per luci, scene e dispositivi."),
     Component("automations", "Automazioni", "Casa", "deep", "Trasforma una frase in una regola automatica."),
     Component("documents", "Documenti", "Servizi", "deep", "Piani e stesura di documenti."),
+    Component("firewall", "Analista di sicurezza di rete", "Servizi", "deep", "Valuta gli allarmi del firewall e propone contromisure."),
     Component("skills", "Abilità", "Servizi", "studio", "Generazione di nuove abilità."),
     Component("study", "Studio autonomo", "Servizi", "studio", "Lettura di fonti, esercizi ed esami a riposo."),
     Component("models3d", "Editor modelli 3D", "Servizi", "modello3d", "Disegno di oggetti nell'editor."),

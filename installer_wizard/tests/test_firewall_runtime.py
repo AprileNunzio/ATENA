@@ -42,7 +42,7 @@ class FirewallBase(unittest.TestCase):
         patcher = mock.patch.object(applier_module.applier, "apply", side_effect=fake_apply)
         patcher.start()
         self.addCleanup(patcher.stop)
-        protected = mock.patch.object(events, "_protected", return_value={"192.168.1.10", "192.168.1.1"})
+        protected = mock.patch.object(events, "protected", return_value={"192.168.1.10", "192.168.1.1"})
         protected.start()
         self.addCleanup(protected.stop)
 

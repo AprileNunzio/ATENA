@@ -12647,6 +12647,18 @@
     [
       "Firewall interno con analisi del traffico in tempo reale, regole da esperto e difesa assistita dall'intelligenza artificiale",
       "Internal firewall with real-time traffic analysis, expert rules and AI-assisted defence"
+    ],
+    [
+      "Analisi non disponibile: nessun dato recente, analisi già in corso o nessun modello",
+      "Analysis unavailable: no recent data, analysis already running or no model"
+    ],
+    [
+      "Analisi sconosciuta",
+      "Unknown analysis"
+    ],
+    [
+      "Analisi già gestita",
+      "Analysis already handled"
     ]
   ],
   "reverse": [
@@ -24922,6 +24934,18 @@
     [
       "Firewall interno con analisi del traffico in tempo reale, regole da esperto e difesa assistita dall'intelligenza artificiale",
       "Pare-feu interne avec analyse du trafic en temps réel, règles expertes et défense assistée par l'intelligence artificielle"
+    ],
+    [
+      "Analisi non disponibile: nessun dato recente, analisi già in corso o nessun modello",
+      "Analyse indisponible : aucune donnée récente, analyse déjà en cours ou aucun modèle"
+    ],
+    [
+      "Analisi sconosciuta",
+      "Analyse inconnue"
+    ],
+    [
+      "Analisi già gestita",
+      "Analyse déjà traitée"
     ]
   ]
 }
