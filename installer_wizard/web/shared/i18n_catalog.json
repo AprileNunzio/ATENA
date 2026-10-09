@@ -12659,6 +12659,318 @@
     [
       "Analisi già gestita",
       "Analysis already handled"
+    ],
+    [
+      "in ingresso",
+      "inbound"
+    ],
+    [
+      "in uscita",
+      "outbound"
+    ],
+    [
+      "Direzione",
+      "Direction"
+    ],
+    [
+      "Origini",
+      "Sources"
+    ],
+    [
+      "Destinazioni",
+      "Destinations"
+    ],
+    [
+      "Nota",
+      "Note"
+    ],
+    [
+      "Sblocca",
+      "Unblock"
+    ],
+    [
+      "Regola applicata: confermala entro 90 secondi",
+      "Rule applied: confirm it within 90 seconds"
+    ],
+    [
+      "Eliminare la regola?",
+      "Delete the rule?"
+    ],
+    [
+      "Nome del gruppo (lettere minuscole, numeri e _):",
+      "Group name (lowercase letters, digits and _):"
+    ],
+    [
+      "Eliminare il gruppo?",
+      "Delete the group?"
+    ],
+    [
+      "dal pannello",
+      "from the panel"
+    ],
+    [
+      "Modalità del firewall",
+      "Firewall mode"
+    ],
+    [
+      "Solo monitoraggio",
+      "Monitor only"
+    ],
+    [
+      "Protezione",
+      "Protection"
+    ],
+    [
+      "Lockdown",
+      "Lockdown"
+    ],
+    [
+      "Conferma la modifica",
+      "Confirm the change"
+    ],
+    [
+      "Ripristina subito",
+      "Restore now"
+    ],
+    [
+      "Analizza ora con l'IA",
+      "Analyse now with AI"
+    ],
+    [
+      "Anteprima delle regole",
+      "Rules preview"
+    ],
+    [
+      "Torna alla configurazione precedente",
+      "Back to the previous configuration"
+    ],
+    [
+      "consenti tutta la rete di casa",
+      "allow the whole home network"
+    ],
+    [
+      "rispondi al ping",
+      "answer ping"
+    ],
+    [
+      "blocca da solo gli attaccanti",
+      "block attackers automatically"
+    ],
+    [
+      "Gravità minima per il blocco automatico",
+      "Minimum severity for automatic blocking"
+    ],
+    [
+      "Durata del blocco automatico (minuti)",
+      "Automatic block duration (minutes)"
+    ],
+    [
+      "analisi degli attacchi con l'IA",
+      "AI attack analysis"
+    ],
+    [
+      "applica da sola i blocchi proposti dall'IA",
+      "apply AI-proposed blocks automatically"
+    ],
+    [
+      "Confidenza minima dell'IA",
+      "Minimum AI confidence"
+    ],
+    [
+      "Porte di amministrazione sempre aperte dalla rete di casa",
+      "Admin ports always open from the home network"
+    ],
+    [
+      "Indirizzi e MAC fidati (mai bloccati, sempre ammessi)",
+      "Trusted addresses and MACs (never blocked, always allowed)"
+    ],
+    [
+      "Salva la protezione",
+      "Save protection"
+    ],
+    [
+      "Traffico in tempo reale",
+      "Live traffic"
+    ],
+    [
+      "Allarmi",
+      "Alerts"
+    ],
+    [
+      "Analisi dell'IA",
+      "AI analysis"
+    ],
+    [
+      "Regole da esperto",
+      "Expert rules"
+    ],
+    [
+      "Nuova regola",
+      "New rule"
+    ],
+    [
+      "IP, rete, MAC o @gruppo",
+      "IP, network, MAC or @group"
+    ],
+    [
+      "IP, rete o @gruppo",
+      "IP, network or @group"
+    ],
+    [
+      "Porte",
+      "Ports"
+    ],
+    [
+      "Interfaccia",
+      "Interface"
+    ],
+    [
+      "Limite",
+      "Limit"
+    ],
+    [
+      "Scade dopo (minuti, 0 = mai)",
+      "Expires after (minutes, 0 = never)"
+    ],
+    [
+      "Salva la regola",
+      "Save the rule"
+    ],
+    [
+      "Gruppi di indirizzi",
+      "Address groups"
+    ],
+    [
+      "Nuovo gruppo",
+      "New group"
+    ],
+    [
+      "Indirizzi bloccati",
+      "Blocked addresses"
+    ],
+    [
+      "IP, rete o MAC",
+      "IP, network or MAC"
+    ],
+    [
+      "minuti (0 = finché non lo sblocchi)",
+      "minutes (0 = until you unblock it)"
+    ],
+    [
+      "Blocca",
+      "Block"
+    ],
+    [
+      "Script nftables generato",
+      "Generated nftables script"
+    ],
+    [
+      "scansione delle porte",
+      "port scan"
+    ],
+    [
+      "scansione della rete",
+      "network sweep"
+    ],
+    [
+      "tentativi di accesso",
+      "login attempts"
+    ],
+    [
+      "tunnel DNS",
+      "DNS tunnel"
+    ],
+    [
+      "invio massiccio di dati",
+      "massive data upload"
+    ],
+    [
+      "nftables non disponibile su questo sistema",
+      "nftables not available on this system"
+    ],
+    [
+      "regole applicate alle {0}",
+      "rules applied at {0}"
+    ],
+    [
+      "{0} regole · {1} blocchi · {2} gruppi",
+      "{0} rules · {1} blocks · {2} groups"
+    ],
+    [
+      "Conferma entro {0} s, altrimenti torno alla configurazione precedente.",
+      "Confirm within {0} s, otherwise I go back to the previous configuration."
+    ],
+    [
+      "flussi attivi",
+      "active flows"
+    ],
+    [
+      "Inviati",
+      "Sent"
+    ],
+    [
+      "Ricevuti",
+      "Received"
+    ],
+    [
+      "Flussi",
+      "Flows"
+    ],
+    [
+      "· gravità {0} ·",
+      "· severity {0} ·"
+    ],
+    [
+      "blocca {0} per {1} min",
+      "block {0} for {1} min"
+    ],
+    [
+      "limita {0} a {1}",
+      "limit {0} to {1}"
+    ],
+    [
+      "chiudi la porta {0}/{1}",
+      "close port {0}/{1}"
+    ],
+    [
+      "· minaccia {0} · confidenza {1}%",
+      "· threat {0} · confidence {1}%"
+    ],
+    [
+      "nessuna azione proposta",
+      "no action proposed"
+    ],
+    [
+      "Lockdown: verrà accettato solo il traffico autorizzato. Hai 90 secondi per confermare. Procedo?",
+      "Lockdown: only authorised traffic will be accepted. You have 90 seconds to confirm. Proceed?"
+    ],
+    [
+      "Modifica confermata",
+      "Change confirmed"
+    ],
+    [
+      "Tornare alla configurazione precedente?",
+      "Go back to the previous configuration?"
+    ],
+    [
+      "Analisi in corso…",
+      "Analysis in progress…"
+    ],
+    [
+      "Bloccare {0} per 60 minuti?",
+      "Block {0} for 60 minutes?"
+    ],
+    [
+      "Regola salvata",
+      "Rule saved"
+    ],
+    [
+      "in lockdown consenti comunque tutta la rete di casa",
+      "in lockdown still allow the whole home network"
+    ],
+    [
+      "in lockdown rispondi al ping",
+      "in lockdown answer ping"
     ]
   ],
   "reverse": [
@@ -13068,7 +13380,13 @@
     "Poses",
     "Rain",
     "Retarget",
-    "Umbrella"
+    "Umbrella",
+    "#fw-modes [data-mode]",
+    "SYN flood",
+    "ARP spoofing",
+    "20/minute burst 5",
+    "eth0, wlan0, wg0",
+    "192.168.1.5, aa:bb:cc:dd:ee:ff"
   ],
   "fr": [
     [
@@ -24946,6 +25264,318 @@
     [
       "Analisi già gestita",
       "Analyse déjà traitée"
+    ],
+    [
+      "in ingresso",
+      "entrant"
+    ],
+    [
+      "in uscita",
+      "sortant"
+    ],
+    [
+      "Direzione",
+      "Direction"
+    ],
+    [
+      "Origini",
+      "Origines"
+    ],
+    [
+      "Destinazioni",
+      "Destinations"
+    ],
+    [
+      "Nota",
+      "Note"
+    ],
+    [
+      "Sblocca",
+      "Débloquer"
+    ],
+    [
+      "Regola applicata: confermala entro 90 secondi",
+      "Règle appliquée : confirmez-la dans les 90 secondes"
+    ],
+    [
+      "Eliminare la regola?",
+      "Supprimer la règle ?"
+    ],
+    [
+      "Nome del gruppo (lettere minuscole, numeri e _):",
+      "Nom du groupe (lettres minuscules, chiffres et _) :"
+    ],
+    [
+      "Eliminare il gruppo?",
+      "Supprimer le groupe ?"
+    ],
+    [
+      "dal pannello",
+      "depuis le panneau"
+    ],
+    [
+      "Modalità del firewall",
+      "Mode du pare-feu"
+    ],
+    [
+      "Solo monitoraggio",
+      "Surveillance uniquement"
+    ],
+    [
+      "Protezione",
+      "Protection"
+    ],
+    [
+      "Lockdown",
+      "Verrouillage"
+    ],
+    [
+      "Conferma la modifica",
+      "Confirmer la modification"
+    ],
+    [
+      "Ripristina subito",
+      "Restaurer maintenant"
+    ],
+    [
+      "Analizza ora con l'IA",
+      "Analyser maintenant avec l'IA"
+    ],
+    [
+      "Anteprima delle regole",
+      "Aperçu des règles"
+    ],
+    [
+      "Torna alla configurazione precedente",
+      "Revenir à la configuration précédente"
+    ],
+    [
+      "consenti tutta la rete di casa",
+      "autoriser tout le réseau domestique"
+    ],
+    [
+      "rispondi al ping",
+      "répondre au ping"
+    ],
+    [
+      "blocca da solo gli attaccanti",
+      "bloquer automatiquement les attaquants"
+    ],
+    [
+      "Gravità minima per il blocco automatico",
+      "Gravité minimale pour le blocage automatique"
+    ],
+    [
+      "Durata del blocco automatico (minuti)",
+      "Durée du blocage automatique (minutes)"
+    ],
+    [
+      "analisi degli attacchi con l'IA",
+      "analyse des attaques par l'IA"
+    ],
+    [
+      "applica da sola i blocchi proposti dall'IA",
+      "appliquer automatiquement les blocages proposés par l'IA"
+    ],
+    [
+      "Confidenza minima dell'IA",
+      "Confiance minimale de l'IA"
+    ],
+    [
+      "Porte di amministrazione sempre aperte dalla rete di casa",
+      "Ports d'administration toujours ouverts depuis le réseau domestique"
+    ],
+    [
+      "Indirizzi e MAC fidati (mai bloccati, sempre ammessi)",
+      "Adresses et MAC de confiance (jamais bloqués, toujours admis)"
+    ],
+    [
+      "Salva la protezione",
+      "Enregistrer la protection"
+    ],
+    [
+      "Traffico in tempo reale",
+      "Trafic en temps réel"
+    ],
+    [
+      "Allarmi",
+      "Alertes"
+    ],
+    [
+      "Analisi dell'IA",
+      "Analyse de l'IA"
+    ],
+    [
+      "Regole da esperto",
+      "Règles expertes"
+    ],
+    [
+      "Nuova regola",
+      "Nouvelle règle"
+    ],
+    [
+      "IP, rete, MAC o @gruppo",
+      "IP, réseau, MAC ou @groupe"
+    ],
+    [
+      "IP, rete o @gruppo",
+      "IP, réseau ou @groupe"
+    ],
+    [
+      "Porte",
+      "Ports"
+    ],
+    [
+      "Interfaccia",
+      "Interface"
+    ],
+    [
+      "Limite",
+      "Limite"
+    ],
+    [
+      "Scade dopo (minuti, 0 = mai)",
+      "Expire après (minutes, 0 = jamais)"
+    ],
+    [
+      "Salva la regola",
+      "Enregistrer la règle"
+    ],
+    [
+      "Gruppi di indirizzi",
+      "Groupes d'adresses"
+    ],
+    [
+      "Nuovo gruppo",
+      "Nouveau groupe"
+    ],
+    [
+      "Indirizzi bloccati",
+      "Adresses bloquées"
+    ],
+    [
+      "IP, rete o MAC",
+      "IP, réseau ou MAC"
+    ],
+    [
+      "minuti (0 = finché non lo sblocchi)",
+      "minutes (0 = jusqu'au déblocage)"
+    ],
+    [
+      "Blocca",
+      "Bloquer"
+    ],
+    [
+      "Script nftables generato",
+      "Script nftables généré"
+    ],
+    [
+      "scansione delle porte",
+      "balayage de ports"
+    ],
+    [
+      "scansione della rete",
+      "balayage du réseau"
+    ],
+    [
+      "tentativi di accesso",
+      "tentatives de connexion"
+    ],
+    [
+      "tunnel DNS",
+      "tunnel DNS"
+    ],
+    [
+      "invio massiccio di dati",
+      "envoi massif de données"
+    ],
+    [
+      "nftables non disponibile su questo sistema",
+      "nftables indisponible sur ce système"
+    ],
+    [
+      "regole applicate alle {0}",
+      "règles appliquées à {0}"
+    ],
+    [
+      "{0} regole · {1} blocchi · {2} gruppi",
+      "{0} règles · {1} blocages · {2} groupes"
+    ],
+    [
+      "Conferma entro {0} s, altrimenti torno alla configurazione precedente.",
+      "Confirmez dans les {0} s, sinon je reviens à la configuration précédente."
+    ],
+    [
+      "flussi attivi",
+      "flux actifs"
+    ],
+    [
+      "Inviati",
+      "Envoyés"
+    ],
+    [
+      "Ricevuti",
+      "Reçus"
+    ],
+    [
+      "Flussi",
+      "Flux"
+    ],
+    [
+      "· gravità {0} ·",
+      "· gravité {0} ·"
+    ],
+    [
+      "blocca {0} per {1} min",
+      "bloquer {0} pendant {1} min"
+    ],
+    [
+      "limita {0} a {1}",
+      "limiter {0} à {1}"
+    ],
+    [
+      "chiudi la porta {0}/{1}",
+      "fermer le port {0}/{1}"
+    ],
+    [
+      "· minaccia {0} · confidenza {1}%",
+      "· menace {0} · confiance {1} %"
+    ],
+    [
+      "nessuna azione proposta",
+      "aucune action proposée"
+    ],
+    [
+      "Lockdown: verrà accettato solo il traffico autorizzato. Hai 90 secondi per confermare. Procedo?",
+      "Verrouillage : seul le trafic autorisé sera accepté. Vous avez 90 secondes pour confirmer. Je continue ?"
+    ],
+    [
+      "Modifica confermata",
+      "Modification confirmée"
+    ],
+    [
+      "Tornare alla configurazione precedente?",
+      "Revenir à la configuration précédente ?"
+    ],
+    [
+      "Analisi in corso…",
+      "Analyse en cours…"
+    ],
+    [
+      "Bloccare {0} per 60 minuti?",
+      "Bloquer {0} pendant 60 minutes ?"
+    ],
+    [
+      "Regola salvata",
+      "Règle enregistrée"
+    ],
+    [
+      "in lockdown consenti comunque tutta la rete di casa",
+      "en verrouillage, autoriser quand même tout le réseau domestique"
+    ],
+    [
+      "in lockdown rispondi al ping",
+      "en verrouillage, répondre au ping"
     ]
   ]
 }

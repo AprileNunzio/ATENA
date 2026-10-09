@@ -1,0 +1,35 @@
+.fw-head { display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px; }
+.fw-status { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; font-size: 13px; }
+.fw-status b { font-size: 18px; margin-right: 6px; }
+.fw-modes { display: flex; flex-wrap: wrap; gap: 6px; }
+.fw-confirm { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 10px 12px; border-radius: 10px; border: 1px solid rgba(255, 196, 61, 0.55); background: rgba(255, 196, 61, 0.08); font-size: 13px; }
+.fw-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.fw-form { display: flex; flex-direction: column; gap: 10px; }
+.fw-form label:not(.switch) { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--text-dim); }
+.fw-stats { display: flex; flex-wrap: wrap; gap: 16px; font-size: 13px; margin-bottom: 10px; }
+.fw-table-wrap { overflow-x: auto; }
+.fw-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.fw-table th, .fw-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.fw-table .mono, .fw-item .mono { overflow-wrap: anywhere; }
+.fw-row-actions { white-space: nowrap; }
+.fw-table td.mono { min-width: 150px; }
+.fw-list { display: flex; flex-direction: column; gap: 8px; max-height: 420px; overflow-y: auto; }
+.fw-item { border: 1px solid var(--line); border-left-width: 3px; border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.fw-item.sev-medium { border-left-color: #ffc43d; }
+.fw-item.sev-high { border-left-color: #ff8a3d; }
+.fw-item.sev-critical { border-left-color: #ff4d6d; }
+.fw-item textarea { width: 100%; }
+.fw-item .btn { align-self: flex-start; }
+.fw-action { display: flex; gap: 6px; align-items: baseline; font-size: 13px; }
+.fw-rule-form { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin: 12px 0; }
+.fw-rule-form label { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--text-dim); }
+.fw-rule-form .actions { grid-column: 1 / -1; display: flex; gap: 8px; }
+.fw-inline { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.fw-inline input { flex: 1 1 120px; min-width: 0; }
+.fw-dialog { max-width: min(900px, 94vw); width: 100%; border: 1px solid var(--line-strong); border-radius: 12px; background: var(--bg, #050b14); color: inherit; }
+.fw-script { max-height: 60vh; overflow: auto; font-size: 12px; white-space: pre; }
+@media (max-width: 720px) {
+  .fw-tools .btn, .fw-modes .btn { flex: 1 1 45%; }
+  .fw-row-actions { white-space: normal; }
+}
+.fw-confirm[hidden], .fw-rule-form[hidden] { display: none; }

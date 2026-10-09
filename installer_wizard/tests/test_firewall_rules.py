@@ -49,7 +49,7 @@ class ModelTests(unittest.TestCase):
 
     def test_policy_merges_and_validates(self):
         p = model.policy({"mode": "lockdown", "trusted": ["192.168.1.5"]})
-        self.assertEqual((p.mode, p.allow_lan), ("lockdown", True))
+        self.assertEqual((p.mode, p.allow_lan), ("lockdown", False))
         self.assertEqual(model.policy({"auto_block_minutes": 0}, p).auto_block_minutes, 1)
         with self.assertRaises(ValueError):
             model.policy({"mode": "aperto"})
@@ -93,6 +93,13 @@ class CompilerTests(unittest.TestCase):
                                  {"action": "drop", "sources": ["3.3.3.3"], "expires": NOW - 5}])
         self.assertLess(script.index("primo"), script.index("secondo"))
         self.assertNotIn("3.3.3.3", script)
+
+    def test_user_rules_come_before_lan_and_ping_fallbacks(self):
+        script = _compile("lockdown", allow_lan=True, rules=[{"action": "drop", "sources": ["192.168.1.66"], "comment": "intruso"}])
+        lan = script.index("ip saddr { 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 169.254.0.0/16 } accept")
+        self.assertLess(script.index("intruso"), lan)
+        self.assertLess(script.index("@blocked_4"), script.index("tcp dport { 22, 80, 443, 8080 } accept"))
+        self.assertNotIn("limit rate 20/second accept", _compile("protect"))
 
     def test_output_rules_use_the_output_interface(self):
         script = _compile(rules=[{"action": "drop", "direction": "output", "interface": "wg0", "destinations": ["8.8.8.8"]}])

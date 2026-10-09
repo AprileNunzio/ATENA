@@ -1,0 +1,13 @@
+{
+  "name": "Firewall",
+  "description": "Internal firewall with real-time traffic analysis, expert rules and AI-assisted defence",
+  "capabilities": [
+    "Real-time analysis of ethernet and wifi traffic (Rust engine)",
+    "Detection of scans, brute force, floods, ARP spoofing, DNS tunnels and exfiltration",
+    "Lockdown: access only for authorised IPs, networks and MACs",
+    "Expert rules with groups, ports, rate limits and expiry",
+    "Timed automatic blocking of attackers",
+    "AI analyst proposing countermeasures to approve",
+    "Confirmation within 90 seconds with automatic rollback"
+  ]
+}

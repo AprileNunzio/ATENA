@@ -153,7 +153,7 @@ def address_set(name: str, entries) -> list[Address]:
 @dataclass
 class Policy:
     mode: str = "monitor"
-    allow_lan: bool = True
+    allow_lan: bool = False
     allow_ping: bool = True
     admin_ports: list[str] = field(default_factory=lambda: ["22", "80", "443", "8080"])
     trusted: list[Address] = field(default_factory=list)

@@ -1,0 +1,105 @@
+<section class="tab" id="tab-firewall">
+  <div class="panel fw-head">
+    <div class="fw-status" id="fw-status"></div>
+    <div class="fw-modes" id="fw-modes" role="radiogroup" aria-label="Modalità del firewall">
+      <button class="btn sm" data-mode="off">Spento</button>
+      <button class="btn sm" data-mode="monitor">Solo monitoraggio</button>
+      <button class="btn sm" data-mode="protect">Protezione</button>
+      <button class="btn sm" data-mode="lockdown">Lockdown</button>
+    </div>
+    <div class="fw-confirm" id="fw-confirm" hidden>
+      <span id="fw-confirm-text"></span>
+      <button class="btn sm primary" id="fw-confirm-ok">Conferma la modifica</button>
+      <button class="btn sm" id="fw-confirm-undo">Ripristina subito</button>
+    </div>
+    <div class="actions fw-tools">
+      <button class="btn sm" id="fw-analyze">Analizza ora con l'IA</button>
+      <button class="btn sm" id="fw-preview">Anteprima delle regole</button>
+      <button class="btn sm" id="fw-rollback">Torna alla configurazione precedente</button>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="panel">
+      <div class="panel-title">Protezione</div>
+      <div class="fw-form">
+        <label class="switch"><input type="checkbox" id="fw-lan"> in lockdown consenti comunque tutta la rete di casa</label>
+        <label class="switch"><input type="checkbox" id="fw-ping"> in lockdown rispondi al ping</label>
+        <label class="switch"><input type="checkbox" id="fw-auto"> blocca da solo gli attaccanti</label>
+        <label>Gravità minima per il blocco automatico
+          <select id="fw-sev"><option value="medium">media</option><option value="high">alta</option><option value="critical">critica</option></select></label>
+        <label>Durata del blocco automatico (minuti) <input type="number" id="fw-minutes" min="1" max="43200"></label>
+        <label class="switch"><input type="checkbox" id="fw-ai"> analisi degli attacchi con l'IA</label>
+        <label class="switch"><input type="checkbox" id="fw-ai-auto"> applica da sola i blocchi proposti dall'IA</label>
+        <label>Confidenza minima dell'IA <input type="range" id="fw-conf" min="0.5" max="0.99" step="0.01"> <b id="fw-conf-v" class="mono"></b></label>
+        <label>Porte di amministrazione sempre aperte dalla rete di casa <input id="fw-admin-ports" placeholder="22, 80, 443, 8080"></label>
+        <label>Indirizzi e MAC fidati (mai bloccati, sempre ammessi) <textarea id="fw-trusted" rows="3" placeholder="192.168.1.5, aa:bb:cc:dd:ee:ff"></textarea></label>
+        <button class="btn primary" id="fw-save-policy">Salva la protezione</button>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Traffico in tempo reale</div>
+      <div class="fw-stats" id="fw-stats"></div>
+      <div id="fw-talkers" class="fw-table-wrap"></div>
+    </div>
+  </div>
+
+  <div class="grid g2">
+    <div class="panel">
+      <div class="panel-title">Allarmi</div>
+      <div id="fw-alerts" class="fw-list"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Analisi dell'IA</div>
+      <div id="fw-reports" class="fw-list"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="row" style="justify-content:space-between; flex-wrap:wrap; gap:10px">
+      <div class="panel-title">Regole da esperto</div>
+      <button class="btn sm" id="fw-rule-new">Nuova regola</button>
+    </div>
+    <form id="fw-rule-form" class="fw-rule-form" hidden>
+      <label>Azione <select name="action"><option value="accept">consenti</option><option value="drop">scarta</option><option value="reject">rifiuta</option><option value="limit">limita</option></select></label>
+      <label>Direzione <select name="direction"><option value="input">in ingresso</option><option value="output">in uscita</option><option value="forward">inoltro</option></select></label>
+      <label>Protocollo <select name="protocol"><option value="any">qualsiasi</option><option value="tcp">TCP</option><option value="udp">UDP</option><option value="icmp">ICMP</option></select></label>
+      <label>Origini <input name="sources" placeholder="IP, rete, MAC o @gruppo"></label>
+      <label>Destinazioni <input name="destinations" placeholder="IP, rete o @gruppo"></label>
+      <label>Porte <input name="ports" placeholder="22, 8000-8100"></label>
+      <label>Interfaccia <input name="interface" placeholder="eth0, wlan0, wg0"></label>
+      <label>Limite <input name="rate" placeholder="20/minute burst 5"></label>
+      <label>Priorità <input name="priority" type="number" min="0" max="10000" value="100"></label>
+      <label>Scade dopo (minuti, 0 = mai) <input name="minutes" type="number" min="0" value="0"></label>
+      <label>Nota <input name="comment" maxlength="80"></label>
+      <div class="actions"><button class="btn primary" type="submit">Salva la regola</button><button class="btn" type="button" id="fw-rule-cancel">Annulla</button></div>
+    </form>
+    <div id="fw-rules" class="fw-table-wrap"></div>
+  </div>
+
+  <div class="grid g2">
+    <div class="panel">
+      <div class="row" style="justify-content:space-between">
+        <div class="panel-title">Gruppi di indirizzi</div>
+        <button class="btn sm" id="fw-set-new">Nuovo gruppo</button>
+      </div>
+      <div id="fw-sets" class="fw-list"></div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Indirizzi bloccati</div>
+      <form id="fw-block-form" class="fw-inline">
+        <input name="address" placeholder="IP, rete o MAC" required>
+        <input name="minutes" type="number" min="0" value="60" title="minuti (0 = finché non lo sblocchi)">
+        <input name="reason" placeholder="motivo">
+        <button class="btn sm danger" type="submit">Blocca</button>
+      </form>
+      <div id="fw-blocks" class="fw-list"></div>
+    </div>
+  </div>
+
+  <dialog id="fw-preview-dialog" class="fw-dialog">
+    <div class="panel-title">Script nftables generato</div>
+    <pre id="fw-script" class="fw-script" data-no-i18n></pre>
+    <button class="btn" id="fw-preview-close">Chiudi</button>
+  </dialog>
+</section>

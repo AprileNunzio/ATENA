@@ -132,6 +132,11 @@ def _guards(policy: Policy) -> list[str]:
         ports = _elements(policy.admin_ports)
         lines.append(f"        ip saddr {_elements(list(LAN4))} tcp dport {ports} accept")
         lines.append(f"        ip6 saddr {_elements(list(LAN6))} tcp dport {ports} accept")
+    return lines
+
+
+def _fallbacks(policy: Policy) -> list[str]:
+    lines = []
     if policy.allow_ping:
         lines.append("        meta l4proto { icmp, ipv6-icmp } limit rate 20/second accept")
     if policy.allow_lan:
@@ -172,6 +177,8 @@ def compile_script(policy: Policy, rules: list[Rule], sets: dict[str, list[Addre
         for rule in active:
             if rule.direction == chain:
                 body += _rule_lines(rule)
+        if chain == "input" and policy.mode == "lockdown":
+            body += _fallbacks(policy)
         body.append("    }")
     body.append("}")
     return "\n".join(head + body) + "\n"

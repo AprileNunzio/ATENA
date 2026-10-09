@@ -1,12 +1,12 @@
 {
   "id": "firewall",
-  "name": "firewall",
+  "name": "Firewall",
   "title": "Firewall",
   "description": "Firewall interno con analisi del traffico in tempo reale, regole da esperto e difesa assistita dall'intelligenza artificiale",
   "icon": "🛡",
   "version": "1.0",
   "widgets": [],
-  "has_admin": false,
+  "has_admin": true,
   "panel": "firewall",
   "category": "sistema"
 }

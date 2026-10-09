@@ -1,0 +1,13 @@
+{
+  "name": "Pare-feu",
+  "description": "Pare-feu interne avec analyse du trafic en temps réel, règles expertes et défense assistée par l'intelligence artificielle",
+  "capabilities": [
+    "Analyse en temps réel du trafic ethernet et wifi (moteur Rust)",
+    "Détection des balayages, force brute, inondations, usurpation ARP, tunnels DNS et exfiltration",
+    "Verrouillage : accès seulement pour les IP, réseaux et MAC autorisés",
+    "Règles expertes avec groupes, ports, limites et expiration",
+    "Blocage automatique temporaire des attaquants",
+    "Analyste IA qui propose des contre-mesures à approuver",
+    "Confirmation sous 90 secondes avec restauration automatique"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "name": "Firewall",
+  "description": "Firewall interno con analisi del traffico in tempo reale, regole da esperto e difesa assistita dall'intelligenza artificiale",
+  "capabilities": [
+    "Analisi in tempo reale del traffico ethernet e wifi (motore Rust)",
+    "Rilevamento di scansioni, brute force, flood, ARP spoofing, tunnel DNS ed esfiltrazione",
+    "Lockdown: accesso solo a IP, reti e MAC autorizzati",
+    "Regole da esperto con gruppi, porte, limiti e scadenze",
+    "Blocco automatico a tempo degli attaccanti",
+    "Analista IA che propone contromisure da approvare",
+    "Conferma entro 90 secondi con ripristino automatico"
+  ]
+}
