@@ -15587,6 +15587,10 @@
     [
       "Strumento sconosciuto",
       "Unknown tool"
+    ],
+    [
+      "Versione del flusso inesistente",
+      "This flow version does not exist"
     ]
   ],
   "reverse": [
@@ -30838,6 +30842,10 @@
     [
       "Strumento sconosciuto",
       "Outil inconnu"
+    ],
+    [
+      "Versione del flusso inesistente",
+      "Cette version du flux n'existe pas"
     ]
   ]
 }

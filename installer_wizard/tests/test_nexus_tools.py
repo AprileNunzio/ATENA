@@ -78,6 +78,14 @@ class FreshnessInfrastructureTest(unittest.TestCase):
             (folder / "a.py").write_text("x = 2")
             self.assertNotEqual(fp(folder), first)
 
+    def test_release_version_bump_is_not_an_update(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            (folder / "mcp.py").write_text('INFO = {"version": "4.1.46"}')
+            before = FolderFingerprint(ignore=("4.1.46",))(folder)
+            (folder / "mcp.py").write_text('INFO = {"version": "4.1.47"}')
+            self.assertEqual(FolderFingerprint(ignore=("4.1.47",))(folder), before)
+
     def test_service_persists_and_detects_changes(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp) / "feat"
@@ -99,6 +107,9 @@ class FreshnessInfrastructureTest(unittest.TestCase):
             reloaded.refresh({"feat": folder})
             self.assertEqual(reloaded.badges()["feat"]["badge"], "updated")
             self.assertEqual((Path(tmp) / "fresh.json").stat().st_mode & 0o777, 0o600)
+            upgraded = FreshnessService(lambda _: "other-method", doc, clock=lambda: clock[0], revision="2")
+            upgraded.refresh({"feat": folder})
+            self.assertEqual(upgraded.badges()["feat"]["badge"], "")
 
 
 class ToolServiceTest(unittest.TestCase):

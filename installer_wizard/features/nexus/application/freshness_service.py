@@ -15,8 +15,10 @@ class Document(Protocol):
 
 
 class FreshnessService:
-    def __init__(self, fingerprint: Callable[[Path], str], document: Document, clock: Callable[[], float] = time.time) -> None:
+    def __init__(self, fingerprint: Callable[[Path], str], document: Document, clock: Callable[[], float] = time.time,
+                 revision: str = "1") -> None:
         self.fingerprint = fingerprint
+        self.revision = revision
         self.document = document
         self.clock = clock
         self._records: dict[str, freshness.Record] | None = None
@@ -30,7 +32,7 @@ class FreshnessService:
         with self._lock:
             if not self.due():
                 return
-            previous = self._records if self._records is not None else freshness.restore(self.document.read())
+            previous = self._records if self._records is not None else self._stored()
             current = {}
             for fid, folder in folders.items():
                 try:
@@ -40,8 +42,12 @@ class FreshnessService:
             now = self.clock()
             records = freshness.reconcile(previous, current, now)
             if records != previous:
-                self.document.write({fid: rec.as_dict() for fid, rec in records.items()})
+                self.document.write({"_revision": self.revision, **{fid: rec.as_dict() for fid, rec in records.items()}})
             self._records, self._checked = records, now
+
+    def _stored(self) -> dict[str, freshness.Record]:
+        raw = self.document.read()
+        return freshness.restore(raw) if raw.get("_revision") == self.revision else {}
 
     def badges(self) -> dict[str, dict]:
         now = self.clock()

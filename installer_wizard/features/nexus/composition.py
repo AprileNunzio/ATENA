@@ -1,7 +1,7 @@
 from pathlib import Path
 
 import packages
-from config import STATE_DIR, read_env
+from config import STATE_DIR, VERSION, read_env
 from feature_registry import registry
 from state import store
 from steps import STEPS
@@ -28,7 +28,8 @@ def feature_folders() -> dict[str, Path]:
 
 awakening = AwakeningService(JsonDocument(STATE_DIR / "nexus" / "awakening.json"), env=read_env, catalog=_catalog,
                              brain_mode=packages.brain_mode)
-freshness = FreshnessService(FolderFingerprint(), JsonDocument(STATE_DIR / "nexus" / "freshness.json"))
+freshness = FreshnessService(FolderFingerprint(ignore=(VERSION,)), JsonDocument(STATE_DIR / "nexus" / "freshness.json"),
+                             revision="2")
 preferences = PreferencesService(JsonPreferencesRepository(STATE_DIR / "nexus" / "preferences.json"))
 summary = SummaryService(state=lambda: store.snapshot(admin=True, log_lines=0), catalog=_catalog,
                          step_titles=lambda: {s.id: s.title for s in STEPS}, approvals=lambda: len(approvals.pending()),

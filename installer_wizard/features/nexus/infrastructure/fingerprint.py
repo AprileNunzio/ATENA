@@ -8,8 +8,9 @@ MAX_BYTES = 8 * 1024 * 1024
 
 
 class FolderFingerprint:
-    def __init__(self) -> None:
+    def __init__(self, ignore: tuple[str, ...] = ()) -> None:
         self._cache: dict[tuple, str] = {}
+        self._ignore = tuple(token.encode("utf-8") for token in ignore if token)
 
     def _file_digest(self, path: Path, stat) -> str:
         key = (str(path), stat.st_size, stat.st_mtime_ns)
@@ -17,9 +18,10 @@ class FolderFingerprint:
         if digest is None:
             hasher = hashlib.sha256()
             if stat.st_size <= MAX_BYTES:
-                with path.open("rb") as handle:
-                    for chunk in iter(lambda: handle.read(65536), b""):
-                        hasher.update(chunk)
+                content = path.read_bytes()
+                for token in self._ignore:
+                    content = content.replace(token, b"")
+                hasher.update(content)
             else:
                 hasher.update(f"{stat.st_size}:{stat.st_mtime_ns}".encode())
             digest = hasher.hexdigest()

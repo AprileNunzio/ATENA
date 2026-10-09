@@ -130,6 +130,7 @@ from features.nvr import api as nvr_api
 from features.nvr.service import nvr as nvr_service
 from features.scene import api as scene_api
 from features.nexus import api as nexus_api
+from features.flows import api as flows_api
 from features.scene.service import scene as scene_service
 from features.twin import api as twin_api
 from features.vision.webcams import webcams
@@ -213,6 +214,7 @@ FEATURE_APIS = (
     twin_api,
     scene_api,
     nexus_api,
+    flows_api,
 )
 
 
