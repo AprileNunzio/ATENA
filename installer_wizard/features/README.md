@@ -61,6 +61,21 @@ del pannello: aggiungere una scheda non richiede di modificare `web/admin`.
 | `requires` | requisiti per la modalità **automatica**: se mancano la funzionalità resta spenta, con il motivo |
 | `settings` | campi del modulo generato: `text`, `number`, `select`, `color`, `secret`, `bool`. Le chiavi MAIUSCOLE vanno in `atena.env` (solo quelle ammesse per le funzionalità esterne), le altre restano nello stato della funzionalità (`registry.settings_of(id)`) |
 
+## Nexus: zona, livello e procedura guidata
+
+Campi facoltativi letti dal nuovo pannello Nexus (`/nexus`); se mancano, Atena li deduce da `id` e `category`.
+
+| Campo | Significato |
+|---|---|
+| `zone` | `brain`, `flows`, `tools`, `trust`, `network`, `system`, `observatory` |
+| `family` | solo per `tools`: `perception`, `home`, `communication`, `leisure`, `productivity` |
+| `level` | da quale livello è visibile: `explorer`, `pilot` (predefinito), `architect` |
+| `wizard` | passi di «Configura con me»: `{"kind": "mode"}` oppure `{"setting": "<chiave>", "title": "…", "text": "…"}` |
+
+Senza `wizard` la procedura viene generata da sola: modalità (se c'è `toggle`) e un passo per ogni impostazione.
+Il Nexus mostra da solo il badge **Novità** per una funzionalità comparsa da meno di 7 giorni e **Aggiornato** quando
+i suoi file cambiano con un aggiornamento.
+
 ## Modalità
 
 Ogni funzionalità con interruttore ha tre modalità, scelte dalla scheda:

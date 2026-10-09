@@ -1,5 +1,7 @@
 import { h } from "../../core/dom.js";
 import { sparkline } from "../../components/charts.js";
+import { freshBadge } from "../../components/badge.js";
+import { allows } from "../../core/level.js";
 import { SERIES } from "./series.js";
 
 const GB = 1024 ** 3;
@@ -60,4 +62,14 @@ export function componentsPanel(components) {
         return h("tr", {}, h("td", {}, c.label), h("td", {}, h("span", { class: `pill ${tone}` }, label)),
           h("td", { class: "mono dim cell-detail" }, c.detail || ""));
       }))))];
+}
+
+export function freshPanel(fresh) {
+  const items = (fresh || []).filter((f) => allows(f.level));
+  if (!items.length) return null;
+  return [
+    h("p", { class: "ptitle" }, h("span", { class: "only-explorer" }, "Ho imparato cose nuove"), h("span", { class: "min-pilot" }, "Novità e aggiornamenti")),
+    h("ul", { class: "fresh-list" }, items.slice(0, 8).map((f) => h("li", {}, h("a", { class: "fresh-item", href: `#/tool/${encodeURIComponent(f.id)}` },
+      h("span", { class: "glyph", "aria-hidden": "true" }, f.icon), h("span", { class: "fresh-name" }, f.name), freshBadge(f))))),
+  ];
 }

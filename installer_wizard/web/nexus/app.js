@@ -1,23 +1,24 @@
 import { h, mount } from "./core/dom.js";
 import { api, onUnauthorized, stream } from "./core/http.js";
 import { LEVELS, allows, applyLevel, cachedLevel, chooseLevel } from "./core/level.js";
-import { define, go, setFallback, start, view } from "./core/router.js";
+import { current, define, go, setFallback, start, view } from "./core/router.js";
 import { store } from "./core/store.js";
 import { fail, toast } from "./core/toast.js";
 import { startSummary, summary } from "./core/summary.js";
-import { classicHref } from "./components/tool-card.js";
 import { addSource, installShortcut } from "./components/palette.js";
 import { renderLogin } from "./features/login/login.js";
 import { createShell } from "./features/shell/shell.js";
 import { ZONES } from "./features/shell/zones.js";
 import { renderHome } from "./features/home/home.js";
 import { renderZone } from "./features/zone/zone.js";
+import { renderTool } from "./features/tool/tool.js";
 
 const root = document.getElementById("nexus");
 
 function registerRoutes() {
   for (const z of ZONES) define(z.id, renderZone);
   define("home", renderHome);
+  define("tool", renderTool);
   setFallback("home");
 }
 
@@ -30,7 +31,7 @@ function registerPalette() {
     run: () => chooseLevel(l.id).then(() => toast(`Livello ${l.label}`)).catch(fail),
   })));
   addSource(() => (summary()?.tools || []).filter((t) => allows(t.level)).map((t) => ({
-    glyph: t.icon, title: t.name, kind: "Strumento", keywords: `${t.description} ${t.id}`, run: () => location.assign(classicHref(t)),
+    glyph: t.icon, title: t.name, kind: t.badge === "new" ? "Strumento · Novità" : t.badge === "updated" ? "Strumento · Aggiornato" : "Strumento", keywords: `${t.description} ${t.id}`, run: () => go("tool", t.id),
   })));
   addSource(() => [{ glyph: "▤", title: "Apri il pannello classico", kind: "Azione", keywords: "vecchio admin", run: () => location.assign("/") }]);
 }
@@ -52,6 +53,9 @@ async function enter(user) {
   startSummary().catch(fail);
   stream("/api/stream", (snapshot) => store.set({ snapshot }), (link) => store.set({ link }));
   start((route) => shell.show(route, view(route.id)));
+  store.subscribe((_, changed) => {
+    if (changed.includes("level")) { const route = current(); shell.show(route, view(route.id)); }
+  });
 }
 
 async function boot() {

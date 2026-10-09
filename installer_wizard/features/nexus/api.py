@@ -1,3 +1,4 @@
+import asyncio
 import json
 
 from fastapi import APIRouter, Depends, HTTPException, Request
@@ -8,10 +9,16 @@ from access import NO_CACHE, require_admin
 from config import PUBLIC_PORT
 
 from features.nexus import page
-from features.nexus.composition import preferences, summary
+from features.nexus.application.tool_service import ToolNotFound
+from features.nexus.composition import feature_folders, freshness, preferences, summary, tools
 
 admin_routes = APIRouter()
 MAX_BODY = 4096
+
+
+async def _refresh_badges() -> None:
+    if freshness.due():
+        await asyncio.to_thread(freshness.refresh, feature_folders())
 
 
 async def _json_body(request: Request) -> dict:
@@ -52,4 +59,14 @@ async def nexus_preferences_update(request: Request, user: str = Depends(require
 
 @admin_routes.get("/api/nexus/summary")
 async def nexus_summary(_: str = Depends(require_admin)):
+    await _refresh_badges()
     return JSONResponse(summary.build(), headers=NO_CACHE)
+
+
+@admin_routes.get("/api/nexus/tools/{fid}")
+async def nexus_tool(fid: str, _: str = Depends(require_admin)):
+    await _refresh_badges()
+    try:
+        return JSONResponse(tools.detail(fid), headers=NO_CACHE)
+    except ToolNotFound:
+        raise HTTPException(404, "Strumento sconosciuto")

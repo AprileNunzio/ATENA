@@ -4,7 +4,10 @@ import { LEVELS, allows, chooseLevel } from "../../core/level.js";
 import { go } from "../../core/router.js";
 import { store } from "../../core/store.js";
 import { fail, toast } from "../../core/toast.js";
+import { onSummary, summary } from "../../core/summary.js";
 import { open as openPalette } from "../../components/palette.js";
+import { countBadge, freshBadge, isSeen, markSeen } from "../../components/badge.js";
+import { unseenFresh } from "../../components/tool-card.js";
 import { GROUPS, ZONES, zone } from "./zones.js";
 
 export function createShell(root) {
@@ -27,6 +30,21 @@ export function createShell(root) {
     }, l.label)));
   }
 
+  function zoneMarker(z) {
+    const fresh = (summary()?.tools || []).filter((t) => t.zone === z.id && allows(t.level) && unseenFresh(t)).length;
+    if (fresh) return countBadge(fresh, `${fresh} novità o aggiornamenti`);
+    return z.added && !isSeen(`zone:${z.id}:${z.added}`) && Date.now() - Date.parse(z.added) < 14 * 86400000
+      ? freshBadge({ badge: "new", since: Date.parse(z.added) / 1000 }) : null;
+  }
+
+  function favoriteLinks() {
+    const { favorites } = store.get();
+    const tools = (summary()?.tools || []).filter((t) => favorites.includes(t.id));
+    if (!tools.length) return [];
+    return [h("div", { class: "navsec" }, "Preferiti"), ...tools.map((t) => h("a", { class: "nv nv-fav", href: `#/tool/${encodeURIComponent(t.id)}` },
+      h("span", { class: "g", "aria-hidden": "true" }, t.icon), h("span", { class: "lb" }, t.name)))];
+  }
+
   function renderNav() {
     const { route, user } = store.get();
     const sections = GROUPS.flatMap((group) => {
@@ -34,11 +52,12 @@ export function createShell(root) {
       if (!items.length) return [];
       return [h("div", { class: "navsec" }, group), ...items.map((z) => h("a", {
         class: `nv${z.accent ? " accent" : ""}`, href: `#/${z.id}`, "aria-current": z.id === route ? "page" : null,
-      }, h("span", { class: "g", "aria-hidden": "true" }, z.glyph), h("span", { class: "lb" }, z.title)))];
+      }, h("span", { class: "g", "aria-hidden": "true" }, z.glyph), h("span", { class: "lb" }, z.title), zoneMarker(z)))];
     });
     mount(nav,
       h("a", { class: "brand", href: "#/home" }, "A.T.E.N.A.", h("small", {}, "NEXUS · 8080")),
       sections,
+      favoriteLinks(),
       h("div", { class: "nav-foot" },
         h("a", { class: "nv", href: "/" }, h("span", { class: "g", "aria-hidden": "true" }, "▤"), h("span", { class: "lb" }, "Pannello classico")),
         h("button", { class: "nv", type: "button", onclick: logout }, h("span", { class: "g", "aria-hidden": "true" }, "⎋"), h("span", { class: "lb" }, "Esci")),
@@ -52,7 +71,7 @@ export function createShell(root) {
 
   store.subscribe((state, changed) => {
     if (changed.includes("level")) { renderLevels(); renderNav(); }
-    if (changed.includes("route") || changed.includes("user")) renderNav();
+    if (["route", "user", "favorites"].some((key) => changed.includes(key))) renderNav();
     if (changed.includes("link")) {
       linkDot.classList.toggle("down", !state.link);
       linkDot.setAttribute("aria-label", state.link ? "Collegato ad Atena" : "Collegamento con Atena perso");
@@ -60,13 +79,15 @@ export function createShell(root) {
   });
   renderLevels();
   renderNav();
+  onSummary(renderNav);
 
   return {
     outlet,
     show(route, render) {
       const z = zone(route.id);
       if (z && !allows(z.min)) { go("home"); return; }
-      title.textContent = z ? z.title : "Nexus";
+      if (z?.added) { markSeen(`zone:${z.id}:${z.added}`); renderNav(); }
+      title.textContent = z ? z.title : route.id === "tool" ? "Strumento" : "Nexus";
       document.title = `${title.textContent} · Atena Nexus`;
       render(outlet, route);
       outlet.scrollTop = 0;

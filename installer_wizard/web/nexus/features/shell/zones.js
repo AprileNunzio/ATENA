@@ -4,7 +4,7 @@ export const ZONES = [
     classic: [["models", "Cervello e modelli"], ["f/mind", "Mente"], ["study", "Studio autonomo"]] },
   { id: "flows", title: "Flussi", glyph: "⟁", min: "explorer", group: "Intelligenza", lead: "Come ragiona Atena, passo per passo, e quali algoritmi usa.",
     classic: [["models", "Catene di cervelli"], ["skills", "Algoritmi"]] },
-  { id: "tools", title: "Strumenti", glyph: "▦", min: "explorer", group: "Intelligenza", lead: "Tutti gli strumenti di Atena in un solo posto.",
+  { id: "tools", title: "Strumenti", glyph: "▦", min: "explorer", group: "Intelligenza", lead: "Tutti gli strumenti di Atena in un solo posto.", added: "2026-10-09",
     classic: [["features", "Funzionalità"]] },
   { id: "trust", title: "Regole e Fiducia", glyph: "⚖", min: "explorer", group: "Protezione", lead: "Cosa Atena può fare da sola e cosa deve chiederti prima.",
     classic: [["laws", "Leggi"], ["autonomy", "Autonomia"], ["capabilities", "Capacità"]] },

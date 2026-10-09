@@ -4,7 +4,7 @@ import { store } from "../../core/store.js";
 import { onSummary, summary } from "../../core/summary.js";
 import { ring } from "../../components/charts.js";
 import { Orb } from "../../components/orb.js";
-import { activityPanel, componentsPanel, statTiles, todoPanel } from "./panels.js";
+import { activityPanel, componentsPanel, freshPanel, statTiles, todoPanel } from "./panels.js";
 import { trackSystem } from "./series.js";
 
 const KID_TILES = [
@@ -25,6 +25,7 @@ export function renderHome(outlet) {
   const todos = h("div", { class: "panel" });
   const activity = h("div", { class: "panel" });
   const components = h("div", { class: "panel min-architect" });
+  const fresh = h("div", { class: "panel fresh-panel", hidden: true });
   const view = h("section", { class: "view" },
     h("div", { class: "home-hero" },
       h("div", { class: "orb-box home-orb" }, canvas),
@@ -37,6 +38,7 @@ export function renderHome(outlet) {
           h("a", { class: "btn primary", href: "#/awakening" }, "Risveglio guidato")))),
     h("div", { class: "kid only-explorer" }, KID_TILES.map((t) => h("button", { type: "button", onclick: () => go(...t.route) },
       h("span", { class: "kg", "aria-hidden": "true" }, t.glyph), h("b", {}, t.title), h("span", {}, t.text)))),
+    fresh,
     stats,
     h("div", { class: "cols min-pilot" }, todos, activity),
     components);
@@ -52,6 +54,9 @@ export function renderHome(outlet) {
     mount(ringBox, ring(data.health, "Salute dei componenti"));
     mount(todos, todoPanel(data.todos));
     mount(components, componentsPanel(data.components));
+    const freshContent = freshPanel(data.fresh);
+    fresh.hidden = !freshContent;
+    if (freshContent) mount(fresh, freshContent);
   };
   const paintSnapshot = (snapshot) => {
     mount(stats, statTiles(snapshot?.system));

@@ -1,8 +1,10 @@
 import { h } from "../core/dom.js";
+import { freshBadge, isSeen } from "./badge.js";
+
+export const freshKey = (tool) => `tool:${tool.id}:${tool.since}`;
+export const unseenFresh = (tool) => Boolean(tool.badge) && !isSeen(freshKey(tool));
 
 const MODE = { auto: "Automatico", 1: "Sempre attivo", 0: "Spento" };
-
-export const classicHref = (tool) => `/#f/${encodeURIComponent(tool.id)}`;
 
 export function statePill(tool) {
   if (tool.fixed) return h("span", { class: "pill ok" }, "Sempre attiva");
@@ -16,8 +18,8 @@ export function toolCard(tool) {
   return h("article", { class: `tool${levelClass}`, dataset: { on: String(tool.enabled) } },
     h("div", { class: "tool-head" },
       h("span", { class: "glyph", "aria-hidden": "true" }, tool.icon || "◆"),
-      h("div", { class: "tool-id" }, h("h3", {}, tool.name), statePill(tool))),
+      h("div", { class: "tool-id" }, h("h3", {}, tool.name), h("div", { class: "pills" }, statePill(tool), unseenFresh(tool) ? freshBadge(tool) : null))),
     h("p", { class: "tool-desc" }, tool.description),
     !tool.enabled && tool.reason ? h("p", { class: "tool-why" }, tool.reason) : null,
-    h("div", { class: "tool-foot" }, h("a", { class: "btn ghost", href: classicHref(tool) }, "Apri", h("span", { "aria-hidden": "true" }, " ↗"))));
+    h("div", { class: "tool-foot" }, h("a", { class: "btn ghost", href: `#/tool/${encodeURIComponent(tool.id)}` }, "Apri")));
 }

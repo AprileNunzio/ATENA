@@ -11,7 +11,7 @@
 .tool-id { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; min-width: 0; }
 .glyph { width: 42px; height: 42px; flex: none; display: grid; place-items: center; border-radius: 12px; border: 1px solid var(--line-strong); font-size: 20px; color: var(--cyan); background: rgba(41, 224, 255, 0.06); }
 .tool[data-on="false"] .glyph { filter: grayscale(1); opacity: 0.6; border-color: var(--line); }
-.tool h3 { font-family: var(--display); font-weight: 600; font-size: 16px; margin: 0; overflow-wrap: anywhere; }
+.tool h3 { font-family: var(--display); font-weight: 600; font-size: 16px; margin: 0; overflow-wrap: break-word; }
 .tool-desc { margin: 0; color: var(--text-dim); font-size: 13px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .tool-why { margin: 0; color: var(--amber); font-size: 12px; }
 .tool-foot { margin-top: auto; display: flex; justify-content: flex-end; gap: 8px; }
