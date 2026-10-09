@@ -26,6 +26,7 @@ class Inputs:
     features: list
     update: dict
     approvals: int
+    awakening_left: int = 0
 
 
 def _broken_components(components: dict) -> list[dict]:
@@ -72,6 +73,9 @@ def todos(inputs: Inputs) -> list[Todo]:
         items.append(Todo("warn", f"{inputs.approvals} {noun}", "trust", "autonomy"))
     risky = [f for f in inputs.features if f.get("state", {}).get("risk")]
     items += [Todo("warn", f"«{f.get('name', f.get('id'))}» è attiva ma l'hardware non basta", "tools", f"f/{f.get('id')}") for f in risky]
+    if inputs.awakening_left and inputs.phase in READY_PHASES:
+        left = "manca 1 passo" if inputs.awakening_left == 1 else f"mancano {inputs.awakening_left} passi"
+        items.append(Todo("info", f"Completa il Risveglio: {left}", "awakening"))
     if inputs.update.get("available"):
         items.append(Todo("info", "Aggiornamento di Atena pronto", "system", "updates"))
     items.sort(key=lambda t: _SEVERITY_ORDER.get(t.severity, 3))

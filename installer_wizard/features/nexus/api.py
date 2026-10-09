@@ -10,7 +10,7 @@ from config import PUBLIC_PORT
 
 from features.nexus import page
 from features.nexus.application.tool_service import ToolNotFound
-from features.nexus.composition import feature_folders, freshness, preferences, summary, tools
+from features.nexus.composition import awakening, feature_folders, freshness, preferences, summary, tools
 
 admin_routes = APIRouter()
 MAX_BODY = 4096
@@ -70,3 +70,22 @@ async def nexus_tool(fid: str, _: str = Depends(require_admin)):
         return JSONResponse(tools.detail(fid), headers=NO_CACHE)
     except ToolNotFound:
         raise HTTPException(404, "Strumento sconosciuto")
+
+
+@admin_routes.get("/api/nexus/awakening")
+async def nexus_awakening(_: str = Depends(require_admin)):
+    return JSONResponse(awakening.state(), headers=NO_CACHE)
+
+
+@admin_routes.put("/api/nexus/awakening")
+async def nexus_awakening_mark(request: Request, user: str = Depends(require_admin)):
+    body = await _json_body(request)
+    try:
+        return JSONResponse(awakening.mark(body), headers=NO_CACHE)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+
+
+@admin_routes.post("/api/nexus/awakening/reset")
+async def nexus_awakening_reset(_: str = Depends(require_admin)):
+    return JSONResponse(awakening.reset(), headers=NO_CACHE)

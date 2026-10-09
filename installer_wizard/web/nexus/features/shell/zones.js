@@ -14,7 +14,7 @@ export const ZONES = [
     classic: [["packages", "Pacchetti"], ["steps", "Installazione"], ["config", "Configurazione"], ["updates", "Aggiornamenti"], ["nodes", "Nodi e server"]] },
   { id: "observatory", title: "Osservatorio", glyph: "◷", min: "pilot", group: "Macchina", lead: "Cosa è successo, quando e perché.",
     classic: [["logs", "Log"], ["events", "Eventi"]] },
-  { id: "awakening", title: "Risveglio", glyph: "✦", min: "explorer", group: "Inizia", accent: true, lead: "La procedura guidata per configurare Atena in pochi passi." },
+  { id: "awakening", title: "Risveglio", glyph: "✦", min: "explorer", group: "Inizia", accent: true, added: "2026-10-09", lead: "La procedura guidata per configurare Atena in pochi passi." },
 ];
 
 export const GROUPS = ["Inizia", "Intelligenza", "Protezione", "Macchina"];

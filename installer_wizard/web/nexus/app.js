@@ -12,6 +12,7 @@ import { ZONES } from "./features/shell/zones.js";
 import { renderHome } from "./features/home/home.js";
 import { renderZone } from "./features/zone/zone.js";
 import { renderTool } from "./features/tool/tool.js";
+import { renderAwakening } from "./features/awakening/awakening.js";
 
 const root = document.getElementById("nexus");
 
@@ -19,6 +20,7 @@ function registerRoutes() {
   for (const z of ZONES) define(z.id, renderZone);
   define("home", renderHome);
   define("tool", renderTool);
+  define("awakening", renderAwakening);
   setFallback("home");
 }
 

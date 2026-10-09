@@ -26,6 +26,7 @@ export function renderHome(outlet) {
   const activity = h("div", { class: "panel" });
   const components = h("div", { class: "panel min-architect" });
   const fresh = h("div", { class: "panel fresh-panel", hidden: true });
+  const awakeningLink = h("a", { class: "btn primary", href: "#/awakening" }, "Risveglio guidato");
   const view = h("section", { class: "view" },
     h("div", { class: "home-hero" },
       h("div", { class: "orb-box home-orb" }, canvas),
@@ -35,7 +36,7 @@ export function renderHome(outlet) {
           h("div", { class: "ready-copy" },
             h("span", { class: "only-explorer" }, "Quanto sto bene"),
             h("span", { class: "min-pilot" }, "Salute dei componenti")),
-          h("a", { class: "btn primary", href: "#/awakening" }, "Risveglio guidato")))),
+          awakeningLink))),
     h("div", { class: "kid only-explorer" }, KID_TILES.map((t) => h("button", { type: "button", onclick: () => go(...t.route) },
       h("span", { class: "kg", "aria-hidden": "true" }, t.glyph), h("b", {}, t.title), h("span", {}, t.text)))),
     fresh,
@@ -52,6 +53,8 @@ export function renderHome(outlet) {
     sayExplorer.textContent = data.headline.explorer;
     sayPilot.textContent = data.headline.pilot;
     mount(ringBox, ring(data.health, "Salute dei componenti"));
+    const journey = data.awakening || {};
+    awakeningLink.textContent = journey.complete ? "Rifai il Risveglio" : `Risveglio guidato · ${journey.finished ?? 0}/${journey.total ?? 6}`;
     mount(todos, todoPanel(data.todos));
     mount(components, componentsPanel(data.components));
     const freshContent = freshPanel(data.fresh);
