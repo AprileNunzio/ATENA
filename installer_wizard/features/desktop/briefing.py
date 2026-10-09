@@ -8,6 +8,8 @@ from state import store
 IMPORTANT_WINDOW = 6 * 3600
 FIREWALL_WINDOW = 24 * 3600
 HOT = 85
+NEW_DEVICE_WINDOW = 24 * 3600
+NEWS_PAGE = 3
 MODES = {"off": "spento", "monitor": "solo osservazione", "protect": "protezione", "lockdown": "blindato"}
 
 
@@ -83,13 +85,43 @@ def important() -> tuple[str, dict, int] | None:
     return "brief", {"title": "Da sapere", "lines": lines, "details": details}, 70
 
 
-def headlines(items: list[dict]) -> tuple[str, dict, int] | None:
+def network() -> tuple[str, dict, int] | None:
+    from features.network.explorer import explorer
+    devices = list(explorer.devices.values())
+    if not devices:
+        return None
+    now = time.time()
+    online = [d for d in devices if d.get("online")]
+    fresh = sorted((d for d in devices if now - float(d.get("first_seen") or 0) < NEW_DEVICE_WINDOW),
+                   key=lambda d: -float(d.get("first_seen") or 0))[:4]
+    lines = [f"Dispositivi connessi: {len(online)} su {len(devices)}"]
+    details = [None]
+    for d in fresh:
+        lines.append(f"Nuovo: {explorer.label(d)} ({d.get('ip') or '?'})"[:120])
+        details.append({"title": explorer.label(d), "source": "Rete di casa",
+                        "text": f"Indirizzo {d.get('ip') or '?'} · {d.get('vendor') or 'produttore sconosciuto'}"
+                                f" · {'fidato' if d.get('trusted') else 'non ancora confermato'}"})
+    risky = any(not d.get("trusted") for d in fresh)
+    return "brief", {"title": "Rete di casa", "lines": lines, "details": details}, 66 if risky else 32
+
+
+def sun() -> tuple[str, dict, int] | None:
+    from features.desktop.sources import sun_cycle
+    data = sun_cycle()
+    return ("sun_cycle", data, 20) if data else None
+
+
+def headlines(items: list[dict], page: int = 0) -> tuple[str, dict, int] | None:
     if not items:
         return None
-    shown = items[:5]
+    pages = max(1, (len(items) + NEWS_PAGE - 1) // NEWS_PAGE)
+    start = (page % pages) * NEWS_PAGE
+    shown = items[start:start + NEWS_PAGE]
     details = [{"title": n["title"], "text": n["text"], "image": n["image"], "source": "ANSA", "at": n["at"],
                 "link": n["link"]} for n in shown]
-    return "brief", {"title": "Notizie", "lines": [n["title"] for n in shown], "details": details}, 30
+    title = "Notizie" if pages == 1 else f"Notizie {page % pages + 1}/{pages}"
+    return "brief", {"title": title, "lines": [n["title"] for n in shown], "details": details}, 30
 
 
-COLLECTORS = {"resources": resources, "systems": systems, "firewall": firewall, "important": important}
+COLLECTORS = {"resources": resources, "systems": systems, "firewall": firewall, "important": important,
+              "network": network, "sun": sun}

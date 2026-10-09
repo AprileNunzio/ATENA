@@ -6,7 +6,8 @@ from unittest import mock
 from features.desktop import secretary as secretary_mod
 from features.desktop.desk import Desk
 from features.desktop.news import News
-from features.desktop.secretary import PREFIX, Secretary
+from features.desktop import briefing
+from features.desktop.secretary import PREFIX, SLOTS, Secretary, pick
 from state import store
 
 RSS = b"""<?xml version="1.0"?><rss><channel>
@@ -87,6 +88,29 @@ class SecretaryTest(unittest.TestCase):
         store.presence = {"status": "ok", "people": [{"slug": "", "name": "", "known": False, "near": True}]}
         asyncio.run(self.sec.step(self.desk))
         self.assertEqual(self._shown(), [])
+
+
+class VarietyTest(unittest.TestCase):
+    def test_rotation_covers_every_card_and_keeps_urgent_ones(self):
+        cards = [(f"c{i}", ("brief", {}, 30)) for i in range(8)] + [("alarm", ("brief", {}, 88))]
+        shown_at, seen = {}, set()
+        for turn in range(4):
+            chosen = pick(cards, shown_at)
+            self.assertIn("alarm", chosen)
+            self.assertLessEqual(len(chosen), SLOTS)
+            seen.update(chosen)
+            shown_at.update({n: float(turn + 1) for n in chosen})
+        self.assertEqual(seen, {n for n, _ in cards})
+
+    def test_many_urgent_cards_still_leave_room_for_variety(self):
+        cards = [(f"u{i}", ("brief", {}, 90)) for i in range(5)] + [("news", ("brief", {}, 30)), ("sun", ("sun_cycle", {}, 20))]
+        self.assertEqual(len(pick(cards, {})), 7)
+
+    def test_news_pages_change(self):
+        items = [{"title": f"t{i}", "text": "", "image": "", "at": "", "link": ""} for i in range(7)]
+        first, second = briefing.headlines(items, 0), briefing.headlines(items, 1)
+        self.assertNotEqual(first[1]["lines"], second[1]["lines"])
+        self.assertEqual(briefing.headlines(items, 3)[1]["lines"], first[1]["lines"])
 
 
 if __name__ == "__main__":

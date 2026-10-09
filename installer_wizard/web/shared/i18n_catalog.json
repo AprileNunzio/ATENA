@@ -15339,6 +15339,46 @@
     [
       "Widget aperti sul computer {0}",
       "Widgets opened on computer {0}"
+    ],
+    [
+      "Dispositivi connessi: {0} su {1}",
+      "Connected devices: {0} of {1}"
+    ],
+    [
+      "Notizie {0}/{1}",
+      "News {0}/{1}"
+    ],
+    [
+      "Notizie",
+      "News"
+    ],
+    [
+      "Stato dei sistemi",
+      "Systems status"
+    ],
+    [
+      "Da sapere",
+      "Good to know"
+    ],
+    [
+      "Tutti i {0} servizi funzionano",
+      "All {0} services are working"
+    ],
+    [
+      "Analisi del traffico attiva",
+      "Traffic analysis active"
+    ],
+    [
+      "Analisi del traffico non collegata",
+      "Traffic analysis not connected"
+    ],
+    [
+      "Indirizzi bloccati: {0}",
+      "Blocked addresses: {0}"
+    ],
+    [
+      "Allarmi nelle ultime 24 ore: {0} ({1} gravi)",
+      "Alarms in the last 24 hours: {0} ({1} serious)"
     ]
   ],
   "reverse": [
@@ -30338,6 +30378,50 @@
     [
       "Widget aperti sul computer {0}",
       "Widgets ouverts sur l'ordinateur {0}"
+    ],
+    [
+      "Rete di casa",
+      "Réseau domestique"
+    ],
+    [
+      "Dispositivi connessi: {0} su {1}",
+      "Appareils connectés : {0} sur {1}"
+    ],
+    [
+      "Notizie {0}/{1}",
+      "Actualités {0}/{1}"
+    ],
+    [
+      "Notizie",
+      "Actualités"
+    ],
+    [
+      "Stato dei sistemi",
+      "État des systèmes"
+    ],
+    [
+      "Da sapere",
+      "À savoir"
+    ],
+    [
+      "Tutti i {0} servizi funzionano",
+      "Les {0} services fonctionnent"
+    ],
+    [
+      "Analisi del traffico attiva",
+      "Analyse du trafic active"
+    ],
+    [
+      "Analisi del traffico non collegata",
+      "Analyse du trafic non connectée"
+    ],
+    [
+      "Indirizzi bloccati: {0}",
+      "Adresses bloquées : {0}"
+    ],
+    [
+      "Allarmi nelle ultime 24 ore: {0} ({1} gravi)",
+      "Alarmes des dernières 24 heures : {0} ({1} graves)"
     ]
   ]
 }
