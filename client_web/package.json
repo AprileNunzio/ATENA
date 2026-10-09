@@ -1,6 +1,6 @@
 {
   "name": "atena-web-console",
-  "version": "4.1.40",
+  "version": "4.1.41",
   "private": true,
   "type": "module",
   "scripts": {

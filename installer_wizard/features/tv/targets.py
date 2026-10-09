@@ -9,6 +9,7 @@ from features.tv.m3u import norm
 
 TARGET = re.compile(r"^(display(:\d{1,2})?|pc:[a-z0-9][a-z0-9-]{2,47}|(cast|dlna):[A-Za-z0-9._-]{1,64})$")
 ONLINE_FOR = 90.0
+CASTING: dict[str, float] = {}
 
 
 class TargetError(ValueError):
@@ -105,6 +106,7 @@ async def play(channel: dict, target_id: str, who: str = "") -> str:
             await dlna.load(device, url, {**meta, "mime": "video/mp2t"})
     except RuntimeError as exc:
         raise TargetError(str(exc)) from exc
+    CASTING[target_id] = time.time()
     return f"su {device['name']}"
 
 

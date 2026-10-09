@@ -90,6 +90,8 @@ from features.sports.watch import watcher as sports_watcher
 from features.proxmox import api as proxmox_api
 from features.voicestudio import api as voicestudio_api
 from features.nodes import display_link as display_link_api
+from features.ducking import api as ducking_api
+from features.ducking.ducker import ducker
 from features.places import service as places_service
 from features.locale import household as locale_household
 from features.vpn.service import service as vpn_service
@@ -181,6 +183,7 @@ FEATURE_APIS = (
     proxmox_api,
     voicestudio_api,
     display_link_api,
+    ducking_api,
     laws_api,
     cameras_api,
     models3d_api,
@@ -307,6 +310,7 @@ BACKGROUND = (
     ("funzionalita", registry.run, 0.0),
     ("scrivania", desk.run, 0.0),
     ("segretario", secretary.run, 0.0),
+    ("volume-conversazione", ducker.run, 0.0),
     ("spotify", spotify.run, 0.0),
     ("google", google.run, 0.0),
     ("mappe", maps.run, 0.0),

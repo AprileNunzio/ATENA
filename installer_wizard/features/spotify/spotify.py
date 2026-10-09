@@ -13,7 +13,7 @@ from state import store
 log = logging.getLogger("atena.spotify")
 
 REDIRECT_URI = "http://127.0.0.1:8888/callback"
-SCOPES = "user-read-currently-playing user-read-playback-state"
+SCOPES = "user-read-currently-playing user-read-playback-state user-modify-playback-state"
 POLL_SECONDS = 5
 
 
@@ -98,6 +98,23 @@ class Spotify:
             self.access_token = ""
         r.raise_for_status()
         return r.json()
+
+    async def playing_volume(self) -> int | None:
+        data = await self._api("/me/player")
+        if not data or not data.get("is_playing"):
+            return None
+        value = (data.get("device") or {}).get("volume_percent")
+        return int(value) if isinstance(value, (int, float)) else None
+
+    async def set_volume(self, percent: int) -> None:
+        token = await self._access()
+        async with httpx.AsyncClient(timeout=10) as client:
+            r = await client.put("https://api.spotify.com/v1/me/player/volume",
+                                 params={"volume_percent": max(0, min(100, int(percent)))},
+                                 headers={"Authorization": f"Bearer {token}"})
+        if r.status_code == 401:
+            self.access_token = ""
+        r.raise_for_status()
 
     async def poll(self) -> None:
         data = await self._api("/me/player/currently-playing")

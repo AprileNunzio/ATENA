@@ -15419,6 +15419,62 @@
     [
       "Chiusura dei widget automatici non riuscita:",
       "Closing the automatic widgets failed:"
+    ],
+    [
+      "Abbassa anche TV e casse di casa",
+      "Also lower TV and home speakers"
+    ],
+    [
+      "Casse e lettori di Home Assistant",
+      "Home Assistant speakers and players"
+    ],
+    [
+      "Durante la conversazione il volume scende al",
+      "During the conversation the volume drops to"
+    ],
+    [
+      "Indica on: true o false",
+      "Send on: true or false"
+    ],
+    [
+      "Mentre parli con Atena abbassa da sola la musica, Spotify, la TV sui Chromecast e le casse di Home Assistant, e rimette il volume di prima a conversazione finita (se nel frattempo non l'hai cambiato tu).",
+      "While you talk to Atena it lowers music, Spotify, TV on Chromecasts and Home Assistant speakers by itself, and puts the previous volume back when the conversation ends (unless you changed it meanwhile)."
+    ],
+    [
+      "Musica sulle uscite di Atena (Chromecast, DLNA, PC)",
+      "Music on Atena outputs (Chromecast, DLNA, PC)"
+    ],
+    [
+      "Ripristino sicuro: non tocca un volume cambiato a mano",
+      "Safe restore: never touches a volume changed by hand"
+    ],
+    [
+      "Segnale di conversazione non inviato:",
+      "Conversation signal not sent:"
+    ],
+    [
+      "Spotify (dopo aver ricollegato l'account)",
+      "Spotify (after reconnecting the account)"
+    ],
+    [
+      "TV trasmessa sui Chromecast",
+      "TV cast to Chromecasts"
+    ],
+    [
+      "Video e audio dei widget sul display",
+      "Video and audio of the widgets on the display"
+    ],
+    [
+      "Volume durante la conversazione",
+      "Volume during conversation"
+    ],
+    [
+      "Volume abbassato per la conversazione: {0}",
+      "Volume lowered for the conversation: {0}"
+    ],
+    [
+      "Volume ripristinato: {0}",
+      "Volume restored: {0}"
     ]
   ],
   "reverse": [
@@ -30502,6 +30558,62 @@
     [
       "Chiusura dei widget automatici non riuscita:",
       "Fermeture des widgets automatiques échouée :"
+    ],
+    [
+      "Abbassa anche TV e casse di casa",
+      "Baisser aussi la TV et les enceintes de la maison"
+    ],
+    [
+      "Casse e lettori di Home Assistant",
+      "Enceintes et lecteurs Home Assistant"
+    ],
+    [
+      "Durante la conversazione il volume scende al",
+      "Pendant la conversation le volume descend à"
+    ],
+    [
+      "Indica on: true o false",
+      "Indiquez on : true ou false"
+    ],
+    [
+      "Mentre parli con Atena abbassa da sola la musica, Spotify, la TV sui Chromecast e le casse di Home Assistant, e rimette il volume di prima a conversazione finita (se nel frattempo non l'hai cambiato tu).",
+      "Pendant que vous parlez à Atena, elle baisse toute seule la musique, Spotify, la TV sur les Chromecast et les enceintes Home Assistant, puis remet le volume précédent à la fin de la conversation (sauf si vous l'avez changé entre-temps)."
+    ],
+    [
+      "Musica sulle uscite di Atena (Chromecast, DLNA, PC)",
+      "Musique sur les sorties d'Atena (Chromecast, DLNA, PC)"
+    ],
+    [
+      "Ripristino sicuro: non tocca un volume cambiato a mano",
+      "Restauration sûre : ne touche jamais un volume changé à la main"
+    ],
+    [
+      "Segnale di conversazione non inviato:",
+      "Signal de conversation non envoyé :"
+    ],
+    [
+      "Spotify (dopo aver ricollegato l'account)",
+      "Spotify (après avoir reconnecté le compte)"
+    ],
+    [
+      "TV trasmessa sui Chromecast",
+      "TV diffusée sur les Chromecast"
+    ],
+    [
+      "Video e audio dei widget sul display",
+      "Vidéo et audio des widgets sur l'écran"
+    ],
+    [
+      "Volume durante la conversazione",
+      "Volume pendant la conversation"
+    ],
+    [
+      "Volume abbassato per la conversazione: {0}",
+      "Volume baissé pour la conversation : {0}"
+    ],
+    [
+      "Volume ripristinato: {0}",
+      "Volume rétabli : {0}"
     ]
   ]
 }

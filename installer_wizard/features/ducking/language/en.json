@@ -1,0 +1,16 @@
+{
+  "name": "Volume during conversation",
+  "description": "While you talk to Atena it lowers music, Spotify, TV on Chromecasts and Home Assistant speakers by itself, and puts the previous volume back when the conversation ends (unless you changed it meanwhile).",
+  "capabilities": [
+    "Music on Atena outputs (Chromecast, DLNA, PC)",
+    "Spotify (after reconnecting the account)",
+    "TV cast to Chromecasts",
+    "Home Assistant speakers and players",
+    "Video and audio of the widgets on the display",
+    "Safe restore: never touches a volume changed by hand"
+  ],
+  "settings": {
+    "ATENA_DUCK_LEVEL": "During the conversation the volume drops to",
+    "ATENA_DUCK_HOME": "Also lower TV and home speakers"
+  }
+}
