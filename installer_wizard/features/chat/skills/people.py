@@ -271,6 +271,14 @@ async def introduce_skill(text: str) -> tuple[str, dict]:
                     "Persone.", {"mode": "face"})
         return ("Non vedo nessuno davanti alla webcam a cui associare il nome. "
                 "Si metta di fronte a me per qualche secondo e riprovi.", {"mode": "face"})
+    wanted = " ".join(name.lower().split())
+    clash = next((p for p in people.all_profiles(light=True) if p["slug"] != target["slug"] and wanted in
+                  {" ".join(people.display_name(p).lower().split()), str(p.get("first_name") or "").lower().strip()}), None)
+    if clash:
+        store.event("WARN", f"Possibile impersonificazione: il volto {target['slug']} si è presentato come {name}, "
+                            f"nome già usato da {clash['slug']}", "people")
+        return (f"Conosco già una persona chiamata {name}. Se sei tu, il proprietario può unire il tuo volto al tuo "
+                "profilo dal pannello Persone.", {"mode": "face"})
     async with httpx.AsyncClient(timeout=10) as client:
         r = await client.patch(f"http://127.0.0.1:8091/people/{target['slug']}", json={"name": name})
         r.raise_for_status()

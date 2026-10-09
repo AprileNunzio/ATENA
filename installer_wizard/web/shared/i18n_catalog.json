@@ -13363,6 +13363,10 @@
     [
       "Webcam di Atena",
       "Atena webcam"
+    ],
+    [
+      "Il profilo del proprietario non può essere unito a un altro: unisci invece l'altro volto al proprietario",
+      "The owner profile cannot be merged into another one: merge the other face into the owner instead"
     ]
   ],
   "reverse": [
@@ -26365,6 +26369,10 @@
     [
       "Webcam di Atena",
       "Webcam d'Atena"
+    ],
+    [
+      "Il profilo del proprietario non può essere unito a un altro: unisci invece l'altro volto al proprietario",
+      "Le profil du propriétaire ne peut pas être fusionné dans un autre : fusionnez plutôt l'autre visage avec le propriétaire"
     ]
   ]
 }

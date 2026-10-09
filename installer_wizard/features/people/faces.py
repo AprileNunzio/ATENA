@@ -79,6 +79,9 @@ async def associate(from_slug: str, to_slug: str) -> dict:
         raise HTTPException(404, "Persona di destinazione non trovata")
     if people.slugify(from_slug) == people.slugify(to_slug):
         raise HTTPException(400, "Un volto non può essere associato a se stesso")
+    source_profile = people.load(from_slug) or {}
+    if source_profile.get("role") == "owner":
+        raise HTTPException(400, "Il profilo del proprietario non può essere unito a un altro: unisci invece l'altro volto al proprietario")
     resp = await vision_proxy(f"/people/{people.slugify(from_slug)}/merge", "POST",
                               {"into": people.slugify(to_slug), "name": target["name"]}, timeout=60)
     if resp.status_code not in (200, 404):
