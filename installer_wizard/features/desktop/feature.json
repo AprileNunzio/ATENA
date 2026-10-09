@@ -12,9 +12,26 @@
     "Priorità modificabili",
     "Allarmi a schermo intero",
     "Prova di ogni widget dal pannello",
-    "Chiusura automatica dei dati personali"
+    "Chiusura automatica dei dati personali",
+    "Widget del proprietario sul display: risorse, sistemi, firewall, aggiornamenti e notizie quando ti avvicini"
   ],
   "settings": [
+    {
+      "key": "ATENA_SECRETARY",
+      "label": "Sul display, mostra i widget del proprietario quando si avvicina",
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": "Sì"
+        },
+        {
+          "value": "0",
+          "label": "No"
+        }
+      ]
+    },
     {
       "key": "ATENA_PRIVACY_AUTOCLOSE",
       "label": "Chiudi i widget con dati personali quando non ci sei",

@@ -21,6 +21,7 @@ SIZES = ("s", "m", "l", "full")
 TONES = ("cyan", "green", "blue", "violet", "amber", "red")
 FILES = {"widget.js": "application/javascript", "widget.css": "text/css"}
 _ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{1,40}$")
+REQUEST_HOLD = 120
 
 
 class Desk:
@@ -31,6 +32,8 @@ class Desk:
         self.instances: dict[str, dict] = {}
         self.sources: dict = {}
         self.suppressed: set = set()
+        self.request_at = 0.0
+        self.idle_at = 0.0
         self.prefs = self._load()
         USER_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -183,7 +186,18 @@ class Desk:
         self.publish()
         return target
 
+    def in_request(self) -> bool:
+        return self.request_at > self.idle_at and time.time() - self.request_at < REQUEST_HOLD
+
+    def went_idle(self) -> None:
+        self.idle_at = time.time()
+        self.dismiss_intents()
+
+    def request_started(self) -> None:
+        self.request_at = time.time()
+
     def on_intent(self, intent: str, ui: dict) -> None:
+        self.request_started()
         wanted = {m["id"] for m in self.widgets.values() if intent in m["intents"]}
         self.dismiss_intents(keep=wanted)
         for m in self.widgets.values():
@@ -293,18 +307,7 @@ class Desk:
                     self.scan()
                 self.sweep_private()
                 self._bindings()
-                
-                admin_present = any(p.get("role") == "admin" for p in getattr(store, "presence", {}).get("people", []))
-                if admin_present and not getattr(self, "last_admin_present", False):
-                    try:
-                        from features.desktop.sources import sun_cycle
-                        if sun_cycle(): self.show("sun_cycle", sun_cycle(), ttl=60)
-                        self.show("system_monitor", {"cpu": True}, ttl=60)
-                        self.show("weather", getattr(store, "weather", {}), ttl=60)
-                    except Exception:
-                        pass
-                self.last_admin_present = admin_present
-                
+
                 if screens.changed():
                     self.publish()
                 expired = [k for k, i in self.instances.items() if i["expires_at"] and i["expires_at"] <= time.time()]

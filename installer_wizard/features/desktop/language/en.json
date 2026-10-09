@@ -4,9 +4,11 @@
   "capabilities": [
     "Multi-monitor desktop layout",
     "Draggable and resizable cybernetic widgets",
-    "Real-time state synchronization"
+    "Real-time state synchronization",
+    "Owner's widgets on the display: resources, systems, firewall, updates and news when you come close"
   ],
   "settings": {
-    "ATENA_DESKTOP_THEME": "Desktop Theme"
+    "ATENA_DESKTOP_THEME": "Desktop Theme",
+    "ATENA_SECRETARY": "On the display, show the owner's widgets when they come close"
   }
 }

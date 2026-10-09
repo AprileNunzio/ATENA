@@ -172,6 +172,7 @@ async def assistant_chat(text: str, device: str, heard_lang: str | None = None, 
         result = {"reply": enroll[0], "ui": enroll[1], "intent": "voice_id", "agent": "impronta vocale", "elapsed_ms": 0}
     else:
         flow.begin()
+        desk.request_started()
         try:
             result = await assistant.handle(text, core_call, speech_lang)
         except BaseException as exc:

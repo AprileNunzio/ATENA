@@ -14875,6 +14875,14 @@
     [
       "🎧 Ascolto vocale",
       "🎧 Voice listening"
+    ],
+    [
+      "Sul display, mostra i widget del proprietario quando si avvicina",
+      "On the display, show the owner's widgets when they come close"
+    ],
+    [
+      "Widget del proprietario sul display: risorse, sistemi, firewall, aggiornamenti e notizie quando ti avvicini",
+      "Owner's widgets on the display: resources, systems, firewall, updates and news when you come close"
     ]
   ],
   "reverse": [
@@ -29403,6 +29411,14 @@
     [
       "🎧 Ascolto vocale",
       "🎧 Écoute vocale"
+    ],
+    [
+      "Sul display, mostra i widget del proprietario quando si avvicina",
+      "Sur l'écran, afficher les widgets du propriétaire quand il s'approche"
+    ],
+    [
+      "Widget del proprietario sul display: risorse, sistemi, firewall, aggiornamenti e notizie quando ti avvicini",
+      "Widgets du propriétaire sur l'écran : ressources, systèmes, pare-feu, mises à jour et actualités quand vous vous approchez"
     ]
   ]
 }

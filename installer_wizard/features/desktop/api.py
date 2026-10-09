@@ -46,7 +46,7 @@ async def widget_file(wid: str, name: str):
 @public_routes.post("/api/desk/idle")
 async def desk_idle(request: Request):
     require_display(request, "Solo dal display o dal pannello")
-    desk.dismiss_intents()
+    desk.went_idle()
     return {"ok": True}
 
 

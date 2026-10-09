@@ -1,0 +1,113 @@
+import asyncio
+import logging
+import time
+
+from config import env_get
+from state import store
+
+from features.desktop import briefing
+from features.desktop.news import news
+
+log = logging.getLogger("atena.secretary")
+
+PREFIX = "briefing:"
+REFRESH = 20
+TTL = 90
+AWAY_AFTER = 30
+OWNER_CACHE = 60
+
+
+class Secretary:
+    def __init__(self) -> None:
+        self.owner_slug = ""
+        self.owner_at = 0.0
+        self.active = False
+        self.last_seen = 0.0
+        self.refreshed = 0.0
+        self.paused = False
+
+    @staticmethod
+    def enabled() -> bool:
+        return env_get("ATENA_SECRETARY", "1") != "0"
+
+    def owner(self) -> str:
+        if time.time() - self.owner_at > OWNER_CACHE:
+            from features.people.identity import owner
+            profile = owner()
+            self.owner_slug = profile["slug"] if profile else ""
+            self.owner_at = time.time()
+        return self.owner_slug
+
+    def sighting(self) -> tuple[bool, bool]:
+        slug = self.owner()
+        mine = [p for p in (store.presence or {}).get("people", []) if p.get("known") and p.get("slug") == slug]
+        return bool(mine), any(p.get("near") for p in mine)
+
+    def clear(self, desk) -> None:
+        keys = [k for k in desk.instances if k.startswith(PREFIX)]
+        for k in keys:
+            desk.instances.pop(k, None)
+        if keys:
+            desk.publish()
+
+    async def cards(self) -> list[tuple[str, tuple]]:
+        out = []
+        for name, collect in briefing.COLLECTORS.items():
+            try:
+                card = collect()
+            except Exception:
+                log.exception("Widget del proprietario: sezione %s non disponibile", name)
+                continue
+            if card:
+                out.append((name, card))
+        card = briefing.headlines(await news.headlines())
+        if card:
+            out.append(("news", card))
+        return out
+
+    async def show(self, desk) -> None:
+        for name, (wid, data, priority) in await self.cards():
+            desk.show(wid, data, key=PREFIX + name, ttl=TTL, priority=priority)
+        self.refreshed = time.time()
+
+    async def step(self, desk) -> None:
+        if not self.enabled():
+            if self.active:
+                self.active = False
+                self.clear(desk)
+            return
+        now = time.time()
+        present, near = self.sighting()
+        if present:
+            self.last_seen = now
+        if desk.in_request():
+            if self.active:
+                self.active, self.paused = False, True
+                self.clear(desk)
+            return
+        if not self.active and (near or (present and self.paused)):
+            self.paused = False
+            self.active = True
+            store.event("INFO", "Widget del proprietario aperti sul display", "desk")
+            await self.show(desk)
+            return
+        if now - self.last_seen > AWAY_AFTER:
+            self.paused = False
+        if self.active and now - self.last_seen > AWAY_AFTER:
+            self.active = False
+            self.clear(desk)
+            return
+        if self.active and present and now - self.refreshed >= REFRESH:
+            await self.show(desk)
+
+    async def run(self) -> None:
+        from features.desktop.desk import desk
+        while True:
+            try:
+                await self.step(desk)
+            except Exception:
+                log.exception("Widget del proprietario sul display")
+            await asyncio.sleep(1)
+
+
+secretary = Secretary()

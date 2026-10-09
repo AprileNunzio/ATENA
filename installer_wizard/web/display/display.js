@@ -32,7 +32,8 @@
     $("date").textContent = fmt.date(d);
     const h = d.getHours();
     const g = h < 6 ? "Buonanotte" : h < 13 ? "Buongiorno" : h < 18 ? "Buon pomeriggio" : "Buonasera";
-    const who = D.presentNames.length ? D.presentNames.join(" e ") : D.userName;
+    if (D.presentNames.length) { D.greetNames = D.presentNames; D.greetSeen = Date.now(); }
+    const who = D.greetNames && Date.now() - (D.greetSeen || 0) < 20000 ? D.greetNames.join(" e ") : "";
     if ($("greet")) $("greet").textContent = `${g}${who ? ", " + who : ""}.`;
     const quiet = !D.busy && !D.isSpeaking() && Date.now() - D.lastInteraction;
     if (D.mode !== "face" && quiet > (D.mode === "brain" ? 90000 : 60000)) goHome();

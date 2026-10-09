@@ -39,6 +39,7 @@ from features.nodes import api as nodes_api
 from features.cloud import api as cloud_api
 from features.desktop import api as desktop_api
 from features.desktop.desk import desk
+from features.desktop.secretary import secretary
 from features.documents import api as documents_api
 from features.devices import api as devices_api
 from features.devices import audio
@@ -301,6 +302,7 @@ BACKGROUND = (
     ("addestramento", soup_api.trainer.run, 0.0),
     ("funzionalita", registry.run, 0.0),
     ("scrivania", desk.run, 0.0),
+    ("segretario", secretary.run, 0.0),
     ("spotify", spotify.run, 0.0),
     ("google", google.run, 0.0),
     ("mappe", maps.run, 0.0),
