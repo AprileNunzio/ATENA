@@ -91,7 +91,7 @@ export function createShell(root) {
       const z = zone(route.id);
       if (z && !allows(z.min)) { go("home"); return; }
       if (z?.added) { markSeen(`zone:${z.id}:${z.added}`); renderNav(); }
-      title.textContent = z ? z.title : { tool: "Strumento", classic: "Sezione" }[route.id] || "Nexus";
+      title.textContent = z ? z.title : { tool: "Strumento", section: "Sezione", classic: "Sezione" }[route.id] || "Nexus";
       document.title = `${title.textContent} · Atena Nexus`;
       render(outlet, route);
       outlet.scrollTop = 0;

@@ -4,11 +4,11 @@ import { go } from "../../core/router.js";
 import { onSummary, summary, toolsIn } from "../../core/summary.js";
 import { toolCard } from "../../components/tool-card.js";
 import { zone } from "../shell/zones.js";
+import { sectionHref } from "../section/section.js";
 
-function classicLinks(z) {
-  const links = (z.classic || []).map(([tab, label]) => h("a", { class: "btn ghost",
-    href: tab.startsWith("f/") ? `#/tool/${tab.slice(2)}` : `#/classic/${tab}` }, label));
-  return links.length ? h("div", { class: "panel" }, h("p", { class: "ptitle" }, "Sezioni complete"), h("div", { class: "chips" }, links)) : null;
+function sectionLinks(z) {
+  const links = (z.sections || []).map(([tab, label]) => h("a", { class: "btn ghost", href: sectionHref(tab) }, label));
+  return links.length ? h("div", { class: "panel" }, h("p", { class: "ptitle" }, "Sezioni"), h("div", { class: "chips" }, links)) : null;
 }
 
 function familyChips(families, active) {
@@ -42,7 +42,7 @@ export function renderZone(outlet, route) {
   const chips = h("div");
   const view = h("section", { class: "view" },
     h("div", { class: "view-head" }, h("p", { class: "eyebrow" }, z.group), h("h2", {}, z.title), lead),
-    isTools ? h("div", { class: "toolbar" }, search) : null, chips, list, classicLinks(z));
+    isTools ? h("div", { class: "toolbar" }, search) : null, chips, list, sectionLinks(z));
   mount(outlet, view);
 
   function paint(data) {

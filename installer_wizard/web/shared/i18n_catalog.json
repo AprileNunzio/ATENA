@@ -17627,6 +17627,166 @@
     [
       "Carico la sezione…",
       "Loading the section…"
+    ],
+    [
+      "Aggiorna da solo",
+      "Refresh automatically"
+    ],
+    [
+      "Aggiornamento avviato",
+      "Update started"
+    ],
+    [
+      "Aggiornamento non riuscito",
+      "Refresh failed"
+    ],
+    [
+      "Ancora nessun evento registrato.",
+      "No events recorded yet."
+    ],
+    [
+      "Applicare l'aggiornamento?",
+      "Apply the update?"
+    ],
+    [
+      "Atena controlla da sola GitHub, installa solo le versioni che hanno superato i test e torna indietro se qualcosa non va.",
+      "Atena checks GitHub on its own, installs only versions that passed the tests and rolls back if something goes wrong."
+    ],
+    [
+      "Atena tornerà disponibile tra qualche minuto.",
+      "Atena will be available again in a few minutes."
+    ],
+    [
+      "Atena verrà riavviata e, in caso di problemi, ripristinata automaticamente.",
+      "Atena will restart and, if anything goes wrong, be restored automatically."
+    ],
+    [
+      "Cambia",
+      "Change"
+    ],
+    [
+      "Cambiare dove pensa Atena?",
+      "Change where Atena thinks?"
+    ],
+    [
+      "Copia non riuscita: seleziona il testo a mano",
+      "Copy failed: select the text manually"
+    ],
+    [
+      "Copiato negli appunti",
+      "Copied to clipboard"
+    ],
+    [
+      "Dove pensa Atena",
+      "Where Atena thinks"
+    ],
+    [
+      "I componenti necessari si installano in background.",
+      "The required components install in the background."
+    ],
+    [
+      "L'interfaccia si ricollegherà automaticamente.",
+      "The interface will reconnect automatically."
+    ],
+    [
+      "Le modifiche vengono salvate in /etc/atena/atena.env e applicate automaticamente, riavviando solo i componenti interessati.",
+      "Changes are saved to /etc/atena/atena.env and applied automatically, restarting only the affected components."
+    ],
+    [
+      "Le risposte arrivano dal servizio cloud configurato nello strumento Cloud.",
+      "Answers come from the cloud service configured in the Cloud tool."
+    ],
+    [
+      "Lo puoi reinstallare quando vuoi.",
+      "You can reinstall it whenever you like."
+    ],
+    [
+      "Niente da mostrare.",
+      "Nothing to show."
+    ],
+    [
+      "Ogni step è idempotente: a ogni avvio viene verificato e riparato solo se necessario. «Riesegui» forza la reinstallazione del componente.",
+      "Every step is idempotent: at each start it is checked and repaired only if needed. «Run again» forces the component to reinstall."
+    ],
+    [
+      "Pannello non disponibile",
+      "Panel not available"
+    ],
+    [
+      "Plancia di {0}",
+      "{0} dashboard"
+    ],
+    [
+      "Registro",
+      "Log"
+    ],
+    [
+      "Registro eventi",
+      "Event log"
+    ],
+    [
+      "Riavviare il supervisore?",
+      "Restart the supervisor?"
+    ],
+    [
+      "Riavviare {0}?",
+      "Restart {0}?"
+    ],
+    [
+      "Rieseguire lo step «{0}»?",
+      "Run the «{0}» step again?"
+    ],
+    [
+      "Rimuovere il pacchetto?",
+      "Remove the package?"
+    ],
+    [
+      "Sezioni",
+      "Sections"
+    ],
+    [
+      "Step avviato",
+      "Step started"
+    ],
+    [
+      "Tipo di file non consentito",
+      "File type not allowed"
+    ],
+    [
+      "Avvio n. {0}",
+      "Boot no. {0}"
+    ],
+    [
+      "fase attiva da {0}",
+      "phase active for {0}"
+    ],
+    [
+      "ultima risposta:",
+      "last answer:"
+    ],
+    [
+      "dispositivo rilevato",
+      "device detected"
+    ],
+    [
+      "pesante per questo computer",
+      "heavy for this computer"
+    ],
+    [
+      "Rete linguistica",
+      "Language network"
+    ],
+    [
+      "Memoria vettoriale",
+      "Vector memory"
+    ],
+    [
+      "ragionamento",
+      "reasoning"
+    ],
+    [
+      "conversazione",
+      "conversation"
     ]
   ],
   "reverse": [
@@ -18109,7 +18269,14 @@
     "translate({0} {1})",
     "view awakening",
     "English voice",
-    "Voix française"
+    "Voix française",
+    "ghost sm",
+    "input np-select",
+    "mono dim small",
+    "np-log np-log-tall",
+    "panel np-error",
+    "panel np-sec",
+    "primary sm"
   ],
   "fr": [
     [
@@ -34971,6 +35138,226 @@
     [
       "Carico la sezione…",
       "Chargement de la section…"
+    ],
+    [
+      "Aggiorna da solo",
+      "Actualiser automatiquement"
+    ],
+    [
+      "Aggiornamento avviato",
+      "Mise à jour lancée"
+    ],
+    [
+      "Aggiornamento non riuscito",
+      "Échec de l'actualisation"
+    ],
+    [
+      "Ancora nessun evento registrato.",
+      "Aucun événement enregistré pour l'instant."
+    ],
+    [
+      "Applicare l'aggiornamento?",
+      "Appliquer la mise à jour ?"
+    ],
+    [
+      "Atena controlla da sola GitHub, installa solo le versioni che hanno superato i test e torna indietro se qualcosa non va.",
+      "Atena vérifie GitHub toute seule, n'installe que les versions qui ont passé les tests et revient en arrière si quelque chose ne va pas."
+    ],
+    [
+      "Atena tornerà disponibile tra qualche minuto.",
+      "Atena sera de nouveau disponible dans quelques minutes."
+    ],
+    [
+      "Atena verrà riavviata e, in caso di problemi, ripristinata automaticamente.",
+      "Atena va redémarrer et, en cas de problème, sera restaurée automatiquement."
+    ],
+    [
+      "Cambia",
+      "Changer"
+    ],
+    [
+      "Cambiare dove pensa Atena?",
+      "Changer l'endroit où Atena réfléchit ?"
+    ],
+    [
+      "Copia non riuscita: seleziona il testo a mano",
+      "Échec de la copie : sélectionnez le texte à la main"
+    ],
+    [
+      "Copiato negli appunti",
+      "Copié dans le presse-papiers"
+    ],
+    [
+      "Dove pensa Atena",
+      "Où Atena réfléchit"
+    ],
+    [
+      "I componenti necessari si installano in background.",
+      "Les composants nécessaires s'installent en arrière-plan."
+    ],
+    [
+      "L'interfaccia si ricollegherà automaticamente.",
+      "L'interface se reconnectera automatiquement."
+    ],
+    [
+      "Le modifiche vengono salvate in /etc/atena/atena.env e applicate automaticamente, riavviando solo i componenti interessati.",
+      "Les modifications sont enregistrées dans /etc/atena/atena.env et appliquées automatiquement, en redémarrant uniquement les composants concernés."
+    ],
+    [
+      "Le risposte arrivano dal servizio cloud configurato nello strumento Cloud.",
+      "Les réponses viennent du service cloud configuré dans l'outil Cloud."
+    ],
+    [
+      "Lo puoi reinstallare quando vuoi.",
+      "Vous pouvez le réinstaller quand vous voulez."
+    ],
+    [
+      "Niente da mostrare.",
+      "Rien à afficher."
+    ],
+    [
+      "Ogni step è idempotente: a ogni avvio viene verificato e riparato solo se necessario. «Riesegui» forza la reinstallazione del componente.",
+      "Chaque étape est idempotente : à chaque démarrage elle est vérifiée et réparée seulement si nécessaire. « Relancer » force la réinstallation du composant."
+    ],
+    [
+      "Pannello non disponibile",
+      "Panneau indisponible"
+    ],
+    [
+      "Plancia di {0}",
+      "Tableau de bord de {0}"
+    ],
+    [
+      "Registro",
+      "Journal"
+    ],
+    [
+      "Registro eventi",
+      "Journal des événements"
+    ],
+    [
+      "Riavviare il supervisore?",
+      "Redémarrer le superviseur ?"
+    ],
+    [
+      "Riavviare {0}?",
+      "Redémarrer {0} ?"
+    ],
+    [
+      "Rieseguire lo step «{0}»?",
+      "Relancer l'étape « {0} » ?"
+    ],
+    [
+      "Rimuovere il pacchetto?",
+      "Supprimer le paquet ?"
+    ],
+    [
+      "Sezioni",
+      "Sections"
+    ],
+    [
+      "Step avviato",
+      "Étape lancée"
+    ],
+    [
+      "Tipo di file non consentito",
+      "Type de fichier non autorisé"
+    ],
+    [
+      "Prima",
+      "D'abord"
+    ],
+    [
+      "Avvio n. {0}",
+      "Démarrage n° {0}"
+    ],
+    [
+      "fase attiva da {0}",
+      "phase active depuis {0}"
+    ],
+    [
+      "ultima risposta:",
+      "dernière réponse :"
+    ],
+    [
+      "dispositivo rilevato",
+      "appareil détecté"
+    ],
+    [
+      "pesante per questo computer",
+      "lourd pour cet ordinateur"
+    ],
+    [
+      "Rete linguistica",
+      "Réseau linguistique"
+    ],
+    [
+      "Memoria vettoriale",
+      "Mémoire vectorielle"
+    ],
+    [
+      "Schermo a tutto campo con volto, widget e lavagna",
+      "Écran plein cadre avec visage, widgets et tableau"
+    ],
+    [
+      "Atena ti risponde parlando, voce neurale offline",
+      "Atena vous répond à voix haute, voix neuronale hors ligne"
+    ],
+    [
+      "Ascolto",
+      "Écoute"
+    ],
+    [
+      "Ti ascolta dal microfono e risponde a «Ehi, Atena»",
+      "Vous écoute au micro et répond à « Hé, Atena »"
+    ],
+    [
+      "Riconosce chi ha davanti dalla webcam, tutto in locale",
+      "Reconnaît qui est devant la webcam, entièrement en local"
+    ],
+    [
+      "Crea e apre Word, Excel, PowerPoint e PDF",
+      "Crée et ouvre Word, Excel, PowerPoint et PDF"
+    ],
+    [
+      "Cartelle condivise",
+      "Dossiers partagés"
+    ],
+    [
+      "Cartelle visibili da Windows e Mac",
+      "Dossiers visibles depuis Windows et Mac"
+    ],
+    [
+      "Esegue in sicurezza il codice che Atena scrive",
+      "Exécute en sécurité le code écrit par Atena"
+    ],
+    [
+      "Componenti in Rust più veloci, con ritorno automatico a Python",
+      "Composants Rust plus rapides, avec retour automatique à Python"
+    ],
+    [
+      "Cervello locale",
+      "Cerveau local"
+    ],
+    [
+      "Modelli linguistici su questo computer con Ollama",
+      "Modèles de langage sur cet ordinateur avec Ollama"
+    ],
+    [
+      "Modelli del cervello",
+      "Modèles du cerveau"
+    ],
+    [
+      "Scarica e prepara i modelli scelti",
+      "Télécharge et prépare les modèles choisis"
+    ],
+    [
+      "ragionamento",
+      "raisonnement"
+    ],
+    [
+      "conversazione",
+      "conversation"
     ]
   ]
 }

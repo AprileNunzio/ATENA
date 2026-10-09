@@ -3,6 +3,7 @@ import { sparkline } from "../../components/charts.js";
 import { freshBadge } from "../../components/badge.js";
 import { allows } from "../../core/level.js";
 import { SERIES } from "./series.js";
+import { sectionHref } from "../section/section.js";
 
 const GB = 1024 ** 3;
 const gb = (bytes) => (bytes / GB).toLocaleString(document.documentElement.lang || "it", { maximumFractionDigits: 1 });
@@ -35,7 +36,7 @@ export function statTiles(sys) {
 
 export function todoPanel(todos) {
   const items = todos.length
-    ? todos.map((t) => h("li", {}, h("a", { class: "todo", href: !t.target ? `#/${t.zone}` : t.target.startsWith("f/") ? `#/tool/${t.target.slice(2)}` : `#/classic/${t.target}` },
+    ? todos.map((t) => h("li", {}, h("a", { class: "todo", href: t.target ? sectionHref(t.target) : `#/${t.zone}` },
       h("span", { class: `sev ${t.severity === "info" ? "" : t.severity}` }), h("span", { class: "todo-text" }, t.text),
       h("span", { class: "todo-go", "aria-hidden": "true" }, "→"))))
     : [h("li", { class: "todo-empty" }, h("span", { class: "sev ok" }), "Niente da fare: va tutto bene.")];

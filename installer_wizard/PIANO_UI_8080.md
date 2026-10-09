@@ -458,6 +458,7 @@ non si raggiunge la parità. Nessuna rottura per gli utenti esistenti.
 | Lingua predefinita e pulsante Esperto (segnalazione tester francese) | pubblicata | 4.1.50 |
 | Nexus in italiano, inglese e francese; Nexus predefinito su `/`, pannello classico su `/classic` | pubblicata | 4.1.51 |
 | Pannello completo nel Nexus: riquadro a misura di schermo, aspetto Nexus, modalità Espandi | pubblicata | 4.1.52 |
+| Plance native: kit, sezioni di sistema native (Panoramica, Aggiornamenti, Installazione, Pacchetti, Configurazione, Log, Eventi) | pubblicata | 4.1.53 |
 
 ### 7.2 Regola per rendere il Nexus predefinito
 

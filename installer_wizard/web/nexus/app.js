@@ -14,7 +14,7 @@ import { renderZone } from "./features/zone/zone.js";
 import { renderTool } from "./features/tool/tool.js";
 import { renderAwakening } from "./features/awakening/awakening.js";
 import { renderFlows } from "./features/flows/flows.js";
-import { classicSections, renderClassic } from "./features/classic/classic.js";
+import { renderSection, sections } from "./features/section/section.js";
 import { renderWidgets } from "./features/widgets/widgets.js";
 import { cachedWidgets, recall, widgets } from "./core/widgets.js";
 
@@ -26,7 +26,8 @@ function registerRoutes() {
   define("tool", renderTool);
   define("awakening", renderAwakening);
   define("flows", renderFlows);
-  define("classic", renderClassic);
+  define("section", renderSection);
+  define("classic", renderSection);
   define("widgets", renderWidgets);
   setFallback("home");
 }
@@ -42,8 +43,8 @@ function registerPalette() {
   addSource(() => (summary()?.tools || []).filter((t) => allows(t.level)).map((t) => ({
     glyph: t.icon, title: t.name, kind: t.badge === "new" ? "Strumento · Novità" : t.badge === "updated" ? "Strumento · Aggiornato" : "Strumento", keywords: `${t.description} ${t.id}`, run: () => go("tool", t.id),
   })));
-  addSource(() => classicSections().filter((s) => allows(s.zone.min)).map((s) => ({
-    glyph: s.zone.glyph, title: s.label, kind: `Sezione · ${s.zone.title}`, keywords: s.tab, run: () => go("classic", s.tab),
+  addSource(() => sections().filter((s) => allows(s.zone.min)).map((s) => ({
+    glyph: s.zone.glyph, title: s.label, kind: `Sezione · ${s.zone.title}`, keywords: s.tab, run: () => go("section", s.tab),
   })));
   addSource(() => cachedWidgets().map((w) => ({
     glyph: w.icon || "▣", title: w.name, kind: "Widget · mostra sul display", keywords: `widget ${w.description || ""} ${w.id}`,

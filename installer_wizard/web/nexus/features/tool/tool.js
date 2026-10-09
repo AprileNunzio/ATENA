@@ -11,17 +11,22 @@ import { settingsForm } from "./settings-form.js";
 import { wizardPanel } from "./wizard.js";
 import { zone } from "../shell/zones.js";
 import { classicFrame } from "../../components/classic-frame.js";
+import { hasPanel, nativePanel } from "../../components/native-panel.js";
 
 const TABS = [
-  { id: "guide", label: "Configura con me", min: "explorer" },
-  { id: "settings", label: "Impostazioni", min: "pilot" },
-  { id: "full", label: "Pannello completo", min: "explorer" },
-  { id: "advanced", label: "Avanzate", min: "architect" },
+  { id: "panel", label: "Plancia", min: "explorer", has: (tool) => Boolean(tool.panel) },
+  { id: "guide", label: "Configura con me", min: "explorer", has: (tool) => tool.wizard.length > 0 },
+  { id: "settings", label: "Impostazioni", min: "pilot", has: (tool) => tool.settings.length > 0 || !tool.panel },
+  { id: "advanced", label: "Avanzate", min: "architect", has: () => true },
 ];
 
-function initialTab(tool) {
-  if (!allows("pilot")) return tool.wizard.length ? "guide" : "full";
-  return tool.panel || !tool.settings.length ? "full" : "settings";
+const tabsOf = (tool) => {
+  const tabs = TABS.filter((t) => allows(t.min) && t.has(tool));
+  return tabs.length ? tabs : TABS.filter((t) => t.id === "settings");
+};
+
+function panelOf(tool) {
+  return hasPanel(tool.panel) ? nativePanel(tool.panel, { tool }) : classicFrame(tool.panel, `Plancia di ${tool.name}`);
 }
 
 export async function toggleFavorite(fid) {
@@ -37,7 +42,6 @@ function advanced(tool) {
     requires: tool.requires, hardware: tool.hardware, settings: Object.fromEntries(tool.settings.map((s) => [s.key, tool.values[s.key] ?? ""])) };
   return [
     h("pre", { class: "json" }, JSON.stringify(data, null, 2)),
-    h("div", { class: "chips" }, h("a", { class: "btn ghost", href: `/classic#f/${encodeURIComponent(tool.id)}` }, "Scheda nel pannello classico ↗")),
   ];
 }
 
@@ -65,7 +69,7 @@ export function renderTool(outlet, route) {
     }
     if (!view.isConnected) return;
     document.title = `${tool.name} · Atena Nexus`;
-    tab = tab || initialTab(tool);
+    tab = tab || tabsOf(tool)[0].id;
     paint(tool);
     if (tool.badge) { markSeen(freshKey(tool)); refresh().catch(() => {}); }
   }
@@ -87,10 +91,10 @@ export function renderTool(outlet, route) {
 
   function paint(tool) {
     const favorite = store.get().favorites.includes(tool.id);
-    const tabs = TABS.filter((t) => allows(t.min));
+    const tabs = tabsOf(tool);
     if (!tabs.some((t) => t.id === tab)) tab = tabs[0].id;
     const body = tab === "guide" ? wizardPanel(tool, after) : tab === "settings" ? settingsForm(tool, after)
-      : tab === "full" ? classicFrame(`f/${tool.id}`, `Pannello completo di ${tool.name}`) : advanced(tool);
+      : tab === "panel" ? panelOf(tool) : advanced(tool);
     mount(view,
       h("a", { class: "back", href: `#/${tool.zone === "tools" ? `tools/${tool.family}` : tool.zone}` }, "← ", tool.family_label || zone(tool.zone)?.title || "Indietro"),
       h("header", { class: "tool-hero panel" },
@@ -112,6 +116,7 @@ export function renderTool(outlet, route) {
         type: "button", role: "tab", "aria-selected": String(t.id === tab), "aria-pressed": String(t.id === tab),
         onclick: () => { tab = t.id; paint(tool); },
       }, t.label))),
-      h("div", { class: `panel${tab === "full" ? " panel-flush" : ""}`, role: "tabpanel" }, body));
+      tab === "panel" ? h("div", { class: `tool-plancia${hasPanel(tool.panel) ? "" : " panel panel-flush"}`, role: "tabpanel" }, body)
+        : h("div", { class: "panel", role: "tabpanel" }, body));
   }
 }

@@ -135,8 +135,9 @@ def from_python(text: str) -> list[str]:
 LITERAL_FILES = {"features/brain/roles.py", "features/brain/presets.py", "features/brain/components.py",
                  "features/nexus/domain/summary.py", "features/nexus/domain/zones.py", "features/nexus/domain/wizard.py",
                  "features/nexus/domain/preferences.py", "features/nexus/domain/awakening.py", "features/flows/domain/catalog.py",
-                 "features/flows/domain/draft.py", "features/flows/application/studio.py", "backend/feature_registry.py"}
-DICT_BLOCKS = {"backend/config.py": "EDITABLE_KEYS", "backend/feature_registry.py": "CATEGORIES", "backend/state.py": "PHASES"}
+                 "features/flows/domain/draft.py", "features/flows/application/studio.py", "backend/feature_registry.py",
+                 "backend/packages.py"}
+DICT_BLOCKS = {"backend/config.py": "EDITABLE_KEYS", "backend/feature_registry.py": "CATEGORIES", "backend/state.py": "PHASES", "backend/health.py": "COMPONENTS"}
 DICT_VALUE = re.compile(r"^\s*\"[A-Za-z0-9_]+\"\s*:\s*\"((?:[^\"\\]|\\.)+)\"", re.M)
 
 

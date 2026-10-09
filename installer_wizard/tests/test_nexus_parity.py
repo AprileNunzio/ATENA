@@ -13,14 +13,16 @@ ROOT = Path(__file__).resolve().parents[1]
 ADMIN = ROOT / "web" / "admin" / "admin.html"
 ZONES_JS = ROOT / "web" / "nexus" / "features" / "shell" / "zones.js"
 TOOL_JS = ROOT / "web" / "nexus" / "features" / "tool" / "tool.js"
+PANELS_DIR = ROOT / "web" / "nexus" / "panels"
+REGISTRY_JS = PANELS_DIR / "registry.js"
 HEADERS = {"X-Atena-Request": "1"}
 
 
 class NexusParityTest(unittest.TestCase):
     def test_every_classic_section_is_reachable_from_nexus(self):
-        classic_tabs = set(re.findall(r'data-tab="([a-z0-9_-]+)"', ADMIN.read_text(encoding="utf-8"))) - {"feature"}
+        classic_tabs = set(re.findall(r'data-tab="([a-z0-9_-]+)"', ADMIN.read_text(encoding="utf-8"))) - {"feature", "features"}
         linked = set(re.findall(r'\["([a-z0-9_/-]+)", "', ZONES_JS.read_text(encoding="utf-8")))
-        self.assertEqual(classic_tabs - linked, set(), "aggiungi queste schede a «classic» in web/nexus/features/shell/zones.js")
+        self.assertEqual(classic_tabs - linked, set(), "aggiungi queste schede a «sections» in web/nexus/features/shell/zones.js")
 
     def test_every_feature_tab_belongs_to_a_feature_with_a_full_panel(self):
         panels = {json.loads(p.read_text(encoding="utf-8")).get("panel") for p in (ROOT / "features").glob("*/feature.json")}
@@ -28,8 +30,20 @@ class NexusParityTest(unittest.TestCase):
             for tab in re.findall(r'id="tab-([a-z0-9_-]+)"', html.read_text(encoding="utf-8")):
                 self.assertIn(tab, panels, f"{html.parent.name}: la scheda «{tab}» non è collegata a nessun manifest")
         tool = TOOL_JS.read_text(encoding="utf-8")
-        self.assertIn('{ id: "full", label: "Pannello completo", min: "explorer" }', tool)
-        self.assertIn("classicFrame(`f/${tool.id}`", tool)
+        self.assertIn('{ id: "panel", label: "Plancia", min: "explorer", has: (tool) => Boolean(tool.panel) }', tool)
+        self.assertIn("hasPanel(tool.panel) ? nativePanel(tool.panel, { tool })", tool)
+
+    def test_native_panels_exist_and_export_a_renderer(self):
+        entries = re.findall(r'^  ([a-z0-9_]+): \(\) => import\("\./([a-z0-9_/]+\.js)"\),$', REGISTRY_JS.read_text(encoding="utf-8"), re.M)
+        self.assertGreaterEqual(len(entries), 7)
+        for panel, path in entries:
+            source = (PANELS_DIR / path).read_text(encoding="utf-8")
+            self.assertRegex(source, r"export default function [a-z0-9_]+\(root", panel)
+            self.assertNotIn("innerHTML", source, panel)
+
+    def test_system_sections_are_native(self):
+        native = set(re.findall(r'^  ([a-z0-9_]+): \(\) =>', REGISTRY_JS.read_text(encoding="utf-8"), re.M))
+        self.assertLessEqual({"overview", "updates", "config", "logs", "events", "steps", "packages"}, native)
 
     def test_every_feature_has_a_zone(self):
         for path in (ROOT / "features").glob("*/feature.json"):
