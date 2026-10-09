@@ -4,6 +4,8 @@ import { LEVELS, allows, applyLevel, cachedLevel, chooseLevel } from "./core/lev
 import { define, go, setFallback, start, view } from "./core/router.js";
 import { store } from "./core/store.js";
 import { fail, toast } from "./core/toast.js";
+import { startSummary, summary } from "./core/summary.js";
+import { classicHref } from "./components/tool-card.js";
 import { addSource, installShortcut } from "./components/palette.js";
 import { renderLogin } from "./features/login/login.js";
 import { createShell } from "./features/shell/shell.js";
@@ -27,6 +29,9 @@ function registerPalette() {
     glyph: "◍", title: `Passa al livello ${l.label}`, kind: "Azione", keywords: `livello ${l.hint}`,
     run: () => chooseLevel(l.id).then(() => toast(`Livello ${l.label}`)).catch(fail),
   })));
+  addSource(() => (summary()?.tools || []).filter((t) => allows(t.level)).map((t) => ({
+    glyph: t.icon, title: t.name, kind: "Strumento", keywords: `${t.description} ${t.id}`, run: () => location.assign(classicHref(t)),
+  })));
   addSource(() => [{ glyph: "▤", title: "Apri il pannello classico", kind: "Azione", keywords: "vecchio admin", run: () => location.assign("/") }]);
 }
 
@@ -44,6 +49,7 @@ async function enter(user) {
   store.set({ user });
   await loadPreferences();
   const shell = createShell(root);
+  startSummary().catch(fail);
   stream("/api/stream", (snapshot) => store.set({ snapshot }), (link) => store.set({ link }));
   start((route) => shell.show(route, view(route.id)));
 }

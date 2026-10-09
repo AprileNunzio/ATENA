@@ -8,7 +8,7 @@ from access import NO_CACHE, require_admin
 from config import PUBLIC_PORT
 
 from features.nexus import page
-from features.nexus.composition import preferences
+from features.nexus.composition import preferences, summary
 
 admin_routes = APIRouter()
 MAX_BODY = 4096
@@ -48,3 +48,8 @@ async def nexus_preferences_update(request: Request, user: str = Depends(require
     except ValueError as exc:
         raise HTTPException(400, str(exc))
     return JSONResponse(updated.as_dict(), headers=NO_CACHE)
+
+
+@admin_routes.get("/api/nexus/summary")
+async def nexus_summary(_: str = Depends(require_admin)):
+    return JSONResponse(summary.build(), headers=NO_CACHE)

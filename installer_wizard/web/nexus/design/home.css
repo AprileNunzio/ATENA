@@ -1,14 +1,41 @@
 .home-hero { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 28px; align-items: center; }
 .home-orb { width: 220px; }
 body[data-level="explorer"] .home-orb { width: 320px; }
-.home-say { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 3vw, 32px); line-height: 1.2; margin: 8px 0 12px; }
-.level-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-.level-card { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; text-align: left; padding: 20px; border-radius: 18px; border: 1px solid var(--line); background: rgba(8, 18, 32, 0.55); cursor: pointer; transition: border-color 0.2s, transform 0.2s; }
-.level-card:hover { transform: translateY(-2px); border-color: var(--line-strong); }
-.level-card[aria-pressed="true"] { border-color: var(--cyan); background: var(--cyan-soft); box-shadow: 0 0 26px rgba(41, 224, 255, 0.18); }
-.level-card b { font-family: var(--display); font-size: 18px; font-weight: 600; }
-.level-card span { color: var(--text-dim); font-size: 13px; }
+.home-say { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 3vw, 32px); line-height: 1.2; margin: 8px 0 14px; }
+.ready { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.ready-copy { color: var(--text-dim); }
+.kid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+.kid button { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; text-align: left; padding: 22px; border-radius: 20px; border: 1px solid var(--line-strong); background: linear-gradient(160deg, rgba(41, 224, 255, 0.12), rgba(169, 139, 255, 0.08)); cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
+.kid button:hover { transform: translateY(-3px); box-shadow: 0 10px 40px rgba(41, 224, 255, 0.15); }
+.kid .kg { font-size: 34px; color: var(--cyan); font-family: var(--mono); line-height: 1; }
+.kid b { font-family: var(--display); font-size: 20px; font-weight: 600; }
+.kid span { color: var(--text-dim); }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+.stat-v { font-family: var(--display); font-size: 30px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.stat-v small { font-size: 14px; color: var(--text-dim); margin-left: 4px; }
+.stat-note { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+.spark { width: 100%; height: 38px; display: block; margin-top: 8px; }
+.spark-line { fill: none; stroke: var(--cyan); stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+.spark-fill { fill: rgba(41, 224, 255, 0.12); stroke: none; }
+.spark-dot { fill: var(--cyan); }
+.skeleton-tile .skeleton { height: 96px; }
+.cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px; }
+.todos, .feed { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.todo { display: flex; gap: 12px; align-items: center; padding: 11px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(8, 18, 32, 0.5); color: var(--text); text-decoration: none; }
+.todo:hover { border-color: var(--line-strong); }
+.todo-text { min-width: 0; overflow-wrap: anywhere; }
+.todo-go { margin-left: auto; color: var(--cyan); font-family: var(--mono); }
+.todo-empty { display: flex; gap: 12px; align-items: center; color: var(--text-dim); padding: 11px 12px; }
+.feed li { display: grid; grid-template-columns: 48px 10px minmax(0, 1fr); gap: 10px; align-items: baseline; }
+.feed time { font-family: var(--mono); font-size: 12px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.feed-msg { overflow-wrap: anywhere; }
+.tbl-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); }
+th { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-faint); font-weight: 400; }
+.cell-detail { max-width: 420px; overflow-wrap: anywhere; }
 @media (max-width: 820px) {
   .home-hero { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; }
   .home-orb, body[data-level="explorer"] .home-orb { width: 220px; }
+  .ready { justify-content: center; }
 }
