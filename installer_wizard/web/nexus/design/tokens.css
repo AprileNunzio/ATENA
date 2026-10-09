@@ -1,0 +1,25 @@
+:root {
+  --bg: #03070e;
+  --bg-2: #071222;
+  --panel: rgba(12, 27, 47, 0.66);
+  --panel-solid: #0a1828;
+  --line: rgba(96, 206, 255, 0.15);
+  --line-strong: rgba(96, 206, 255, 0.38);
+  --text: #dcf4ff;
+  --text-dim: #8aaabd;
+  --text-faint: #58778a;
+  --cyan: #29e0ff;
+  --cyan-soft: rgba(41, 224, 255, 0.13);
+  --violet: #a98bff;
+  --violet-soft: rgba(169, 139, 255, 0.1);
+  --green: #3dffa8;
+  --amber: #ffb547;
+  --red: #ff4d6a;
+  --radius: 16px;
+  --radius-sm: 10px;
+  --display: "Chakra Petch", "Orbitron", "Rajdhani", "Exo 2", "Segoe UI", "Noto Sans", system-ui, sans-serif;
+  --body: "Inter", "Segoe UI", "Noto Sans", "DejaVu Sans", system-ui, sans-serif;
+  --mono: "JetBrains Mono", "DejaVu Sans Mono", "Consolas", monospace;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: dark;
+}

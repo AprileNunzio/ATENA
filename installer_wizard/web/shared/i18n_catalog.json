@@ -15575,6 +15575,14 @@
     [
       "Messaggio urgente su: {0}",
       "Urgent message on: {0}"
+    ],
+    [
+      "Atteso un oggetto JSON",
+      "A JSON object was expected"
+    ],
+    [
+      "Nexus (nuovo)",
+      "Nexus (new)"
     ]
   ],
   "reverse": [
@@ -30814,6 +30822,14 @@
     [
       "Messaggio urgente su: {0}",
       "Message urgent sur : {0}"
+    ],
+    [
+      "Atteso un oggetto JSON",
+      "Un objet JSON était attendu"
+    ],
+    [
+      "Nexus (nuovo)",
+      "Nexus (nouveau)"
     ]
   ]
 }

@@ -22,11 +22,11 @@ checksum = "683d7910e743518b0e34f1186f92494becacb047c7b6bf616c96772180fef923"
 
 [[package]]
 name = "atena-bus-core"
-version = "4.1.42"
+version = "4.1.43"
 
 [[package]]
 name = "atena-egress"
-version = "4.1.42"
+version = "4.1.43"
 dependencies = [
  "landlock",
  "serde",
@@ -36,14 +36,14 @@ dependencies = [
 
 [[package]]
 name = "atena-langid"
-version = "4.1.42"
+version = "4.1.43"
 dependencies = [
  "whatlang",
 ]
 
 [[package]]
 name = "atena-native"
-version = "4.1.42"
+version = "4.1.43"
 dependencies = [
  "atena-bus-core",
  "atena-langid",
@@ -52,7 +52,7 @@ dependencies = [
 
 [[package]]
 name = "atena-netguard"
-version = "4.1.42"
+version = "4.1.43"
 dependencies = [
  "serde",
  "serde_json",

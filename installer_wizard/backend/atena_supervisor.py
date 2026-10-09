@@ -129,6 +129,7 @@ from features.rpa import api as rpa_api
 from features.nvr import api as nvr_api
 from features.nvr.service import nvr as nvr_service
 from features.scene import api as scene_api
+from features.nexus import api as nexus_api
 from features.scene.service import scene as scene_service
 from features.twin import api as twin_api
 from features.vision.webcams import webcams
@@ -211,6 +212,7 @@ FEATURE_APIS = (
     nvr_api,
     twin_api,
     scene_api,
+    nexus_api,
 )
 
 
@@ -219,7 +221,7 @@ def build(admin: bool) -> FastAPI:
     app = FastAPI(title=title, docs_url=None, redoc_url=None, openapi_url=None)
     body_errors.install(app)
     if admin:
-        pages.mount_static(app, "shared", "admin")
+        pages.mount_static(app, "shared", "admin", "nexus")
     else:
         pages.mount_static(app, "shared", "display", "monitor", "screen", "setup")
 
