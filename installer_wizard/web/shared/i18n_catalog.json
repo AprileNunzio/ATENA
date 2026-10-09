@@ -14455,6 +14455,26 @@
     [
       "lingua {0} non disponibile",
       "language {0} not available"
+    ],
+    [
+      "Atena lavora da sola: esegue i compiti programmati, controlla e diagnostica i guasti, impara ciò che non sapeva fare e ogni sera ti manda il riepilogo. Le azioni delicate aspettano la tua approvazione, una sola volta se scegli «Approva sempre».",
+      "Atena works on her own: she runs scheduled tasks, checks and diagnoses faults, learns what she could not do and sends you an evening summary. Sensitive actions wait for your approval, only once if you choose «Always approve»."
+    ],
+    [
+      "Diagnosi solo in lettura senza approvazioni, nessuna richiesta doppia, rifiuti ricordati per 24 ore e azioni approvate per sempre revocabili",
+      "Read-only diagnosis without approvals, no duplicate requests, rejections remembered for 24 hours and revocable «always approve» actions"
+    ],
+    [
+      "Le diagnosi automatiche usano solo la sola lettura e non chiedono mai nulla; un rifiuto vale 24 ore.",
+      "Automatic diagnoses are read-only and never ask anything; a rejection lasts 24 hours."
+    ],
+    [
+      "Questa stessa azione non verrà più chiesta",
+      "This same action will not be asked again"
+    ],
+    [
+      "✅ Azioni che Atena fa senza chiedere ({0})",
+      "✅ Actions Atena does without asking ({0})"
     ]
   ],
   "reverse": [
@@ -28558,6 +28578,26 @@
     [
       "lingua {0} non disponibile",
       "langue {0} non disponible"
+    ],
+    [
+      "Atena lavora da sola: esegue i compiti programmati, controlla e diagnostica i guasti, impara ciò che non sapeva fare e ogni sera ti manda il riepilogo. Le azioni delicate aspettano la tua approvazione, una sola volta se scegli «Approva sempre».",
+      "Atena travaille seule : elle réalise les tâches programmées, vérifie et diagnostique les pannes, apprend ce qu'elle ne savait pas faire et vous envoie la synthèse chaque soir. Les actions sensibles attendent votre approbation, une seule fois si vous choisissez « Toujours approuver »."
+    ],
+    [
+      "Diagnosi solo in lettura senza approvazioni, nessuna richiesta doppia, rifiuti ricordati per 24 ore e azioni approvate per sempre revocabili",
+      "Diagnostic en lecture seule sans approbation, aucune demande en double, refus mémorisés 24 heures et actions « toujours approuver » révocables"
+    ],
+    [
+      "Le diagnosi automatiche usano solo la sola lettura e non chiedono mai nulla; un rifiuto vale 24 ore.",
+      "Les diagnostics automatiques sont en lecture seule et ne demandent jamais rien ; un refus vaut 24 heures."
+    ],
+    [
+      "Questa stessa azione non verrà più chiesta",
+      "Cette même action ne sera plus demandée"
+    ],
+    [
+      "✅ Azioni che Atena fa senza chiedere ({0})",
+      "✅ Actions qu'Atena fait sans demander ({0})"
     ]
   ]
 }

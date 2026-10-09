@@ -100,15 +100,16 @@ class Agent:
         store.event("INFO", f"Agente · {name}: {result[:140]}", "agent")
 
     async def run(self, request: str, steps: list[dict] | None = None, auto: str = "", trusted: bool = False,
-                  routine: str = "") -> str:
+                  routine: str = "", readonly: bool = False) -> str:
         token = act_as(SYSTEM) if auto else None
         try:
-            return await self._run(request, steps, auto, trusted, routine)
+            return await self._run(request, steps, auto, trusted, routine, readonly)
         finally:
             if token is not None:
                 current.reset(token)
 
-    async def _run(self, request: str, steps: list[dict] | None, auto: str, trusted: bool, routine: str) -> str:
+    async def _run(self, request: str, steps: list[dict] | None, auto: str, trusted: bool, routine: str,
+                   readonly: bool = False) -> str:
         steps = [] if steps is None else steps
         self.last_steps = steps
         registry.REQUEST.set(request)
@@ -128,16 +129,40 @@ class Agent:
             if not decision.allowed:
                 return gate.refusal(decision)
             if registry.needs_confirm(name, args) and not (auto and trusted):
+                problem = registry.precheck(name, args)
+                if problem:
+                    steps.append({"tool": name, "args": registry.clean_args(name, args), "result": f"ERRORE: {problem}"})
+                    continue
                 if auto:
-                    from features.autonomy import approvals
-                    item = approvals.add(auto, _summary(name, args), request, steps, name, args, routine)
-                    await self.on_approval(item)
-                    return f"In attesa della sua approvazione, signore: {_summary(name, args)}."
+                    verdict = await self._automatic(name, args, request, steps, auto, routine, readonly)
+                    if verdict is None:
+                        continue
+                    return verdict
                 self.pending[session_key()] = {"request": request, "steps": steps, "tool": name, "args": args, "at": time.time()}
                 return f"Prima di procedere: {_summary(name, args)}. Confermi?"
             await self._execute(name, args, steps)
         done = [s for s in steps if not s["result"].startswith(("ERRORE", "NEGATO"))]
         return f"Ho eseguito {len(done)} passi ma non ho finito del tutto: ripetimi cosa manca."
+
+    async def _automatic(self, name: str, args: dict, request: str, steps: list[dict], auto: str, routine: str,
+                         readonly: bool) -> str | None:
+        from features.autonomy import approvals
+        from features.autonomy.trust import book
+        if readonly:
+            steps.append({"tool": name, "args": registry.clean_args(name, args),
+                          "result": "NEGATO: in diagnosi si usano solo strumenti di sola lettura, senza modificare nulla"})
+            return None
+        if book.trusted(name, args):
+            await self._execute(name, args, steps)
+            return None
+        if book.rejected(name, args):
+            steps.append({"tool": name, "args": registry.clean_args(name, args),
+                          "result": "NEGATO: azione rifiutata di recente dal proprietario, non la ripropongo"})
+            return None
+        item = approvals.add(auto, _summary(name, args), request, steps, name, args, routine)
+        if not item.get("existing"):
+            await self.on_approval(item)
+        return f"In attesa della sua approvazione, signore: {_summary(name, args)}."
 
     async def on_approval(self, item: dict) -> None:
         pass

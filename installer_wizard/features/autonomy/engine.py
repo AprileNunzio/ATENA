@@ -9,6 +9,7 @@ from state import store
 
 from features.agent.agent import agent
 from features.autonomy import approvals, journal
+from features.autonomy.trust import book
 from features.autonomy.routines import routines
 
 log = logging.getLogger("atena.autonomy")
@@ -59,12 +60,16 @@ class Autonomy:
 
     async def approve(self, aid: str, yes: bool, always: bool = False) -> str:
         item = approvals.take(aid)
-        if yes and always and item.get("routine"):
-            try:
-                routines.update(item["routine"], trusted=True)
-                item["trusted"] = True
-            except KeyError:
-                pass
+        if not yes:
+            book.reject(item["tool"], item["args"])
+        if yes and always:
+            book.trust(item["tool"], item["args"], item["title"], item["summary"])
+            item["trusted"] = True
+            if item.get("routine"):
+                try:
+                    routines.update(item["routine"], trusted=True)
+                except KeyError:
+                    journal.write("approvazione", item["title"], "Il compito programmato non esiste più: fiducia salvata solo per questa azione")
         from features.desktop.desk import desk
         desk.hide(key=f"approval:{aid}")
         async with self.lock:
@@ -107,7 +112,7 @@ class Autonomy:
             prompt = DIAGNOSE.format(label=comp.get("label", key), status=status, detail=comp.get("detail", ""),
                                      minutes=int((now - comp.get("since", now)) / 60))
             async with self.lock:
-                result = await agent.run(prompt, steps, auto=f"Diagnosi: {comp.get('label', key)}")
+                result = await agent.run(prompt, steps, auto=f"Diagnosi: {comp.get('label', key)}", readonly=True)
             journal.write("diagnosi", comp.get("label", key), result, steps)
             await self.tell(f"🩺 {comp.get('label', key)} non funziona da un po'. {result}", icon="🩺")
 

@@ -1,10 +1,11 @@
 {
   "name": "Cognitive Autonomy",
-  "description": "Background proactive initiative: periodic environment sweeps, anomaly resolution, and autonomous maintenance routines.",
+  "description": "Atena works on her own: she runs scheduled tasks, checks and diagnoses faults, learns what she could not do and sends you an evening summary. Sensitive actions wait for your approval, only once if you choose «Always approve».",
   "capabilities": [
     "Proactive periodic sweeps",
     "Autonomous anomaly detection and resolution",
-    "Configurable operational safety limits"
+    "Configurable operational safety limits",
+    "Read-only diagnosis without approvals, no duplicate requests, rejections remembered for 24 hours and revocable «always approve» actions"
   ],
   "settings": {
     "ATENA_AUTONOMY_LEVEL": "Autonomy level",

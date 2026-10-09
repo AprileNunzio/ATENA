@@ -14,10 +14,11 @@ def asked_for_recurring() -> bool:
     return not request or bool(RECURRING.search(request))
 
 
-def tool(name: str, description: str, args: dict, confirm=False, full_only: bool = False, agent: str = "", verify=None):
+def tool(name: str, description: str, args: dict, confirm=False, full_only: bool = False, agent: str = "", verify=None,
+         precheck=None):
     def wrap(fn):
         TOOLS[name] = {"name": name, "description": description, "args": args, "fn": fn, "confirm": confirm,
-                       "full_only": full_only, "agent": agent, "verify": verify}
+                       "full_only": full_only, "agent": agent, "verify": verify, "precheck": precheck}
         return fn
     return wrap
 
@@ -59,6 +60,17 @@ def needs_confirm(name: str, args: dict) -> bool:
         except Exception:
             return True
     return bool(rule)
+
+
+def precheck(name: str, args: dict) -> str:
+    check = TOOLS[name].get("precheck")
+    if not check:
+        return ""
+    try:
+        check(args if isinstance(args, dict) else {})
+    except (ValueError, TypeError, PermissionError, KeyError) as exc:
+        return str(exc)[:200] or type(exc).__name__
+    return ""
 
 
 async def run(name: str, args: dict) -> str:

@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 
 from access import require_admin
 from features.autonomy import approvals, journal
+from features.autonomy.trust import book
 from features.autonomy.engine import autonomy, enabled
 from features.autonomy.routines import describe, parse_when, routines
 from tasks import background
@@ -14,9 +15,17 @@ def _view(r: dict) -> dict:
     return {**r, "when_text": describe(r.get("when") or {})}
 
 
+def _still_possible(item: dict) -> bool:
+    from features.agent import registry
+    return item.get("tool") in registry.TOOLS and not registry.precheck(item["tool"], item.get("args") or {})
+
+
 @admin_routes.get("/api/autonomy")
 async def overview(_: str = Depends(require_admin)):
-    return {"enabled": enabled(), "status": autonomy.status, "last_autopilot": autonomy.last_autopilot,
+    dropped = approvals.prune(_still_possible)
+    if dropped:
+        journal.write("approvazione", "Pulizia", f"Tolte {dropped} richieste che non si potevano comunque eseguire")
+    return {"trusted": book.rules(), "enabled": enabled(), "status": autonomy.status, "last_autopilot": autonomy.last_autopilot,
             "routines": [_view(r) for r in routines.all()],
             "approvals": [{k: v for k, v in a.items() if k != "steps"} for a in approvals.pending()],
             "journal": journal.recent(80)}
@@ -80,4 +89,11 @@ async def decide(aid: str, request: Request, _: str = Depends(require_admin)):
 @admin_routes.post("/api/autonomy/autopilot")
 async def autopilot_now(_: str = Depends(require_admin)):
     background(autonomy.autopilot())
+    return {"ok": True}
+
+
+@admin_routes.delete("/api/autonomy/trust/{rule_id}")
+async def revoke_trust(rule_id: str, _: str = Depends(require_admin)):
+    if not book.revoke(rule_id):
+        raise HTTPException(404, "Regola sconosciuta")
     return {"ok": True}

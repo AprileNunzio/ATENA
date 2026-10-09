@@ -10,8 +10,14 @@
     ap.hidden = !d.approvals.length;
     ap.innerHTML = `<div class="panel-title">🔐 Aspettano la tua approvazione (${d.approvals.length})</div>` + d.approvals.map((a) =>
       `<div class="au-item" data-ap="${fmt.esc(a.id)}"><div><b>${fmt.esc(a.title)}</b><div>${fmt.esc(a.summary)}</div>
-        <div class="faint">${when(a.at)}</div></div><div class="actions"><button class="btn sm primary" data-yes>Approva</button>${a.routine ? '<button class="btn sm" data-always>Approva sempre</button>' : ""}
+        <div class="faint">${when(a.at)}</div></div><div class="actions"><button class="btn sm primary" data-yes>Approva</button><button class="btn sm" data-always title="Questa stessa azione non verrà più chiesta">Approva sempre</button>
         <button class="btn sm danger" data-no>Rifiuta</button></div></div>`).join("");
+    const tr = $("au-trust");
+    tr.hidden = !d.trusted.length;
+    tr.innerHTML = `<div class="panel-title">✅ Azioni che Atena fa senza chiedere (${d.trusted.length})</div>
+      <div class="muted-note">Le diagnosi automatiche usano solo la sola lettura e non chiedono mai nulla; un rifiuto vale 24 ore.</div>` + d.trusted.map((t) =>
+      `<div class="au-item" data-trust="${fmt.esc(t.id)}"><div><b>${fmt.esc(t.title)}</b><div>${fmt.esc(t.summary)}</div><div class="faint">${when(t.at)}</div></div>
+        <div class="actions"><button class="btn sm" data-revoke>Revoca</button></div></div>`).join("");
     $("au-list").innerHTML = d.routines.map((r) => `<div class="au-item ${r.enabled ? "" : "off"}" data-r="${fmt.esc(r.id)}">
         <div><b>${fmt.esc(r.title)}</b> <span class="badge">${fmt.esc(r.when_text)}</span>${r.trusted ? ' <span class="badge ok" title="Esegue anche email e azioni delicate senza chiedere">autorizzato</span>' : ""}
           <div class="faint">${fmt.esc(r.prompt)}</div>
@@ -47,6 +53,12 @@
         if (e.target.closest("[data-toggle]")) { await A.api("PUT", url, { enabled: item.classList.contains("off") }); load(); }
         if (e.target.closest("[data-del]") && confirm("Eliminare il compito?")) { await A.api("DELETE", url); load(); }
       } catch (err) { A.toast(err.message, true); }
+    });
+    $("au-trust").addEventListener("click", async (e) => {
+      const item = e.target.closest("[data-trust]");
+      if (!item || !e.target.closest("[data-revoke]")) return;
+      try { await A.api("DELETE", `/api/autonomy/trust/${encodeURIComponent(item.dataset.trust)}`); A.toast("Ora chiederà di nuovo l'approvazione"); load(); }
+      catch (err) { A.toast(err.message, true); }
     });
     $("au-approvals").addEventListener("click", async (e) => {
       const item = e.target.closest("[data-ap]"); if (!item) return;
