@@ -4,7 +4,7 @@ import time
 from state import store
 
 from features.agent import registry, tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_packages, tools_rpa, tools_system
-from features.agent.paths import FILES, AccessDenied, level
+from features.agent.paths import FILES, AccessDenied, layout, level
 from features.automations import tools as tools_automations
 from features.documents import tools as tools_documents
 from features.firewall import tools as tools_firewall
@@ -19,6 +19,7 @@ from features.forge import tools as tools_forge
 from features.team import runner
 from features.team import tools as tools_team
 from features.team.board import board
+from features.shares import archive
 from features.whiteboard import tools as tools_whiteboard
 
 MODULES = (tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_packages, tools_rpa, tools_system, tools_autonomy, tools_automations, tools_documents, tools_team, tools_forge, tools_whiteboard, tools_firewall, tools_vpn, tools_proxmox)
@@ -30,6 +31,9 @@ RULES = (
     "Strumenti disponibili (ogni strumento appartiene a un agente della squadra; per cosa sa fare un agente usa agent_info, "
     "per passare un compito a un altro agente usa agent_ask o agent_tell):\n{tools}\n\n{team}\n\n"
     "Cartella di lavoro: {files} (i percorsi relativi partono da qui).\n"
+    "Cartella condivisa: {share}, con le sottocartelle {layout}. I file lasciati dagli utenti di solito sono in "
+    "«05 Scambio»: un percorso che inizia con il nome di una sottocartella (per esempio «Scambio/offerta.docx») "
+    "punta lì; se non sai dove si trova un file cercalo con find_files.\n"
     "Rispondi SEMPRE e SOLO con un oggetto JSON, uno di questi due:\n"
     '{{"tool": "nome_strumento", "args": {{...}}}}  per usare UNO strumento e vederne l\'esito;\n'
     '{{"answer": "frase finale breve in italiano, da dire a voce, dando del Lei e chiamando «signore» chi parla"}}  quando hai finito, oppure per chiedere '
@@ -79,7 +83,8 @@ class Agent:
                             for i, s in enumerate(steps))
         prompt = f"Richiesta: {request}\n\n" + (f"Passi già eseguiti:\n{history}\n\nProssima mossa?" if steps else "Prima mossa?")
         reply = await generate(prompt, as_json=True, max_tokens=900, temperature=0.1, kind="deep",
-                               system=RULES.format(tools=await self.tools(request), files=FILES, team=board.digest()), timeout=240)
+                               system=RULES.format(tools=await self.tools(request), files=FILES, share=archive.ROOT,
+                                                  layout=layout(), team=board.digest()), timeout=240)
         return reply if isinstance(reply, dict) else {}
 
     async def _execute(self, name: str, args: dict, steps: list[dict]) -> None:

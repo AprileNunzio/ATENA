@@ -8,7 +8,8 @@ YES = re.compile(r"^\s*(s[iì]|certo|confermo|conferma|procedi|vai|ok|okay|va be
 NO = re.compile(r"^\s*(no|annulla|lascia stare|ferma|stop|non farlo|aspetta)\b", re.I)
 VERB = (r"(crea|creami|scrivi|scrivimi|salva|apri|aprimi|mostra|mostrami|invia|inviami|manda|mandami|spedisci|sposta"
         r"|copia|rinomina|cancella|elimina|avvia|esegui|lancia|imposta|metti|mettiti|togli|togliti|cambia|condividi"
-        r"|comprimi|zippa|scarica|prepara|organizza|leggi|leggimi|elenca|trova|cerca|fai|fammi|chiudi|archivia)")
+        r"|comprimi|zippa|scarica|prepara|organizza|leggi|leggimi|elenca|trova|trovami|cerca|cercami|fai|fammi|chiudi"
+        r"|archivia|modifica|correggi|aggiorna|riassumi|riassumimi|aggiungi)")
 STRONG = re.compile(
     rf"\b{VERB}\w*\b.*\b(e-?mail|mail|posta elettronica|smb|condivis\w*|cartella di rete|allega\w*|zip)\b"
     rf"|\b{VERB}\w*\b[^.?!]*\b(e|poi|quindi|dopo)\s+{VERB}\w*"
@@ -25,7 +26,8 @@ ALWAYS = re.compile(r"\b(sempre|d'ora in poi|ogni volta)\b", re.I)
 REJECT = re.compile(r"^\s*((?:ehi[, ]+)?(?:atena|athena)[, ]+)?(rifiuta|rifiuto|non approv\w+|nega)\b", re.I)
 WEAK = re.compile(
     rf"^\s*((?:ehi[, ]+)?(?:atena|athena)[, ]+)?(per favore\s+)?{VERB}\w*\b.*\b(file|cartell\w*|directory|documento|progetto|widget|schermo"
-    r"|modello|ologramma|avatar|comando|archivio|pagina|percorso|server)\b", re.I)
+    r"|modello|ologramma|avatar|comando|archivio|pagina|percorso|server|scambio|condivis\w*|pdf|docx|xlsx|pptx|excel"
+    r"|word|foglio)\b", re.I)
 
 
 def enabled() -> bool:

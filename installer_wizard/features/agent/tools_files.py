@@ -1,13 +1,17 @@
+import fnmatch
+import os
 import shutil
 import time
 import zipfile
 from pathlib import Path
 
 from features.agent.paths import FILES, TRASH, resolve, trusted
+from features.agent.readers import text_of
 from features.agent.registry import tool
 from features.shares import archive
 
 TEXT_LIMIT = 8000
+FIND_LIMIT = 100
 
 
 def _size(n: int) -> str:
@@ -32,10 +36,12 @@ async def list_dir(path: str = "") -> str:
     return f"{p}:\n" + ("\n".join(rows) or "(vuota)")
 
 
-@tool("read_file", "legge un file di testo", {"path": "file"})
+@tool("read_file", "legge un file: testo, Word (.docx), Excel (.xlsx), PowerPoint (.pptx) o PDF", {"path": "file"})
 async def read_file(path: str) -> str:
     p = resolve(path)
-    data = p.read_text(encoding="utf-8", errors="replace")
+    if not p.is_file():
+        return f"{p} non esiste o non è un file: cercalo prima con find_files"
+    data = await text_of(p)
     return data[:TEXT_LIMIT] + ("\n…(troncato)" if len(data) > TEXT_LIMIT else "")
 
 
@@ -104,11 +110,24 @@ async def zip_path(path: str, dst: str = "") -> str:
     return f"archivio creato: {out} ({_size(out.stat().st_size)})"
 
 
-@tool("find_files", "cerca file per nome (es. *.stl) in una cartella", {"pattern": "schema", "root": "cartella (facoltativa)"})
+def matcher(pattern: str):
+    wanted = str(pattern or "*").strip().lower()
+    if not any(c in wanted for c in "*?["):
+        wanted = f"*{wanted}*"
+    return lambda name: fnmatch.fnmatch(name.lower(), wanted)
+
+
+@tool("find_files", "cerca file e cartelle per nome, senza distinguere maiuscole (es. preventivo, *.stl) in tutta la "
+      "cartella condivisa o in una cartella", {"pattern": "nome o schema", "root": "cartella (facoltativa)"})
 async def find_files(pattern: str, root: str = "") -> str:
-    base = resolve(root or str(FILES))
-    found = [str(x) for _, x in zip(range(100), base.rglob(pattern or "*"))]
-    return "\n".join(found) or "nessun file trovato"
+    base = resolve(root or str(archive.ROOT))
+    hit, found = matcher(pattern), []
+    for folder, dirs, files in os.walk(base):
+        dirs[:] = sorted(d for d in dirs if not d.startswith("."))
+        found += [os.path.join(folder, n) for n in sorted(dirs + files) if hit(n)]
+        if len(found) >= FIND_LIMIT:
+            break
+    return "\n".join(found[:FIND_LIMIT]) or f"nessun file trovato in {base}"
 
 
 @tool("file_info", "dimensione e data di un file", {"path": "percorso"})
