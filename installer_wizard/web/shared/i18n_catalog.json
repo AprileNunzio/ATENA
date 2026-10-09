@@ -12971,6 +12971,26 @@
     [
       "in lockdown rispondi al ping",
       "in lockdown answer ping"
+    ],
+    [
+      "Analisi del traffico per il firewall (1 = attiva, 0 = spenta)",
+      "Traffic analysis for the firewall (1 = on, 0 = off)"
+    ],
+    [
+      "Interfacce analizzate dal firewall (es. eth0, wlan0; vuoto = tutte quelle ethernet e wifi)",
+      "Interfaces analysed by the firewall (e.g. eth0, wlan0; empty = every ethernet and wifi one)"
+    ],
+    [
+      "IP del router di casa, che il firewall non bloccherà mai",
+      "Home router IP, which the firewall will never block"
+    ],
+    [
+      "Analisi del traffico",
+      "Traffic analysis"
+    ],
+    [
+      "Motore Rust che analizza ethernet e wifi per il firewall di Atena",
+      "Rust engine analysing ethernet and wifi for Atena's firewall"
     ]
   ],
   "reverse": [
@@ -25576,6 +25596,26 @@
     [
       "in lockdown rispondi al ping",
       "en verrouillage, répondre au ping"
+    ],
+    [
+      "Analisi del traffico per il firewall (1 = attiva, 0 = spenta)",
+      "Analyse du trafic pour le pare-feu (1 = active, 0 = désactivée)"
+    ],
+    [
+      "Interfacce analizzate dal firewall (es. eth0, wlan0; vuoto = tutte quelle ethernet e wifi)",
+      "Interfaces analysées par le pare-feu (ex. eth0, wlan0 ; vide = toutes les interfaces ethernet et wifi)"
+    ],
+    [
+      "IP del router di casa, che il firewall non bloccherà mai",
+      "IP du routeur domestique, que le pare-feu ne bloquera jamais"
+    ],
+    [
+      "Analisi del traffico",
+      "Analyse du trafic"
+    ],
+    [
+      "Motore Rust che analizza ethernet e wifi per il firewall di Atena",
+      "Moteur Rust qui analyse l'ethernet et le wifi pour le pare-feu d'Atena"
     ]
   ]
 }

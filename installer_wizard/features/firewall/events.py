@@ -13,7 +13,7 @@ from features.firewall import model
 from features.firewall.nft import Block
 from features.firewall.store import store
 
-SOCKET = Path("/run/atena/netguard.sock")
+SOCKET = Path("/run/atena/netguard/netguard.sock")
 SEVERITY = {name: rank for rank, name in enumerate(model.SEVERITIES)}
 KINDS = {"port_scan", "host_sweep", "syn_flood", "brute_force", "arp_spoof", "dns_tunnel", "icmp_flood", "exfiltration"}
 MAX_LINE = 1 << 20

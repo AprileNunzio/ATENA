@@ -28,7 +28,7 @@ ADMIN_PORT = int(os.environ.get("ATENA_ADMIN_PORT", 8001 if DEMO else 8080))
 CORE_URL = os.environ.get("ATENA_CORE_URL", "http://127.0.0.1:8443")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 
-VERSION = "4.1.7"
+VERSION = "4.1.8"
 UI_LANGUAGES = {"it": "Italiano", "en": "English", "fr": "Français"}
 
 for _d in (ETC_DIR, STATE_DIR, LOG_DIR):
@@ -41,6 +41,9 @@ EDITABLE_KEYS = {
     "ATENA_LLM_CHAT_ORDER": "Priorità dei modelli per la conversazione (separati da virgola; vuoto = automatico)",
     "ATENA_LLM_DEEP_ORDER": "Priorità dei modelli per il ragionamento (separati da virgola; vuoto = automatico)",
     "ATENA_EMBED_MODEL": "Modello di embedding (Ollama)",
+    "ATENA_NETGUARD": "Analisi del traffico per il firewall (1 = attiva, 0 = spenta)",
+    "ATENA_NETGUARD_INTERFACES": "Interfacce analizzate dal firewall (es. eth0, wlan0; vuoto = tutte quelle ethernet e wifi)",
+    "ATENA_GATEWAY_IP": "IP del router di casa, che il firewall non bloccherà mai",
     "ATENA_OLLAMA_URL": "Server Ollama (vuoto = locale; es. http://192.168.1.50:11434 per usare un altro server)",
     "ATENA_ASSISTANT_NAME": "Nome dell'assistente (predefinito A.T.E.N.A.)",
     "ATENA_USER_NAME": "Nome dell'utente principale (come Atena ti chiama)",

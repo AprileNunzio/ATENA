@@ -9,6 +9,7 @@ RUSTUP_URL="https://static.rust-lang.org/rustup/dist/$(uname -m)-unknown-linux-g
 VENV="$ATENA_DIR/installer_wizard/venv"
 STAMP="$NATIVE_HOME/.installed"
 EGRESS_BIN="$NATIVE_HOME/bin/atena-egress"
+NETGUARD_BIN="$NATIVE_HOME/bin/atena-netguard"
 
 export RUSTUP_HOME="$NATIVE_HOME/rustup"
 export CARGO_HOME="$NATIVE_HOME/cargo"
@@ -32,7 +33,7 @@ step_check() {
         return
     fi
     [ -x "$VENV/bin/python" ] || return 0
-    native_loaded && [ -x "$EGRESS_BIN" ] && [ -n "$(src_hash)" ] && [ "$(cat "$STAMP" 2>/dev/null)" = "$(src_hash)" ]
+    native_loaded && [ -x "$EGRESS_BIN" ] && [ -x "$NETGUARD_BIN" ] && [ -n "$(src_hash)" ] && [ "$(cat "$STAMP" 2>/dev/null)" = "$(src_hash)" ]
 }
 
 install_rust() {
@@ -53,7 +54,7 @@ step_apply() {
     if ! wanted; then
         progress 50 "Core nativo disattivato: ritorno al motore Python"
         "$VENV/bin/pip" uninstall -y -q atena-native >/dev/null 2>&1 || true
-        rm -f "$STAMP" "$EGRESS_BIN"
+        rm -f "$STAMP" "$EGRESS_BIN" "$NETGUARD_BIN"
         progress 100 "Core nativo disattivato"
         return 0
     fi
@@ -88,6 +89,15 @@ step_apply() {
     install -d -m 0755 -o root -g root "$NATIVE_HOME/bin"
     install -m 0755 -o root -g root "$CARGO_TARGET_DIR/release/atena-egress" "$EGRESS_BIN.new"
     mv -f "$EGRESS_BIN.new" "$EGRESS_BIN"
+
+    progress 80 "Compilazione del motore di analisi del traffico (firewall)"
+    (
+        cd "$NATIVE_SRC"
+        cargo build --release --locked -p atena-netguard 2>&1 | tail -n 20
+        exit "${PIPESTATUS[0]}"
+    ) || fail "Compilazione del motore di analisi del traffico non riuscita"
+    install -m 0755 -o root -g root "$CARGO_TARGET_DIR/release/atena-netguard" "$NETGUARD_BIN.new"
+    mv -f "$NETGUARD_BIN.new" "$NETGUARD_BIN"
 
     progress 85 "Installazione nel supervisore"
     "$VENV/bin/pip" install -q --force-reinstall --no-deps "$NATIVE_HOME"/wheels/atena_native-*.whl \
