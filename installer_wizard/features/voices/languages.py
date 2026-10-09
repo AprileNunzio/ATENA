@@ -206,12 +206,25 @@ def resolve(text: str, device: str, heard: str | None = None, person: str = "") 
     return {"lang": spoken, "teach": False, "sticky": False, "switched": False}
 
 
+ADDRESS = {
+    "en": "rivolgiti all'utente con «sir» o per nome, con il tono di un maggiordomo britannico",
+    "fr": "dai del vous e chiama l'utente «monsieur» o per nome",
+    "de": "dai del Sie e chiama l'utente «mein Herr» o per nome",
+    "es": "dai del usted e chiama l'utente «señor» o per nome",
+    "pt": "usa o senhor e chiama l'utente «senhor» o per nome",
+    "nl": "dai del u e chiama l'utente «meneer» o per nome",
+    "ja": "usa il keigo (forma cortese) e il suffisso -sama con il nome",
+}
+
+
 def instruction(lang: str, teach: bool) -> str:
     if lang == DEFAULT and not teach:
         return ""
     name, native, _ = LANGS.get(lang, (lang, lang, ()))
     rule = (f"LINGUA: rispondi esclusivamente in {name} ({native}), con frasi naturali adatte a essere lette "
-            f"ad alta voce, anche se il resto di queste istruzioni è in italiano.")
+            f"ad alta voce, anche se il resto di queste istruzioni è in italiano. Le formule di cortesia italiane "
+            f"(Lei, «signore») vanno rese in modo naturale in quella lingua")
+    rule += f": {ADDRESS[lang]}." if lang in ADDRESS else "."
     if teach:
         rule += (f" Stai facendo da insegnante di {name} a un italiano: usa frasi semplici, correggi con gentilezza "
                  f"i suoi errori riscrivendo la frase giusta, proponi ogni tanto una breve domanda o un esercizio "
