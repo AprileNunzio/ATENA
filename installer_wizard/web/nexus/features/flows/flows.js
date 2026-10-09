@@ -10,7 +10,7 @@ import { renderInspector } from "./inspector.js";
 import { comparePanel } from "./compare.js";
 
 const SAVE_DELAY = 500;
-const when = (seconds) => new Date(seconds * 1000).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
+const when = (seconds) => new Date(seconds * 1000).toLocaleString(document.documentElement.lang || "it", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
 export function renderFlows(outlet) {
   const view = h("section", { class: "view" }, h("div", { class: "skeleton skeleton-block" }));

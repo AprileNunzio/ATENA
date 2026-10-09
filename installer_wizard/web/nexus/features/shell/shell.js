@@ -16,10 +16,14 @@ export function createShell(root) {
   const linkDot = h("span", { class: "link-state", role: "img", "aria-label": "Collegato ad Atena" });
   const levelSeg = h("div", { class: "seg", role: "group", "aria-label": "Livello di esperienza" });
   const outlet = h("main", { class: "outlet", id: "nx-outlet", tabindex: "-1" });
+  const languages = { it: "Italiano", en: "English", fr: "Français" };
+  const current = (window.AtenaI18n?.language?.() || document.documentElement.lang || "it").slice(0, 2);
+  const langPick = h("select", { class: "lang-pick", "aria-label": "Lingua", onchange: (e) => window.AtenaI18n?.setLanguage(e.target.value) },
+    Object.entries(languages).map(([code, label]) => h("option", { value: code, selected: code === current ? true : null }, label)));
   const top = h("header", { class: "top" }, title, linkDot,
     h("button", { class: "search", type: "button", onclick: openPalette, "aria-label": "Cerca ovunque" },
       h("span", {}, "Cerca pagine, strumenti, azioni…"), h("kbd", {}, "Ctrl K")),
-    levelSeg);
+    levelSeg, langPick);
   mount(root, h("div", { class: "app" }, nav, h("div", { class: "main" }, top, outlet)));
 
   function renderLevels() {
@@ -59,7 +63,7 @@ export function createShell(root) {
       sections,
       favoriteLinks(),
       h("div", { class: "nav-foot" },
-        h("a", { class: "nv", href: "/" }, h("span", { class: "g", "aria-hidden": "true" }, "▤"), h("span", { class: "lb" }, "Pannello classico")),
+        h("a", { class: "nv", href: "/classic" }, h("span", { class: "g", "aria-hidden": "true" }, "▤"), h("span", { class: "lb" }, "Pannello classico")),
         h("button", { class: "nv", type: "button", onclick: logout }, h("span", { class: "g", "aria-hidden": "true" }, "⎋"), h("span", { class: "lb" }, "Esci")),
         h("div", { class: "who" }, user ? `Connesso come ${user}` : "")));
   }

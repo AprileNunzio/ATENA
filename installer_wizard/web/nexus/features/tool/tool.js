@@ -9,6 +9,7 @@ import { freshBadge, markSeen } from "../../components/badge.js";
 import { MODES, modeControl, setMode } from "./mode.js";
 import { settingsForm } from "./settings-form.js";
 import { wizardPanel } from "./wizard.js";
+import { zone } from "../shell/zones.js";
 import { classicFrame } from "../../components/classic-frame.js";
 
 const TABS = [
@@ -36,7 +37,7 @@ function advanced(tool) {
     requires: tool.requires, hardware: tool.hardware, settings: Object.fromEntries(tool.settings.map((s) => [s.key, tool.values[s.key] ?? ""])) };
   return [
     h("pre", { class: "json" }, JSON.stringify(data, null, 2)),
-    h("div", { class: "chips" }, h("a", { class: "btn ghost", href: `/#f/${encodeURIComponent(tool.id)}` }, "Scheda nel pannello classico ↗")),
+    h("div", { class: "chips" }, h("a", { class: "btn ghost", href: `/classic#f/${encodeURIComponent(tool.id)}` }, "Scheda nel pannello classico ↗")),
   ];
 }
 
@@ -85,11 +86,11 @@ export function renderTool(outlet, route) {
     const body = tab === "guide" ? wizardPanel(tool, after) : tab === "settings" ? settingsForm(tool, after)
       : tab === "full" ? classicFrame(`f/${tool.id}`, `Pannello completo di ${tool.name}`) : advanced(tool);
     mount(view,
-      h("a", { class: "back", href: `#/${tool.zone === "tools" ? `tools/${tool.family}` : tool.zone}` }, "← ", tool.family_label || "Indietro"),
+      h("a", { class: "back", href: `#/${tool.zone === "tools" ? `tools/${tool.family}` : tool.zone}` }, "← ", tool.family_label || zone(tool.zone)?.title || "Indietro"),
       h("header", { class: "tool-hero panel" },
         h("span", { class: "glyph big", "aria-hidden": "true" }, tool.icon),
         h("div", { class: "tool-hero-copy" },
-          h("p", { class: "eyebrow" }, tool.family_label || tool.zone),
+          h("p", { class: "eyebrow" }, tool.family_label || zone(tool.zone)?.title || ""),
           h("h2", {}, tool.name),
           h("p", { class: "dim" }, tool.description),
           h("div", { class: "tool-hero-state" }, statePill(tool), freshBadge(tool), tool.reason ? h("span", { class: "dim small" }, tool.reason) : null)),

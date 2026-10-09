@@ -49,7 +49,7 @@ function registerPalette() {
     glyph: w.icon || "▣", title: w.name, kind: "Widget · mostra sul display", keywords: `widget ${w.description || ""} ${w.id}`,
     run: () => recall(w).catch(fail),
   })));
-  addSource(() => [{ glyph: "▤", title: "Apri il pannello classico", kind: "Azione", keywords: "vecchio admin", run: () => location.assign("/") }]);
+  addSource(() => [{ glyph: "▤", title: "Apri il pannello classico", kind: "Azione", keywords: "vecchio admin", run: () => location.assign("/classic") }]);
 }
 
 async function loadPreferences() {

@@ -5,7 +5,7 @@ const MIN_HEIGHT = 520;
 
 export function classicFrame(target, title) {
   if (!HASH.test(target)) return h("p", { class: "login-err" }, "Sezione non valida");
-  const frame = h("iframe", { class: "classic-frame", src: `/?embed=1#${target}`, title, referrerpolicy: "no-referrer", loading: "lazy" });
+  const frame = h("iframe", { class: "classic-frame", src: `/classic?embed=1#${target}`, title, referrerpolicy: "no-referrer", loading: "lazy" });
   frame.addEventListener("load", () => {
     let doc;
     try { doc = frame.contentDocument; } catch { return; }
@@ -17,6 +17,6 @@ export function classicFrame(target, title) {
   return h("div", { class: "classic-box" },
     h("div", { class: "classic-bar" },
       h("span", { class: "dim small" }, "Tutte le opzioni di questa sezione, come nel pannello classico."),
-      h("a", { class: "btn ghost", href: `/#${target}`, target: "_blank", rel: "noopener noreferrer" }, "Apri a schermo intero ↗")),
+      h("a", { class: "btn ghost", href: `/classic#${target}`, target: "_blank", rel: "noopener noreferrer" }, "Apri a schermo intero ↗")),
     frame);
 }

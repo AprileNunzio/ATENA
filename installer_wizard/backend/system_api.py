@@ -97,7 +97,7 @@ async def trigger_holo_action(req: HoloActionReq):
     return {"ok": True}
 
 
-@admin_routes.get("/")
+@admin_routes.get("/classic")
 async def admin_index(request: Request):
     if not setup_api.done():
         port = "" if PUBLIC_PORT == 80 else f":{PUBLIC_PORT}"

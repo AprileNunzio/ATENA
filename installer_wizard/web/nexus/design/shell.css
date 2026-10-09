@@ -45,3 +45,4 @@
   .outlet { padding: 18px 16px; overflow: visible; }
   .search span { display: none; }
 }
+.lang-pick { padding: 6px 10px; border-radius: 10px; border: 1px solid var(--line); background: rgba(8, 18, 32, 0.75); color: var(--text-dim); cursor: pointer; }

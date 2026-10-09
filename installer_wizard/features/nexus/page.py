@@ -42,7 +42,11 @@ def security_headers(https: bool) -> dict[str, str]:
     return headers
 
 
-def render(https: bool) -> Response:
+_LANG = re.compile(r"^[a-z]{2,3}$")
+
+
+def render(https: bool, lang: str = "it") -> Response:
     html = INDEX.read_text(encoding="utf-8")
+    html = html.replace('<html lang="it">', f'<html lang="{lang if _LANG.match(lang or "") else "it"}">', 1)
     html = _ASSET.sub(lambda m: f'{m.group(1)}?v={ASSET_VERSION}"', html)
     return Response(html, media_type="text/html; charset=utf-8", headers=security_headers(https))

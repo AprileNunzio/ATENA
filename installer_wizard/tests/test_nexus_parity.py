@@ -37,12 +37,12 @@ class NexusParityTest(unittest.TestCase):
 
     def test_classic_panel_can_be_embedded_only_by_itself(self):
         with mock.patch("setup_api.done", return_value=True):
-            r = TestClient(atena_supervisor.admin).get("/")
+            r = TestClient(atena_supervisor.admin).get("/classic")
         self.assertEqual(r.headers["content-security-policy"], "frame-ancestors 'self'")
         self.assertEqual(r.headers["x-frame-options"], "SAMEORIGIN")
         self.assertIn("/static/admin/embed.js", r.text)
         with mock.patch("setup_api.done", return_value=True):
-            nexus = TestClient(atena_supervisor.admin).get("/nexus")
+            nexus = TestClient(atena_supervisor.admin).get("/")
         self.assertIn("frame-src 'self'", nexus.headers["content-security-policy"])
 
 

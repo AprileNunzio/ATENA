@@ -5,7 +5,7 @@ import { allows } from "../../core/level.js";
 import { SERIES } from "./series.js";
 
 const GB = 1024 ** 3;
-const gb = (bytes) => (bytes / GB).toLocaleString("it-IT", { maximumFractionDigits: 1 });
+const gb = (bytes) => (bytes / GB).toLocaleString(document.documentElement.lang || "it", { maximumFractionDigits: 1 });
 const COMPONENT_PILL = { ok: ["ok", "attivo"], warn: ["warn", "a metà"], down: ["bad", "fermo"] };
 const EVENT_SEVERITY = { ERROR: "bad", WARN: "warn", INFO: "info" };
 
@@ -35,7 +35,7 @@ export function statTiles(sys) {
 
 export function todoPanel(todos) {
   const items = todos.length
-    ? todos.map((t) => h("li", {}, h("a", { class: "todo", href: t.target ? `/#${t.target}` : `#/${t.zone}` },
+    ? todos.map((t) => h("li", {}, h("a", { class: "todo", href: !t.target ? `#/${t.zone}` : t.target.startsWith("f/") ? `#/tool/${t.target.slice(2)}` : `#/classic/${t.target}` },
       h("span", { class: `sev ${t.severity === "info" ? "" : t.severity}` }), h("span", { class: "todo-text" }, t.text),
       h("span", { class: "todo-go", "aria-hidden": "true" }, "→"))))
     : [h("li", { class: "todo-empty" }, h("span", { class: "sev ok" }), "Niente da fare: va tutto bene.")];
@@ -47,7 +47,7 @@ export function activityPanel(events) {
   return [h("p", { class: "ptitle" }, "Attività recenti"),
     recent.length
       ? h("ul", { class: "feed" }, recent.map((e) => h("li", {},
-        h("time", { datetime: e.ts }, new Date(e.ts).toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" })),
+        h("time", { datetime: e.ts }, new Date(e.ts).toLocaleTimeString(document.documentElement.lang || "it", { hour: "2-digit", minute: "2-digit" })),
         h("span", { class: `sev ${EVENT_SEVERITY[e.level] === "info" ? "" : EVENT_SEVERITY[e.level] || ""}` }),
         h("span", { class: "feed-msg" }, e.msg))))
       : h("p", { class: "dim" }, "Ancora nessuna attività registrata.")];

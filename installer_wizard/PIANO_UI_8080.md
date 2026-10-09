@@ -455,6 +455,8 @@ non si raggiunge la parità. Nessuna rottura per gli utenti esistenti.
 | F4 Flow Studio | pubblicata | 4.1.47 |
 | F5 Confronto A/B e ripristino automatico | pubblicata | 4.1.48 |
 | Parità completa e widget | pubblicata | 4.1.49 |
+| Lingua predefinita e pulsante Esperto (segnalazione tester francese) | pubblicata | 4.1.50 |
+| Nexus in italiano, inglese e francese; Nexus predefinito su `/`, pannello classico su `/classic` | pubblicata | 4.1.51 |
 
 ### 7.2 Regola per rendere il Nexus predefinito
 
@@ -462,8 +464,9 @@ Il Nexus diventa la pagina predefinita della porta 8080 **solo** quando ogni fun
 configurabile per intero al suo interno. Oggi la parità è garantita dalla scheda «Pannello completo» (la scheda del
 pannello classico incorporata, protetta da `frame-ancestors 'self'`) e dalle «Sezioni complete» di ogni zona; il test
 `tests/test_nexus_parity.py` fa fallire la CI se una scheda del pannello classico resta senza accesso dal Nexus. Le
-schede verranno ridisegnate in modo nativo una alla volta; il passaggio a predefinito avviene in F8 dopo la verifica
-manuale di ogni zona.
+schede verranno ridisegnate in modo nativo una alla volta. Dalla versione 4.1.51 il Nexus è la pagina predefinita
+(`/`), tradotto in italiano, inglese e francese con lo stesso catalogo controllato dalla CI; il pannello classico resta
+raggiungibile su `/classic` e `/nexus` reindirizza a `/`.
 
 ## 8. Qualità e test
 - **Dominio**: test unitari puri per `rules.py` (cicli, nodi obbligatori, porte, limiti) e per ogni caso d'uso con

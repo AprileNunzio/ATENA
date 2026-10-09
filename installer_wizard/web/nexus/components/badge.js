@@ -3,14 +3,14 @@ import { h } from "../core/dom.js";
 const LABELS = { new: "Novità", updated: "Aggiornato" };
 const SEEN_KEY = "nexus.seen";
 
-const day = (seconds) => new Date(seconds * 1000).toLocaleDateString("it-IT", { day: "numeric", month: "long" });
+const day = (seconds) => new Date(seconds * 1000).toLocaleDateString(document.documentElement.lang || "it", { day: "numeric", month: "long" });
 
 export function freshBadge(item) {
   if (!LABELS[item?.badge]) return null;
   const when = item.since ? day(item.since) : "";
   const text = item.badge === "new" ? `Arrivato il ${when}` : `Aggiornato il ${when}`;
   return h("span", { class: `badge ${item.badge}`, title: text }, LABELS[item.badge],
-    h("span", { class: "sr-only" }, `: ${text}`));
+    h("span", { class: "sr-only" }, text));
 }
 
 function seenSet() {

@@ -16,7 +16,7 @@ export function renderLogin(root, onSuccess) {
       h("div", { class: "field" }, h("label", { for: "nx-pass" }, "Password"), pass),
       error, submit),
     h("p", { class: "hint" }, "Accesso consentito a root e agli utenti dei gruppi sudo o atena-admin."),
-    h("p", { class: "hint" }, h("a", { href: "/" }, "Apri il pannello classico")));
+    h("p", { class: "hint" }, h("a", { href: "/classic" }, "Apri il pannello classico")));
   mount(root, h("main", { class: "login" }, card));
   const orb = new Orb(canvas);
   orb.start();

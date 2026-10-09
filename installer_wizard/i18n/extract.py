@@ -105,6 +105,11 @@ def from_js(text: str) -> list[str]:
     return found
 
 
+def numbered(text: str) -> str:
+    counter = iter(range(100))
+    return re.sub(r"\{[^{}]*\}", lambda m: "{" + str(next(counter)) + "}", text)
+
+
 def from_manifest(data: dict) -> list[str]:
     out = [str(data.get(k)) for k in ("name", "title", "description") if data.get(k)]
     out += [str(c) for c in data.get("capabilities", []) if c]
@@ -127,7 +132,10 @@ def from_python(text: str) -> list[str]:
     return out
 
 
-LITERAL_FILES = {"features/brain/roles.py", "features/brain/presets.py", "features/brain/components.py"}
+LITERAL_FILES = {"features/brain/roles.py", "features/brain/presets.py", "features/brain/components.py",
+                 "features/nexus/domain/summary.py", "features/nexus/domain/zones.py", "features/nexus/domain/wizard.py",
+                 "features/nexus/domain/preferences.py", "features/nexus/domain/awakening.py", "features/flows/domain/catalog.py",
+                 "features/flows/domain/draft.py", "features/flows/application/studio.py", "backend/feature_registry.py"}
 DICT_BLOCKS = {"backend/config.py": "EDITABLE_KEYS", "backend/feature_registry.py": "CATEGORIES", "backend/state.py": "PHASES"}
 DICT_VALUE = re.compile(r"^\s*\"[A-Za-z0-9_]+\"\s*:\s*\"((?:[^\"\\]|\\.)+)\"", re.M)
 
@@ -142,9 +150,9 @@ def from_dict_block(text: str, name: str) -> list[str]:
 
 def sources() -> list[Path]:
     globs = ("features/*/admin*.html", "features/*/admin*.js", "features/*/feature.json", "web/admin/*.html", "web/admin/*.js",
-             "web/display/*.html", "web/display/*.js", "web/shared/*.js", "web/monitor/*.html", "web/monitor/*.js", "web/screen/*.html", "web/screen/*.js", "web/setup/*.html", "web/setup/*.js", "widgets/*/widget.js", "widgets/*/widget.json",
+             "web/display/*.html", "web/display/*.js", "web/shared/*.js", "web/monitor/*.html", "web/monitor/*.js", "web/screen/*.html", "web/screen/*.js", "web/setup/*.html", "web/setup/*.js", "widgets/*/widget.js", "widgets/*/widget.json", "web/nexus/**/*.js",
              "features/*/*.py", "backend/*.py")
-    return sorted({p for g in globs for p in ROOT.glob(g) if "language" not in p.parts})
+    return sorted({p for g in globs for p in ROOT.glob(g) if "language" not in p.parts} | {ROOT / f for f in LITERAL_FILES})
 
 
 def extract() -> dict[str, list[str]]:
@@ -159,7 +167,7 @@ def extract() -> dict[str, list[str]]:
             rel_path = path.relative_to(ROOT).as_posix()
             strings = from_python(text) + (from_dict_block(text, DICT_BLOCKS[rel_path]) if rel_path in DICT_BLOCKS else [])
             if rel_path in LITERAL_FILES:
-                strings += [s for s in from_js(text) if s not in strings]
+                strings += [s for s in (numbered(x) for x in from_js(text)) if s not in strings and visible(re.sub(r"\{\d+\}", "", s))]
             if rel_path.startswith("backend/"):
                 strings += [s for s in status_strings(text) if s not in strings]
         else:

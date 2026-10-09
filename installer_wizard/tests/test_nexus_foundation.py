@@ -69,7 +69,7 @@ class NexusApiTest(unittest.TestCase):
 
     def test_page_is_served_with_strict_security_headers(self):
         with mock.patch("setup_api.done", return_value=True):
-            r = TestClient(atena_supervisor.admin).get("/nexus")
+            r = TestClient(atena_supervisor.admin).get("/")
         self.assertEqual(r.status_code, 200)
         csp = r.headers["content-security-policy"]
         for directive in ("default-src 'none'", "script-src 'self'", "style-src 'self'", "frame-ancestors 'none'",
@@ -82,8 +82,23 @@ class NexusApiTest(unittest.TestCase):
 
     def test_page_redirects_to_setup_until_configured(self):
         with mock.patch("setup_api.done", return_value=False):
-            r = TestClient(atena_supervisor.admin).get("/nexus", follow_redirects=False)
+            r = TestClient(atena_supervisor.admin).get("/", follow_redirects=False)
         self.assertEqual(r.status_code, 303)
+
+    def test_nexus_is_the_default_and_the_old_address_redirects(self):
+        legacy = TestClient(atena_supervisor.admin).get("/nexus", follow_redirects=False)
+        self.assertEqual((legacy.status_code, legacy.headers["location"]), (308, "/"))
+        with mock.patch("setup_api.done", return_value=True):
+            classic = TestClient(atena_supervisor.admin).get("/classic")
+            nexus = TestClient(atena_supervisor.admin).get("/")
+        self.assertIn("/static/admin/shell.js", classic.text)
+        self.assertIn("/static/nexus/app.js", nexus.text)
+        self.assertIn("/static/shared/translate.js", nexus.text)
+
+    def test_page_declares_the_user_language(self):
+        with mock.patch("setup_api.done", return_value=True), mock.patch("features.nexus.api.page_language", return_value="fr"):
+            r = TestClient(atena_supervisor.admin).get("/")
+        self.assertIn('<html lang="fr">', r.text)
 
     def test_preferences_require_a_session_and_the_request_header(self):
         anon = TestClient(atena_supervisor.admin)

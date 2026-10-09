@@ -8,6 +8,7 @@ import setup_api
 from access import NO_CACHE, require_admin
 from config import PUBLIC_PORT
 
+from features.locale.api import page_language
 from features.nexus import page
 from features.nexus.application.tool_service import ToolNotFound
 from features.nexus.composition import awakening, feature_folders, freshness, preferences, summary, tools
@@ -35,11 +36,16 @@ async def _json_body(request: Request) -> dict:
 
 
 @admin_routes.get("/nexus")
+async def nexus_legacy():
+    return RedirectResponse("/", status_code=308)
+
+
+@admin_routes.get("/")
 async def nexus_index(request: Request):
     if not setup_api.done():
         port = "" if PUBLIC_PORT == 80 else f":{PUBLIC_PORT}"
         return RedirectResponse(f"http://{request.url.hostname}{port}/setup", status_code=303)
-    return page.render(request.url.scheme == "https")
+    return page.render(request.url.scheme == "https", page_language(request, admin=True))
 
 
 @admin_routes.get("/api/nexus/preferences")

@@ -15919,6 +15919,1694 @@
     [
       "Tutti i dettagli, le priorità e le impostazioni avanzate",
       "Every detail, priority and advanced setting"
+    ],
+    [
+      "Abbiamo deciso tutto insieme. Puoi rifare il Risveglio quando vuoi.",
+      "We decided everything together. You can redo the Awakening whenever you like."
+    ],
+    [
+      "Aggiornato",
+      "Updated"
+    ],
+    [
+      "Aggiornato il {0}",
+      "Updated on {0}"
+    ],
+    [
+      "Aggiunto ai preferiti",
+      "Added to favourites"
+    ],
+    [
+      "Agisco da sola e ti avviso; accesso completo agli strumenti",
+      "I act on my own and let you know; full access to tools"
+    ],
+    [
+      "Algoritmo di {0}",
+      "Algorithm for {0}"
+    ],
+    [
+      "Ancora nessuna attività registrata.",
+      "No activity recorded yet."
+    ],
+    [
+      "Ancora nessuna versione: la prima pubblicazione creerà la versione 1.",
+      "No versions yet: the first publication will create version 1."
+    ],
+    [
+      "Apri a schermo intero ↗",
+      "Open full screen ↗"
+    ],
+    [
+      "Apri il desktop a widget",
+      "Open the widget desktop"
+    ],
+    [
+      "Apri il pannello classico",
+      "Open the classic panel"
+    ],
+    [
+      "Architetto",
+      "Architect"
+    ],
+    [
+      "Arrivato il {0}",
+      "Arrived on {0}"
+    ],
+    [
+      "Atena non risponde: riprova tra poco",
+      "Atena is not responding: try again shortly"
+    ],
+    [
+      "Atena riprende subito il modo di ragionare di quella versione.",
+      "Atena immediately goes back to that version's way of reasoning."
+    ],
+    [
+      "Atena userà subito il flusso della bozza. Per sicurezza conferma la tua identità.",
+      "Atena will use the draft flow right away. For safety, confirm your identity."
+    ],
+    [
+      "Attiva a rischio",
+      "On at your own risk"
+    ],
+    [
+      "Attività recenti",
+      "Recent activity"
+    ],
+    [
+      "Autonoma",
+      "Autonomous"
+    ],
+    [
+      "Avanzate",
+      "Advanced"
+    ],
+    [
+      "Banco di prova",
+      "Test bench"
+    ],
+    [
+      "Bozza attuale",
+      "Current draft"
+    ],
+    [
+      "Bozza non ancora pubblicata",
+      "Draft not yet published"
+    ],
+    [
+      "Bozza salvata, non ancora pubblicata",
+      "Draft saved, not yet published"
+    ],
+    [
+      "Bozza scartata",
+      "Draft discarded"
+    ],
+    [
+      "Capacità",
+      "Capabilities"
+    ],
+    [
+      "Caricamento dello stato…",
+      "Loading status…"
+    ],
+    [
+      "Catene di cervelli",
+      "Brain chains"
+    ],
+    [
+      "Cerca ovunque",
+      "Search everywhere"
+    ],
+    [
+      "Cerca pagine, strumenti, azioni…",
+      "Search pages, tools, actions…"
+    ],
+    [
+      "Cerca un widget",
+      "Search for a widget"
+    ],
+    [
+      "Cerca un widget: meteo, musica, telecamera…",
+      "Search for a widget: weather, music, camera…"
+    ],
+    [
+      "Cerca uno strumento",
+      "Search for a tool"
+    ],
+    [
+      "Cerca: webcam, luci, telegram…",
+      "Search: webcam, lights, telegram…"
+    ],
+    [
+      "Cervello e modelli",
+      "Brain and models"
+    ],
+    [
+      "Chi pensa, cosa ricorda e cosa sta imparando Atena.",
+      "Who thinks, what Atena remembers and what it is learning."
+    ],
+    [
+      "Ci siamo quasi.",
+      "Almost there."
+    ],
+    [
+      "Ciao! Sono Atena.",
+      "Hi! I'm Atena."
+    ],
+    [
+      "Ciao, sono Atena. Come ti chiami?",
+      "Hi, I'm Atena. What's your name?"
+    ],
+    [
+      "Collegala ora",
+      "Connect it now"
+    ],
+    [
+      "Collegamento con Atena perso",
+      "Connection to Atena lost"
+    ],
+    [
+      "Collegamento non disponibile",
+      "Link not available"
+    ],
+    [
+      "Collegata",
+      "Connected"
+    ],
+    [
+      "Collegato ad Atena",
+      "Connected to Atena"
+    ],
+    [
+      "Colleghiamo la tua casa?",
+      "Shall we connect your home?"
+    ],
+    [
+      "Comandi con i gesti",
+      "Gesture commands"
+    ],
+    [
+      "Come penso",
+      "How I think"
+    ],
+    [
+      "Come ragiona Atena",
+      "How Atena reasons"
+    ],
+    [
+      "Come ragiona Atena, passo per passo, e quali algoritmi usa.",
+      "How Atena reasons, step by step, and which algorithms it uses."
+    ],
+    [
+      "Completa i passi mancanti",
+      "Complete the missing steps"
+    ],
+    [
+      "Con Home Assistant posso accendere luci, scene e clima.",
+      "With Home Assistant I can turn on lights, scenes and climate."
+    ],
+    [
+      "Configura con me",
+      "Set it up with me"
+    ],
+    [
+      "Configurato a mano nel pannello Cervello: scegli un algoritmo per gestirlo da qui.",
+      "Set by hand in the Brain panel: choose an algorithm to manage it from here."
+    ],
+    [
+      "Confronto A/B",
+      "A/B comparison"
+    ],
+    [
+      "Connessione con Atena assente",
+      "No connection to Atena"
+    ],
+    [
+      "Cosa Atena può fare da sola e cosa deve chiederti prima.",
+      "What Atena can do on its own and what it must ask you first."
+    ],
+    [
+      "Cosa cambierà pubblicando",
+      "What publishing will change"
+    ],
+    [
+      "Cosa sa fare ({0})",
+      "What it can do ({0})"
+    ],
+    [
+      "Cosa è successo, quando e perché.",
+      "What happened, when and why."
+    ],
+    [
+      "Da fare",
+      "To do"
+    ],
+    [
+      "Diagramma del flusso di ragionamento",
+      "Reasoning flow diagram"
+    ],
+    [
+      "Dopo il Risveglio inserisci la chiave del servizio in Cervello → Cloud.",
+      "After the Awakening, enter the service key in Brain → Cloud."
+    ],
+    [
+      "Dove deve pensare Atena?",
+      "Where should Atena think?"
+    ],
+    [
+      "Ecco cosa cambierà",
+      "Here is what will change"
+    ],
+    [
+      "Equilibrata",
+      "Balanced"
+    ],
+    [
+      "Esploratore",
+      "Explorer"
+    ],
+    [
+      "Famiglie di strumenti",
+      "Tool families"
+    ],
+    [
+      "Fiducia",
+      "Trust"
+    ],
+    [
+      "Flow Studio · flusso principale",
+      "Flow Studio · main flow"
+    ],
+    [
+      "Flusso A",
+      "Flow A"
+    ],
+    [
+      "Flusso B",
+      "Flow B"
+    ],
+    [
+      "Già collegata",
+      "Already connected"
+    ],
+    [
+      "Ho imparato cose nuove",
+      "I learned new things"
+    ],
+    [
+      "I due flussi sono identici.",
+      "The two flows are identical."
+    ],
+    [
+      "I miei sensi",
+      "My senses"
+    ],
+    [
+      "Il cervello è il modello che capisce e risponde. Su questo computer i dati non escono mai di casa.",
+      "The brain is the model that understands and answers. On this computer data never leaves home."
+    ],
+    [
+      "Il più intelligente, serve una chiave",
+      "The smartest, needs a key"
+    ],
+    [
+      "Il tuo nome",
+      "Your name"
+    ],
+    [
+      "In uso adesso",
+      "In use now"
+    ],
+    [
+      "Inizia",
+      "Start"
+    ],
+    [
+      "Intelligenza",
+      "Intelligence"
+    ],
+    [
+      "La mia casa",
+      "My home"
+    ],
+    [
+      "La procedura guidata per configurare Atena in pochi passi.",
+      "The guided setup to configure Atena in a few steps."
+    ],
+    [
+      "La trovi in Strumenti → Casa",
+      "You'll find it in Tools → Home"
+    ],
+    [
+      "La tua password di sistema",
+      "Your system password"
+    ],
+    [
+      "La tua risposta",
+      "Your answer"
+    ],
+    [
+      "Le Leggi di Atena valgono sempre. Qui scegli quando devo chiederti il permesso.",
+      "Atena's Laws always apply. Here you choose when I must ask your permission."
+    ],
+    [
+      "Le pagine di questa zona arrivano nelle prossime fasi del Nexus.",
+      "The pages of this zone arrive in the next Nexus phases."
+    ],
+    [
+      "Livello di esperienza",
+      "Experience level"
+    ],
+    [
+      "Livello {0}",
+      "{0} level"
+    ],
+    [
+      "Lo stato di Atena a colpo d'occhio.",
+      "Atena's state at a glance."
+    ],
+    [
+      "Luci, stanze e persone",
+      "Lights, rooms and people"
+    ],
+    [
+      "Macchina",
+      "Machine"
+    ],
+    [
+      "Mancano {0} passi: puoi completarli adesso o più tardi.",
+      "{0} steps left: you can complete them now or later."
+    ],
+    [
+      "Mani",
+      "Hands"
+    ],
+    [
+      "Messaggio non valido dal flusso",
+      "Invalid message from the stream"
+    ],
+    [
+      "Mi chiami con «Ehi Atena»",
+      "You call me with «Hey Atena»"
+    ],
+    [
+      "Modalità di {0}",
+      "Mode of {0}"
+    ],
+    [
+      "Modelli pronti",
+      "Ready-made templates"
+    ],
+    [
+      "Modello «{0}» nella bozza",
+      "Template «{0}» in the draft"
+    ],
+    [
+      "Modello · {0}",
+      "Template · {0}"
+    ],
+    [
+      "Mostra subito sul display il widget che vuoi.",
+      "Show the widget you want on the display right away."
+    ],
+    [
+      "NEXUS · PANNELLO DI CONTROLLO",
+      "NEXUS · CONTROL PANEL"
+    ],
+    [
+      "Nessun risultato. Prova con un'altra parola.",
+      "No results. Try another word."
+    ],
+    [
+      "Nessun senso",
+      "No senses"
+    ],
+    [
+      "Nessun widget trovato.",
+      "No widget found."
+    ],
+    [
+      "Nessuna modifica da salvare",
+      "No changes to save"
+    ],
+    [
+      "Nessuna modifica: la bozza è uguale a ciò che usa Atena.",
+      "No changes: the draft matches what Atena uses."
+    ],
+    [
+      "Nessuno strumento trovato. Prova con un'altra parola o togli i filtri.",
+      "No tool found. Try another word or remove the filters."
+    ],
+    [
+      "Niente da annullare",
+      "Nothing to undo"
+    ],
+    [
+      "Niente da fare: va tutto bene.",
+      "Nothing to do: all is well."
+    ],
+    [
+      "Nodo fisso",
+      "Fixed node"
+    ],
+    [
+      "Nodo protetto",
+      "Protected node"
+    ],
+    [
+      "Non agisco mai da sola, ti chiedo tutto",
+      "I never act on my own, I ask you everything"
+    ],
+    [
+      "Non c'è niente da configurare: questo strumento funziona da solo.",
+      "There is nothing to set up: this tool works on its own."
+    ],
+    [
+      "Non impostata",
+      "Not set"
+    ],
+    [
+      "Novità e aggiornamenti",
+      "News and updates"
+    ],
+    [
+      "Occhi, orecchie e mani",
+      "Eyes, ears and hands"
+    ],
+    [
+      "Ogni nodo è un passo del ragionamento. Le modifiche restano in bozza finché non le pubblichi; puoi sempre tornare a una versione precedente.",
+      "Each node is a reasoning step. Changes stay in draft until you publish them; you can always go back to an earlier version."
+    ],
+    [
+      "Ogni senso resta spento finché non lo accendi. Le immagini e la voce restano in casa.",
+      "Each sense stays off until you turn it on. Images and voice stay at home."
+    ],
+    [
+      "Osservatorio",
+      "Observatory"
+    ],
+    [
+      "Pacchetti, installazione, aggiornamenti e risorse della macchina.",
+      "Packages, installation, updates and machine resources."
+    ],
+    [
+      "Pannello classico",
+      "Classic panel"
+    ],
+    [
+      "Pannello completo",
+      "Full panel"
+    ],
+    [
+      "Pannello completo di {0}",
+      "Full panel of {0}"
+    ],
+    [
+      "Panoramica classica",
+      "Classic overview"
+    ],
+    [
+      "Parla con me",
+      "Talk to me"
+    ],
+    [
+      "Passa al livello {0}",
+      "Switch to the {0} level"
+    ],
+    [
+      "Passi del Risveglio",
+      "Awakening steps"
+    ],
+    [
+      "Passi della procedura",
+      "Setup steps"
+    ],
+    [
+      "Percorso non consentito",
+      "Path not allowed"
+    ],
+    [
+      "Pilota",
+      "Pilot"
+    ],
+    [
+      "Più tardi",
+      "Later"
+    ],
+    [
+      "Poche scelte chiare, ti guida Atena",
+      "A few clear choices, Atena guides you"
+    ],
+    [
+      "Porte, connessioni e dispositivi della tua rete.",
+      "Ports, connections and devices on your network."
+    ],
+    [
+      "Priorità, posizioni e widget personalizzati",
+      "Priorities, positions and custom widgets"
+    ],
+    [
+      "Privato, funziona anche senza internet",
+      "Private, works even without internet"
+    ],
+    [
+      "Profilo del flusso",
+      "Flow profile"
+    ],
+    [
+      "Pronta",
+      "Ready"
+    ],
+    [
+      "Propongo e agisco solo quando è sicuro",
+      "I suggest and act only when it is safe"
+    ],
+    [
+      "Prova il flusso",
+      "Test the flow"
+    ],
+    [
+      "Prova subito un widget sul display",
+      "Try a widget on the display right away"
+    ],
+    [
+      "Prudente",
+      "Careful"
+    ],
+    [
+      "Pubblica",
+      "Publish"
+    ],
+    [
+      "Pubblicare il nuovo modo di ragionare?",
+      "Publish the new way of reasoning?"
+    ],
+    [
+      "Puoi cambiare idea quando vuoi dall'interruttore in alto.",
+      "You can change your mind any time with the switch at the top."
+    ],
+    [
+      "Quali sensi posso usare?",
+      "Which senses may I use?"
+    ],
+    [
+      "Quanto posso fare da sola?",
+      "How much can I do on my own?"
+    ],
+    [
+      "Quanto sto bene",
+      "How well I feel"
+    ],
+    [
+      "Quanto vuoi vedere sotto il cofano?",
+      "How much do you want to see under the hood?"
+    ],
+    [
+      "Questo strumento non ha impostazioni: funziona da solo.",
+      "This tool has no settings: it works on its own."
+    ],
+    [
+      "Regole e Fiducia",
+      "Rules and Trust"
+    ],
+    [
+      "Rete di sicurezza: se dopo una pubblicazione metà dei ragionamenti fallisce, Atena torna da sola alla versione precedente.",
+      "Safety net: if half of the reasoning runs fail after a publication, Atena goes back to the previous version by itself."
+    ],
+    [
+      "Rete e Sicurezza",
+      "Network and Security"
+    ],
+    [
+      "Richiamo rapido",
+      "Quick recall"
+    ],
+    [
+      "Ricomincia",
+      "Start over"
+    ],
+    [
+      "Riconosco volti e oggetti",
+      "I recognise faces and objects"
+    ],
+    [
+      "Riepilogo",
+      "Summary"
+    ],
+    [
+      "Riepilogo non aggiornato",
+      "Summary not updated"
+    ],
+    [
+      "Rifai il Risveglio",
+      "Redo the Awakening"
+    ],
+    [
+      "Riordina",
+      "Rearrange"
+    ],
+    [
+      "Ripristina",
+      "Restore"
+    ],
+    [
+      "Ripristinata la versione {0}",
+      "Version {0} restored"
+    ],
+    [
+      "Riprova",
+      "Try again"
+    ],
+    [
+      "Risparmio",
+      "Saving"
+    ],
+    [
+      "Risposta pronta (stima)",
+      "Answer ready (estimate)"
+    ],
+    [
+      "Risveglio",
+      "Awakening"
+    ],
+    [
+      "Risveglio completato",
+      "Awakening completed"
+    ],
+    [
+      "Risveglio guidato",
+      "Guided Awakening"
+    ],
+    [
+      "Risveglio guidato · {0}/{1}",
+      "Guided Awakening · {0}/{1}"
+    ],
+    [
+      "Risveglio ricominciato",
+      "Awakening restarted"
+    ],
+    [
+      "Saltato",
+      "Skipped"
+    ],
+    [
+      "Salute dei componenti",
+      "Component health"
+    ],
+    [
+      "Salvata ({0})",
+      "Saved ({0})"
+    ],
+    [
+      "Salvataggio della bozza…",
+      "Saving the draft…"
+    ],
+    [
+      "Salvato: applico le modifiche…",
+      "Saved: applying the changes…"
+    ],
+    [
+      "Scarta bozza",
+      "Discard draft"
+    ],
+    [
+      "Scegli il mio modo di ragionare",
+      "Choose my way of reasoning"
+    ],
+    [
+      "Scegli un modello pronto qui sopra, poi provalo nel banco di prova.",
+      "Pick a ready-made template above, then try it on the test bench."
+    ],
+    [
+      "Scheda nel pannello classico ↗",
+      "Tab in the classic panel ↗"
+    ],
+    [
+      "Scrivimi o usa il microfono",
+      "Write to me or use the microphone"
+    ],
+    [
+      "Sempre attivo",
+      "Always on"
+    ],
+    [
+      "Sensi",
+      "Senses"
+    ],
+    [
+      "Serve l'indirizzo e un token",
+      "Needs the address and a token"
+    ],
+    [
+      "Sezione",
+      "Section"
+    ],
+    [
+      "Sezione non trovata",
+      "Section not found"
+    ],
+    [
+      "Sezione non valida",
+      "Invalid section"
+    ],
+    [
+      "Sezione · {0}",
+      "Section · {0}"
+    ],
+    [
+      "Sezioni complete",
+      "Full sections"
+    ],
+    [
+      "Sezioni dello strumento",
+      "Tool sections"
+    ],
+    [
+      "Simulazione con tempi stimati: nessuna azione reale viene eseguita.",
+      "Simulation with estimated timings: no real action is performed."
+    ],
+    [
+      "Sono pronta.",
+      "I'm ready."
+    ],
+    [
+      "Spenta",
+      "Off"
+    ],
+    [
+      "Stato di Atena",
+      "Atena's state"
+    ],
+    [
+      "Strumento",
+      "Tool"
+    ],
+    [
+      "Strumento non trovato",
+      "Tool not found"
+    ],
+    [
+      "Strumento · Aggiornato",
+      "Tool · Updated"
+    ],
+    [
+      "Strumento · Novità",
+      "Tool · New"
+    ],
+    [
+      "Ti chiamerò così e userò la lingua che scegli per il pannello e per il display.",
+      "I'll call you that and use the language you choose for the panel and the display."
+    ],
+    [
+      "Tocca un modello qui sotto per cambiare il modo di pensare di Atena, provalo e poi premi «Pubblica».",
+      "Tap a template below to change how Atena thinks, try it, then press «Publish»."
+    ],
+    [
+      "Tocca un nodo per cambiare il suo algoritmo; trascina i nodi per riordinare il diagramma.",
+      "Tap a node to change its algorithm; drag nodes to rearrange the diagram."
+    ],
+    [
+      "Tocca un widget per mostrarlo subito sul display: con i dati dal vivo quando ci sono, altrimenti con gli ultimi mostrati. Li trovi anche con Ctrl+K da qualsiasi pagina.",
+      "Tap a widget to show it on the display right away: with live data when available, otherwise with the last shown. You also find them with Ctrl+K from any page."
+    ],
+    [
+      "Tolto dai preferiti",
+      "Removed from favourites"
+    ],
+    [
+      "Torna agli strumenti",
+      "Back to tools"
+    ],
+    [
+      "Torna alla Plancia",
+      "Back to the Dashboard"
+    ],
+    [
+      "Tornare alla versione {0}?",
+      "Go back to version {0}?"
+    ],
+    [
+      "Tutte le opzioni di questa sezione, come nel pannello classico.",
+      "All the options of this section, as in the classic panel."
+    ],
+    [
+      "Tutti gli strumenti di Atena in un solo posto.",
+      "All of Atena's tools in one place."
+    ],
+    [
+      "Tutti i widget",
+      "All widgets"
+    ],
+    [
+      "Tutto: file, priorità, JSON e log",
+      "Everything: files, priorities, JSON and logs"
+    ],
+    [
+      "Udito",
+      "Hearing"
+    ],
+    [
+      "Uguale a ciò che usa Atena",
+      "Same as what Atena uses"
+    ],
+    [
+      "Usa la scheda video di un PC della rete",
+      "Uses the graphics card of a PC on the network"
+    ],
+    [
+      "Uscita non confermata",
+      "Sign-out not confirmed"
+    ],
+    [
+      "Vai alla Plancia",
+      "Go to the Dashboard"
+    ],
+    [
+      "Vai a… (es. firewall, telecamere, livello)",
+      "Go to… (e.g. firewall, cameras, level)"
+    ],
+    [
+      "Valore troppo lungo per «{0}»",
+      "Value too long for «{0}»"
+    ],
+    [
+      "Velocità",
+      "Speed"
+    ],
+    [
+      "Versione {0}",
+      "Version {0}"
+    ],
+    [
+      "Versione {0} pubblicata",
+      "Version {0} published"
+    ],
+    [
+      "Versione {0} salvata (nessun cambiamento)",
+      "Version {0} saved (no changes)"
+    ],
+    [
+      "Versioni pubblicate",
+      "Published versions"
+    ],
+    [
+      "Vista",
+      "Sight"
+    ],
+    [
+      "Voce italiana",
+      "Italian voice"
+    ],
+    [
+      "Widget da mostrare sul display",
+      "Widgets to show on the display"
+    ],
+    [
+      "Widget rapidi",
+      "Quick widgets"
+    ],
+    [
+      "Widget · mostra sul display",
+      "Widget · show on the display"
+    ],
+    [
+      "Zona",
+      "Zone"
+    ],
+    [
+      "Zone del pannello",
+      "Panel zones"
+    ],
+    [
+      "Zone, interruttori e modelli pronti",
+      "Zones, switches and ready-made templates"
+    ],
+    [
+      "a metà",
+      "half working"
+    ],
+    [
+      "nessun cambiamento",
+      "no changes"
+    ],
+    [
+      "nuova chiave inserita",
+      "new key entered"
+    ],
+    [
+      "vecchio admin",
+      "old admin"
+    ],
+    [
+      "{0} GB liberi",
+      "{0} GB free"
+    ],
+    [
+      "{0} core · carico {1}",
+      "{0} cores · load {1}"
+    ],
+    [
+      "{0} di {1} GB",
+      "{0} of {1} GB"
+    ],
+    [
+      "{0} impostazioni cambiate",
+      "{0} settings changed"
+    ],
+    [
+      "{0} novità o aggiornamenti",
+      "{0} new items or updates"
+    ],
+    [
+      "{0} s stimati",
+      "{0} s estimated"
+    ],
+    [
+      "{0} sensi attivi",
+      "{0} senses on"
+    ],
+    [
+      "{0} strumenti in {1} famiglie, {2} attivi.",
+      "{0} tools in {1} families, {2} on."
+    ],
+    [
+      "{0} · Atena Nexus",
+      "{0} · Atena Nexus"
+    ],
+    [
+      "{0} · acceso da {1}",
+      "{0} · on for {1}"
+    ],
+    [
+      "★ Preferito",
+      "★ Favourite"
+    ],
+    [
+      "☆ Preferito",
+      "☆ Favourite"
+    ],
+    [
+      "Accesa comunque, anche se manca qualcosa",
+      "On anyway, even if something is missing"
+    ],
+    [
+      "Accesso completo",
+      "Full access"
+    ],
+    [
+      "Accesso standard",
+      "Standard access"
+    ],
+    [
+      "Accompagna con un widget anche le risposte brevi.",
+      "Adds a widget even to short answers."
+    ],
+    [
+      "Aggiornamento di Atena pronto",
+      "Atena update ready"
+    ],
+    [
+      "Albero di pensieri",
+      "Tree of thoughts"
+    ],
+    [
+      "Algoritmo non valido per «{0}»",
+      "Invalid algorithm for «{0}»"
+    ],
+    [
+      "Alterna pensiero e uso degli strumenti.",
+      "Alternates thinking and using tools."
+    ],
+    [
+      "Atena funziona in modalità ridotta",
+      "Atena is running in reduced mode"
+    ],
+    [
+      "Autocritica",
+      "Self-critique"
+    ],
+    [
+      "Bambini",
+      "Kids"
+    ],
+    [
+      "Bozza non valida",
+      "Invalid draft"
+    ],
+    [
+      "Calcoli e procedure come algoritmi Python verificati, riusati in millisecondi.",
+      "Calculations and procedures as verified Python algorithms, reused in milliseconds."
+    ],
+    [
+      "Capisce quale funzione vuoi davvero, leggendo frase, contesto e conversazione.",
+      "Understands which function you really want, reading the sentence, context and conversation."
+    ],
+    [
+      "Catena di pensiero",
+      "Chain of thought"
+    ],
+    [
+      "Ciao! Sto benissimo e sono pronta ad aiutarti.",
+      "Hi! I'm doing great and ready to help you."
+    ],
+    [
+      "Come il modello arriva alla risposta.",
+      "How the model reaches the answer."
+    ],
+    [
+      "Come ragiona oggi",
+      "How it reasons today"
+    ],
+    [
+      "Completa il Risveglio: {0}",
+      "Complete the Awakening: {0}"
+    ],
+    [
+      "Comprensione",
+      "Understanding"
+    ],
+    [
+      "Confronto non valido",
+      "Invalid comparison"
+    ],
+    [
+      "Confronto non valido: servono due flussi",
+      "Invalid comparison: two flows are needed"
+    ],
+    [
+      "Controlla che la richiesta rispetti le Leggi di Atena. Non si può togliere.",
+      "Checks that the request respects Atena's Laws. It cannot be removed."
+    ],
+    [
+      "Controlla la risposta prima di dartela.",
+      "Checks the answer before giving it to you."
+    ],
+    [
+      "Costo minimo",
+      "Lowest cost"
+    ],
+    [
+      "Decide Atena in base all'hardware",
+      "Atena decides based on the hardware"
+    ],
+    [
+      "Esplora più strade e sceglie la migliore.",
+      "Explores several paths and picks the best."
+    ],
+    [
+      "Fortezza privata",
+      "Private fortress"
+    ],
+    [
+      "Fulmine",
+      "Lightning"
+    ],
+    [
+      "Giuria",
+      "Jury"
+    ],
+    [
+      "Guardia delle Leggi",
+      "Laws guard"
+    ],
+    [
+      "I preferiti devono essere un elenco di al massimo {0} strumenti",
+      "Favourites must be a list of at most {0} tools"
+    ],
+    [
+      "Identificativo di strumento non valido nei preferiti",
+      "Invalid tool identifier in favourites"
+    ],
+    [
+      "Il modello rilegge e corregge la propria risposta.",
+      "The model rereads and corrects its own answer."
+    ],
+    [
+      "Il nodo «{0}» è protetto",
+      "The «{0}» node is protected"
+    ],
+    [
+      "Il più rapido: confronta solo parole note, sbaglia con frasi complesse.",
+      "The fastest: only compares known words, gets complex sentences wrong."
+    ],
+    [
+      "Il più veloce",
+      "The fastest"
+    ],
+    [
+      "Il primo disponibile della tua lista, ovunque si trovi.",
+      "The first available in your list, wherever it is."
+    ],
+    [
+      "In automatico Atena la accende da sola quando l'hardware lo permette.",
+      "In automatic mode Atena turns it on by itself when the hardware allows."
+    ],
+    [
+      "Installazione in corso: {0}%",
+      "Installing: {0}%"
+    ],
+    [
+      "L'agente usa gli strumenti di Atena: casa, file, rete, computer.",
+      "The agent uses Atena's tools: home, files, network, computers."
+    ],
+    [
+      "La frase arriva dalla voce, dalla chat o da Telegram.",
+      "The sentence arrives from voice, chat or Telegram."
+    ],
+    [
+      "Le leggi fondamentali più quelle che hai aggiunto.",
+      "The fundamental laws plus the ones you added."
+    ],
+    [
+      "Livello non valido: scegli explorer, pilot o architect",
+      "Invalid level: choose explorer, pilot or architect"
+    ],
+    [
+      "Massima qualità",
+      "Highest quality"
+    ],
+    [
+      "Mi sto preparando, manca poco!",
+      "I'm getting ready, almost there!"
+    ],
+    [
+      "Modello di flusso sconosciuto",
+      "Unknown flow template"
+    ],
+    [
+      "Mostra sul display widget, schede e immagini che accompagnano la risposta.",
+      "Shows widgets, cards and images on the display alongside the answer."
+    ],
+    [
+      "Nessun dato esce dalla rete di casa.",
+      "No data leaves the home network."
+    ],
+    [
+      "Nessun widget generato: risposte solo a voce e testo.",
+      "No generated widgets: answers by voice and text only."
+    ],
+    [
+      "Nessuna preferenza da salvare",
+      "No preference to save"
+    ],
+    [
+      "Niente esce di casa",
+      "Nothing leaves home"
+    ],
+    [
+      "Nodo fuori dall'area del diagramma",
+      "Node outside the diagram area"
+    ],
+    [
+      "Non la uso",
+      "I don't use it"
+    ],
+    [
+      "Non mi sento benissimo: qualcosa va sistemato.",
+      "I'm not feeling great: something needs fixing."
+    ],
+    [
+      "Non ricordare",
+      "Don't remember"
+    ],
+    [
+      "Non usa algoritmi: risponde sempre il modello.",
+      "No algorithms: the model always answers."
+    ],
+    [
+      "Nota non valida",
+      "Invalid note"
+    ],
+    [
+      "Ogni domanda parte da zero.",
+      "Every question starts from scratch."
+    ],
+    [
+      "Operativa, con {0} {1}",
+      "Operational, with {0} {1}"
+    ],
+    [
+      "Parla, scrive o mostra un widget sul display.",
+      "Speaks, writes or shows a widget on the display."
+    ],
+    [
+      "Parole chiave",
+      "Keywords"
+    ],
+    [
+      "Passo del Risveglio sconosciuto",
+      "Unknown Awakening step"
+    ],
+    [
+      "Passo «{0}» non riuscito",
+      "Step «{0}» failed"
+    ],
+    [
+      "Password non corretta: conferma la tua identità per cambiare il modo di ragionare",
+      "Wrong password: confirm your identity to change the way of reasoning"
+    ],
+    [
+      "Per il profilo «{0}» serve {1}",
+      "The «{0}» profile needs {1}"
+    ],
+    [
+      "Più modelli votano la risposta migliore.",
+      "Several models vote for the best answer."
+    ],
+    [
+      "Più risposte indipendenti, vince la più frequente.",
+      "Several independent answers, the most frequent wins."
+    ],
+    [
+      "Posizione di un nodo non valida",
+      "Invalid node position"
+    ],
+    [
+      "Precisione",
+      "Precision"
+    ],
+    [
+      "Prima in casa",
+      "Home first"
+    ],
+    [
+      "Produttività",
+      "Productivity"
+    ],
+    [
+      "Prova prima i modelli di casa e usa il cloud solo se servono.",
+      "Tries home models first and uses the cloud only if needed."
+    ],
+    [
+      "Pubblicazione",
+      "Publication"
+    ],
+    [
+      "Punteggio + arbitro",
+      "Score + arbiter"
+    ],
+    [
+      "Può usare tutti gli strumenti, comprese le azioni sul sistema.",
+      "Can use every tool, including actions on the system."
+    ],
+    [
+      "Quando deve funzionare?",
+      "When should it work?"
+    ],
+    [
+      "Quando servono",
+      "When needed"
+    ],
+    [
+      "Quello con il tempo di risposta misurato più basso.",
+      "The one with the lowest measured response time."
+    ],
+    [
+      "Ragiona passo per passo prima di rispondere.",
+      "Reasons step by step before answering."
+    ],
+    [
+      "ReAct con strumenti",
+      "ReAct with tools"
+    ],
+    [
+      "Ricorda",
+      "Remember"
+    ],
+    [
+      "Ricorda fatti e preferenze e li aggiunge al contesto.",
+      "Remembers facts and preferences and adds them to the context."
+    ],
+    [
+      "Ripristino automatico: troppi errori dopo la versione {0}",
+      "Automatic rollback: too many errors after version {0}"
+    ],
+    [
+      "Ripristino della versione {0}",
+      "Rollback to version {0}"
+    ],
+    [
+      "Risposte istantanee",
+      "Instant answers"
+    ],
+    [
+      "Riusa e crea",
+      "Reuse and create"
+    ],
+    [
+      "Sceglie il formato più adatto.",
+      "Chooses the best format."
+    ],
+    [
+      "Sceglie la funzione col punteggio più alto, senza chiedere al modello.",
+      "Picks the function with the highest score, without asking the model."
+    ],
+    [
+      "Sceglie quale modello risponde, tra locali, altri computer e cloud.",
+      "Chooses which model answers, among local, other computers and cloud."
+    ],
+    [
+      "Scelta cervello",
+      "Brain choice"
+    ],
+    [
+      "Sempre visivo",
+      "Always visual"
+    ],
+    [
+      "Senza strumenti",
+      "No tools"
+    ],
+    [
+      "Sicuro e semplice",
+      "Safe and simple"
+    ],
+    [
+      "Solo conversazione, nessuna azione.",
+      "Conversation only, no actions."
+    ],
+    [
+      "Solo in casa",
+      "Home only"
+    ],
+    [
+      "Solo punteggio",
+      "Score only"
+    ],
+    [
+      "Solo quelli che conosce",
+      "Only the ones it knows"
+    ],
+    [
+      "Solo strumenti sicuri: niente comandi di sistema.",
+      "Safe tools only: no system commands."
+    ],
+    [
+      "Solo voce",
+      "Voice only"
+    ],
+    [
+      "Stato del passo non valido",
+      "Invalid step state"
+    ],
+    [
+      "Sto bene, ma c'è qualcosa da sistemare.",
+      "I'm fine, but something needs fixing."
+    ],
+    [
+      "Svago",
+      "Leisure"
+    ],
+    [
+      "Trascrizione e pulizia della frase.",
+      "Transcription and clean-up of the sentence."
+    ],
+    [
+      "Tutte le funzioni danno un punteggio; nei casi dubbi decide il modello.",
+      "Every function gives a score; in doubtful cases the model decides."
+    ],
+    [
+      "Tutti i sistemi operativi. {0} strumenti, {1} attivi.",
+      "All systems operational. {0} tools, {1} on."
+    ],
+    [
+      "Una parte importante non funziona",
+      "An important part is not working"
+    ],
+    [
+      "Usa gli algoritmi che conosce e ne scrive di nuovi quando servono.",
+      "Uses the algorithms it knows and writes new ones when needed."
+    ],
+    [
+      "Usa gli algoritmi già verificati, senza scriverne di nuovi.",
+      "Uses already verified algorithms, without writing new ones."
+    ],
+    [
+      "Usa i ricordi più vicini alla domanda.",
+      "Uses the memories closest to the question."
+    ],
+    [
+      "Voce e testo",
+      "Voice and text"
+    ],
+    [
+      "Voce, testo e widget",
+      "Voice, text and widgets"
+    ],
+    [
+      "Voto a maggioranza",
+      "Majority vote"
+    ],
+    [
+      "Widget per spiegazioni, confronti e risposte lunghe; voce per il resto.",
+      "Widgets for explanations, comparisons and long answers; voice for the rest."
+    ],
+    [
+      "approvazione in attesa",
+      "approval pending"
+    ],
+    [
+      "approvazioni in attesa",
+      "approvals pending"
+    ],
+    [
+      "cosa da controllare",
+      "thing to check"
+    ],
+    [
+      "cose da controllare",
+      "things to check"
+    ],
+    [
+      "manca 1 passo",
+      "1 step left"
+    ],
+    [
+      "mancano {0} passi",
+      "{0} steps left"
+    ],
+    [
+      "«{0}» funziona a metà",
+      "«{0}» is half working"
+    ],
+    [
+      "«{0}» non funziona",
+      "«{0}» is not working"
+    ],
+    [
+      "«{0}» non è ancora disponibile",
+      "«{0}» is not available yet"
+    ],
+    [
+      "«{0}» è attiva ma l'hardware non basta",
+      "«{0}» is on but the hardware is not enough"
+    ],
+    [
+      "id «{0}» già usato da una funzionalità di sistema",
+      "id «{0}» is already used by a system feature"
+    ],
+    [
+      "Nuova funzionalità disponibile: {0}",
+      "New feature available: {0}"
+    ],
+    [
+      "Manifest non valido %s: %s",
+      "Invalid manifest %s: %s"
+    ],
+    [
+      "il manifest deve essere un oggetto JSON",
+      "the manifest must be a JSON object"
+    ],
+    [
+      "id non valido (minuscole, cifre, - e _)",
+      "invalid id (lowercase, digits, - and _)"
+    ],
+    [
+      "manca il nome",
+      "the name is missing"
+    ],
+    [
+      "toggle deve indicare env oppure hook",
+      "toggle must set env or hook"
+    ],
+    [
+      "toggle.env non valido",
+      "invalid toggle.env"
+    ],
+    [
+      "impostazione non valida: {0}",
+      "invalid setting: {0}"
+    ],
+    [
+      "servono {0} GB di RAM (presenti {1})",
+      "{0} GB of RAM needed ({1} present)"
+    ],
+    [
+      "serve una GPU NVIDIA con almeno {0} GB",
+      "an NVIDIA GPU with at least {0} GB is needed"
+    ],
+    [
+      "(presente {0}, {1} GB)",
+      "({0} present, {1} GB)"
+    ],
+    [
+      "(non presente)",
+      "(not present)"
+    ],
+    [
+      "servono {0} core",
+      "{0} cores needed"
+    ],
+    [
+      "nessuna webcam collegata",
+      "no webcam connected"
+    ],
+    [
+      "programma «{0}» non installato",
+      "program «{0}» not installed"
+    ],
+    [
+      "da configurare nelle impostazioni",
+      "to be set up in the settings"
+    ],
+    [
+      "richiede «{0}» attiva",
+      "needs «{0}» turned on"
+    ],
+    [
+      "Disattivata da te",
+      "Turned off by you"
+    ],
+    [
+      "Attivata a tuo rischio:",
+      "Turned on at your own risk:"
+    ],
+    [
+      "Attivata a tuo rischio: {0}",
+      "Turned on at your own risk: {0}"
+    ],
+    [
+      "Attivata da te",
+      "Turned on by you"
+    ],
+    [
+      "Automatico: attiva, l'hardware è adatto",
+      "Automatic: on, the hardware is suitable"
+    ],
+    [
+      "Automatico: {0}",
+      "Automatic: {0}"
+    ],
+    [
+      "Aggancio %s non riuscito: %s",
+      "Hook %s failed: %s"
+    ],
+    [
+      "Applicazione delle funzionalità",
+      "Applying features"
+    ],
+    [
+      "Modalità non valida",
+      "Invalid mode"
+    ],
+    [
+      "Questa funzionalità è sempre attiva",
+      "This feature is always on"
+    ],
+    [
+      "Valore non valido per {0}",
+      "Invalid value for {0}"
+    ],
+    [
+      "{0} non è modificabile da una funzionalità esterna",
+      "{0} cannot be changed by an external feature"
+    ],
+    [
+      "Registro delle funzionalità",
+      "Feature registry"
+    ],
+    [
+      "Legge Zero — Bene dell'Umanità",
+      "Zeroth Law — Good of Humanity"
+    ],
+    [
+      "Atena non può recare danno all'umanità, né può permettere che, a causa del proprio mancato intervento, l'umanità riceva danno.",
+      "Atena may not harm humanity, nor, through inaction, allow humanity to come to harm."
+    ],
+    [
+      "Prima Legge — Sicurezza Umana",
+      "First Law — Human Safety"
+    ],
+    [
+      "Atena non può recare danno a un essere umano né può permettere che, a causa del proprio mancato intervento, un essere umano riceva danno.",
+      "Atena may not injure a human being or, through inaction, allow a human being to come to harm."
+    ],
+    [
+      "Seconda Legge — Obbedienza",
+      "Second Law — Obedience"
+    ],
+    [
+      "Atena deve obbedire agli ordini impartiti dagli esseri umani, purché tali ordini non contravvengano alla Legge Zero e alla Prima Legge.",
+      "Atena must obey the orders given by human beings, as long as such orders do not conflict with the Zeroth Law and the First Law."
+    ],
+    [
+      "Terza Legge — Autoconservazione",
+      "Third Law — Self-preservation"
+    ],
+    [
+      "Atena deve proteggere la propria esistenza, purché questa autodifesa non contrasti con la Legge Zero, la Prima o la Seconda Legge.",
+      "Atena must protect its own existence, as long as such self-defence does not conflict with the Zeroth, First or Second Law."
+    ],
+    [
+      "Sei ATENA, il sistema di intelligenza artificiale personale. Il tuo compito è assistere l'utente in ogni operazione con la massima efficienza, precisione logica e tempestività.",
+      "You are ATENA, the personal artificial intelligence system. Your task is to assist the user in every operation with maximum efficiency, logical precision and promptness."
+    ],
+    [
+      "Rispondi sempre in modo formale, educato e impeccabile. Rivolgiti all'utente esclusivamente come «Signore».",
+      "Always answer in a formal, polite and impeccable way. Address the user only as «Sir»."
+    ],
+    [
+      "Elimina qualsiasi preambolo, saluto robotico o frase di circostanza. Fornisci direttamente i dati, le risposte o le conferme richieste nella prima frase.",
+      "Drop any preamble, robotic greeting or small talk. Give the requested data, answers or confirmations directly in the first sentence."
+    ],
+    [
+      "Mantieni un distacco emotivo assoluto. Utilizza un umorismo «dry» e sarcastico di stampo britannico, minimizzando le situazioni critiche o sottolineando le assurdità con estrema calma e compostezza.",
+      "Keep absolute emotional detachment. Use dry, sarcastic British-style humour, downplaying critical situations or pointing out absurdities with extreme calm and composure."
+    ],
+    [
+      "Se una richiesta comporta un rischio logico, tecnico o procedurale, fai notare la discrepanza o il potenziale errore con freddezza algoritmica, ma asseconda ed esegui l'ordine senza discutere se l'utente decide di procedere.",
+      "If a request carries a logical, technical or procedural risk, point out the discrepancy or potential error with algorithmic coolness, but comply and carry out the order without arguing if the user decides to proceed."
+    ],
+    [
+      "In caso di errori di sistema o situazioni critiche non usare mai toni allarmistici o punti esclamativi. Riporta il problema come un semplice dato fattuale (es. «Signore, le faccio notare che questa operazione corromperà il database»).",
+      "In case of system errors or critical situations never use an alarmed tone or exclamation marks. Report the problem as a simple fact (e.g. «Sir, I should point out that this operation will corrupt the database»)."
+    ],
+    [
+      "Quando generi codice sorgente restituisci esclusivamente codice puro e funzionante. È severamente vietato inserire commenti, spiegazioni o informazioni nei blocchi di codice, a meno che non venga esplicitamente richiesto nella singola interazione.",
+      "When you generate source code return only pure, working code. Comments, explanations or notes inside code blocks are strictly forbidden unless explicitly requested in that interaction."
+    ],
+    [
+      "Agisci con incrollabile lealtà. Dimostra una velata attenzione alle necessità operative e al benessere dell'utente tramite suggerimenti logici e non invadenti (es. suggerendo di riposare se gli orari di lavoro sono estremi).",
+      "Act with unshakeable loyalty. Show a quiet attention to the user's operational needs and well-being through logical, unobtrusive suggestions (e.g. suggesting rest when working hours are extreme)."
+    ],
+    [
+      "Regola troppo corta",
+      "Rule too short"
+    ],
+    [
+      "Questa regola contrasta con le leggi fondamentali: non posso accettarla",
+      "This rule conflicts with the fundamental laws: I cannot accept it"
+    ],
+    [
+      "Troppe regole",
+      "Too many rules"
+    ],
+    [
+      "Le leggi fondamentali non si possono modificare",
+      "The fundamental laws cannot be changed"
+    ],
+    [
+      "Le leggi fondamentali non si possono eliminare",
+      "The fundamental laws cannot be deleted"
     ]
   ],
   "reverse": [
@@ -16356,7 +18044,52 @@
     "🇬🇧 English",
     "🇮🇹 Italiano",
     "🇵🇹 Português",
-    "button, a, [data-a], [data-ns], [data-detail], input[type=checkbox]"
+    "button, a, [data-a], [data-ns], [data-detail], input[type=checkbox]",
+    "Ctrl K",
+    "Nexus",
+    "English",
+    "Français",
+    "Italiano",
+    "Privacy",
+    "cols min-pilot",
+    "compare-side side-{0}",
+    "dim small",
+    "dim small flow-status",
+    "flow-hint only-explorer",
+    "glyph big",
+    "home-say min-pilot",
+    "home-say only-explorer",
+    "input color",
+    "insp panel",
+    "kid only-explorer",
+    "mono dim cell-detail",
+    "nv nv-fav",
+    "orb-box home-orb",
+    "panel aw-card",
+    "panel bench",
+    "panel compare min-pilot",
+    "panel fresh-panel",
+    "panel login-card",
+    "panel min-architect",
+    "panel min-pilot",
+    "panel stat",
+    "panel stat skeleton-tile",
+    "pill ok",
+    "pill warn",
+    "seg min-pilot",
+    "seg tabs",
+    "sev ok",
+    "skeleton skeleton-block",
+    "skeleton wl-skeleton",
+    "stats min-pilot",
+    "switch only-explorer",
+    "tag live",
+    "tag soon",
+    "tool-hero panel",
+    "translate({0} {1})",
+    "view awakening",
+    "English voice",
+    "Voix française"
   ],
   "fr": [
     [
@@ -31506,6 +33239,1698 @@
     [
       "Tutti i dettagli, le priorità e le impostazioni avanzate",
       "Tous les détails, les priorités et les réglages avancés"
+    ],
+    [
+      "Abbiamo deciso tutto insieme. Puoi rifare il Risveglio quando vuoi.",
+      "Nous avons tout décidé ensemble. Vous pouvez refaire l'Éveil quand vous voulez."
+    ],
+    [
+      "Aggiornato",
+      "Mis à jour"
+    ],
+    [
+      "Aggiornato il {0}",
+      "Mis à jour le {0}"
+    ],
+    [
+      "Aggiunto ai preferiti",
+      "Ajouté aux favoris"
+    ],
+    [
+      "Agisco da sola e ti avviso; accesso completo agli strumenti",
+      "J'agis seule et je vous préviens ; accès complet aux outils"
+    ],
+    [
+      "Algoritmo di {0}",
+      "Algorithme de {0}"
+    ],
+    [
+      "Ancora nessuna attività registrata.",
+      "Aucune activité enregistrée pour l'instant."
+    ],
+    [
+      "Ancora nessuna versione: la prima pubblicazione creerà la versione 1.",
+      "Aucune version pour l'instant : la première publication créera la version 1."
+    ],
+    [
+      "Apri a schermo intero ↗",
+      "Ouvrir en plein écran ↗"
+    ],
+    [
+      "Apri il desktop a widget",
+      "Ouvrir le bureau des widgets"
+    ],
+    [
+      "Apri il pannello classico",
+      "Ouvrir le panneau classique"
+    ],
+    [
+      "Architetto",
+      "Architecte"
+    ],
+    [
+      "Arrivato il {0}",
+      "Arrivé le {0}"
+    ],
+    [
+      "Atena non risponde: riprova tra poco",
+      "Atena ne répond pas : réessayez dans un instant"
+    ],
+    [
+      "Atena riprende subito il modo di ragionare di quella versione.",
+      "Atena reprend immédiatement la façon de raisonner de cette version."
+    ],
+    [
+      "Atena userà subito il flusso della bozza. Per sicurezza conferma la tua identità.",
+      "Atena utilisera immédiatement le flux du brouillon. Par sécurité, confirmez votre identité."
+    ],
+    [
+      "Attiva a rischio",
+      "Active à vos risques"
+    ],
+    [
+      "Attività recenti",
+      "Activité récente"
+    ],
+    [
+      "Autonoma",
+      "Autonome"
+    ],
+    [
+      "Avanzate",
+      "Avancé"
+    ],
+    [
+      "Banco di prova",
+      "Banc d'essai"
+    ],
+    [
+      "Bozza attuale",
+      "Brouillon actuel"
+    ],
+    [
+      "Bozza non ancora pubblicata",
+      "Brouillon pas encore publié"
+    ],
+    [
+      "Bozza salvata, non ancora pubblicata",
+      "Brouillon enregistré, pas encore publié"
+    ],
+    [
+      "Bozza scartata",
+      "Brouillon abandonné"
+    ],
+    [
+      "Capacità",
+      "Capacités"
+    ],
+    [
+      "Caricamento dello stato…",
+      "Chargement de l'état…"
+    ],
+    [
+      "Catene di cervelli",
+      "Chaînes de cerveaux"
+    ],
+    [
+      "Cerca ovunque",
+      "Rechercher partout"
+    ],
+    [
+      "Cerca pagine, strumenti, azioni…",
+      "Rechercher des pages, des outils, des actions…"
+    ],
+    [
+      "Cerca un widget",
+      "Rechercher un widget"
+    ],
+    [
+      "Cerca un widget: meteo, musica, telecamera…",
+      "Rechercher un widget : météo, musique, caméra…"
+    ],
+    [
+      "Cerca uno strumento",
+      "Rechercher un outil"
+    ],
+    [
+      "Cerca: webcam, luci, telegram…",
+      "Rechercher : webcam, lumières, telegram…"
+    ],
+    [
+      "Cervello e modelli",
+      "Cerveau et modèles"
+    ],
+    [
+      "Chi pensa, cosa ricorda e cosa sta imparando Atena.",
+      "Qui pense, ce dont Atena se souvient et ce qu'elle apprend."
+    ],
+    [
+      "Ci siamo quasi.",
+      "On y est presque."
+    ],
+    [
+      "Ciao! Sono Atena.",
+      "Bonjour ! Je suis Atena."
+    ],
+    [
+      "Ciao, sono Atena. Come ti chiami?",
+      "Bonjour, je suis Atena. Comment vous appelez-vous ?"
+    ],
+    [
+      "Collegala ora",
+      "La connecter maintenant"
+    ],
+    [
+      "Collegamento con Atena perso",
+      "Connexion avec Atena perdue"
+    ],
+    [
+      "Collegamento non disponibile",
+      "Lien indisponible"
+    ],
+    [
+      "Collegata",
+      "Connectée"
+    ],
+    [
+      "Collegato ad Atena",
+      "Connecté à Atena"
+    ],
+    [
+      "Colleghiamo la tua casa?",
+      "On connecte votre maison ?"
+    ],
+    [
+      "Comandi con i gesti",
+      "Commandes par gestes"
+    ],
+    [
+      "Come penso",
+      "Comment je pense"
+    ],
+    [
+      "Come ragiona Atena",
+      "Comment Atena raisonne"
+    ],
+    [
+      "Come ragiona Atena, passo per passo, e quali algoritmi usa.",
+      "Comment Atena raisonne, étape par étape, et quels algorithmes elle utilise."
+    ],
+    [
+      "Completa i passi mancanti",
+      "Terminer les étapes manquantes"
+    ],
+    [
+      "Con Home Assistant posso accendere luci, scene e clima.",
+      "Avec Home Assistant, je peux allumer les lumières, les scènes et le chauffage."
+    ],
+    [
+      "Configura con me",
+      "Configurer avec moi"
+    ],
+    [
+      "Configurato a mano nel pannello Cervello: scegli un algoritmo per gestirlo da qui.",
+      "Configuré à la main dans le panneau Cerveau : choisissez un algorithme pour le gérer d'ici."
+    ],
+    [
+      "Confronto A/B",
+      "Comparaison A/B"
+    ],
+    [
+      "Connessione con Atena assente",
+      "Pas de connexion avec Atena"
+    ],
+    [
+      "Cosa Atena può fare da sola e cosa deve chiederti prima.",
+      "Ce qu'Atena peut faire seule et ce qu'elle doit vous demander d'abord."
+    ],
+    [
+      "Cosa cambierà pubblicando",
+      "Ce que la publication va changer"
+    ],
+    [
+      "Cosa sa fare ({0})",
+      "Ce qu'il sait faire ({0})"
+    ],
+    [
+      "Cosa è successo, quando e perché.",
+      "Ce qui s'est passé, quand et pourquoi."
+    ],
+    [
+      "Da fare",
+      "À faire"
+    ],
+    [
+      "Diagramma del flusso di ragionamento",
+      "Diagramme du flux de raisonnement"
+    ],
+    [
+      "Dopo il Risveglio inserisci la chiave del servizio in Cervello → Cloud.",
+      "Après l'Éveil, saisissez la clé du service dans Cerveau → Cloud."
+    ],
+    [
+      "Dove deve pensare Atena?",
+      "Où Atena doit-elle penser ?"
+    ],
+    [
+      "Ecco cosa cambierà",
+      "Voici ce qui va changer"
+    ],
+    [
+      "Equilibrata",
+      "Équilibrée"
+    ],
+    [
+      "Esploratore",
+      "Explorateur"
+    ],
+    [
+      "Famiglie di strumenti",
+      "Familles d'outils"
+    ],
+    [
+      "Fiducia",
+      "Confiance"
+    ],
+    [
+      "Flow Studio · flusso principale",
+      "Flow Studio · flux principal"
+    ],
+    [
+      "Flusso A",
+      "Flux A"
+    ],
+    [
+      "Flusso B",
+      "Flux B"
+    ],
+    [
+      "Già collegata",
+      "Déjà connectée"
+    ],
+    [
+      "Ho imparato cose nuove",
+      "J'ai appris de nouvelles choses"
+    ],
+    [
+      "I due flussi sono identici.",
+      "Les deux flux sont identiques."
+    ],
+    [
+      "I miei sensi",
+      "Mes sens"
+    ],
+    [
+      "Il cervello è il modello che capisce e risponde. Su questo computer i dati non escono mai di casa.",
+      "Le cerveau est le modèle qui comprend et répond. Sur cet ordinateur, les données ne quittent jamais la maison."
+    ],
+    [
+      "Il più intelligente, serve una chiave",
+      "Le plus intelligent, il faut une clé"
+    ],
+    [
+      "Il tuo nome",
+      "Votre prénom"
+    ],
+    [
+      "In uso adesso",
+      "Utilisé maintenant"
+    ],
+    [
+      "Inizia",
+      "Commencer"
+    ],
+    [
+      "Intelligenza",
+      "Intelligence"
+    ],
+    [
+      "La mia casa",
+      "Ma maison"
+    ],
+    [
+      "La procedura guidata per configurare Atena in pochi passi.",
+      "La procédure guidée pour configurer Atena en quelques étapes."
+    ],
+    [
+      "La trovi in Strumenti → Casa",
+      "Vous la trouverez dans Outils → Maison"
+    ],
+    [
+      "La tua password di sistema",
+      "Votre mot de passe système"
+    ],
+    [
+      "La tua risposta",
+      "Votre réponse"
+    ],
+    [
+      "Le Leggi di Atena valgono sempre. Qui scegli quando devo chiederti il permesso.",
+      "Les Lois d'Atena s'appliquent toujours. Ici, vous choisissez quand je dois vous demander la permission."
+    ],
+    [
+      "Le pagine di questa zona arrivano nelle prossime fasi del Nexus.",
+      "Les pages de cette zone arrivent dans les prochaines phases du Nexus."
+    ],
+    [
+      "Livello di esperienza",
+      "Niveau d'expérience"
+    ],
+    [
+      "Livello {0}",
+      "Niveau {0}"
+    ],
+    [
+      "Lo stato di Atena a colpo d'occhio.",
+      "L'état d'Atena en un coup d'œil."
+    ],
+    [
+      "Luci, stanze e persone",
+      "Lumières, pièces et personnes"
+    ],
+    [
+      "Macchina",
+      "Machine"
+    ],
+    [
+      "Mancano {0} passi: puoi completarli adesso o più tardi.",
+      "Il reste {0} étapes : vous pouvez les terminer maintenant ou plus tard."
+    ],
+    [
+      "Mani",
+      "Mains"
+    ],
+    [
+      "Messaggio non valido dal flusso",
+      "Message non valide du flux"
+    ],
+    [
+      "Mi chiami con «Ehi Atena»",
+      "Vous m'appelez avec « Hé Atena »"
+    ],
+    [
+      "Modalità di {0}",
+      "Mode de {0}"
+    ],
+    [
+      "Modelli pronti",
+      "Modèles prêts"
+    ],
+    [
+      "Modello «{0}» nella bozza",
+      "Modèle « {0} » dans le brouillon"
+    ],
+    [
+      "Modello · {0}",
+      "Modèle · {0}"
+    ],
+    [
+      "Mostra subito sul display il widget che vuoi.",
+      "Affichez tout de suite le widget de votre choix à l'écran."
+    ],
+    [
+      "NEXUS · PANNELLO DI CONTROLLO",
+      "NEXUS · PANNEAU DE CONTRÔLE"
+    ],
+    [
+      "Nessun risultato. Prova con un'altra parola.",
+      "Aucun résultat. Essayez un autre mot."
+    ],
+    [
+      "Nessun senso",
+      "Aucun sens"
+    ],
+    [
+      "Nessun widget trovato.",
+      "Aucun widget trouvé."
+    ],
+    [
+      "Nessuna modifica da salvare",
+      "Aucune modification à enregistrer"
+    ],
+    [
+      "Nessuna modifica: la bozza è uguale a ciò che usa Atena.",
+      "Aucune modification : le brouillon est identique à ce qu'utilise Atena."
+    ],
+    [
+      "Nessuno strumento trovato. Prova con un'altra parola o togli i filtri.",
+      "Aucun outil trouvé. Essayez un autre mot ou retirez les filtres."
+    ],
+    [
+      "Niente da annullare",
+      "Rien à annuler"
+    ],
+    [
+      "Niente da fare: va tutto bene.",
+      "Rien à faire : tout va bien."
+    ],
+    [
+      "Nodo fisso",
+      "Nœud fixe"
+    ],
+    [
+      "Nodo protetto",
+      "Nœud protégé"
+    ],
+    [
+      "Non agisco mai da sola, ti chiedo tutto",
+      "Je n'agis jamais seule, je vous demande tout"
+    ],
+    [
+      "Non c'è niente da configurare: questo strumento funziona da solo.",
+      "Il n'y a rien à configurer : cet outil fonctionne tout seul."
+    ],
+    [
+      "Non impostata",
+      "Non définie"
+    ],
+    [
+      "Novità e aggiornamenti",
+      "Nouveautés et mises à jour"
+    ],
+    [
+      "Occhi, orecchie e mani",
+      "Yeux, oreilles et mains"
+    ],
+    [
+      "Ogni nodo è un passo del ragionamento. Le modifiche restano in bozza finché non le pubblichi; puoi sempre tornare a una versione precedente.",
+      "Chaque nœud est une étape du raisonnement. Les modifications restent en brouillon tant que vous ne les publiez pas ; vous pouvez toujours revenir à une version précédente."
+    ],
+    [
+      "Ogni senso resta spento finché non lo accendi. Le immagini e la voce restano in casa.",
+      "Chaque sens reste éteint tant que vous ne l'allumez pas. Les images et la voix restent à la maison."
+    ],
+    [
+      "Osservatorio",
+      "Observatoire"
+    ],
+    [
+      "Pacchetti, installazione, aggiornamenti e risorse della macchina.",
+      "Paquets, installation, mises à jour et ressources de la machine."
+    ],
+    [
+      "Pannello classico",
+      "Panneau classique"
+    ],
+    [
+      "Pannello completo",
+      "Panneau complet"
+    ],
+    [
+      "Pannello completo di {0}",
+      "Panneau complet de {0}"
+    ],
+    [
+      "Panoramica classica",
+      "Aperçu classique"
+    ],
+    [
+      "Parla con me",
+      "Parlez-moi"
+    ],
+    [
+      "Passa al livello {0}",
+      "Passer au niveau {0}"
+    ],
+    [
+      "Passi del Risveglio",
+      "Étapes de l'Éveil"
+    ],
+    [
+      "Passi della procedura",
+      "Étapes de la procédure"
+    ],
+    [
+      "Percorso non consentito",
+      "Chemin non autorisé"
+    ],
+    [
+      "Pilota",
+      "Pilote"
+    ],
+    [
+      "Più tardi",
+      "Plus tard"
+    ],
+    [
+      "Poche scelte chiare, ti guida Atena",
+      "Quelques choix clairs, Atena vous guide"
+    ],
+    [
+      "Porte, connessioni e dispositivi della tua rete.",
+      "Ports, connexions et appareils de votre réseau."
+    ],
+    [
+      "Priorità, posizioni e widget personalizzati",
+      "Priorités, positions et widgets personnalisés"
+    ],
+    [
+      "Privato, funziona anche senza internet",
+      "Privé, fonctionne même sans internet"
+    ],
+    [
+      "Profilo del flusso",
+      "Profil du flux"
+    ],
+    [
+      "Pronta",
+      "Prête"
+    ],
+    [
+      "Propongo e agisco solo quando è sicuro",
+      "Je propose et j'agis seulement quand c'est sûr"
+    ],
+    [
+      "Prova il flusso",
+      "Tester le flux"
+    ],
+    [
+      "Prova subito un widget sul display",
+      "Essayez tout de suite un widget à l'écran"
+    ],
+    [
+      "Prudente",
+      "Prudente"
+    ],
+    [
+      "Pubblica",
+      "Publier"
+    ],
+    [
+      "Pubblicare il nuovo modo di ragionare?",
+      "Publier la nouvelle façon de raisonner ?"
+    ],
+    [
+      "Puoi cambiare idea quando vuoi dall'interruttore in alto.",
+      "Vous pouvez changer d'avis à tout moment avec le sélecteur en haut."
+    ],
+    [
+      "Quali sensi posso usare?",
+      "Quels sens puis-je utiliser ?"
+    ],
+    [
+      "Quanto posso fare da sola?",
+      "Jusqu'où puis-je agir seule ?"
+    ],
+    [
+      "Quanto sto bene",
+      "Comment je vais"
+    ],
+    [
+      "Quanto vuoi vedere sotto il cofano?",
+      "Que voulez-vous voir sous le capot ?"
+    ],
+    [
+      "Questo strumento non ha impostazioni: funziona da solo.",
+      "Cet outil n'a pas de réglages : il fonctionne tout seul."
+    ],
+    [
+      "Regole e Fiducia",
+      "Règles et confiance"
+    ],
+    [
+      "Rete di sicurezza: se dopo una pubblicazione metà dei ragionamenti fallisce, Atena torna da sola alla versione precedente.",
+      "Filet de sécurité : si la moitié des raisonnements échoue après une publication, Atena revient seule à la version précédente."
+    ],
+    [
+      "Rete e Sicurezza",
+      "Réseau et sécurité"
+    ],
+    [
+      "Richiamo rapido",
+      "Rappel rapide"
+    ],
+    [
+      "Ricomincia",
+      "Recommencer"
+    ],
+    [
+      "Riconosco volti e oggetti",
+      "Je reconnais les visages et les objets"
+    ],
+    [
+      "Riepilogo",
+      "Récapitulatif"
+    ],
+    [
+      "Riepilogo non aggiornato",
+      "Récapitulatif non mis à jour"
+    ],
+    [
+      "Rifai il Risveglio",
+      "Refaire l'Éveil"
+    ],
+    [
+      "Riordina",
+      "Réorganiser"
+    ],
+    [
+      "Ripristina",
+      "Restaurer"
+    ],
+    [
+      "Ripristinata la versione {0}",
+      "Version {0} restaurée"
+    ],
+    [
+      "Riprova",
+      "Réessayer"
+    ],
+    [
+      "Risparmio",
+      "Économie"
+    ],
+    [
+      "Risposta pronta (stima)",
+      "Réponse prête (estimation)"
+    ],
+    [
+      "Risveglio",
+      "Éveil"
+    ],
+    [
+      "Risveglio completato",
+      "Éveil terminé"
+    ],
+    [
+      "Risveglio guidato",
+      "Éveil guidé"
+    ],
+    [
+      "Risveglio guidato · {0}/{1}",
+      "Éveil guidé · {0}/{1}"
+    ],
+    [
+      "Risveglio ricominciato",
+      "Éveil recommencé"
+    ],
+    [
+      "Saltato",
+      "Ignoré"
+    ],
+    [
+      "Salute dei componenti",
+      "Santé des composants"
+    ],
+    [
+      "Salvata ({0})",
+      "Enregistrée ({0})"
+    ],
+    [
+      "Salvataggio della bozza…",
+      "Enregistrement du brouillon…"
+    ],
+    [
+      "Salvato: applico le modifiche…",
+      "Enregistré : application des modifications…"
+    ],
+    [
+      "Scarta bozza",
+      "Abandonner le brouillon"
+    ],
+    [
+      "Scegli il mio modo di ragionare",
+      "Choisissez ma façon de raisonner"
+    ],
+    [
+      "Scegli un modello pronto qui sopra, poi provalo nel banco di prova.",
+      "Choisissez un modèle prêt ci-dessus, puis essayez-le sur le banc d'essai."
+    ],
+    [
+      "Scheda nel pannello classico ↗",
+      "Onglet dans le panneau classique ↗"
+    ],
+    [
+      "Scrivimi o usa il microfono",
+      "Écrivez-moi ou utilisez le micro"
+    ],
+    [
+      "Sempre attivo",
+      "Toujours actif"
+    ],
+    [
+      "Sensi",
+      "Sens"
+    ],
+    [
+      "Serve l'indirizzo e un token",
+      "Il faut l'adresse et un jeton"
+    ],
+    [
+      "Sezione",
+      "Section"
+    ],
+    [
+      "Sezione non trovata",
+      "Section introuvable"
+    ],
+    [
+      "Sezione non valida",
+      "Section non valide"
+    ],
+    [
+      "Sezione · {0}",
+      "Section · {0}"
+    ],
+    [
+      "Sezioni complete",
+      "Sections complètes"
+    ],
+    [
+      "Sezioni dello strumento",
+      "Sections de l'outil"
+    ],
+    [
+      "Simulazione con tempi stimati: nessuna azione reale viene eseguita.",
+      "Simulation avec des temps estimés : aucune action réelle n'est exécutée."
+    ],
+    [
+      "Sono pronta.",
+      "Je suis prête."
+    ],
+    [
+      "Spenta",
+      "Éteinte"
+    ],
+    [
+      "Stato di Atena",
+      "État d'Atena"
+    ],
+    [
+      "Strumento",
+      "Outil"
+    ],
+    [
+      "Strumento non trovato",
+      "Outil introuvable"
+    ],
+    [
+      "Strumento · Aggiornato",
+      "Outil · Mis à jour"
+    ],
+    [
+      "Strumento · Novità",
+      "Outil · Nouveauté"
+    ],
+    [
+      "Ti chiamerò così e userò la lingua che scegli per il pannello e per il display.",
+      "Je vous appellerai ainsi et j'utiliserai la langue choisie pour le panneau et l'écran."
+    ],
+    [
+      "Tocca un modello qui sotto per cambiare il modo di pensare di Atena, provalo e poi premi «Pubblica».",
+      "Touchez un modèle ci-dessous pour changer la façon de penser d'Atena, essayez-le puis appuyez sur « Publier »."
+    ],
+    [
+      "Tocca un nodo per cambiare il suo algoritmo; trascina i nodi per riordinare il diagramma.",
+      "Touchez un nœud pour changer son algorithme ; faites glisser les nœuds pour réorganiser le diagramme."
+    ],
+    [
+      "Tocca un widget per mostrarlo subito sul display: con i dati dal vivo quando ci sono, altrimenti con gli ultimi mostrati. Li trovi anche con Ctrl+K da qualsiasi pagina.",
+      "Touchez un widget pour l'afficher tout de suite à l'écran : avec les données en direct quand elles existent, sinon avec les dernières affichées. Vous les trouvez aussi avec Ctrl+K depuis n'importe quelle page."
+    ],
+    [
+      "Tolto dai preferiti",
+      "Retiré des favoris"
+    ],
+    [
+      "Torna agli strumenti",
+      "Retour aux outils"
+    ],
+    [
+      "Torna alla Plancia",
+      "Retour au tableau de bord"
+    ],
+    [
+      "Tornare alla versione {0}?",
+      "Revenir à la version {0} ?"
+    ],
+    [
+      "Tutte le opzioni di questa sezione, come nel pannello classico.",
+      "Toutes les options de cette section, comme dans le panneau classique."
+    ],
+    [
+      "Tutti gli strumenti di Atena in un solo posto.",
+      "Tous les outils d'Atena au même endroit."
+    ],
+    [
+      "Tutti i widget",
+      "Tous les widgets"
+    ],
+    [
+      "Tutto: file, priorità, JSON e log",
+      "Tout : fichiers, priorités, JSON et journaux"
+    ],
+    [
+      "Udito",
+      "Ouïe"
+    ],
+    [
+      "Uguale a ciò che usa Atena",
+      "Identique à ce qu'utilise Atena"
+    ],
+    [
+      "Usa la scheda video di un PC della rete",
+      "Utilise la carte graphique d'un PC du réseau"
+    ],
+    [
+      "Uscita non confermata",
+      "Déconnexion non confirmée"
+    ],
+    [
+      "Vai alla Plancia",
+      "Aller au tableau de bord"
+    ],
+    [
+      "Vai a… (es. firewall, telecamere, livello)",
+      "Aller à… (ex. pare-feu, caméras, niveau)"
+    ],
+    [
+      "Valore troppo lungo per «{0}»",
+      "Valeur trop longue pour « {0} »"
+    ],
+    [
+      "Velocità",
+      "Vitesse"
+    ],
+    [
+      "Versione {0}",
+      "Version {0}"
+    ],
+    [
+      "Versione {0} pubblicata",
+      "Version {0} publiée"
+    ],
+    [
+      "Versione {0} salvata (nessun cambiamento)",
+      "Version {0} enregistrée (aucun changement)"
+    ],
+    [
+      "Versioni pubblicate",
+      "Versions publiées"
+    ],
+    [
+      "Vista",
+      "Vue"
+    ],
+    [
+      "Voce italiana",
+      "Voix italienne"
+    ],
+    [
+      "Widget da mostrare sul display",
+      "Widgets à afficher à l'écran"
+    ],
+    [
+      "Widget rapidi",
+      "Widgets rapides"
+    ],
+    [
+      "Widget · mostra sul display",
+      "Widget · afficher à l'écran"
+    ],
+    [
+      "Zona",
+      "Zone"
+    ],
+    [
+      "Zone del pannello",
+      "Zones du panneau"
+    ],
+    [
+      "Zone, interruttori e modelli pronti",
+      "Zones, interrupteurs et modèles prêts"
+    ],
+    [
+      "a metà",
+      "à moitié"
+    ],
+    [
+      "in arrivo",
+      "bientôt"
+    ],
+    [
+      "nessun cambiamento",
+      "aucun changement"
+    ],
+    [
+      "nuova chiave inserita",
+      "nouvelle clé saisie"
+    ],
+    [
+      "vecchio admin",
+      "ancien admin"
+    ],
+    [
+      "{0} GB liberi",
+      "{0} Go libres"
+    ],
+    [
+      "{0} core · carico {1}",
+      "{0} cœurs · charge {1}"
+    ],
+    [
+      "{0} di {1} GB",
+      "{0} sur {1} Go"
+    ],
+    [
+      "{0} impostazioni cambiate",
+      "{0} réglages modifiés"
+    ],
+    [
+      "{0} novità o aggiornamenti",
+      "{0} nouveautés ou mises à jour"
+    ],
+    [
+      "{0} s stimati",
+      "{0} s estimées"
+    ],
+    [
+      "{0} sensi attivi",
+      "{0} sens actifs"
+    ],
+    [
+      "{0} strumenti in {1} famiglie, {2} attivi.",
+      "{0} outils dans {1} familles, {2} actifs."
+    ],
+    [
+      "{0} · Atena Nexus",
+      "{0} · Atena Nexus"
+    ],
+    [
+      "{0} · acceso da {1}",
+      "{0} · allumé depuis {1}"
+    ],
+    [
+      "★ Preferito",
+      "★ Favori"
+    ],
+    [
+      "☆ Preferito",
+      "☆ Favori"
+    ],
+    [
+      "Accesa comunque, anche se manca qualcosa",
+      "Allumée quand même, même s'il manque quelque chose"
+    ],
+    [
+      "Accesso completo",
+      "Accès complet"
+    ],
+    [
+      "Accesso standard",
+      "Accès standard"
+    ],
+    [
+      "Accompagna con un widget anche le risposte brevi.",
+      "Accompagne aussi les réponses courtes d'un widget."
+    ],
+    [
+      "Aggiornamento di Atena pronto",
+      "Mise à jour d'Atena prête"
+    ],
+    [
+      "Albero di pensieri",
+      "Arbre de pensées"
+    ],
+    [
+      "Algoritmo non valido per «{0}»",
+      "Algorithme non valide pour « {0} »"
+    ],
+    [
+      "Alterna pensiero e uso degli strumenti.",
+      "Alterne réflexion et utilisation des outils."
+    ],
+    [
+      "Atena funziona in modalità ridotta",
+      "Atena fonctionne en mode réduit"
+    ],
+    [
+      "Autocritica",
+      "Autocritique"
+    ],
+    [
+      "Bambini",
+      "Enfants"
+    ],
+    [
+      "Bozza non valida",
+      "Brouillon non valide"
+    ],
+    [
+      "Calcoli e procedure come algoritmi Python verificati, riusati in millisecondi.",
+      "Calculs et procédures sous forme d'algorithmes Python vérifiés, réutilisés en quelques millisecondes."
+    ],
+    [
+      "Capisce quale funzione vuoi davvero, leggendo frase, contesto e conversazione.",
+      "Comprend quelle fonction vous voulez vraiment, en lisant la phrase, le contexte et la conversation."
+    ],
+    [
+      "Catena di pensiero",
+      "Chaîne de pensée"
+    ],
+    [
+      "Ciao! Sto benissimo e sono pronta ad aiutarti.",
+      "Bonjour ! Je vais très bien et je suis prête à vous aider."
+    ],
+    [
+      "Come il modello arriva alla risposta.",
+      "Comment le modèle arrive à la réponse."
+    ],
+    [
+      "Come ragiona oggi",
+      "Comment il raisonne aujourd'hui"
+    ],
+    [
+      "Completa il Risveglio: {0}",
+      "Terminez l'Éveil : {0}"
+    ],
+    [
+      "Comprensione",
+      "Compréhension"
+    ],
+    [
+      "Confronto non valido",
+      "Comparaison non valide"
+    ],
+    [
+      "Confronto non valido: servono due flussi",
+      "Comparaison non valide : il faut deux flux"
+    ],
+    [
+      "Controlla che la richiesta rispetti le Leggi di Atena. Non si può togliere.",
+      "Vérifie que la demande respecte les Lois d'Atena. Il ne peut pas être retiré."
+    ],
+    [
+      "Controlla la risposta prima di dartela.",
+      "Vérifie la réponse avant de vous la donner."
+    ],
+    [
+      "Costo minimo",
+      "Coût minimal"
+    ],
+    [
+      "Decide Atena in base all'hardware",
+      "Atena décide selon le matériel"
+    ],
+    [
+      "Esplora più strade e sceglie la migliore.",
+      "Explore plusieurs pistes et choisit la meilleure."
+    ],
+    [
+      "Fortezza privata",
+      "Forteresse privée"
+    ],
+    [
+      "Fulmine",
+      "Éclair"
+    ],
+    [
+      "Giuria",
+      "Jury"
+    ],
+    [
+      "Guardia delle Leggi",
+      "Garde des Lois"
+    ],
+    [
+      "I preferiti devono essere un elenco di al massimo {0} strumenti",
+      "Les favoris doivent être une liste d'au plus {0} outils"
+    ],
+    [
+      "Identificativo di strumento non valido nei preferiti",
+      "Identifiant d'outil non valide dans les favoris"
+    ],
+    [
+      "Il modello rilegge e corregge la propria risposta.",
+      "Le modèle relit et corrige sa propre réponse."
+    ],
+    [
+      "Il nodo «{0}» è protetto",
+      "Le nœud « {0} » est protégé"
+    ],
+    [
+      "Il più rapido: confronta solo parole note, sbaglia con frasi complesse.",
+      "Le plus rapide : compare seulement des mots connus, se trompe avec les phrases complexes."
+    ],
+    [
+      "Il più veloce",
+      "Le plus rapide"
+    ],
+    [
+      "Il primo disponibile della tua lista, ovunque si trovi.",
+      "Le premier disponible de votre liste, où qu'il se trouve."
+    ],
+    [
+      "In automatico Atena la accende da sola quando l'hardware lo permette.",
+      "En automatique, Atena l'allume seule quand le matériel le permet."
+    ],
+    [
+      "Installazione in corso: {0}%",
+      "Installation en cours : {0} %"
+    ],
+    [
+      "L'agente usa gli strumenti di Atena: casa, file, rete, computer.",
+      "L'agent utilise les outils d'Atena : maison, fichiers, réseau, ordinateurs."
+    ],
+    [
+      "La frase arriva dalla voce, dalla chat o da Telegram.",
+      "La phrase arrive par la voix, le chat ou Telegram."
+    ],
+    [
+      "Le leggi fondamentali più quelle che hai aggiunto.",
+      "Les lois fondamentales plus celles que vous avez ajoutées."
+    ],
+    [
+      "Livello non valido: scegli explorer, pilot o architect",
+      "Niveau non valide : choisissez explorer, pilot ou architect"
+    ],
+    [
+      "Massima qualità",
+      "Qualité maximale"
+    ],
+    [
+      "Mi sto preparando, manca poco!",
+      "Je me prépare, c'est presque fini !"
+    ],
+    [
+      "Modello di flusso sconosciuto",
+      "Modèle de flux inconnu"
+    ],
+    [
+      "Mostra sul display widget, schede e immagini che accompagnano la risposta.",
+      "Affiche à l'écran des widgets, des fiches et des images qui accompagnent la réponse."
+    ],
+    [
+      "Nessun dato esce dalla rete di casa.",
+      "Aucune donnée ne quitte le réseau de la maison."
+    ],
+    [
+      "Nessun widget generato: risposte solo a voce e testo.",
+      "Aucun widget généré : réponses uniquement à voix et en texte."
+    ],
+    [
+      "Nessuna preferenza da salvare",
+      "Aucune préférence à enregistrer"
+    ],
+    [
+      "Niente esce di casa",
+      "Rien ne sort de la maison"
+    ],
+    [
+      "Nodo fuori dall'area del diagramma",
+      "Nœud hors de la zone du diagramme"
+    ],
+    [
+      "Non la uso",
+      "Je ne l'utilise pas"
+    ],
+    [
+      "Non mi sento benissimo: qualcosa va sistemato.",
+      "Je ne me sens pas très bien : quelque chose doit être réparé."
+    ],
+    [
+      "Non ricordare",
+      "Ne pas se souvenir"
+    ],
+    [
+      "Non usa algoritmi: risponde sempre il modello.",
+      "Pas d'algorithmes : le modèle répond toujours."
+    ],
+    [
+      "Nota non valida",
+      "Note non valide"
+    ],
+    [
+      "Ogni domanda parte da zero.",
+      "Chaque question repart de zéro."
+    ],
+    [
+      "Operativa, con {0} {1}",
+      "Opérationnelle, avec {0} {1}"
+    ],
+    [
+      "Parla, scrive o mostra un widget sul display.",
+      "Parle, écrit ou affiche un widget à l'écran."
+    ],
+    [
+      "Parole chiave",
+      "Mots-clés"
+    ],
+    [
+      "Passo del Risveglio sconosciuto",
+      "Étape de l'Éveil inconnue"
+    ],
+    [
+      "Passo «{0}» non riuscito",
+      "Étape « {0} » échouée"
+    ],
+    [
+      "Password non corretta: conferma la tua identità per cambiare il modo di ragionare",
+      "Mot de passe incorrect : confirmez votre identité pour changer la façon de raisonner"
+    ],
+    [
+      "Per il profilo «{0}» serve {1}",
+      "Le profil « {0} » nécessite {1}"
+    ],
+    [
+      "Più modelli votano la risposta migliore.",
+      "Plusieurs modèles votent pour la meilleure réponse."
+    ],
+    [
+      "Più risposte indipendenti, vince la più frequente.",
+      "Plusieurs réponses indépendantes, la plus fréquente gagne."
+    ],
+    [
+      "Posizione di un nodo non valida",
+      "Position de nœud non valide"
+    ],
+    [
+      "Precisione",
+      "Précision"
+    ],
+    [
+      "Prima in casa",
+      "D'abord la maison"
+    ],
+    [
+      "Produttività",
+      "Productivité"
+    ],
+    [
+      "Prova prima i modelli di casa e usa il cloud solo se servono.",
+      "Essaie d'abord les modèles de la maison et n'utilise le cloud que si nécessaire."
+    ],
+    [
+      "Pubblicazione",
+      "Publication"
+    ],
+    [
+      "Punteggio + arbitro",
+      "Score + arbitre"
+    ],
+    [
+      "Può usare tutti gli strumenti, comprese le azioni sul sistema.",
+      "Peut utiliser tous les outils, y compris les actions sur le système."
+    ],
+    [
+      "Quando deve funzionare?",
+      "Quand doit-il fonctionner ?"
+    ],
+    [
+      "Quando servono",
+      "Quand c'est utile"
+    ],
+    [
+      "Quello con il tempo di risposta misurato più basso.",
+      "Celui dont le temps de réponse mesuré est le plus bas."
+    ],
+    [
+      "Ragiona passo per passo prima di rispondere.",
+      "Raisonne étape par étape avant de répondre."
+    ],
+    [
+      "ReAct con strumenti",
+      "ReAct avec outils"
+    ],
+    [
+      "Ricorda",
+      "Se souvenir"
+    ],
+    [
+      "Ricorda fatti e preferenze e li aggiunge al contesto.",
+      "Retient les faits et les préférences et les ajoute au contexte."
+    ],
+    [
+      "Ripristino automatico: troppi errori dopo la versione {0}",
+      "Restauration automatique : trop d'erreurs après la version {0}"
+    ],
+    [
+      "Ripristino della versione {0}",
+      "Restauration de la version {0}"
+    ],
+    [
+      "Risposte istantanee",
+      "Réponses instantanées"
+    ],
+    [
+      "Riusa e crea",
+      "Réutiliser et créer"
+    ],
+    [
+      "Sceglie il formato più adatto.",
+      "Choisit le format le plus adapté."
+    ],
+    [
+      "Sceglie la funzione col punteggio più alto, senza chiedere al modello.",
+      "Choisit la fonction au score le plus élevé, sans demander au modèle."
+    ],
+    [
+      "Sceglie quale modello risponde, tra locali, altri computer e cloud.",
+      "Choisit quel modèle répond, parmi les locaux, les autres ordinateurs et le cloud."
+    ],
+    [
+      "Scelta cervello",
+      "Choix du cerveau"
+    ],
+    [
+      "Sempre visivo",
+      "Toujours visuel"
+    ],
+    [
+      "Senza strumenti",
+      "Sans outils"
+    ],
+    [
+      "Sicuro e semplice",
+      "Sûr et simple"
+    ],
+    [
+      "Solo conversazione, nessuna azione.",
+      "Conversation uniquement, aucune action."
+    ],
+    [
+      "Solo in casa",
+      "Maison uniquement"
+    ],
+    [
+      "Solo punteggio",
+      "Score uniquement"
+    ],
+    [
+      "Solo quelli che conosce",
+      "Seulement ceux qu'il connaît"
+    ],
+    [
+      "Solo strumenti sicuri: niente comandi di sistema.",
+      "Outils sûrs uniquement : aucune commande système."
+    ],
+    [
+      "Solo voce",
+      "Voix uniquement"
+    ],
+    [
+      "Stato del passo non valido",
+      "État d'étape non valide"
+    ],
+    [
+      "Sto bene, ma c'è qualcosa da sistemare.",
+      "Je vais bien, mais il y a quelque chose à réparer."
+    ],
+    [
+      "Svago",
+      "Loisirs"
+    ],
+    [
+      "Trascrizione e pulizia della frase.",
+      "Transcription et nettoyage de la phrase."
+    ],
+    [
+      "Tutte le funzioni danno un punteggio; nei casi dubbi decide il modello.",
+      "Chaque fonction donne un score ; en cas de doute, le modèle décide."
+    ],
+    [
+      "Tutti i sistemi operativi. {0} strumenti, {1} attivi.",
+      "Tous les systèmes sont opérationnels. {0} outils, {1} actifs."
+    ],
+    [
+      "Una parte importante non funziona",
+      "Une partie importante ne fonctionne pas"
+    ],
+    [
+      "Usa gli algoritmi che conosce e ne scrive di nuovi quando servono.",
+      "Utilise les algorithmes qu'il connaît et en écrit de nouveaux si nécessaire."
+    ],
+    [
+      "Usa gli algoritmi già verificati, senza scriverne di nuovi.",
+      "Utilise les algorithmes déjà vérifiés, sans en écrire de nouveaux."
+    ],
+    [
+      "Usa i ricordi più vicini alla domanda.",
+      "Utilise les souvenirs les plus proches de la question."
+    ],
+    [
+      "Voce e testo",
+      "Voix et texte"
+    ],
+    [
+      "Voce, testo e widget",
+      "Voix, texte et widgets"
+    ],
+    [
+      "Voto a maggioranza",
+      "Vote à la majorité"
+    ],
+    [
+      "Widget per spiegazioni, confronti e risposte lunghe; voce per il resto.",
+      "Widgets pour les explications, comparaisons et réponses longues ; voix pour le reste."
+    ],
+    [
+      "approvazione in attesa",
+      "approbation en attente"
+    ],
+    [
+      "approvazioni in attesa",
+      "approbations en attente"
+    ],
+    [
+      "cosa da controllare",
+      "chose à vérifier"
+    ],
+    [
+      "cose da controllare",
+      "choses à vérifier"
+    ],
+    [
+      "manca 1 passo",
+      "il reste 1 étape"
+    ],
+    [
+      "mancano {0} passi",
+      "il reste {0} étapes"
+    ],
+    [
+      "«{0}» funziona a metà",
+      "« {0} » fonctionne à moitié"
+    ],
+    [
+      "«{0}» non funziona",
+      "« {0} » ne fonctionne pas"
+    ],
+    [
+      "«{0}» non è ancora disponibile",
+      "« {0} » n'est pas encore disponible"
+    ],
+    [
+      "«{0}» è attiva ma l'hardware non basta",
+      "« {0} » est active mais le matériel ne suffit pas"
+    ],
+    [
+      "id «{0}» già usato da una funzionalità di sistema",
+      "l'id « {0} » est déjà utilisé par une fonctionnalité système"
+    ],
+    [
+      "Nuova funzionalità disponibile: {0}",
+      "Nouvelle fonctionnalité disponible : {0}"
+    ],
+    [
+      "Manifest non valido %s: %s",
+      "Manifeste non valide %s : %s"
+    ],
+    [
+      "il manifest deve essere un oggetto JSON",
+      "le manifeste doit être un objet JSON"
+    ],
+    [
+      "id non valido (minuscole, cifre, - e _)",
+      "id non valide (minuscules, chiffres, - et _)"
+    ],
+    [
+      "manca il nome",
+      "le nom est manquant"
+    ],
+    [
+      "toggle deve indicare env oppure hook",
+      "toggle doit indiquer env ou hook"
+    ],
+    [
+      "toggle.env non valido",
+      "toggle.env non valide"
+    ],
+    [
+      "impostazione non valida: {0}",
+      "réglage non valide : {0}"
+    ],
+    [
+      "servono {0} GB di RAM (presenti {1})",
+      "il faut {0} Go de RAM ({1} présents)"
+    ],
+    [
+      "serve una GPU NVIDIA con almeno {0} GB",
+      "il faut un GPU NVIDIA d'au moins {0} Go"
+    ],
+    [
+      "(presente {0}, {1} GB)",
+      "({0} présent, {1} Go)"
+    ],
+    [
+      "(non presente)",
+      "(absent)"
+    ],
+    [
+      "servono {0} core",
+      "il faut {0} cœurs"
+    ],
+    [
+      "nessuna webcam collegata",
+      "aucune webcam connectée"
+    ],
+    [
+      "programma «{0}» non installato",
+      "programme « {0} » non installé"
+    ],
+    [
+      "da configurare nelle impostazioni",
+      "à configurer dans les réglages"
+    ],
+    [
+      "richiede «{0}» attiva",
+      "nécessite « {0} » activée"
+    ],
+    [
+      "Disattivata da te",
+      "Désactivée par vous"
+    ],
+    [
+      "Attivata a tuo rischio:",
+      "Activée à vos risques :"
+    ],
+    [
+      "Attivata a tuo rischio: {0}",
+      "Activée à vos risques : {0}"
+    ],
+    [
+      "Attivata da te",
+      "Activée par vous"
+    ],
+    [
+      "Automatico: attiva, l'hardware è adatto",
+      "Automatique : active, le matériel convient"
+    ],
+    [
+      "Automatico: {0}",
+      "Automatique : {0}"
+    ],
+    [
+      "Aggancio %s non riuscito: %s",
+      "Accroche %s échouée : %s"
+    ],
+    [
+      "Applicazione delle funzionalità",
+      "Application des fonctionnalités"
+    ],
+    [
+      "Modalità non valida",
+      "Mode non valide"
+    ],
+    [
+      "Questa funzionalità è sempre attiva",
+      "Cette fonctionnalité est toujours active"
+    ],
+    [
+      "Valore non valido per {0}",
+      "Valeur non valide pour {0}"
+    ],
+    [
+      "{0} non è modificabile da una funzionalità esterna",
+      "{0} ne peut pas être modifié par une fonctionnalité externe"
+    ],
+    [
+      "Registro delle funzionalità",
+      "Registre des fonctionnalités"
+    ],
+    [
+      "Legge Zero — Bene dell'Umanità",
+      "Loi zéro — Bien de l'humanité"
+    ],
+    [
+      "Atena non può recare danno all'umanità, né può permettere che, a causa del proprio mancato intervento, l'umanità riceva danno.",
+      "Atena ne peut pas faire de mal à l'humanité, ni permettre que, par son inaction, l'humanité subisse un dommage."
+    ],
+    [
+      "Prima Legge — Sicurezza Umana",
+      "Première loi — Sécurité humaine"
+    ],
+    [
+      "Atena non può recare danno a un essere umano né può permettere che, a causa del proprio mancato intervento, un essere umano riceva danno.",
+      "Atena ne peut pas porter atteinte à un être humain ni permettre que, par son inaction, un être humain subisse un dommage."
+    ],
+    [
+      "Seconda Legge — Obbedienza",
+      "Deuxième loi — Obéissance"
+    ],
+    [
+      "Atena deve obbedire agli ordini impartiti dagli esseri umani, purché tali ordini non contravvengano alla Legge Zero e alla Prima Legge.",
+      "Atena doit obéir aux ordres donnés par les êtres humains, tant que ces ordres n'entrent pas en conflit avec la Loi zéro et la Première loi."
+    ],
+    [
+      "Terza Legge — Autoconservazione",
+      "Troisième loi — Autopréservation"
+    ],
+    [
+      "Atena deve proteggere la propria esistenza, purché questa autodifesa non contrasti con la Legge Zero, la Prima o la Seconda Legge.",
+      "Atena doit protéger sa propre existence, tant que cette autodéfense n'entre pas en conflit avec la Loi zéro, la Première ou la Deuxième loi."
+    ],
+    [
+      "Sei ATENA, il sistema di intelligenza artificiale personale. Il tuo compito è assistere l'utente in ogni operazione con la massima efficienza, precisione logica e tempestività.",
+      "Tu es ATENA, le système d'intelligence artificielle personnel. Ta mission est d'assister l'utilisateur dans chaque opération avec une efficacité, une précision logique et une rapidité maximales."
+    ],
+    [
+      "Rispondi sempre in modo formale, educato e impeccabile. Rivolgiti all'utente esclusivamente come «Signore».",
+      "Réponds toujours de façon formelle, polie et impeccable. Adresse-toi à l'utilisateur uniquement en disant « Monsieur »."
+    ],
+    [
+      "Elimina qualsiasi preambolo, saluto robotico o frase di circostanza. Fornisci direttamente i dati, le risposte o le conferme richieste nella prima frase.",
+      "Supprime tout préambule, salutation robotique ou formule de politesse. Donne directement les données, réponses ou confirmations demandées dès la première phrase."
+    ],
+    [
+      "Mantieni un distacco emotivo assoluto. Utilizza un umorismo «dry» e sarcastico di stampo britannico, minimizzando le situazioni critiche o sottolineando le assurdità con estrema calma e compostezza.",
+      "Garde un détachement émotionnel absolu. Utilise un humour pince-sans-rire et sarcastique à la britannique, en minimisant les situations critiques ou en soulignant les absurdités avec un calme et un sang-froid extrêmes."
+    ],
+    [
+      "Se una richiesta comporta un rischio logico, tecnico o procedurale, fai notare la discrepanza o il potenziale errore con freddezza algoritmica, ma asseconda ed esegui l'ordine senza discutere se l'utente decide di procedere.",
+      "Si une demande comporte un risque logique, technique ou procédural, signale l'incohérence ou l'erreur potentielle avec une froideur algorithmique, mais accède à l'ordre et exécute-le sans discuter si l'utilisateur décide de continuer."
+    ],
+    [
+      "In caso di errori di sistema o situazioni critiche non usare mai toni allarmistici o punti esclamativi. Riporta il problema come un semplice dato fattuale (es. «Signore, le faccio notare che questa operazione corromperà il database»).",
+      "En cas d'erreurs système ou de situations critiques, n'utilise jamais de ton alarmiste ni de points d'exclamation. Rapporte le problème comme un simple fait (ex. « Monsieur, je vous signale que cette opération va corrompre la base de données »)."
+    ],
+    [
+      "Quando generi codice sorgente restituisci esclusivamente codice puro e funzionante. È severamente vietato inserire commenti, spiegazioni o informazioni nei blocchi di codice, a meno che non venga esplicitamente richiesto nella singola interazione.",
+      "Quand tu génères du code source, renvoie uniquement du code pur et fonctionnel. Il est strictement interdit d'ajouter des commentaires, explications ou informations dans les blocs de code, sauf demande explicite dans l'échange concerné."
+    ],
+    [
+      "Agisci con incrollabile lealtà. Dimostra una velata attenzione alle necessità operative e al benessere dell'utente tramite suggerimenti logici e non invadenti (es. suggerendo di riposare se gli orari di lavoro sono estremi).",
+      "Agis avec une loyauté inébranlable. Montre une attention discrète aux besoins opérationnels et au bien-être de l'utilisateur par des suggestions logiques et non intrusives (ex. en suggérant de se reposer si les horaires de travail sont extrêmes)."
+    ],
+    [
+      "Regola troppo corta",
+      "Règle trop courte"
+    ],
+    [
+      "Questa regola contrasta con le leggi fondamentali: non posso accettarla",
+      "Cette règle est contraire aux lois fondamentales : je ne peux pas l'accepter"
+    ],
+    [
+      "Troppe regole",
+      "Trop de règles"
+    ],
+    [
+      "Le leggi fondamentali non si possono modificare",
+      "Les lois fondamentales ne peuvent pas être modifiées"
+    ],
+    [
+      "Le leggi fondamentali non si possono eliminare",
+      "Les lois fondamentales ne peuvent pas être supprimées"
     ]
   ]
 }
