@@ -108,9 +108,16 @@ impl Detector {
     }
 
     pub fn inspect(&mut self, packet: &Packet, now_ms: u64) -> Vec<Alert> {
+        self.inspect_from(packet, now_ms, false)
+    }
+
+    pub fn inspect_from(&mut self, packet: &Packet, now_ms: u64, outgoing: bool) -> Vec<Alert> {
         let mut alerts = Vec::new();
         match &packet.payload {
-            Payload::Arp(arp) => self.arp_check(arp, now_ms, &mut alerts),
+            Payload::Arp(arp) if !outgoing => self.arp_check(arp, now_ms, &mut alerts),
+            Payload::Arp(_) => {}
+            Payload::Ip(ip) if ip.src.is_loopback() || ip.dst.is_loopback() => {}
+            Payload::Ip(ip) if outgoing => self.exfil_check(ip, packet.length, now_ms, &mut alerts),
             Payload::Ip(ip) => {
                 self.scan_check(ip, now_ms, &mut alerts);
                 self.flood_check(ip, now_ms, &mut alerts);

@@ -97,6 +97,16 @@ class AutoBlockTests(FirewallBase):
             self.handle({**ALERT, "src": src})
         self.assertEqual(store.blocks, {})
 
+    def test_alerts_from_the_server_itself_are_discarded(self):
+        store.policy = model.policy({"mode": "protect"})
+        before = len(events.monitor.alerts)
+        for src in ("127.0.0.1", "::1", "192.168.1.10"):
+            self.handle({**ALERT, "kind": "port_scan", "src": src})
+        self.assertEqual(len(events.monitor.alerts), before)
+        self.assertEqual(store.blocks, {})
+        self.handle({**ALERT, "kind": "arp_spoof", "src": "192.168.1.10"})
+        self.assertEqual(len(events.monitor.alerts), before + 1)
+
     def test_malformed_events_are_ignored(self):
         before = len(events.monitor.alerts)
         for line in ("non json", "[]", json.dumps({"type": "alert", "kind": "rm -rf", "severity": "critical"})):

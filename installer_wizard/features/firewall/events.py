@@ -1,4 +1,5 @@
 import asyncio
+import ipaddress
 import json
 import logging
 import sys
@@ -37,6 +38,16 @@ def clean_alert(raw: dict) -> dict | None:
             "detail": model.comment(str(raw.get("detail", "")))[:200], "at": time.time()}
 
 
+def self_inflicted(alert: dict) -> bool:
+    if alert["kind"] == "arp_spoof":
+        return False
+    try:
+        source = ipaddress.ip_address(alert["src"])
+    except ValueError:
+        return False
+    return source.is_loopback or source.is_unspecified or alert["src"] in protected()
+
+
 class Monitor:
 
     def __init__(self) -> None:
@@ -45,6 +56,7 @@ class Monitor:
         self.connected = False
         self.listeners: list = []
         self.cleaner: asyncio.Task | None = None
+        self.ignored_self = 0
 
     def block_candidate(self, alert: dict) -> model.Address | None:
         policy = store.policy
@@ -74,6 +86,9 @@ class Monitor:
             return
         alert = clean_alert(event) if event.get("type") == "alert" else None
         if alert is None:
+            return
+        if self_inflicted(alert):
+            self.ignored_self += 1
             return
         self.alerts.append(alert)
         level = "ERROR" if SEVERITY[alert["severity"]] >= SEVERITY["high"] else "WARN"

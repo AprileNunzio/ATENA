@@ -295,3 +295,71 @@ fn replays_a_pcap_capture() {
     assert!(matches!(reader.next_record(), Ok(None)));
     assert!(Reader::open(&[0_u8; 24][..]).is_err());
 }
+
+const OWN: [u8; 6] = [0x02, 0, 0, 0, 0, 0x01];
+
+fn frame_between(
+    src_mac: [u8; 6],
+    dst_mac: [u8; 6],
+    src: [u8; 4],
+    dst: [u8; 4],
+    port: u16,
+) -> Vec<u8> {
+    let mut frame = ethernet(
+        src_mac,
+        0x0800,
+        &ipv4(src, dst, TCP, &tcp(50_000, port, 0x02)),
+    );
+    if let Some(slot) = frame.get_mut(0..6) {
+        slot.copy_from_slice(&dst_mac);
+    }
+    frame
+}
+
+#[test]
+fn loopback_traffic_is_never_an_attack() {
+    let mut e = engine();
+    let mut alerts = Vec::new();
+    for port in 1..=200_u16 {
+        alerts.extend(e.feed(
+            &frame_between([0; 6], [0; 6], [127, 0, 0, 1], [127, 0, 0, 1], port),
+            u64::from(port),
+        ));
+    }
+    assert!(alerts.is_empty(), "{alerts:?}");
+    assert_eq!(e.summary(1_000, 5).ignored, 200);
+}
+
+#[test]
+fn outgoing_scans_from_atena_itself_are_not_attacks() {
+    let mut e = engine();
+    e.own_macs(&[OWN]);
+    let mut alerts = Vec::new();
+    for port in 1..=200_u16 {
+        alerts.extend(e.feed(
+            &frame_between(OWN, MAC_B, [192, 168, 1, 10], [192, 168, 1, 20], port),
+            u64::from(port),
+        ));
+    }
+    assert!(alerts.is_empty(), "{alerts:?}");
+}
+
+#[test]
+fn incoming_scans_are_still_detected_and_other_interfaces_ignored() {
+    let mut e = engine();
+    e.own_macs(&[OWN]);
+    let mut incoming = Vec::new();
+    let mut foreign = Vec::new();
+    for port in 1..=60_u16 {
+        incoming.extend(e.feed(
+            &frame_between(MAC_A, OWN, [203, 0, 113, 9], [192, 168, 1, 10], port),
+            u64::from(port),
+        ));
+        foreign.extend(e.feed(
+            &frame_between(MAC_A, MAC_B, [172, 17, 0, 2], [172, 17, 0, 3], port),
+            u64::from(port),
+        ));
+    }
+    assert!(incoming.iter().any(|a| a.kind == Kind::PortScan));
+    assert!(foreign.is_empty());
+}

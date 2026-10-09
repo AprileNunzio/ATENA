@@ -6,6 +6,7 @@ use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 use socket2::{Domain, Protocol, Socket, Type};
 
 use atena_netguard::engine::{Engine, Event};
+use atena_netguard::net::parse_mac;
 
 use crate::config::Config;
 use crate::sink::Sink;
@@ -18,6 +19,20 @@ fn now_ms() -> u64 {
     SystemTime::now()
         .duration_since(UNIX_EPOCH)
         .map_or(0, |d| u64::try_from(d.as_millis()).unwrap_or(u64::MAX))
+}
+
+fn mac_of(interface: &str) -> Option<[u8; 6]> {
+    let safe = !interface.is_empty()
+        && interface.len() <= 15
+        && !interface.contains("..")
+        && interface
+            .chars()
+            .all(|c| c.is_ascii_alphanumeric() || "_.:-".contains(c));
+    if !safe {
+        return None;
+    }
+    let text = std::fs::read_to_string(format!("/sys/class/net/{interface}/address")).ok()?;
+    parse_mac(text.trim()).filter(|mac| *mac != [0; 6])
 }
 
 fn open(interface: &str) -> Result<Socket, String> {
@@ -57,6 +72,11 @@ pub fn run(
     mut sink: Sink,
     config: &Config,
 ) -> Result<(), String> {
+    let own: Vec<[u8; 6]> = interfaces.iter().filter_map(|i| mac_of(i)).collect();
+    if own.len() != interfaces.len() {
+        return Err("impossibile leggere il MAC di tutte le interfacce scelte".into());
+    }
+    engine.own_macs(&own);
     let (tx, rx) = mpsc::sync_channel::<(u64, Vec<u8>)>(QUEUE);
     for interface in interfaces {
         let socket = open(interface)?;

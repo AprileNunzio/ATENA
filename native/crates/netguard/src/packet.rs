@@ -63,6 +63,7 @@ pub enum Payload {
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Packet {
+    pub dst_mac: [u8; 6],
     pub src_mac: [u8; 6],
     pub length: u32,
     pub payload: Payload,
@@ -97,6 +98,7 @@ fn ipv6_at(buf: &[u8], at: usize) -> Option<Ipv6Addr> {
 
 #[must_use]
 pub fn parse(frame: &[u8]) -> Option<Packet> {
+    let dst_mac = mac_at(frame, 0)?;
     let src_mac = mac_at(frame, 6)?;
     let mut ethertype = u16_at(frame, 12)?;
     let mut offset = ETH_HEADER;
@@ -113,6 +115,7 @@ pub fn parse(frame: &[u8]) -> Option<Packet> {
     };
     let length = u32::try_from(frame.len()).unwrap_or(u32::MAX);
     Some(Packet {
+        dst_mac,
         src_mac,
         length,
         payload,
