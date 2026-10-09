@@ -100,6 +100,29 @@
       }
     }
 
+    function stream(lang) {
+      const gen = ++generation;
+      ensure();
+      active = true;
+      if (D.avatar && D.avatar.face) D.avatar.face.realAudio = true;
+      cancelAnimationFrame(raf); animate();
+      let chain = Promise.resolve();
+      return {
+        add(text) {
+          const part = (text || "").trim();
+          if (!part || gen !== generation) return;
+          const audio = synth(part, lang);
+          chain = chain.then(async () => {
+            const buffer = await audio;
+            if (gen === generation) await play(buffer, gen);
+          }).catch((err) => console.warn("Frase non sintetizzata:", err));
+        },
+        async close() {
+          try { await chain; } finally { if (gen === generation) quiet(); }
+        },
+      };
+    }
+
     function stop() {
       generation++;
       try { source && source.stop(); } catch (e) {}
@@ -108,7 +131,7 @@
 
     function setVolume(v) { volume = Math.max(0, Math.min(1, v)); if (gain) gain.gain.setTargetAtTime(volume, ctx.currentTime, 0.2); }
 
-    return { speak, stop, setVolume, isSpeaking: () => active };
+    return { speak, stream, stop, setVolume, isSpeaking: () => active };
   })();
 
   function systemSpeak(text, lang) {
@@ -142,6 +165,22 @@
     } finally {
       setTimeout(() => { D.Ear.speaking(false); if (D.lastVoice) { D.lastVoice = false; D.Ear.followup(); } }, 350);
     }
+  };
+
+  D.speakStream = (lang) => {
+    D.Ear.speaking(true);
+    const live = D.voiceOn ? Voice.stream(lang) : null;
+    return {
+      add(text) { if (live) live.add(text); },
+      async close(fullText) {
+        try {
+          if (live) await live.close();
+          else mouthOnly(fullText || "");
+        } finally {
+          setTimeout(() => { D.Ear.speaking(false); if (D.lastVoice) { D.lastVoice = false; D.Ear.followup(); } }, 350);
+        }
+      },
+    };
   };
 
   D.setVoiceVolume = (v) => Voice.setVolume(v);

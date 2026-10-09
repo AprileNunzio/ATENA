@@ -209,6 +209,14 @@ async def _conversation_events(payload: UserCommandPayload) -> AsyncGenerator[st
     from server.core.reasoning.conversation import conversation_engine
     from server.shared.errors.domain_errors import AgentExecutionException
     context = {k: v for k, v in (payload.context or {}).items() if k in CONTEXT_KEYS}
+    decision = await system1_router.classify(payload.query)
+    if decision.intent != System1Intent.CONVERSATION:
+        response = await orchestrator_dispatcher.dispatch_user_command(
+            raw_query=payload.query, speaker_id="user_primary", device_id=payload.device_id, biometric_score=0.95,
+            context_override=payload.context or None)
+        yield _event({"t": response.speech_output or ""})
+        yield _event({"done": True, "agent": response.agent_id, "model": (response.result_data or {}).get("model", "")})
+        return
     try:
         async for piece in conversation_engine.reply_stream(
                 payload.query, payload.device_id,

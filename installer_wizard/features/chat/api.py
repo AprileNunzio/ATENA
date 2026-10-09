@@ -21,7 +21,7 @@ from features.brain.brains import brains
 from features.brain.residency import primary
 from features.brain.trace import trace
 from features.capabilities import manifest as capabilities
-from features.chat import addressee, assistant, brain_chain, intents, speaker, voice_id, wake
+from features.chat import addressee, assistant, brain_chain, intents, speaker, streaming, voice_id, wake
 from features.chat.dialogue import dialogue
 from features.chat.journey_flow import ChatJourney
 from features.chat.layout import presence
@@ -41,6 +41,7 @@ from features.voices.downloads import ensure_language
 public_routes = APIRouter()
 admin_routes = APIRouter()
 
+NL = chr(10)
 SLUG_RE = re.compile(r"^[a-z0-9][a-z0-9-]{0,40}$")
 DEMO_LONG = ("Ecco una panoramica dettagliata della tua richiesta. Ho analizzato le informazioni disponibili "
              "e le ho organizzate per te.\n- Primo punto importante da considerare\n"
@@ -49,10 +50,13 @@ DEMO_LONG = ("Ecco una panoramica dettagliata della tua richiesta. Ho analizzato
 
 
 async def _demo_core(query: str) -> dict:
-    await asyncio.sleep(1.2)
-    if len(query) > 30:
-        return {"agent_id": "demo", "speech_output": DEMO_LONG}
-    return {"agent_id": "demo", "speech_output": f"Modalità dimostrativa: ho ricevuto «{query}»."}
+    await asyncio.sleep(0.6)
+    text = DEMO_LONG if len(query) > 30 else f"Modalità dimostrativa: ho ricevuto «{query}». Ti rispondo una frase alla volta."
+    if streaming.active():
+        for word in re.findall(r"\S+\s*", text):
+            streaming.push({"type": "token", "t": word})
+            await asyncio.sleep(0.04)
+    return {"agent_id": "demo", "speech_output": text}
 
 
 async def _core_call(query: str, device: str, speech_lang: dict) -> dict:
@@ -84,9 +88,12 @@ async def _core_call(query: str, device: str, speech_lang: dict) -> dict:
         call = trace.begin("conversation", route["reason"], models)
         trace.attempt(call, models[0])
         try:
-            r = await core.request("POST", "/api/v1/command", json=payload, timeout=240)
-            r.raise_for_status()
-            data = r.json()
+            if streaming.active():
+                data = await streaming.core_stream(payload)
+            else:
+                r = await core.request("POST", "/api/v1/command", json=payload, timeout=240)
+                r.raise_for_status()
+                data = r.json()
         except Exception as exc:
             trace.abort(call, str(exc) or type(exc).__name__)
             raise
@@ -210,6 +217,52 @@ async def public_chat(request: Request):
     body = await request.json()
     return await assistant_chat(body.get("text", ""), "kiosk" if is_local(request) else "remote", lang_of(body),
                                 _heard(body))
+
+
+def _sse(event: dict) -> str:
+    return "data: " + json.dumps(event, ensure_ascii=False) + NL + NL
+
+
+async def _stream_chat(text: str, device: str, lang: str | None, heard: dict | None):
+    queue: asyncio.Queue = asyncio.Queue()
+    marker = streaming.sink.set(queue)
+    try:
+        task = asyncio.create_task(assistant_chat(text, device, lang, heard))
+    finally:
+        streaming.sink.reset(marker)
+    while True:
+        getter = asyncio.create_task(queue.get())
+        done, _ = await asyncio.wait({getter, task}, return_when=asyncio.FIRST_COMPLETED)
+        if getter in done:
+            yield _sse(getter.result())
+            continue
+        getter.cancel()
+        while not queue.empty():
+            yield _sse(queue.get_nowait())
+        break
+    try:
+        response = task.result()
+    except HTTPException as exc:
+        yield _sse({"type": "error", "status": exc.status_code, "detail": str(exc.detail)})
+        return
+    yield _sse({"type": "done", **json.loads(response.body)})
+
+
+def _streaming_response(generator) -> StreamingResponse:
+    return StreamingResponse(generator, media_type="text/event-stream", headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"})
+
+
+@public_routes.post("/api/assistant/chat/stream")
+async def public_chat_stream(request: Request):
+    require_display(request, "Per parlare con Atena da remoto accedi al pannello :8080")
+    body = await request.json()
+    return _streaming_response(_stream_chat(body.get("text", ""), "kiosk" if is_local(request) else "remote", lang_of(body), _heard(body)))
+
+
+@admin_routes.post("/api/assistant/chat/stream")
+async def admin_chat_stream(request: Request, _: str = Depends(require_admin)):
+    body = await request.json()
+    return _streaming_response(_stream_chat(body.get("text", ""), "admin", lang_of(body), None))
 
 
 @public_routes.get("/api/ambient")

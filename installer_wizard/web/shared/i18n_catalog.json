@@ -13431,6 +13431,14 @@
     [
       "Comando inviato a Proxmox",
       "Command sent to Proxmox"
+    ],
+    [
+      "Risposta interrotta",
+      "Reply interrupted"
+    ],
+    [
+      "Frase non sintetizzata:",
+      "Sentence not synthesised:"
     ]
   ],
   "reverse": [
@@ -26501,6 +26509,14 @@
     [
       "Comando inviato a Proxmox",
       "Commande envoyée à Proxmox"
+    ],
+    [
+      "Risposta interrotta",
+      "Réponse interrompue"
+    ],
+    [
+      "Frase non sintetizzata:",
+      "Phrase non synthétisée :"
     ]
   ]
 }

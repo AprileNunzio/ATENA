@@ -75,6 +75,7 @@ class StreamingTests(unittest.IsolatedAsyncioTestCase):
 
 try:
     from server.cmd import api_routes
+    from server.core.orchestrator.system1_router import System1Decision, System1Intent
 except ImportError:
     api_routes = None
 
@@ -91,13 +92,25 @@ class EndpointTests(unittest.IsolatedAsyncioTestCase):
                 yield piece
 
         payload = api_routes.UserCommandPayload(query="ciao", context={"laws": "x", "evil": 1})
-        with mock.patch("server.core.reasoning.conversation.conversation_engine.reply_stream", side_effect=pieces):
+        talk = System1Decision(intent=System1Intent.CONVERSATION, confidence=0.9, latency_ms=1, logits={})
+        with mock.patch.object(api_routes.system1_router, "classify", return_value=talk), \
+                mock.patch("server.core.reasoning.conversation.conversation_engine.reply_stream", side_effect=pieces):
             body = "".join(await _collect(api_routes._conversation_events(payload)))
         events = [json.loads(line[6:]) for line in body.split(chr(10) * 2) if line.startswith("data: ")]
         self.assertEqual(events[:2], [{"t": "Ciao"}, {"t": "!"}])
         self.assertTrue(events[-1]["done"])
         self.assertEqual(seen["laws"], "x")
         self.assertNotIn("evil", seen)
+
+    async def test_non_conversation_requests_keep_using_the_agents(self):
+        browse = System1Decision(intent=System1Intent.BROWSER_ACTION, confidence=0.9, latency_ms=1, logits={})
+        result = mock.MagicMock(speech_output="Ho cercato sul web.", agent_id="browser_agent", result_data={})
+        with mock.patch.object(api_routes.system1_router, "classify", return_value=browse), \
+                mock.patch.object(api_routes.orchestrator_dispatcher, "dispatch_user_command", return_value=result) as dispatch:
+            body = "".join(await _collect(api_routes._conversation_events(api_routes.UserCommandPayload(query="cerca il meteo"))))
+        dispatch.assert_called_once()
+        self.assertIn("Ho cercato sul web.", body)
+        self.assertIn("browser_agent", body)
 
 
 if __name__ == "__main__":

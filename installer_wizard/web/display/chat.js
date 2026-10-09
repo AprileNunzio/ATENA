@@ -44,13 +44,78 @@
       tags.push(action.trim());
       return "";
     }).trim();
-    if (tags.length > 0 && window.AtenaDisplay && window.AtenaDisplay.avatar) {
-       // Qui in futuro si aggancerà il motore 3D per eseguire l'animazione
-       console.log("Atena triggers actions:", tags);
-    }
+    if (tags.length && D.avatar && D.avatar.express) tags.forEach((tag) => D.avatar.express(tag.toLowerCase(), 2.2));
   }
 
-  function show(text, d) {
+  const ACTION_TAG = /\[AZIONE:[^\]]*\]?/gi;
+  const SENTENCE = /^([\s\S]*?(?:[.!?…:;](?=\s)|\n))(\s*)/;
+
+  function cleanLive(text) {
+    return text.replace(ACTION_TAG, "").replace(/[ \t]+/g, " ").replace(/\n{2,}/g, "\n").trimStart();
+  }
+
+  async function askStream(text, lang, heard) {
+    const r = await fetch("/api/assistant/chat/stream", { method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text, lang, ...heard }) });
+    if (!r.ok || !r.body) return null;
+    const reader = r.body.getReader(), decoder = new TextDecoder();
+    let buffer = "", said = "", cut = 0, code = false, voice = null, final = null;
+    const speakReady = () => {
+      if (code) return;
+      let pending = said.slice(cut);
+      const fence = pending.indexOf("```");
+      if (fence >= 0) { pending = pending.slice(0, fence); code = true; }
+      let m;
+      while (pending && (m = SENTENCE.exec(pending)) && m[0].length) {
+        voice.add(m[1]);
+        cut += m[0].length;
+        pending = pending.slice(m[0].length);
+      }
+      if (code && pending.trim()) { voice.add(pending); cut += pending.length; }
+    };
+    while (!final) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      let split;
+      while ((split = buffer.indexOf("\n\n")) >= 0) {
+        const line = buffer.slice(0, split).trim();
+        buffer = buffer.slice(split + 2);
+        if (!line.startsWith("data: ")) continue;
+        const ev = JSON.parse(line.slice(6));
+        if (ev.type === "token") {
+          if (!voice) { voice = D.speakStream(lang); D.setMode("face"); }
+          said = cleanLive(said + ev.t);
+          $("say").textContent = said;
+          speakReady();
+        } else if (ev.type === "error") {
+          throw new Error(ev.detail || "Errore");
+        } else if (ev.type === "done") {
+          final = ev;
+        }
+      }
+    }
+    if (!final) throw new Error("Risposta interrotta");
+    if (voice) {
+      parseActions(final);
+      const reply = final.reply || "", flat = cleanLive(reply), prefix = said.slice(0, cut);
+      if (code || prefix.startsWith(flat)) {
+        voice.close(reply);
+      } else if (flat.startsWith(prefix)) {
+        voice.add(flat.slice(cut));
+        voice.close(reply);
+      } else if (!cut) {
+        voice.add(flat);
+        voice.close(reply);
+      } else {
+        await voice.close(reply);
+        D.speak(reply, final.lang);
+      }
+    }
+    return { data: final, spoken: Boolean(voice) };
+  }
+
+  function show(text, d, spoken = false) {
     parseActions(d);
     $("you").textContent = `« ${text} »`;
     if (enrollUi(d)) return;
@@ -60,8 +125,8 @@
     D.setPresence(ui.presence || "normal");
     D.setMode(ui.mode);
     if (ui.camera && D.setCamera) D.setCamera(ui.camera === "on");
-    D.typeInto($("say"), d.reply);
-    D.speak(d.reply, d.lang);
+    if (spoken) $("say").textContent = d.reply;
+    else { D.typeInto($("say"), d.reply); D.speak(d.reply, d.lang); }
     if (ui.mode === "face" || ui.mode === "focus") setTimeout(() => D.refreshBrain(true), 1500);
   }
 
@@ -80,6 +145,12 @@
     }
     try {
       if (!heard.followup) await predict(text);
+      const streamed = await askStream(text, lang, heard);
+      if (streamed) {
+        if (streamed.data.ignored) { D.lastVoice = false; D.Ear.followup(12); return; }
+        show(text, streamed.data, streamed.spoken);
+        return;
+      }
       const r = await fetch("/api/assistant/chat", { method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text, lang, ...heard }) });
       const d = await r.json();
