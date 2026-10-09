@@ -13,6 +13,7 @@ except ImportError:
     VadOptions = None
     get_speech_timestamps = None
 
+import langpick
 from learner import learner
 
 try:
@@ -28,7 +29,8 @@ CPU = os.cpu_count() or 4
 THREADS = max(2, min(8, CPU - 2))
 HEAD_SECONDS = 1.8
 MULTILANG = os.environ.get("ATENA_EAR_MULTILANG", "1").lower() not in ("0", "off", "no")
-HOME_LANG = "it"
+HOME_LANG = os.environ.get("ATENA_REPLY_LANG", "it").strip().lower()[:3] or "it"
+LANGUAGES = langpick.allowed()
 LANG_MIN_PROB = 0.75
 LANG_MIN_SECONDS = 0.9
 PROMPTS = {"it": "Ehi, Atena, assistente digitale.", "en": "Hey Atena, digital assistant.", "es": "Oye, Atena, asistente digital.",
@@ -84,11 +86,11 @@ def spoken_language(audio: np.ndarray) -> str:
     if not MULTILANG or len(audio) < RATE * LANG_MIN_SECONDS:
         return HOME_LANG
     try:
-        lang, prob, _ = ACTIVE["model"].detect_language(audio)
+        lang, prob, ranked = ACTIVE["model"].detect_language(audio)
     except (RuntimeError, ValueError) as exc:
         log.debug("Riconoscimento della lingua non disponibile: %s", exc)
         return HOME_LANG
-    return lang if lang == HOME_LANG or prob >= LANG_MIN_PROB else HOME_LANG
+    return langpick.pick(ranked or [(lang, prob)], HOME_LANG, LANGUAGES, LANG_MIN_PROB)
 
 
 def _adapt(seconds: float, audio_seconds: float) -> None:

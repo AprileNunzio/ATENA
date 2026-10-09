@@ -2,13 +2,12 @@ import asyncio
 import hashlib
 import io
 import json
-import re
 import wave
 
 import httpx
 
 from config import env_get
-from features.voices import languages
+from features.voices import languages, speech_rules
 from features.voices.catalog import (CACHE_DIR, CACHE_MAX_FILES, HOME_LANG, KOKORO_MODEL, KOKORO_URL, PIPER, VOICE_DIR,
                                      auto_download, best_download, describe, engine, home_lang, is_online,
                                      online_enabled, piper_installed, voice_order, voices_for)
@@ -17,29 +16,8 @@ from state import store
 
 _piper_lock = asyncio.Semaphore(1)
 
-_REPLACEMENTS_ANY = [
-    (re.compile(r"[*_#`>|]+"), " "),
-    (re.compile(r"\bA\.T\.E\.N\.A\.?", re.I), "Atena"),
-    (re.compile(r"\s*[—–]\s*"), ", "),
-]
-_REPLACEMENTS_IT = [
-    (re.compile(r"https?://\S+"), "il collegamento"),
-    (re.compile(r"(\d)\s*°\s*C?"), r"\1 gradi"),
-    (re.compile(r"(\d)\s*%"), r"\1 per cento"),
-    (re.compile(r"\bkm/h\b"), "chilometri orari"),
-    (re.compile(r"\bkm\b"), "chilometri"),
-    (re.compile(r"\bGB\b"), "gigabyte"),
-    (re.compile(r"\bMB\b"), "megabyte"),
-    (re.compile(r"\b(\d{1,2}):(\d{2})\b"), r"\1 e \2"),
-]
-_SPACES = re.compile(r"\s+")
-
-
 def normalize(text: str, lang: str = HOME_LANG) -> str:
-    rules = _REPLACEMENTS_ANY + (_REPLACEMENTS_IT if lang == "it" else [(re.compile(r"https?://\S+"), " ")])
-    for pattern, repl in rules:
-        text = pattern.sub(repl, text)
-    return _SPACES.sub(" ", text).strip()
+    return speech_rules.normalize(text, lang)
 
 
 def available() -> bool:

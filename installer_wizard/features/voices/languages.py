@@ -176,6 +176,17 @@ def requested(text: str) -> tuple[str, bool] | None:
     return None
 
 
+def _resync() -> None:
+    import asyncio
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        return
+    from features.locale import household
+    from tasks import background
+    background(household.sync())
+
+
 def resolve(text: str, device: str, heard: str | None = None, person: str = "") -> dict:
     from features.locale import service
     req = requested(text)
@@ -183,6 +194,7 @@ def resolve(text: str, device: str, heard: str | None = None, person: str = "") 
         lang, teach = req
         if lang:
             choice = service.choose(lang, teach, person=person, device=device)
+            _resync()
             return {"lang": choice.lang, "teach": choice.teach, "sticky": True, "switched": True}
         return {"lang": service.forget_choice(person=person, device=device), "teach": False, "sticky": False,
                 "switched": True}

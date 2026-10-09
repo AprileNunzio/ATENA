@@ -41,6 +41,10 @@ class LocaleStore:
         tmp.write_text(json.dumps(self._data, ensure_ascii=False, indent=1), encoding="utf-8")
         tmp.replace(PREFS_FILE)
 
+    def entries(self, scope: str) -> list[dict]:
+        with self._lock:
+            return [dict(v) for v in self._data[scope].values()]
+
     def get(self, scope: str, key: str) -> dict:
         with self._lock:
             return dict(self._data[scope].get(key) or {})
