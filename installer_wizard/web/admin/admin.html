@@ -204,10 +204,12 @@
     const availableLangs = await window.i18n.discoverLanguages();
     if (langSelect) {
       langSelect.innerHTML = '';
+      let names = {};
+      try { names = (await (await fetch('/i18n/languages')).json()).names || {}; } catch (err) { console.warn('language names unavailable', err); }
       availableLangs.forEach((l) => {
         const opt = document.createElement('option');
         opt.value = l;
-        opt.textContent = l.toUpperCase();
+        opt.textContent = names[l] ? `${names[l]} (${l})` : l.toUpperCase();
         langSelect.appendChild(opt);
       });
     }

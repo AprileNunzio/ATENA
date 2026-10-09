@@ -1,6 +1,9 @@
 (function (global) {
   "use strict";
   const LANGS = ["it", "en", "fr"];
+  const RTL = ["ar", "he", "fa", "ur"];
+  const REFRESH_MS = 20000;
+  const allowed = (lang) => /^[a-z]{2,3}$/.test(String(lang || ""));
   const TABLES = { en: "pairs", fr: "fr", it: "reverse" };
   const ATTRS = ["placeholder", "title", "aria-label", "alt"];
   const SKIP = new Set(["SCRIPT", "STYLE", "TEXTAREA", "CODE", "PRE", "NOSCRIPT"]);
@@ -11,7 +14,9 @@
   }
 
   function pick() {
-    const code = (global.ATENA_UI_LANG || cached() || document.documentElement.lang || navigator.language || "it").slice(0, 2).toLowerCase();
+    const chosen = String(global.ATENA_UI_LANG || cached() || "").toLowerCase();
+    if (allowed(chosen)) return chosen;
+    const code = (document.documentElement.lang || navigator.language || "it").slice(0, 2).toLowerCase();
     return LANGS.includes(code) ? code : "it";
   }
 
@@ -111,16 +116,30 @@
     state.observer.observe(document.documentElement, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS });
   }
 
+  async function table(lang) {
+    if (TABLES[lang]) {
+      const v = global.ATENA_ASSET_V ? `?v=${global.ATENA_ASSET_V}` : "";
+      const data = await (await fetch(`/static/shared/i18n_catalog.json${v}`, { cache: "force-cache" })).json();
+      return { pairs: data[TABLES[lang]] || [], complete: true };
+    }
+    const res = await fetch(`/i18n/catalog/${lang}`, { cache: "no-store" });
+    if (!res.ok) throw new Error(`lingua ${lang} non disponibile`);
+    const data = await res.json();
+    return { pairs: data.pairs || [], complete: data.done >= data.total || !data.running };
+  }
+
   async function load(lang) {
-    const v = global.ATENA_ASSET_V ? `?v=${global.ATENA_ASSET_V}` : "";
-    const data = await (await fetch(`/static/shared/i18n_catalog.json${v}`, { cache: "force-cache" })).json();
-    const built = build(data[TABLES[lang]] || [], lang);
+    const got = await table(lang);
+    const built = build(got.pairs, lang);
     state.lang = lang;
     state.exact = built.exact;
     state.patterns = built.patterns;
     state.ready = true;
     document.documentElement.lang = lang;
+    document.documentElement.dir = RTL.includes(lang) ? "rtl" : "ltr";
     walk(document.body);
+    clearTimeout(state.refresh);
+    if (!got.complete) state.refresh = setTimeout(() => { if (state.lang === lang) load(lang).catch((e) => console.warn("i18n refresh failed", e)); }, REFRESH_MS);
     document.dispatchEvent(new CustomEvent("atena-translated", { detail: lang }));
   }
 
@@ -147,13 +166,13 @@
   }
 
   async function switchTo(lang, persist = true) {
-    if (!LANGS.includes(lang) || lang === state.lang) return;
+    if (!allowed(lang) || lang === state.lang) return;
     if (persist) remember(lang);
     await load(lang);
   }
 
   function setLanguage(lang) {
-    if (!LANGS.includes(lang)) return Promise.resolve();
+    if (!allowed(lang)) return Promise.resolve();
     return remember(lang).finally(() => location.reload());
   }
 

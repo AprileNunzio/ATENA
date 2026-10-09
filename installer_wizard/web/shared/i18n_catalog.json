@@ -14447,6 +14447,14 @@
     [
       "al lavoro",
       "at work"
+    ],
+    [
+      "Lingua non disponibile",
+      "Language not available"
+    ],
+    [
+      "lingua {0} non disponibile",
+      "language {0} not available"
     ]
   ],
   "reverse": [
@@ -14875,7 +14883,8 @@
     "LEC, HAM",
     "#tv-grid .tv-ch",
     "color:var(--amber); font-size:12px",
-    "600 {0}px system-ui, sans-serif"
+    "600 {0}px system-ui, sans-serif",
+    "i18n refresh failed"
   ],
   "fr": [
     [
@@ -28541,6 +28550,14 @@
     [
       "al lavoro",
       "au travail"
+    ],
+    [
+      "Lingua non disponibile",
+      "Langue non disponible"
+    ],
+    [
+      "lingua {0} non disponibile",
+      "langue {0} non disponible"
     ]
   ]
 }

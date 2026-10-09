@@ -206,7 +206,9 @@ def _discover_all_languages() -> list[str]:
 @admin_routes.get("/i18n/languages")
 @public_routes.get("/i18n/languages")
 async def list_i18n_languages():
-    return {"languages": _discover_all_languages(), "default": "it"}
+    found = _discover_all_languages()
+    return {"languages": found + [code for code in UI_LANGUAGES if code not in found], "default": "it",
+            "names": UI_LANGUAGES}
 
 
 @admin_routes.get("/features/{fid}/language/{lang}.json")

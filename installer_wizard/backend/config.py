@@ -28,8 +28,13 @@ ADMIN_PORT = int(os.environ.get("ATENA_ADMIN_PORT", 8001 if DEMO else 8080))
 CORE_URL = os.environ.get("ATENA_CORE_URL", "http://127.0.0.1:8443")
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://127.0.0.1:11434")
 
-VERSION = "4.1.30"
-UI_LANGUAGES = {"it": "Italiano", "en": "English", "fr": "Français"}
+VERSION = "4.1.31"
+UI_LANGUAGES = {"it": "Italiano", "en": "English", "fr": "Français", "es": "Español", "de": "Deutsch", "pt": "Português",
+                "nl": "Nederlands", "pl": "Polski", "ro": "Română", "ru": "Русский", "uk": "Українська", "el": "Ελληνικά",
+                "tr": "Türkçe", "ar": "العربية", "he": "עברית", "fa": "فارسی", "zh": "中文", "ja": "日本語", "ko": "한국어",
+                "hi": "हिन्दी", "sv": "Svenska", "da": "Dansk", "nb": "Norsk", "fi": "Suomi", "cs": "Čeština", "hu": "Magyar",
+                "sq": "Shqip", "hr": "Hrvatski", "bg": "Български", "vi": "Tiếng Việt", "th": "ไทย", "id": "Bahasa Indonesia",
+                "ms": "Bahasa Melayu"}
 
 for _d in (ETC_DIR, STATE_DIR, LOG_DIR):
     _d.mkdir(parents=True, exist_ok=True)

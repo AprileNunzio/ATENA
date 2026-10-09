@@ -7,6 +7,7 @@ from access import NO_CACHE, is_local, require_admin, require_display, session_u
 from config import UI_LANGUAGES
 
 from features.locale import service
+from features.locale.machine import machine
 from features.voices import languages
 
 public_routes = APIRouter()
@@ -82,3 +83,12 @@ def page_language(request: Request, admin: bool) -> str:
         user = session_user(request)
         return service.ui_lang(user=user) if user else service.system_ui()
     return service.ui_lang(device=device_of(request))
+
+
+@admin_routes.get("/i18n/catalog/{lang}")
+@public_routes.get("/i18n/catalog/{lang}")
+async def ui_catalog(lang: str):
+    try:
+        return JSONResponse(machine.view(lang), headers=NO_CACHE)
+    except KeyError:
+        raise HTTPException(404, "Lingua non disponibile")

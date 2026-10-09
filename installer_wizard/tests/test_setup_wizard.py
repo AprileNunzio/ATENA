@@ -76,7 +76,7 @@ class WizardTest(unittest.TestCase):
             self.assertEqual(r.status_code, 403)
 
     def test_input_is_strictly_validated(self):
-        for bad in ({"name": "Mario Rossi"}, {"name": "x;rm -rf /"}, {"lang": "de"}, {"profile": "enorme"},
+        for bad in ({"name": "Mario Rossi"}, {"name": "x;rm -rf /"}, {"lang": "xx"}, {"profile": "enorme"},
                     {"voice": "../../etc"}, {"ha_url": "http://casa"}, {"ha_url": "javascript:alert(1)", "ha_token": "x" * 30},
                     {"telegram": "123:abc"}):
             with self.subTest(bad=bad), self.assertRaises(HTTPException):
