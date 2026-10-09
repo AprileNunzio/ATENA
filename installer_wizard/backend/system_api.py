@@ -12,6 +12,7 @@ import setup_api
 from config import DEMO, EDITABLE_KEYS, ATENA_DIR, NODE, PUBLIC_PORT, is_secret, kiosk_log, read_env
 from orchestrator import orch
 from pages import page
+from features.locale.api import page_language
 from settings import apply_config
 from snapshot import full_snapshot, sse
 from state import INSTALL_LOG, store
@@ -55,12 +56,14 @@ async def public_index(request: Request, node: str = ""):
         from features.nodes.registry import registry
         if node in registry.data["nodes"]:
             NODE.set(node)
-    return page("display/display.html" if store.phase in ("READY", "DEGRADED") else "monitor/monitor.html")
+    return page("display/display.html" if store.phase in ("READY", "DEGRADED") else "monitor/monitor.html",
+                page_language(request, admin=False))
 
 
 @public_routes.get("/screen")
-async def public_screen():
-    return page("screen/screen.html" if store.phase in ("READY", "DEGRADED") else "monitor/monitor.html")
+async def public_screen(request: Request):
+    return page("screen/screen.html" if store.phase in ("READY", "DEGRADED") else "monitor/monitor.html",
+                page_language(request, admin=False))
 
 
 @public_routes.get("/healthz")
@@ -99,7 +102,7 @@ async def admin_index(request: Request):
     if not setup_api.done():
         port = "" if PUBLIC_PORT == 80 else f":{PUBLIC_PORT}"
         return RedirectResponse(f"http://{request.url.hostname}{port}/setup", status_code=303)
-    return page("admin/admin.html")
+    return page("admin/admin.html", page_language(request, admin=True))
 
 
 @admin_routes.post("/api/auth/login")

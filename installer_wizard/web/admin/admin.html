@@ -210,7 +210,7 @@
         langSelect.appendChild(opt);
       });
     }
-    const savedLang = localStorage.getItem('atena_admin_lang') || 'it';
+    const savedLang = window.ATENA_UI_LANG || localStorage.getItem('atena_admin_lang') || 'it';
     const activeLang = availableLangs.includes(savedLang) ? savedLang : (availableLangs[0] || 'it');
     await window.i18n.setLanguage(activeLang, ['admin']);
     document.documentElement.lang = activeLang;
@@ -221,7 +221,8 @@
         await window.i18n.setLanguage(e.target.value, ['admin']);
         document.documentElement.lang = e.target.value;
         localStorage.setItem('atena_admin_lang', e.target.value);
-        if (window.AtenaAdmin && window.AtenaAdmin.renderNav) window.location.reload();
+        if (window.AtenaI18n) await window.AtenaI18n.setLanguage(e.target.value);
+        else window.location.reload();
       });
     }
   });

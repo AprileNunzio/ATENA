@@ -108,21 +108,21 @@ def ui_language() -> str:
     return value if value in UI_LANGUAGES else ""
 
 
-def render(html: str) -> Response:
+def render(html: str, lang: str = "") -> Response:
     html = html.replace("</head>", f"<script>window.ATENA_FACE = {json.dumps(face_options())}; "
                                    f"window.ATENA_ASSET_V = {json.dumps(ASSET_VERSION)}; "
-                                   f"window.ATENA_UI_LANG = {json.dumps(ui_language())};</script>\n"
+                                   f"window.ATENA_UI_LANG = {json.dumps(lang or ui_language())};</script>\n"
                                    '<script src="/static/shared/translate.js"></script>\n</head>', 1)
     html = _ASSET_RE.sub(lambda m: f'{m.group(1)}?v={ASSET_VERSION}"', html)
     return Response(html, media_type="text/html", headers=NO_CACHE)
 
 
-def page(name: str) -> Response:
+def page(name: str, lang: str = "") -> Response:
     html = (WEB_DIR / name).read_text(encoding="utf-8")
     if "<atena-slot" in html:
         for key, value in admin_parts().items():
             html = html.replace(f'<atena-slot name="{key}"></atena-slot>', value)
-    return render(html)
+    return render(html, lang)
 
 
 class FreshStatic(StaticFiles):

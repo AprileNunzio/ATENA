@@ -6,10 +6,12 @@
   const SKIP = new Set(["SCRIPT", "STYLE", "TEXTAREA", "CODE", "PRE", "NOSCRIPT"]);
   const state = { lang: "it", exact: new Map(), patterns: [], ready: false, observer: null };
 
+  function cached() {
+    try { return localStorage.getItem("atena_ui_lang") || ""; } catch (e) { return ""; }
+  }
+
   function pick() {
-    let saved = "";
-    try { saved = localStorage.getItem("atena_ui_lang") || localStorage.getItem("atena_admin_lang") || ""; } catch (e) { saved = ""; }
-    const code = (saved || global.ATENA_UI_LANG || document.documentElement.lang || navigator.language || "it").slice(0, 2).toLowerCase();
+    const code = (global.ATENA_UI_LANG || cached() || document.documentElement.lang || navigator.language || "it").slice(0, 2).toLowerCase();
     return LANGS.includes(code) ? code : "it";
   }
 
@@ -135,6 +137,13 @@
 
   function remember(lang) {
     try { localStorage.setItem("atena_ui_lang", lang); } catch (e) { console.warn("language preference not saved", e); }
+    global.ATENA_UI_LANG = lang;
+    return fetch("/api/locale/ui", {
+      method: "PUT", credentials: "same-origin",
+      headers: { "Content-Type": "application/json", "X-Atena-Request": "1" },
+      body: JSON.stringify({ lang }),
+    }).then((r) => { if (!r.ok) console.warn("language preference not saved", r.status); })
+      .catch((e) => console.warn("language preference not saved", e));
   }
 
   async function switchTo(lang, persist = true) {
@@ -144,9 +153,8 @@
   }
 
   function setLanguage(lang) {
-    if (!LANGS.includes(lang)) return;
-    remember(lang);
-    location.reload();
+    if (!LANGS.includes(lang)) return Promise.resolve();
+    return remember(lang).finally(() => location.reload());
   }
 
   global.AtenaI18n = { start, setLanguage, switchTo, translate, language: () => state.lang, languages: LANGS };
