@@ -25,7 +25,7 @@ TOOLS: dict[str, Risk] = {
                                          "solve", "table", "write")},
     "find_contact": Risk.PERSONAL, "list_dir": Risk.PERSONAL, "read_file": Risk.PERSONAL, "find_files": Risk.PERSONAL,
     "file_info": Risk.PERSONAL, "camera_events": Risk.PERSONAL, "camera_overview": Risk.PERSONAL,
-    "list_cameras": Risk.PERSONAL, "open_camera": Risk.PERSONAL, "firewall_status": Risk.PERSONAL, "vpn_status": Risk.PERSONAL,
+    "list_cameras": Risk.PERSONAL, "open_camera": Risk.PERSONAL, "firewall_status": Risk.PERSONAL, "vpn_status": Risk.PERSONAL, "proxmox_status": Risk.PERSONAL,
     "write_file": Risk.FILES, "make_dir": Risk.FILES, "copy": Risk.FILES, "move": Risk.FILES, "zip": Risk.FILES,
     "create_site": Risk.FILES, "create_3d": Risk.FILES, "create_document": Risk.FILES, "copy_to_share": Risk.FILES,
     "camera_photo": Risk.FILES, "create_widget": Risk.FILES, "delete_widget": Risk.FILES,
@@ -35,7 +35,7 @@ TOOLS: dict[str, Risk] = {
     "run_task_now": Risk.CRITICAL, "agent_set": Risk.CRITICAL,
     "camera_motion": Risk.CRITICAL, "create_feature": Risk.CRITICAL, "delete_feature": Risk.CRITICAL,
     "create_tool": Risk.CRITICAL, "delete_tool": Risk.CRITICAL, "firewall_block": Risk.CRITICAL,
-    "firewall_unblock": Risk.CRITICAL, "vpn_connect": Risk.CRITICAL, "vpn_disconnect": Risk.CRITICAL,
+    "firewall_unblock": Risk.CRITICAL, "vpn_connect": Risk.CRITICAL, "vpn_disconnect": Risk.CRITICAL, "proxmox_power": Risk.CRITICAL,
 }
 
 CONNECTORS: dict[str, Risk] = {

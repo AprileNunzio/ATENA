@@ -80,6 +80,7 @@ from features.firewall import api as firewall_api
 from features.firewall.events import monitor as firewall_monitor
 from features.vpn import api as vpn_api
 from features.places import api as places_api
+from features.proxmox import api as proxmox_api
 from features.places import service as places_service
 from features.locale import household as locale_household
 from features.vpn.service import service as vpn_service
@@ -165,6 +166,7 @@ FEATURE_APIS = (
     firewall_api,
     vpn_api,
     places_api,
+    proxmox_api,
     laws_api,
     cameras_api,
     models3d_api,

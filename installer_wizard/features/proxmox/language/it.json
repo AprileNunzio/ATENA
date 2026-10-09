@@ -1,0 +1,11 @@
+{
+  "name": "Gestione Proxmox",
+  "description": "Atena si collega al tuo hypervisor Proxmox VE: stato di nodi, macchine virtuali e container, avvio, spegnimento, riavvio e snapshot, anche a voce.",
+  "capabilities": [
+    "Stato di nodi, VM e container LXC con CPU e RAM",
+    "Avvio, spegnimento, arresto forzato, riavvio, sospensione e ripresa",
+    "Snapshot con un clic",
+    "Comandi vocali protetti dal riconoscimento di volto e voce",
+    "Accesso con token API o utente e password"
+  ]
+}

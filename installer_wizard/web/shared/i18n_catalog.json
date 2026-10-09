@@ -13367,6 +13367,70 @@
     [
       "Il profilo del proprietario non può essere unito a un altro: unisci invece l'altro volto al proprietario",
       "The owner profile cannot be merged into another one: merge the other face into the owner instead"
+    ],
+    [
+      "Macchine virtuali e container",
+      "Virtual machines and containers"
+    ],
+    [
+      "Cerca per nome o ID",
+      "Search by name or ID"
+    ],
+    [
+      "Avvia",
+      "Start"
+    ],
+    [
+      "Spegni",
+      "Shut down"
+    ],
+    [
+      "Arresto forzato",
+      "Force stop"
+    ],
+    [
+      "Riavvia",
+      "Reboot"
+    ],
+    [
+      "Sospendi",
+      "Suspend"
+    ],
+    [
+      "Proxmox non è configurato: inserisci indirizzo, utente e password o token API nelle impostazioni di questa funzionalità.",
+      "Proxmox is not configured: enter address, username and password or API token in this feature's settings."
+    ],
+    [
+      "Collegato a {0}: {1} nodi, {2} VM e container.",
+      "Connected to {0}: {1} nodes, {2} VMs and containers."
+    ],
+    [
+      "CPU {0}% di {1} core",
+      "CPU {0}% of {1} cores"
+    ],
+    [
+      "RAM {0} di {1}",
+      "RAM {0} of {1}"
+    ],
+    [
+      "acceso da {0}",
+      "up for {0}"
+    ],
+    [
+      "Nodo",
+      "Node"
+    ],
+    [
+      "Collegamento a Proxmox…",
+      "Connecting to Proxmox…"
+    ],
+    [
+      "Nome dello snapshot (lettere, numeri, - e _):",
+      "Snapshot name (letters, digits, - and _):"
+    ],
+    [
+      "Comando inviato a Proxmox",
+      "Command sent to Proxmox"
     ]
   ],
   "reverse": [
@@ -26373,6 +26437,70 @@
     [
       "Il profilo del proprietario non può essere unito a un altro: unisci invece l'altro volto al proprietario",
       "Le profil du propriétaire ne peut pas être fusionné dans un autre : fusionnez plutôt l'autre visage avec le propriétaire"
+    ],
+    [
+      "Macchine virtuali e container",
+      "Machines virtuelles et conteneurs"
+    ],
+    [
+      "Cerca per nome o ID",
+      "Rechercher par nom ou ID"
+    ],
+    [
+      "Avvia",
+      "Démarrer"
+    ],
+    [
+      "Spegni",
+      "Éteindre"
+    ],
+    [
+      "Arresto forzato",
+      "Arrêt forcé"
+    ],
+    [
+      "Riavvia",
+      "Redémarrer"
+    ],
+    [
+      "Sospendi",
+      "Suspendre"
+    ],
+    [
+      "Proxmox non è configurato: inserisci indirizzo, utente e password o token API nelle impostazioni di questa funzionalità.",
+      "Proxmox n'est pas configuré : saisissez l'adresse, l'utilisateur et le mot de passe ou le jeton API dans les paramètres de cette fonctionnalité."
+    ],
+    [
+      "Collegato a {0}: {1} nodi, {2} VM e container.",
+      "Connecté à {0} : {1} nœuds, {2} VM et conteneurs."
+    ],
+    [
+      "CPU {0}% di {1} core",
+      "CPU {0} % sur {1} cœurs"
+    ],
+    [
+      "RAM {0} di {1}",
+      "RAM {0} sur {1}"
+    ],
+    [
+      "acceso da {0}",
+      "allumé depuis {0}"
+    ],
+    [
+      "Nodo",
+      "Nœud"
+    ],
+    [
+      "Collegamento a Proxmox…",
+      "Connexion à Proxmox…"
+    ],
+    [
+      "Nome dello snapshot (lettere, numeri, - e _):",
+      "Nom du snapshot (lettres, chiffres, - et _) :"
+    ],
+    [
+      "Comando inviato a Proxmox",
+      "Commande envoyée à Proxmox"
     ]
   ]
 }

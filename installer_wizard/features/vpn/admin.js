@@ -54,7 +54,7 @@
   async function load() {
     try { VPN.render(await A.api("GET", "/api/vpn")); } catch (e) { A.toast(e.message, true); }
     clearTimeout(timer);
-    timer = setTimeout(() => { if (document.getElementById("tab-vpn").classList.contains("active")) load(); }, 8000);
+    timer = setTimeout(() => { if (document.getElementById("tab-vpn").classList.contains("on")) load(); }, 8000);
   }
 
   async function call(method, url, body) {

@@ -1,0 +1,15 @@
+<section class="tab" id="tab-proxmox">
+  <div class="panel px-head">
+    <div class="row" style="justify-content:space-between; flex-wrap:wrap; gap:10px">
+      <div class="panel-title">Gestione Proxmox</div>
+      <button class="btn sm" id="px-refresh">Aggiorna</button>
+    </div>
+    <div id="px-status" class="muted-note"></div>
+  </div>
+  <div class="px-nodes" id="px-nodes"></div>
+  <div class="panel">
+    <div class="panel-title">Macchine virtuali e container</div>
+    <div class="px-filter"><input id="px-q" placeholder="Cerca per nome o ID"></div>
+    <div class="px-table-wrap" id="px-guests"></div>
+  </div>
+</section>

@@ -1,0 +1,11 @@
+.px-head { display: flex; flex-direction: column; gap: 8px; margin-bottom: 18px; }
+.px-nodes { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; margin-bottom: 18px; }
+.px-node { display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
+.px-bar { height: 6px; border-radius: 4px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.px-bar i { display: block; height: 100%; background: var(--accent, #29e0ff); }
+.px-filter input { width: 100%; max-width: 320px; margin-bottom: 10px; }
+.px-table-wrap { overflow-x: auto; }
+.px-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.px-table th, .px-table td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.px-actions { display: flex; flex-wrap: wrap; gap: 4px; }
+@media (max-width: 720px) { .px-nodes { grid-template-columns: 1fr; } }

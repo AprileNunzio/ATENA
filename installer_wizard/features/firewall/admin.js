@@ -93,7 +93,7 @@
   async function load() {
     try { FW.render(await A.api("GET", "/api/firewall")); } catch (e) { A.toast(e.message, true); }
     clearTimeout(timer);
-    timer = setTimeout(() => { if (document.getElementById("tab-firewall").classList.contains("active")) load(); }, 5000);
+    timer = setTimeout(() => { if (document.getElementById("tab-firewall").classList.contains("on")) load(); }, 5000);
   }
 
   function savePolicy() {

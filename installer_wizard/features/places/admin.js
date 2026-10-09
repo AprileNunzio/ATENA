@@ -56,7 +56,7 @@
   async function load() {
     try { data = await A.api("GET", "/api/places"); render(); } catch (e) { A.toast(e.message, true); }
     clearTimeout(timer);
-    timer = setTimeout(() => { if (document.getElementById("tab-places").classList.contains("active")) load(); }, 10000);
+    timer = setTimeout(() => { if (document.getElementById("tab-places").classList.contains("on")) load(); }, 10000);
   }
 
   function saveDevice(row) {

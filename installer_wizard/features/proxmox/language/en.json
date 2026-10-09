@@ -1,0 +1,11 @@
+{
+  "name": "Proxmox management",
+  "description": "Atena connects to your Proxmox VE hypervisor: status of nodes, virtual machines and containers, start, shutdown, reboot and snapshots, by voice too.",
+  "capabilities": [
+    "Status of nodes, VMs and LXC containers with CPU and RAM",
+    "Start, shutdown, force stop, reboot, suspend and resume",
+    "One-click snapshots",
+    "Voice commands protected by face and voice recognition",
+    "Access with API token or username and password"
+  ]
+}
