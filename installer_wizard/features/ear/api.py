@@ -3,12 +3,12 @@ import os
 import time
 from pathlib import Path
 
-from fastapi import APIRouter, Request, WebSocket
+from fastapi import APIRouter, HTTPException, Request, WebSocket
 
 from access import require_admin, require_display
 from config import env_get
 from features.desktop.desk import desk
-from features.ear import proxy
+from features.ear import keycheck, proxy
 from state import store
 
 public_routes = APIRouter()
@@ -61,6 +61,17 @@ async def ear_tuning_reset(request: Request):
     TUNING_FILE.unlink(missing_ok=True)
     store.event("INFO", "Regolazioni automatiche dell'ascolto azzerate", "ear")
     return {"ok": True}
+
+@admin_routes.post("/api/ear/stt/check")
+async def ear_stt_check(request: Request):
+    require_admin(request)
+    body = await request.json()
+    try:
+        return await keycheck.check(str(body.get("provider") or ""), str(body.get("key") or "")[:300],
+                                    str(body.get("url") or "")[:300])
+    except keycheck.KeyCheckError as exc:
+        raise HTTPException(400, str(exc))
+
 
 desk.register_source("ear_widget", lambda: {"ear": True} if env_get("ATENA_EAR", "1") != "0" else None)
 

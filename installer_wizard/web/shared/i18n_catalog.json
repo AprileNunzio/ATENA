@@ -14475,6 +14475,406 @@
     [
       "✅ Azioni che Atena fa senza chiedere ({0})",
       "✅ Actions Atena does without asking ({0})"
+    ],
+    [
+      "1 modifica da salvare",
+      "1 change to save"
+    ],
+    [
+      "A lungo",
+      "For long"
+    ],
+    [
+      "Affidabile, a pagamento a consumo",
+      "Reliable, pay as you go"
+    ],
+    [
+      "Alla scrivania, entro un metro",
+      "At the desk, within a metre"
+    ],
+    [
+      "Amplificazione di «Atena» da lontano",
+      "Far «Atena» amplification"
+    ],
+    [
+      "Amplificazione massima",
+      "Maximum amplification"
+    ],
+    [
+      "Analizza solo se il carico per core è sotto",
+      "Analyse only if load per core is below"
+    ],
+    [
+      "Apprendimento e privacy",
+      "Learning and privacy"
+    ],
+    [
+      "Ascolto aggiornato: si riavvia in pochi secondi",
+      "Listening updated: it restarts in a few seconds"
+    ],
+    [
+      "Ascolto senza ripetere «Atena»",
+      "Listening without repeating «Atena»"
+    ],
+    [
+      "Aspetta chi parla piano",
+      "Waits for slow speakers"
+    ],
+    [
+      "Audio nativo, piano gratuito",
+      "Native audio, free tier"
+    ],
+    [
+      "Automatico, in base al processore (consigliato)",
+      "Automatic, based on the processor (recommended)"
+    ],
+    [
+      "Avanti →",
+      "Next →"
+    ],
+    [
+      "Azzera le regolazioni automatiche",
+      "Reset automatic adjustments"
+    ],
+    [
+      "Azzerare le regolazioni che Atena ha fatto da sola?",
+      "Reset the adjustments Atena made on her own?"
+    ],
+    [
+      "Breve",
+      "Short"
+    ],
+    [
+      "Capisce e risponde nella lingua in cui parli",
+      "Understands and answers in the language you speak"
+    ],
+    [
+      "Chi può parlare",
+      "Who can speak"
+    ],
+    [
+      "Chiave API del servizio",
+      "Service API key"
+    ],
+    [
+      "Chiunque dica «Atena»",
+      "Anyone who says «Atena»"
+    ],
+    [
+      "Come Atena ti sente e ti capisce.",
+      "How Atena hears and understands you."
+    ],
+    [
+      "Come trascrive",
+      "How it transcribes"
+    ],
+    [
+      "Conserva l'audio già analizzato",
+      "Keep already analysed audio"
+    ],
+    [
+      "Conserva le registrazioni per",
+      "Keep recordings for"
+    ],
+    [
+      "Conversazione continua dopo una risposta",
+      "Continuous conversation after an answer"
+    ],
+    [
+      "Cosa conserva per migliorare e per quanto.",
+      "What it keeps to improve, and for how long."
+    ],
+    [
+      "Da dove parli di solito",
+      "Where you usually speak from"
+    ],
+    [
+      "Dal divano o dal tavolo",
+      "From the sofa or the table"
+    ],
+    [
+      "DeepFilterNet (stanze grandi)",
+      "DeepFilterNet (large rooms)"
+    ],
+    [
+      "Distacco dalla seconda voce più simile",
+      "Gap from the second most similar voice"
+    ],
+    [
+      "Distacco tra voci simili (es. gemelli)",
+      "Gap between similar voices (e.g. twins)"
+    ],
+    [
+      "Dove viene trasformata la voce in testo.",
+      "Where speech is turned into text."
+    ],
+    [
+      "Durata di ogni blocco registrato",
+      "Length of each recorded block"
+    ],
+    [
+      "Elimina l'eco delle casse vicine",
+      "Remove echo from nearby speakers"
+    ],
+    [
+      "Elimina tutte le registrazioni",
+      "Delete all recordings"
+    ],
+    [
+      "Eliminare tutte le registrazioni della voce?",
+      "Delete all voice recordings?"
+    ],
+    [
+      "Filtro spettrale",
+      "Spectral filter"
+    ],
+    [
+      "Funzionalità non trovata",
+      "Feature not found"
+    ],
+    [
+      "Google Gemini",
+      "Google Gemini"
+    ],
+    [
+      "Groq Whisper",
+      "Groq Whisper"
+    ],
+    [
+      "Ibrido",
+      "Hybrid"
+    ],
+    [
+      "Indirizzo del server",
+      "Server address"
+    ],
+    [
+      "Livello del microfono",
+      "Microphone level"
+    ],
+    [
+      "Livello vocale obiettivo",
+      "Target voice level"
+    ],
+    [
+      "Lontano",
+      "Far"
+    ],
+    [
+      "Lunga",
+      "Long"
+    ],
+    [
+      "Massima precisione",
+      "Maximum accuracy"
+    ],
+    [
+      "Massima precisione con un servizio cloud",
+      "Maximum accuracy with a cloud service"
+    ],
+    [
+      "Meno attivazioni per errore",
+      "Fewer false activations"
+    ],
+    [
+      "Microfono e distanza",
+      "Microphone and distance"
+    ],
+    [
+      "Migliora da sola l'impronta vocale",
+      "Improves the voiceprint by herself"
+    ],
+    [
+      "Modello offline",
+      "Offline model"
+    ],
+    [
+      "Modello per ricontrollare",
+      "Model for re-checking"
+    ],
+    [
+      "Molto preciso",
+      "Very accurate"
+    ],
+    [
+      "Nella stanza",
+      "In the room"
+    ],
+    [
+      "Nessuna registrazione",
+      "No recordings"
+    ],
+    [
+      "Nome del modello",
+      "Model name"
+    ],
+    [
+      "Offline",
+      "Offline"
+    ],
+    [
+      "Online quando c'è rete, altrimenti offline",
+      "Online when there is a network, otherwise offline"
+    ],
+    [
+      "OpenAI Whisper",
+      "OpenAI Whisper"
+    ],
+    [
+      "Ottieni la chiave ↗",
+      "Get the key ↗"
+    ],
+    [
+      "Pausa che chiude la frase",
+      "Pause that ends the sentence"
+    ],
+    [
+      "Più preciso",
+      "More accurate"
+    ],
+    [
+      "Preciso (più lento)",
+      "Accurate (slower)"
+    ],
+    [
+      "Pulizia dell'audio",
+      "Audio cleaning"
+    ],
+    [
+      "Quando Atena si attiva e chi ascolta.",
+      "When Atena wakes up and whom she listens to."
+    ],
+    [
+      "Quanto lontano parli dal microfono.",
+      "How far you speak from the microphone."
+    ],
+    [
+      "Registra i tratti con voce per imparare (solo su questo server)",
+      "Record voice segments to learn (only on this server)"
+    ],
+    [
+      "Registrazioni per {0} h",
+      "Recordings for {0} h"
+    ],
+    [
+      "Regola da sola sensibilità e amplificazione",
+      "Adjusts sensitivity and amplification by herself"
+    ],
+    [
+      "Regolazioni azzerate",
+      "Adjustments reset"
+    ],
+    [
+      "Ricontrolla a riposo se aveva capito bene",
+      "Re-checks at rest whether she understood correctly"
+    ],
+    [
+      "Risponde prima",
+      "Answers sooner"
+    ],
+    [
+      "Rispondi solo alle voci registrate (niente TV o estranei)",
+      "Answer only enrolled voices (no TV or strangers)"
+    ],
+    [
+      "Sempre gestito dal browser",
+      "Always handled by the browser"
+    ],
+    [
+      "Sensibilità di «Atena»",
+      "«Atena» sensitivity"
+    ],
+    [
+      "Sente anche da lontano",
+      "Hears even from afar"
+    ],
+    [
+      "Server personalizzato",
+      "Custom server"
+    ],
+    [
+      "Servizio online",
+      "Online service"
+    ],
+    [
+      "Soglia di riconoscimento su misura per ogni persona",
+      "Recognition threshold tailored to each person"
+    ],
+    [
+      "Solo voci registrate",
+      "Enrolled voices only"
+    ],
+    [
+      "Somiglianza minima della voce",
+      "Minimum voice similarity"
+    ],
+    [
+      "Spazio massimo per le registrazioni",
+      "Maximum space for recordings"
+    ],
+    [
+      "Stanze grandi o con eco",
+      "Large or echoing rooms"
+    ],
+    [
+      "Torna ai valori consigliati",
+      "Back to recommended values"
+    ],
+    [
+      "Tutto su questo server: privato e gratuito",
+      "Everything on this server: private and free"
+    ],
+    [
+      "Valori consigliati",
+      "Recommended values"
+    ],
+    [
+      "Valori consigliati pronti: premi «Salva e applica»",
+      "Recommended values ready: press «Save and apply»"
+    ],
+    [
+      "Veloce",
+      "Fast"
+    ],
+    [
+      "Velocissimo, ottimo in italiano",
+      "Very fast, great in Italian"
+    ],
+    [
+      "Vicino",
+      "Near"
+    ],
+    [
+      "Voci considerate simili oltre",
+      "Voices considered similar above"
+    ],
+    [
+      "Whisper large-v3 con latenza minima",
+      "Whisper large-v3 with minimal latency"
+    ],
+    [
+      "Whisper o Gemma su un tuo computer (vLLM, LocalAI)",
+      "Whisper or Gemma on your own computer (vLLM, LocalAI)"
+    ],
+    [
+      "{0} file eliminati",
+      "{0} files deleted"
+    ],
+    [
+      "{0} modifiche da salvare",
+      "{0} changes to save"
+    ],
+    [
+      "«A riposo» dopo secondi di silenzio",
+      "«At rest» after seconds of silence"
+    ],
+    [
+      "← Indietro",
+      "← Back"
+    ],
+    [
+      "🎧 Ascolto vocale",
+      "🎧 Voice listening"
     ]
   ],
   "reverse": [
@@ -14904,7 +15304,8 @@
     "#tv-grid .tv-ch",
     "color:var(--amber); font-size:12px",
     "600 {0}px system-ui, sans-serif",
-    "i18n refresh failed"
+    "i18n refresh failed",
+    "ear-keymsg bad"
   ],
   "fr": [
     [
@@ -28598,6 +28999,410 @@
     [
       "✅ Azioni che Atena fa senza chiedere ({0})",
       "✅ Actions qu'Atena fait sans demander ({0})"
+    ],
+    [
+      "1 modifica da salvare",
+      "1 modification à enregistrer"
+    ],
+    [
+      "A lungo",
+      "Longtemps"
+    ],
+    [
+      "Affidabile, a pagamento a consumo",
+      "Fiable, paiement à l'usage"
+    ],
+    [
+      "Alla scrivania, entro un metro",
+      "Au bureau, à moins d'un mètre"
+    ],
+    [
+      "Amplificazione di «Atena» da lontano",
+      "Amplification de « Atena » à distance"
+    ],
+    [
+      "Amplificazione massima",
+      "Amplification maximale"
+    ],
+    [
+      "Analizza solo se il carico per core è sotto",
+      "Analyser seulement si la charge par cœur est inférieure à"
+    ],
+    [
+      "Apprendimento e privacy",
+      "Apprentissage et confidentialité"
+    ],
+    [
+      "Ascolto aggiornato: si riavvia in pochi secondi",
+      "Écoute mise à jour : redémarrage dans quelques secondes"
+    ],
+    [
+      "Ascolto senza ripetere «Atena»",
+      "Écoute sans répéter « Atena »"
+    ],
+    [
+      "Aspetta chi parla piano",
+      "Attend ceux qui parlent lentement"
+    ],
+    [
+      "Audio nativo, piano gratuito",
+      "Audio natif, offre gratuite"
+    ],
+    [
+      "Automatico, in base al processore (consigliato)",
+      "Automatique, selon le processeur (conseillé)"
+    ],
+    [
+      "Avanti →",
+      "Suivant →"
+    ],
+    [
+      "Azzera le regolazioni automatiche",
+      "Réinitialiser les réglages automatiques"
+    ],
+    [
+      "Azzerare le regolazioni che Atena ha fatto da sola?",
+      "Réinitialiser les réglages faits par Atena ?"
+    ],
+    [
+      "Bilanciato",
+      "Équilibré"
+    ],
+    [
+      "Breve",
+      "Courte"
+    ],
+    [
+      "Capisce e risponde nella lingua in cui parli",
+      "Comprend et répond dans la langue que vous parlez"
+    ],
+    [
+      "Chi può parlare",
+      "Qui peut parler"
+    ],
+    [
+      "Chiave API del servizio",
+      "Clé API du service"
+    ],
+    [
+      "Chiunque dica «Atena»",
+      "Quiconque dit « Atena »"
+    ],
+    [
+      "Come Atena ti sente e ti capisce.",
+      "Comment Atena vous entend et vous comprend."
+    ],
+    [
+      "Come trascrive",
+      "Comment elle transcrit"
+    ],
+    [
+      "Conserva l'audio già analizzato",
+      "Conserver l'audio déjà analysé"
+    ],
+    [
+      "Conserva le registrazioni per",
+      "Conserver les enregistrements pendant"
+    ],
+    [
+      "Conversazione continua dopo una risposta",
+      "Conversation continue après une réponse"
+    ],
+    [
+      "Cosa conserva per migliorare e per quanto.",
+      "Ce qu'elle conserve pour s'améliorer et combien de temps."
+    ],
+    [
+      "Da dove parli di solito",
+      "D'où parlez-vous d'habitude"
+    ],
+    [
+      "Dal divano o dal tavolo",
+      "Depuis le canapé ou la table"
+    ],
+    [
+      "DeepFilterNet (stanze grandi)",
+      "DeepFilterNet (grandes pièces)"
+    ],
+    [
+      "Distacco dalla seconda voce più simile",
+      "Écart avec la deuxième voix la plus proche"
+    ],
+    [
+      "Distacco tra voci simili (es. gemelli)",
+      "Écart entre voix proches (ex. jumeaux)"
+    ],
+    [
+      "Dove viene trasformata la voce in testo.",
+      "Où la voix est transformée en texte."
+    ],
+    [
+      "Durata di ogni blocco registrato",
+      "Durée de chaque bloc enregistré"
+    ],
+    [
+      "Elimina l'eco delle casse vicine",
+      "Supprimer l'écho des haut-parleurs proches"
+    ],
+    [
+      "Elimina tutte le registrazioni",
+      "Supprimer tous les enregistrements"
+    ],
+    [
+      "Eliminare tutte le registrazioni della voce?",
+      "Supprimer tous les enregistrements de la voix ?"
+    ],
+    [
+      "Filtro spettrale",
+      "Filtre spectral"
+    ],
+    [
+      "Funzionalità non trovata",
+      "Fonctionnalité introuvable"
+    ],
+    [
+      "Google Gemini",
+      "Google Gemini"
+    ],
+    [
+      "Groq Whisper",
+      "Groq Whisper"
+    ],
+    [
+      "Ibrido",
+      "Hybride"
+    ],
+    [
+      "Indirizzo del server",
+      "Adresse du serveur"
+    ],
+    [
+      "Livello del microfono",
+      "Niveau du micro"
+    ],
+    [
+      "Livello vocale obiettivo",
+      "Niveau vocal cible"
+    ],
+    [
+      "Lontano",
+      "Loin"
+    ],
+    [
+      "Lunga",
+      "Longue"
+    ],
+    [
+      "Massima precisione",
+      "Précision maximale"
+    ],
+    [
+      "Massima precisione con un servizio cloud",
+      "Précision maximale avec un service cloud"
+    ],
+    [
+      "Meno attivazioni per errore",
+      "Moins de déclenchements par erreur"
+    ],
+    [
+      "Microfono e distanza",
+      "Micro et distance"
+    ],
+    [
+      "Migliora da sola l'impronta vocale",
+      "Améliore seule l'empreinte vocale"
+    ],
+    [
+      "Modello offline",
+      "Modèle hors ligne"
+    ],
+    [
+      "Modello per ricontrollare",
+      "Modèle de vérification"
+    ],
+    [
+      "Molto preciso",
+      "Très précis"
+    ],
+    [
+      "Nella stanza",
+      "Dans la pièce"
+    ],
+    [
+      "Nessuna registrazione",
+      "Aucun enregistrement"
+    ],
+    [
+      "Nome del modello",
+      "Nom du modèle"
+    ],
+    [
+      "Offline",
+      "Hors ligne"
+    ],
+    [
+      "Online quando c'è rete, altrimenti offline",
+      "En ligne s'il y a du réseau, sinon hors ligne"
+    ],
+    [
+      "OpenAI Whisper",
+      "OpenAI Whisper"
+    ],
+    [
+      "Ottieni la chiave ↗",
+      "Obtenir la clé ↗"
+    ],
+    [
+      "Pausa che chiude la frase",
+      "Pause qui termine la phrase"
+    ],
+    [
+      "Più preciso",
+      "Plus précis"
+    ],
+    [
+      "Preciso (più lento)",
+      "Précis (plus lent)"
+    ],
+    [
+      "Pulizia dell'audio",
+      "Nettoyage de l'audio"
+    ],
+    [
+      "Quando Atena si attiva e chi ascolta.",
+      "Quand Atena s'active et qui elle écoute."
+    ],
+    [
+      "Quanto lontano parli dal microfono.",
+      "À quelle distance vous parlez du micro."
+    ],
+    [
+      "Registra i tratti con voce per imparare (solo su questo server)",
+      "Enregistrer les passages avec voix pour apprendre (seulement sur ce serveur)"
+    ],
+    [
+      "Registrazioni per {0} h",
+      "Enregistrements pendant {0} h"
+    ],
+    [
+      "Regola da sola sensibilità e amplificazione",
+      "Règle seule sensibilité et amplification"
+    ],
+    [
+      "Regolazioni azzerate",
+      "Réglages réinitialisés"
+    ],
+    [
+      "Ricontrolla a riposo se aveva capito bene",
+      "Vérifie au repos si elle avait bien compris"
+    ],
+    [
+      "Risponde prima",
+      "Répond plus tôt"
+    ],
+    [
+      "Rispondi solo alle voci registrate (niente TV o estranei)",
+      "Répondre seulement aux voix enregistrées (ni TV ni inconnus)"
+    ],
+    [
+      "Sempre gestito dal browser",
+      "Toujours géré par le navigateur"
+    ],
+    [
+      "Sensibilità di «Atena»",
+      "Sensibilité de « Atena »"
+    ],
+    [
+      "Sente anche da lontano",
+      "Entend même de loin"
+    ],
+    [
+      "Server personalizzato",
+      "Serveur personnalisé"
+    ],
+    [
+      "Servizio online",
+      "Service en ligne"
+    ],
+    [
+      "Soglia di riconoscimento su misura per ogni persona",
+      "Seuil de reconnaissance adapté à chaque personne"
+    ],
+    [
+      "Solo voci registrate",
+      "Voix enregistrées uniquement"
+    ],
+    [
+      "Somiglianza minima della voce",
+      "Similarité minimale de la voix"
+    ],
+    [
+      "Spazio massimo per le registrazioni",
+      "Espace maximal pour les enregistrements"
+    ],
+    [
+      "Stanze grandi o con eco",
+      "Grandes pièces ou avec écho"
+    ],
+    [
+      "Torna ai valori consigliati",
+      "Revenir aux valeurs conseillées"
+    ],
+    [
+      "Tutto su questo server: privato e gratuito",
+      "Tout sur ce serveur : privé et gratuit"
+    ],
+    [
+      "Valori consigliati",
+      "Valeurs conseillées"
+    ],
+    [
+      "Valori consigliati pronti: premi «Salva e applica»",
+      "Valeurs conseillées prêtes : appuyez sur « Enregistrer et appliquer »"
+    ],
+    [
+      "Veloce",
+      "Rapide"
+    ],
+    [
+      "Velocissimo, ottimo in italiano",
+      "Très rapide, excellent en italien"
+    ],
+    [
+      "Vicino",
+      "Proche"
+    ],
+    [
+      "Voci considerate simili oltre",
+      "Voix considérées proches au-delà de"
+    ],
+    [
+      "Whisper large-v3 con latenza minima",
+      "Whisper large-v3 à latence minimale"
+    ],
+    [
+      "Whisper o Gemma su un tuo computer (vLLM, LocalAI)",
+      "Whisper ou Gemma sur votre ordinateur (vLLM, LocalAI)"
+    ],
+    [
+      "{0} file eliminati",
+      "{0} fichiers supprimés"
+    ],
+    [
+      "{0} modifiche da salvare",
+      "{0} modifications à enregistrer"
+    ],
+    [
+      "«A riposo» dopo secondi di silenzio",
+      "« Au repos » après des secondes de silence"
+    ],
+    [
+      "← Indietro",
+      "← Retour"
+    ],
+    [
+      "🎧 Ascolto vocale",
+      "🎧 Écoute vocale"
     ]
   ]
 }

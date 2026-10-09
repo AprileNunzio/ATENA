@@ -1,0 +1,44 @@
+.ear-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+.ear-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.ear-step { font: inherit; display: grid; grid-template-columns: auto auto 1fr; gap: 10px; align-items: center; text-align: left; padding: 12px 14px;
+  border-radius: 14px; border: 1px solid var(--line); background: rgba(2, 8, 16, 0.45); color: var(--text-dim); cursor: pointer; min-width: 0; }
+.ear-step.on { border-color: var(--cyan); background: rgba(41, 224, 255, 0.08); color: var(--text); box-shadow: 0 0 18px rgba(41, 224, 255, 0.12); }
+.ear-step-n { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; font: 600 12px/1 var(--mono); background: var(--cyan-soft); color: var(--cyan); }
+.ear-step-ic { font-size: 20px; }
+.ear-step-t { display: flex; flex-direction: column; min-width: 0; }
+.ear-step-t b { line-height: 1.25; }
+.ear-step-t small { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ear-step-t small { font-size: 11px; color: var(--text-faint); }
+.ear-body { display: flex; flex-direction: column; gap: 18px; margin-bottom: 80px; }
+.ear-field > label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin-bottom: 8px; }
+.ear-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr)); gap: 10px; }
+.ear-card { font: inherit; display: flex; flex-direction: column; gap: 4px; align-items: flex-start; text-align: left; padding: 14px; border-radius: 14px;
+  border: 1px solid var(--line); background: rgba(2, 8, 16, 0.4); color: var(--text); cursor: pointer; }
+.ear-card:hover { border-color: var(--line-strong); }
+.ear-card.on { border-color: var(--cyan); background: rgba(41, 224, 255, 0.08); box-shadow: 0 0 16px rgba(41, 224, 255, 0.12); }
+.ear-card-ic { font-size: 22px; }
+.ear-card small { color: var(--text-dim); font-size: 12px; }
+.ear-card a { font-size: 12px; color: var(--cyan); margin-top: 4px; }
+.ear-toggle { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line);
+  border-radius: 12px; background: rgba(2, 8, 16, 0.35); cursor: pointer; text-transform: none; letter-spacing: 0; font-size: 14px; color: var(--text); margin: 0; }
+.ear-toggle input { position: absolute; opacity: 0; width: 0; height: 0; }
+.ear-toggle i { position: relative; width: 42px; height: 24px; flex: none; border-radius: 24px; background: rgba(120, 140, 160, 0.35); transition: background 0.2s; }
+.ear-toggle i::after { content: ""; position: absolute; left: 3px; top: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; transition: transform 0.2s; }
+.ear-toggle input:checked + i { background: var(--green); }
+.ear-toggle input:checked + i::after { transform: translateX(18px); }
+.ear-toggle input:focus-visible + i { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.ear-slider { display: flex; align-items: center; gap: 12px; }
+.ear-slider input { flex: 1; accent-color: var(--cyan); }
+.ear-slider output { min-width: 64px; text-align: right; font-family: var(--mono); font-size: 13px; color: var(--text); }
+.ear-ends { display: flex; justify-content: space-between; font-size: 11px; color: var(--text-faint); margin-top: 2px; }
+.ear-key { display: flex; gap: 8px; }
+.ear-key input { flex: 1; min-width: 0; }
+.ear-keymsg { font-size: 13px; margin-top: 6px; min-height: 1px; }
+.ear-keymsg.ok { color: var(--green); } .ear-keymsg.bad { color: var(--amber); }
+.ear-nav { display: flex; justify-content: space-between; gap: 8px; border-top: 1px solid var(--line); padding-top: 14px; }
+.ear-actions { display: flex; flex-direction: column; gap: 10px; border: 1px dashed var(--line); border-radius: 12px; padding: 12px; }
+.ear-savebar { position: sticky; bottom: 12px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 12px 16px;
+  border-radius: 14px; border: 1px solid var(--cyan); background: rgba(4, 16, 28, 0.95); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45); z-index: 4; }
+@media (max-width: 860px) { .ear-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 480px) { .ear-steps { grid-template-columns: 1fr; } .ear-key { flex-direction: column; } }
+.ear-savebar[hidden] { display: none; }
