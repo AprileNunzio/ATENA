@@ -10,7 +10,7 @@ from fastapi.testclient import TestClient
 import atena_supervisor
 from features.flows import composition
 from features.flows.application.studio import ConfirmationRequired, Studio
-from features.flows.domain import draft
+from features.flows.domain import draft, guard
 from features.flows.domain.catalog import EDGES, NODE_BY_ID, NODES, TEMPLATES, defaults, template
 from features.flows.infrastructure.env_settings import MIXED, EnvSettings
 from features.flows.infrastructure.signed_store import SignedVersionStore
@@ -153,6 +153,42 @@ class StudioTest(unittest.TestCase):
             asyncio.run(self.studio.rollback(99, "anna", "giusta", "-"))
 
 
+class GuardTest(unittest.TestCase):
+    def test_rollback_only_with_enough_failures_in_the_window(self):
+        bad = [(110.0, "failed")] * 3 + [(120.0, "done")]
+        self.assertTrue(guard.should_rollback(bad, 100.0, 200.0))
+        self.assertFalse(guard.should_rollback(bad[:3], 100.0, 200.0))
+        self.assertFalse(guard.should_rollback([(110.0, "done")] * 3 + [(111.0, "failed")], 100.0, 200.0))
+        self.assertFalse(guard.should_rollback(bad, 100.0, 100.0 + guard.WATCH_SECONDS + 1))
+        self.assertFalse(guard.should_rollback([(50.0, "failed")] * 9, 100.0, 200.0))
+        self.assertFalse(guard.should_rollback([(110.0, "running")] * 9, 100.0, 200.0))
+
+
+class SafeguardTest(StudioTest):
+    def test_too_many_failures_restore_the_previous_version_once(self):
+        clock = [100.0]
+        self.studio.clock = lambda: clock[0]
+        self.studio.save_draft({"picks": template("private")})
+        asyncio.run(self.studio.publish("anna", "giusta", "-"))
+        self.studio.save_draft({"picks": template("fast")})
+        clock[0] = 200.0
+        asyncio.run(self.studio.publish("anna", "giusta", "-"))
+        failures = [(210.0, "failed")] * 4
+        clock[0] = 260.0
+        result = asyncio.run(self.studio.safeguard(failures))
+        self.assertTrue(result["version"]["auto"])
+        self.assertEqual(self.studio.studio()["current"]["brain"], "brain.home")
+        self.assertIsNone(asyncio.run(self.studio.safeguard(failures)))
+
+    def test_compare_reports_differences(self):
+        data = self.studio.compare({"a": {"picks": template("fast")}, "b": {"picks": template("private")}})
+        self.assertIn("brain", data["different"])
+        self.assertGreater(data["b"]["traits"]["privacy"], data["a"]["traits"]["privacy"])
+        for bad in ({}, {"a": "x", "b": {}}, {"a": {"picks": {"laws": "x"}}, "b": {}}):
+            with self.assertRaises(ValueError):
+                self.studio.compare(bad)
+
+
 class FlowsApiTest(unittest.TestCase):
     def test_endpoints(self):
         self.assertEqual(TestClient(atena_supervisor.admin).get("/api/flows/studio").status_code, 401)
@@ -169,6 +205,8 @@ class FlowsApiTest(unittest.TestCase):
             self.assertEqual(admin.post("/api/flows/publish", json={"password": "no"}, headers=HEADERS).status_code, 403)
             self.assertEqual(admin.post("/api/flows/rollback/42", json={"password": "atena"}, headers=HEADERS).status_code, 404)
             self.assertEqual(admin.delete("/api/flows/draft", headers=HEADERS).json()["pending"], {})
+            r = admin.post("/api/flows/compare", json={"a": {"picks": {}}, "b": {"picks": {"brain": "brain.home"}}}, headers=HEADERS)
+            self.assertEqual(r.json()["different"], ["brain"])
 
 
 if __name__ == "__main__":

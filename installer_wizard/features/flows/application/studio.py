@@ -3,6 +3,7 @@ from typing import Callable
 
 from features.flows.application.ports import Settings, Verifier, VersionStore
 from features.flows.domain import draft as drafts
+from features.flows.domain import guard
 from features.flows.domain.catalog import EDGES, NODES, TEMPLATES, template
 
 
@@ -65,12 +66,13 @@ class Studio:
         if not isinstance(password, str) or not password or not await self.verifier.confirm(user, password, ip):
             raise ConfirmationRequired("Password non corretta: conferma la tua identità per cambiare il modo di ragionare")
 
-    async def _apply(self, draft: drafts.Draft, user: str, note: str) -> dict:
+    async def _apply(self, draft: drafts.Draft, user: str, note: str, auto: bool = False) -> dict:
         settings, _ = self._current()
         updates = drafts.changes(draft.picks, settings)
         applying = await self.settings.apply(updates, user) if updates else []
         version = self.store.append({"picks": draft.picks, "positions": draft.as_dict()["positions"], "template": draft.template,
-                                     "author": user, "at": self.clock(), "note": note, "changes": sorted(updates)})
+                                     "author": user, "at": self.clock(), "note": note, "changes": sorted(updates),
+                                     "auto": auto})
         self.store.save_draft(None)
         return {"version": version, "applying": applying, "changed": sorted(updates)}
 
@@ -88,3 +90,29 @@ class Studio:
         draft = drafts.parse({"picks": target["picks"], "positions": target.get("positions", {}),
                               "template": target.get("template", "")}, current)
         return await self._apply(draft, user, f"Ripristino della versione {number}")
+
+    def compare(self, raw) -> dict:
+        if not isinstance(raw, dict):
+            raise ValueError("Confronto non valido")
+        _, current = self._current()
+        sides = {}
+        for side in ("a", "b"):
+            chosen = raw.get(side)
+            if not isinstance(chosen, dict):
+                raise ValueError("Confronto non valido: servono due flussi")
+            picks = drafts.parse({"picks": chosen.get("picks", {})}, current).picks
+            sides[side] = {"picks": picks, "traits": drafts.traits(picks), "estimate": drafts.estimate(picks)}
+        return {**sides, "different": guard.compare(sides["a"]["picks"], sides["b"]["picks"])}
+
+    async def safeguard(self, outcomes: list[tuple[float, str]]) -> dict | None:
+        versions = self.store.versions()
+        if len(versions) < 2 or versions[0].get("auto"):
+            return None
+        latest, previous = versions[0], versions[1]
+        if not guard.should_rollback(outcomes, latest["at"], self.clock()):
+            return None
+        _, current = self._current()
+        draft = drafts.parse({"picks": previous["picks"], "positions": previous.get("positions", {}),
+                              "template": previous.get("template", "")}, current)
+        note = f"Ripristino automatico: troppi errori dopo la versione {latest['version']}"
+        return await self._apply(draft, "atena", note, auto=True)

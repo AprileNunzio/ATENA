@@ -7,6 +7,7 @@ import { runBench } from "./bench.js";
 import { FlowCanvas } from "./canvas.js";
 import { askPassword } from "./confirm.js";
 import { renderInspector } from "./inspector.js";
+import { comparePanel } from "./compare.js";
 
 const SAVE_DELAY = 500;
 const when = (seconds) => new Date(seconds * 1000).toLocaleString("it-IT", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
@@ -133,7 +134,7 @@ export function renderFlows(outlet) {
   function paintVersions() {
     mount(versions, h("p", { class: "ptitle" }, "Versioni pubblicate"),
       state.versions.length ? h("ul", { class: "versions" }, state.versions.slice(0, 12).map((v) => h("li", {},
-        h("b", {}, `v${v.version}`), h("span", { class: "dim" }, `${when(v.at)} · ${v.author} · ${v.note}`),
+        h("b", {}, `v${v.version}`), h("span", { class: v.auto ? "auto-note" : "dim" }, `${when(v.at)} · ${v.author} · ${v.note}`),
         h("span", { class: "dim small" }, v.changes.length ? `${v.changes.length} impostazioni cambiate` : "nessun cambiamento"),
         h("button", { class: "btn ghost", type: "button", onclick: () => rollback(v.version) }, "Ripristina"))))
         : h("p", { class: "dim" }, "Ancora nessuna versione: la prima pubblicazione creerà la versione 1."));
@@ -142,9 +143,11 @@ export function renderFlows(outlet) {
   function paintAll() { paintTemplates(); paintCanvas(); paintInspector(); paintVersions(); publishBtn.disabled = !dirty(); status.textContent = dirty() ? "Bozza non ancora pubblicata" : ""; }
 
   function build() {
+    const compareBox = comparePanel(state);
     mount(view,
       h("div", { class: "view-head" }, h("p", { class: "eyebrow" }, "Flow Studio · flusso principale"), h("h2", {}, "Come ragiona Atena"),
-        h("p", {}, "Ogni nodo è un passo del ragionamento. Le modifiche restano in bozza finché non le pubblichi; puoi sempre tornare a una versione precedente.")),
+        h("p", {}, "Ogni nodo è un passo del ragionamento. Le modifiche restano in bozza finché non le pubblichi; puoi sempre tornare a una versione precedente."),
+        h("p", { class: "dim small" }, "Rete di sicurezza: se dopo una pubblicazione metà dei ragionamenti fallisce, Atena torna da sola alla versione precedente.")),
       h("p", { class: "flow-hint only-explorer" }, "Tocca un modello qui sotto per cambiare il modo di pensare di Atena, provalo e poi premi «Pubblica»."),
       h("div", { class: "flow-bar" }, templates,
         h("div", { class: "flow-actions" },
@@ -157,6 +160,7 @@ export function renderFlows(outlet) {
       h("div", { class: "panel bench" }, h("div", { class: "bench-head" },
         h("div", {}, h("p", { class: "ptitle" }, "Banco di prova"), h("p", { class: "dim small" }, "Simulazione con tempi stimati: nessuna azione reale viene eseguita.")),
         benchBtn), log),
+      compareBox,
       versions);
     paintAll();
   }

@@ -48,6 +48,14 @@ async def flows_discard(_: str = Depends(require_admin)):
     return JSONResponse(studio.discard_draft(), headers=NO_CACHE)
 
 
+@admin_routes.post("/api/flows/compare")
+async def flows_compare(request: Request, _: str = Depends(require_admin)):
+    try:
+        return JSONResponse(studio.compare(await _body(request)), headers=NO_CACHE)
+    except ValueError as exc:
+        raise HTTPException(400, str(exc))
+
+
 @admin_routes.post("/api/flows/publish")
 async def flows_publish(request: Request, user: str = Depends(require_admin)):
     body = await _body(request)

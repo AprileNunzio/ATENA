@@ -131,6 +131,7 @@ from features.nvr.service import nvr as nvr_service
 from features.scene import api as scene_api
 from features.nexus import api as nexus_api
 from features.flows import api as flows_api
+from features.flows import watchdog as flows_watchdog
 from features.scene.service import scene as scene_service
 from features.twin import api as twin_api
 from features.vision.webcams import webcams
@@ -348,6 +349,7 @@ BACKGROUND = (
     ("sport", sports_watcher.run, 0.0),
     ("tv", tv_service.run, 0.0),
     ("lingue-casa", locale_household.run, 0.0),
+    ("flussi-sicurezza", flows_watchdog.run, 0.0),
 )
 
 

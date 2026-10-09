@@ -57,7 +57,7 @@
 .ring text { fill: var(--text); font: 600 14px var(--display); text-anchor: middle; }
 .skeleton { border-radius: 10px; background: linear-gradient(90deg, rgba(96, 206, 255, 0.05), rgba(96, 206, 255, 0.12), rgba(96, 206, 255, 0.05)); animation: nx-pulse 1.4s ease-in-out infinite; }
 .pills { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
-.badge { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px; font: 600 10px/1.7 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
+.badge { position: relative; display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 999px; font: 600 10px/1.7 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; }
 .badge.new { color: #1a0f2e; background: linear-gradient(135deg, var(--violet), var(--cyan)); box-shadow: 0 0 14px rgba(169, 139, 255, 0.45); }
 .badge.updated { color: var(--green); border: 1px solid rgba(61, 255, 168, 0.45); background: rgba(61, 255, 168, 0.08); }
 .badge.new::before { content: "✦"; }
