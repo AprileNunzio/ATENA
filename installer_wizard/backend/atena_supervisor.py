@@ -76,6 +76,8 @@ from features.maps import api as maps_api
 from features.mind import api as mind_api
 from features.authz import api as authz_api
 from features.locale import api as locale_api
+from features.firewall import api as firewall_api
+from features.firewall.events import monitor as firewall_monitor
 from features.maps.maps import maps
 from features.mcpclient import api as mcpclient_api
 from features.mcpclient.service import run as mcpclient_run
@@ -155,6 +157,7 @@ FEATURE_APIS = (
     mind_api,
     authz_api,
     locale_api,
+    firewall_api,
     laws_api,
     cameras_api,
     models3d_api,
@@ -304,6 +307,7 @@ BACKGROUND = (
     ("uscite-musica", music_outputs.run, 0.0),
     ("mcp-esterni", mcpclient_run, 0.0),
     ("ottimizzazione-biometrica", nightly_biometrics_loop, 0.0),
+    ("firewall", firewall_monitor.run, 0.0),
 )
 
 

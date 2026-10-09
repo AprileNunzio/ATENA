@@ -92,12 +92,12 @@ class Rule:
 
     def export(self) -> dict:
         data = asdict(self)
-        data["sources"] = [_text(a) for a in self.sources]
-        data["destinations"] = [_text(a) for a in self.destinations]
+        data["sources"] = [text_of(a) for a in self.sources]
+        data["destinations"] = [text_of(a) for a in self.destinations]
         return data
 
 
-def _text(a: Address) -> str:
+def text_of(a: Address) -> str:
     return f"@{a.value}" if a.family == "set" else a.value
 
 
@@ -166,7 +166,7 @@ class Policy:
 
     def export(self) -> dict:
         data = asdict(self)
-        data["trusted"] = [_text(a) for a in self.trusted]
+        data["trusted"] = [text_of(a) for a in self.trusted]
         return data
 
 

@@ -7,6 +7,7 @@ from features.agent import registry, tools_cameras, tools_comm, tools_display, t
 from features.agent.paths import FILES, AccessDenied, level
 from features.automations import tools as tools_automations
 from features.documents import tools as tools_documents
+from features.firewall import tools as tools_firewall
 from features.autonomy import tools as tools_autonomy
 from features.authz import gate
 from features.authz.principal import SYSTEM, act_as, current
@@ -18,7 +19,7 @@ from features.team import tools as tools_team
 from features.team.board import board
 from features.whiteboard import tools as tools_whiteboard
 
-MODULES = (tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_packages, tools_rpa, tools_system, tools_autonomy, tools_automations, tools_documents, tools_team, tools_forge, tools_whiteboard)
+MODULES = (tools_cameras, tools_comm, tools_display, tools_files, tools_media, tools_packages, tools_rpa, tools_system, tools_autonomy, tools_automations, tools_documents, tools_team, tools_forge, tools_whiteboard, tools_firewall)
 MAX_STEPS = 8
 PENDING_TTL = 180
 

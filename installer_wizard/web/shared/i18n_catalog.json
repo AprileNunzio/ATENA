@@ -12627,6 +12627,26 @@
     [
       "Policy non valida",
       "Invalid policy"
+    ],
+    [
+      "nftables ha rifiutato la modifica: {0}",
+      "nftables rejected the change: {0}"
+    ],
+    [
+      "Nessuna configurazione precedente",
+      "No previous configuration"
+    ],
+    [
+      "nftables ha rifiutato il ripristino: {0}",
+      "nftables rejected the rollback: {0}"
+    ],
+    [
+      "firewall",
+      "firewall"
+    ],
+    [
+      "Firewall interno con analisi del traffico in tempo reale, regole da esperto e difesa assistita dall'intelligenza artificiale",
+      "Internal firewall with real-time traffic analysis, expert rules and AI-assisted defence"
     ]
   ],
   "reverse": [
@@ -24882,6 +24902,26 @@
     [
       "Policy non valida",
       "Politique non valide"
+    ],
+    [
+      "nftables ha rifiutato la modifica: {0}",
+      "nftables a refusé la modification : {0}"
+    ],
+    [
+      "Nessuna configurazione precedente",
+      "Aucune configuration précédente"
+    ],
+    [
+      "nftables ha rifiutato il ripristino: {0}",
+      "nftables a refusé la restauration : {0}"
+    ],
+    [
+      "firewall",
+      "pare-feu"
+    ],
+    [
+      "Firewall interno con analisi del traffico in tempo reale, regole da esperto e difesa assistita dall'intelligenza artificiale",
+      "Pare-feu interne avec analyse du trafic en temps réel, règles expertes et défense assistée par l'intelligence artificielle"
     ]
   ]
 }
