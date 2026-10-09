@@ -24,7 +24,7 @@
             <small>${ctx.esc(status)}</small></div>
           <div class="sm-team">${crest(a, ctx)}<span>${ctx.esc(a.short || a.name || "")}</span></div>
         </div>
-        ${goals.length ? `<ul class="sm-goals">${goals.map((g) => `<li class="${g.side === "away" ? "r" : ""}">⚽ ${ctx.esc(g.player || "")} <span>${ctx.esc(g.minute || "")}${g.penalty ? " rig." : ""}${g.own_goal ? " aut." : ""}</span></li>`).join("")}</ul>` : ""}
+        ${goals.length ? `<ul class="sm-goals">${goals.map((g) => `<li class="${g.side === "away" ? "r" : ""}"><i class="sm-ball"></i>${ctx.esc(g.player || "")} <span>${ctx.esc(g.minute || "")}${g.penalty ? " rig." : ""}${g.own_goal ? " aut." : ""}</span></li>`).join("")}</ul>` : ""}
         ${m.venue && !played ? `<div class="wk-sub">${ctx.esc(m.venue)}</div>` : ""}`;
     },
   });
