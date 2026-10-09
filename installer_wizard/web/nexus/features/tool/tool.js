@@ -41,6 +41,12 @@ function advanced(tool) {
   ];
 }
 
+function heroState(tool) {
+  const pill = statePill(tool);
+  const reason = tool.reason && tool.reason.trim() !== pill.textContent.trim() ? h("span", { class: "dim small" }, tool.reason) : null;
+  return h("div", { class: "tool-hero-state" }, pill, freshBadge(tool), reason);
+}
+
 export function renderTool(outlet, route) {
   const fid = route.param;
   const view = h("section", { class: "view" }, h("div", { class: "skeleton skeleton-block" }));
@@ -93,7 +99,7 @@ export function renderTool(outlet, route) {
           h("p", { class: "eyebrow" }, tool.family_label || zone(tool.zone)?.title || ""),
           h("h2", {}, tool.name),
           h("p", { class: "dim" }, tool.description),
-          h("div", { class: "tool-hero-state" }, statePill(tool), freshBadge(tool), tool.reason ? h("span", { class: "dim small" }, tool.reason) : null)),
+          heroState(tool)),
         h("div", { class: "tool-hero-actions" },
           modeControl(tool, (mode) => changeMode(tool, mode)),
           h("button", { type: "button", class: `btn ghost fav${favorite ? " on" : ""}`, "aria-pressed": String(favorite),

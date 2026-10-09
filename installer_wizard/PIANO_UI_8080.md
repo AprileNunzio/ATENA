@@ -457,6 +457,7 @@ non si raggiunge la parità. Nessuna rottura per gli utenti esistenti.
 | Parità completa e widget | pubblicata | 4.1.49 |
 | Lingua predefinita e pulsante Esperto (segnalazione tester francese) | pubblicata | 4.1.50 |
 | Nexus in italiano, inglese e francese; Nexus predefinito su `/`, pannello classico su `/classic` | pubblicata | 4.1.51 |
+| Pannello completo nel Nexus: riquadro a misura di schermo, aspetto Nexus, modalità Espandi | pubblicata | 4.1.52 |
 
 ### 7.2 Regola per rendere il Nexus predefinito
 

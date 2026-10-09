@@ -17607,6 +17607,26 @@
     [
       "Le leggi fondamentali non si possono eliminare",
       "The fundamental laws cannot be deleted"
+    ],
+    [
+      "Espandi",
+      "Expand"
+    ],
+    [
+      "⤢ Espandi",
+      "⤢ Expand"
+    ],
+    [
+      "⤡ Riduci",
+      "⤡ Shrink"
+    ],
+    [
+      "Nuova scheda ↗",
+      "New tab ↗"
+    ],
+    [
+      "Carico la sezione…",
+      "Loading the section…"
     ]
   ],
   "reverse": [
@@ -34931,6 +34951,26 @@
     [
       "Le leggi fondamentali non si possono eliminare",
       "Les lois fondamentales ne peuvent pas être supprimées"
+    ],
+    [
+      "Espandi",
+      "Agrandir"
+    ],
+    [
+      "⤢ Espandi",
+      "⤢ Agrandir"
+    ],
+    [
+      "⤡ Riduci",
+      "⤡ Réduire"
+    ],
+    [
+      "Nuova scheda ↗",
+      "Nouvel onglet ↗"
+    ],
+    [
+      "Carico la sezione…",
+      "Chargement de la section…"
     ]
   ]
 }

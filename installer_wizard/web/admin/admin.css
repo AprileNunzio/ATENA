@@ -161,7 +161,3 @@ pre.log { margin: 0; background: rgba(0, 0, 0, 0.45); border: 1px solid var(--li
 .linklike { background: none; border: 0; padding: 0; color: var(--cyan); font: inherit; text-decoration: underline; cursor: pointer; }
 .ui-mode button { flex: 1; }
 body.ui-simple .x-expert, body.ui-expert .x-simple { display: none !important; }
-.embedded nav, .embedded .topbar, .embedded .fbar, .embedded #ui-mode { display: none !important; }
-.embedded .app.show { grid-template-columns: minmax(0, 1fr); min-height: 0; }
-.embedded .content { padding-top: 12px; }
-.embedded body { background: transparent; }
