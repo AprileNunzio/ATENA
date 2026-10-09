@@ -34,13 +34,15 @@ def create_application() -> FastAPI:
         redoc_url="/redoc",
     )
 
-    app.add_middleware(
-        CORSMiddleware,
-        allow_origins=["*"],
-        allow_credentials=True,
-        allow_methods=["*"],
-        allow_headers=["*"],
-    )
+    origins = [o.strip() for o in settings.ATENA_CORS_ORIGINS.split(",") if o.strip() and o.strip() != "*"]
+    if origins:
+        app.add_middleware(
+            CORSMiddleware,
+            allow_origins=origins,
+            allow_credentials=False,
+            allow_methods=["GET", "POST"],
+            allow_headers=["Authorization", "Content-Type", "Accept-Language"],
+        )
     app.add_middleware(ZeroTrustMiddleware)
     
     from server.shared.i18n.middleware import I18nMiddleware

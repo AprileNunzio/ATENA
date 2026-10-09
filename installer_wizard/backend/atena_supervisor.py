@@ -1,6 +1,7 @@
 # flake8: noqa: E402
 import asyncio
 import logging
+import os
 import sys
 from pathlib import Path
 
@@ -19,7 +20,8 @@ import setup_api
 import packages_api
 import system_api
 import updater
-from config import ADMIN_PORT, DEMO, PUBLIC_PORT, VERSION
+from config import ADMIN_PORT, DEMO, PUBLIC_PORT, VERSION, env_get
+from origin_guard import OriginGuard
 from atena_bus import atena_bus
 from feature_registry import registry
 from features.brain import api as brain_api
@@ -206,15 +208,17 @@ def build(admin: bool) -> FastAPI:
         routes = getattr(module, kind, None)
         if routes is not None:
             app.include_router(routes)
-            
+
     if admin:
         try:
             from server.web.features.computer_control.api import router as computer_control_router
+        except ImportError as exc:
+            log.error("Router computer_control non caricato: %s", exc)
+        else:
             app.include_router(computer_control_router)
-        except Exception as e:
-            import logging
-            logging.error(f"Errore caricamento router computer_control: {e}")
-            
+
+    allowed = f'{env_get("ATENA_ALLOWED_HOSTS")},{os.environ.get("ATENA_ALLOWED_HOSTS", "")}'
+    app.add_middleware(OriginGuard, extra_hosts=allowed.split(","))
     return app
 
 
@@ -223,7 +227,6 @@ admin = build(admin=True)
 
 
 def secure_server():
-    import os
     import tls
     from config import STATE_DIR
 

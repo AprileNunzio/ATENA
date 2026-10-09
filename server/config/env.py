@@ -6,6 +6,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class ServerSettings(BaseSettings):
     ATENA_ENV: Literal["development", "production", "testing"] = "development"
     ATENA_HOST: str = "0.0.0.0"
+    ATENA_CORS_ORIGINS: str = ""
     ATENA_PORT: int = 8443
     ATENA_WEB_PORT: int = 80
     ATENA_SECRET_KEY: str = (
