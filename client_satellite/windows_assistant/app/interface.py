@@ -26,12 +26,13 @@ class Interface:
                        self._menu)
         self.panel = Panel(self.root, self.scale, cfg["hotkey"],
                            {"ask": actions["ask"], "listen": actions["listen"], "stop": actions["stop"],
-                            "settings": self.open_settings, "permissions": self.open_permissions})
+                            "settings": self.open_settings, "permissions": self.open_permissions,
+                            "widgets": actions["widgets"]})
         self.root.after(1000, self._autohide)
 
     def _menu(self) -> list:
         self.muted.set(self.actions["is_muted"]())
-        return [("Apri ATENA", self.toggle_panel), ("Parla con ATENA", self.actions["listen"]),
+        return [("Apri ATENA", self.toggle_panel), ("Parla con ATENA", self.actions["listen"]), ("Widget di ATENA", self.actions["widgets"]),
                 ("Microfono in pausa", self.muted, lambda: self.actions["mute"](self.muted.get())), None,
                 ("Permessi…", self.open_permissions), ("Impostazioni…", self.open_settings), ("Esci", self.actions["quit"])]
 

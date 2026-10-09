@@ -22,8 +22,13 @@ def require_admin(request: Request) -> str:
     return user
 
 
+def paired_display(request: Request) -> bool:
+    from features.nodes.display_link import display_node
+    return display_node(request) is not None
+
+
 def require_display(request: Request, message: str = "Accesso richiesto") -> None:
-    if not (is_local(request) or session_user(request)):
+    if not (is_local(request) or session_user(request) or paired_display(request)):
         raise HTTPException(401, message)
 
 

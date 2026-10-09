@@ -65,7 +65,7 @@ def firewall() -> tuple[str, dict, int]:
 
 def important() -> tuple[str, dict, int] | None:
     now = time.time()
-    seen, lines = set(), []
+    seen, lines, details = set(), [], []
     for e in reversed(list(store.events)):
         if e.get("level") not in ("WARN", "ERROR") or now - _ts(e) > IMPORTANT_WINDOW:
             continue
@@ -74,15 +74,22 @@ def important() -> tuple[str, dict, int] | None:
             continue
         seen.add(msg)
         lines.append(msg)
+        details.append({"title": "Avviso" if e.get("level") == "WARN" else "Errore", "text": str(e.get("msg", ""))[:1500],
+                        "source": str(e.get("component", "")), "at": str(e.get("ts", ""))[:19].replace("T", " ")})
         if len(lines) >= 5:
             break
     if not lines:
         return None
-    return "brief", {"title": "Da sapere", "lines": lines}, 70
+    return "brief", {"title": "Da sapere", "lines": lines, "details": details}, 70
 
 
-def headlines(items: list[str]) -> tuple[str, dict, int] | None:
-    return ("brief", {"title": "Notizie", "lines": items[:5]}, 30) if items else None
+def headlines(items: list[dict]) -> tuple[str, dict, int] | None:
+    if not items:
+        return None
+    shown = items[:5]
+    details = [{"title": n["title"], "text": n["text"], "image": n["image"], "source": "ANSA", "at": n["at"],
+                "link": n["link"]} for n in shown]
+    return "brief", {"title": "Notizie", "lines": [n["title"] for n in shown], "details": details}, 30
 
 
 COLLECTORS = {"resources": resources, "systems": systems, "firewall": firewall, "important": important}

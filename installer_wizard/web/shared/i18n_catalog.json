@@ -15307,6 +15307,38 @@
     [
       "In coda: l'installazione parte tra poco",
       "Queued: the installation starts shortly"
+    ],
+    [
+      "Chiusura non riuscita:",
+      "Closing failed:"
+    ],
+    [
+      "Collegamento scaduto: riaprilo dall'assistente di Windows",
+      "Link expired: open it again from the Windows assistant"
+    ],
+    [
+      "Leggimelo",
+      "Read it to me"
+    ],
+    [
+      "Schermo intero non riuscito:",
+      "Full screen failed:"
+    ],
+    [
+      "WIDGET DI ATENA",
+      "ATENA WIDGETS"
+    ],
+    [
+      "✕ Riduci",
+      "✕ Shrink"
+    ],
+    [
+      "Widget di ATENA",
+      "ATENA widgets"
+    ],
+    [
+      "Widget aperti sul computer {0}",
+      "Widgets opened on computer {0}"
     ]
   ],
   "reverse": [
@@ -15743,7 +15775,8 @@
     "🇫🇷 Français",
     "🇬🇧 English",
     "🇮🇹 Italiano",
-    "🇵🇹 Português"
+    "🇵🇹 Português",
+    "button, a, [data-a], [data-ns], [data-detail], input[type=checkbox]"
   ],
   "fr": [
     [
@@ -30273,6 +30306,38 @@
     [
       "In coda: l'installazione parte tra poco",
       "En file d'attente : l'installation démarre bientôt"
+    ],
+    [
+      "Chiusura non riuscita:",
+      "Fermeture échouée :"
+    ],
+    [
+      "Collegamento scaduto: riaprilo dall'assistente di Windows",
+      "Lien expiré : rouvrez-le depuis l'assistant Windows"
+    ],
+    [
+      "Leggimelo",
+      "Lis-le-moi"
+    ],
+    [
+      "Schermo intero non riuscito:",
+      "Plein écran échoué :"
+    ],
+    [
+      "WIDGET DI ATENA",
+      "WIDGETS D'ATENA"
+    ],
+    [
+      "✕ Riduci",
+      "✕ Réduire"
+    ],
+    [
+      "Widget di ATENA",
+      "Widgets d'ATENA"
+    ],
+    [
+      "Widget aperti sul computer {0}",
+      "Widgets ouverts sur l'ordinateur {0}"
     ]
   ]
 }

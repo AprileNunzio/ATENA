@@ -1,7 +1,7 @@
 (() => {
   const impls = {}, loading = {}, cards = new Map();
   let host = null, resizeObs = null, lastList = [], allList = [], layoutRaf = 0, lastZone = "", screens = [];
-  const hooks = { speak: () => {}, onStage: () => {}, screen: 0, satellite: false };
+  const hooks = { speak: () => {}, onStage: () => {}, screen: 0, satellite: false, quiet: false };
   const EDGE = 28;
   const gov = (id, fn, el, mount) => (window.atenaGovernor ? window.atenaGovernor.measure(id, fn, el, mount) : fn());
 
@@ -78,7 +78,8 @@
     return `<span class="wk-ring"><svg viewBox="0 0 96 96" aria-hidden="true"><circle class="track" cx="48" cy="48" r="42" stroke-dasharray="${arc} ${c}"/>`
       + `<circle class="value" cx="48" cy="48" r="42" stroke-dasharray="${(arc * pct(v)) / 100} ${c}"/></svg><b><span>${esc(text)}${sub ? `<small>${esc(sub)}</small>` : ""}</span></b></span>`;
   };
-  const ctx = { esc, mmss, icon, head, bar, ring, pct, speak: (t) => hooks.speak(t), now: () => Date.now() / 1000 };
+  const detail = (obj) => (obj && typeof obj === "object" ? ` data-detail="${esc(JSON.stringify(obj).slice(0, 8000))}"` : "");
+  const ctx = { esc, mmss, icon, head, bar, ring, pct, detail, speak: (t) => hooks.speak(t), now: () => Date.now() / 1000 };
 
   function load(inst) {
     const key = `${inst.id}@${inst.rev}`;
@@ -336,8 +337,7 @@
   function mount(container, options = {}) {
     host = container;
     Object.assign(hooks, options);
-    hello();
-    setInterval(hello, 10000);
+    if (!hooks.quiet) { hello(); setInterval(hello, 10000); }
     ["l", "r"].forEach((side) => { const g = document.createElement("div"); g.className = `edge-glow ${side}`; document.body.appendChild(g); });
     window.addEventListener("resize", scheduleLayout);
     window.addEventListener("atena-policy", () => render(allList));

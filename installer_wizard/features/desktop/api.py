@@ -78,7 +78,8 @@ async def desk_fullscreen(request: Request):
 @public_routes.post("/api/desk/close")
 async def desk_close(request: Request):
     require_display(request, "Solo dal display")
-    desk.hide(key=str((await request.json()).get("key") or "")[:120])
+    if not desk.dismiss(str((await request.json()).get("key") or "")[:120]):
+        raise HTTPException(404, "Widget non trovato")
     return {"ok": True}
 
 

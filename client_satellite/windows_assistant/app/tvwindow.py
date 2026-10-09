@@ -6,6 +6,7 @@ import webbrowser
 from pathlib import Path
 
 WINDOW = "--window-size=720,430"
+WIDGETS = "--start-maximized"
 BROWSERS = (
     Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")) / "Microsoft/Edge/Application/msedge.exe",
     Path(os.environ.get("ProgramFiles", r"C:\Program Files")) / "Microsoft/Edge/Application/msedge.exe",
@@ -31,10 +32,17 @@ def trusted(url: str, server: str) -> bool:
             and (host == server_host.lower() or _private(host)))
 
 
-def open_window(url: str) -> str:
+def widgets_url(server: str, path: str) -> str:
+    parts = urllib.parse.urlsplit(str(path or ""))
+    if parts.scheme or parts.netloc or parts.path != "/screen/open" or not parts.query.startswith("t="):
+        raise ValueError("indirizzo dei widget non valido")
+    return server.rstrip("/") + path
+
+
+def open_window(url: str, window: str = WINDOW) -> str:
     browser = next((b for b in BROWSERS if b.is_file()), None)
     if browser:
-        subprocess.Popen([str(browser), f"--app={url}", WINDOW], close_fds=True)
+        subprocess.Popen([str(browser), f"--app={url}", window], close_fds=True)
         return browser.stem
     webbrowser.open(url)
     return "browser"

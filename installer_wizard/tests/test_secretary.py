@@ -21,7 +21,7 @@ def _cards():
 
 class NewsTest(unittest.TestCase):
     def test_parses_unique_titles(self):
-        self.assertEqual(News.parse(RSS), ["Prima notizia", "Seconda notizia"])
+        self.assertEqual([n["title"] for n in News.parse(RSS)], ["Prima notizia", "Seconda notizia"])
 
     def test_rejects_entities(self):
         with self.assertRaises(ValueError):

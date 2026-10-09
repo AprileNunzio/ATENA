@@ -46,6 +46,7 @@ class Panel:
         _icon_button(head, "✕", self.hide).pack(side="right")
         _icon_button(head, "⚙", self.actions["settings"]).pack(side="right")
         _icon_button(head, "🛡", self.actions["permissions"]).pack(side="right")
+        _icon_button(head, "🧩", self.actions["widgets"]).pack(side="right")
         self.status = ctk.CTkLabel(self.window, text="", font=(theme.FONT, 12), text_color=theme.DIM, anchor="w")
         self.status.pack(fill="x", padx=16, pady=(0, 8))
 

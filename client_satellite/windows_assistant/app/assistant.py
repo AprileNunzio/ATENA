@@ -2,6 +2,7 @@ import logging
 import os
 import socket
 import sys
+import threading
 
 import keyboard
 
@@ -14,7 +15,7 @@ from app.voice import Voice
 from backup.scheduler import BackupScheduler
 from backup.snapshots import Snapshots
 from connection import tls
-from connection.client import Client
+from connection.client import Client, ServerError
 from connection.heartbeat import Heartbeat
 from connection.inbox import Inbox
 from permissions.gate import Gate
@@ -66,7 +67,7 @@ class Assistant:
             "mute": lambda muted: self.voice.set_muted(muted), "save": lambda: store.save(self.cfg),
             "autostart": autostart.enabled, "fingerprint": lambda: tls.short(self.cfg["pin"]),
             "settings_saved": self._settings_saved, "unpair": self.unpair, "policy": lambda: self.policy,
-            "permissions_changed": self._permissions_changed,
+            "permissions_changed": self._permissions_changed, "widgets": self.open_widgets,
         }
 
     def _environment(self) -> dict:
@@ -98,6 +99,17 @@ class Assistant:
                 continue
             tvwindow.open_window(url)
             self.ui.note(f"📺 {str(action.get('title') or 'TV')[:60]}")
+
+    def open_widgets(self) -> None:
+        threading.Thread(target=self._open_widgets, daemon=True, name="widgets").start()
+
+    def _open_widgets(self) -> None:
+        try:
+            link = self.client.request("/api/nodes/display-link", {})
+            tvwindow.open_window(tvwindow.widgets_url(self.cfg["server"], str(link.get("path") or "")), tvwindow.WIDGETS)
+        except (ServerError, ValueError) as exc:
+            log.warning("Widget non aperti: %s", exc)
+            self.ui.dispatch.post(self.ui.alert, f"Non riesco ad aprire i widget: {exc}")
 
     def _security(self, message: str) -> None:
         log.error(message)

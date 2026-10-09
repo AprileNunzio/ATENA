@@ -1,4 +1,6 @@
+import html
 import logging
+import re
 import time
 import xml.etree.ElementTree as ET
 
@@ -14,11 +16,30 @@ ALLOWED_PREFIXES = ("https://www.ansa.it/", "https://www.repubblica.it/", "https
 MAX_BYTES = 512 * 1024
 FRESH_FOR = 15 * 60
 RETRY_AFTER = 5 * 60
+TAG_RE = re.compile(r"<[^>]+>")
+MEDIA = "{http://search.yahoo.com/mrss/}"
+
+
+def plain(raw: str, limit: int) -> str:
+    return " ".join(html.unescape(TAG_RE.sub(" ", str(raw or ""))).split())[:limit]
+
+
+def https(url: str) -> str:
+    url = str(url or "").strip()
+    return url[:500] if url.startswith("https://") and " " not in url else ""
+
+
+def image_of(item) -> str:
+    for tag in ("enclosure", f"{MEDIA}content", f"{MEDIA}thumbnail"):
+        node = item.find(tag)
+        if node is not None and https(node.get("url", "")) and node.get("type", "image").startswith("image"):
+            return https(node.get("url"))
+    return ""
 
 
 class News:
     def __init__(self) -> None:
-        self.items: list[str] = []
+        self.items: list[dict] = []
         self.fetched_at = 0.0
         self.failed_at = 0.0
 
@@ -28,20 +49,24 @@ class News:
         return url if url.startswith(ALLOWED_PREFIXES) else DEFAULT_FEED
 
     @staticmethod
-    def parse(raw: bytes, limit: int = 5) -> list[str]:
+    def parse(raw: bytes, limit: int = 8) -> list[dict]:
         if b"<!DOCTYPE" in raw[:2048] or b"<!ENTITY" in raw:
             raise ValueError("feed con DTD non ammesso")
         root = ET.fromstring(raw)
-        titles = []
+        items, seen = [], set()
         for item in root.iter("item"):
-            title = " ".join((item.findtext("title") or "").split())[:140]
-            if title and title not in titles:
-                titles.append(title)
-            if len(titles) >= limit:
+            title = plain(item.findtext("title"), 160)
+            if not title or title in seen:
+                continue
+            seen.add(title)
+            items.append({"title": title, "text": plain(item.findtext("description"), 1500),
+                          "link": https(item.findtext("link")), "image": image_of(item),
+                          "at": plain(item.findtext("pubDate"), 40)})
+            if len(items) >= limit:
                 break
-        return titles
+        return items
 
-    async def headlines(self) -> list[str]:
+    async def headlines(self) -> list[dict]:
         now = time.time()
         if now - self.fetched_at < FRESH_FOR or now - self.failed_at < RETRY_AFTER:
             return self.items

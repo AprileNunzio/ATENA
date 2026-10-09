@@ -43,7 +43,7 @@
   function press(x, y) {
     const el = pointAt(x, y);
     if (!el) return;
-    const clickable = el.closest("button, a, [data-a], [data-ns], input[type=checkbox]");
+    const clickable = el.closest("button, a, [data-a], [data-ns], [data-detail], input[type=checkbox]");
     if (clickable && !clickable.closest(".v3-stage canvas")) { clickable.click(); st.target = null; return; }
     st.target = el.closest(".v3-stage canvas, canvas#scene") || el.closest(".desk > .widget") || el;
     fire("pointerdown", st.target, x, y);
@@ -71,6 +71,19 @@
     st.target = null;
   }
 
+  function spread(el, span) {
+    const widget = window.AtenaTouch && window.AtenaTouch.widgetOf(el);
+    if (!widget) { st.spread = null; return; }
+    window.AtenaTouch.cancel();
+    if (!st.spread || st.spread.key !== widget.dataset.key) { st.spread = { key: widget.dataset.key, start: span, done: false }; return; }
+    if (st.spread.done) return;
+    const grow = span / st.spread.start;
+    if (grow > 1.6 || grow < 0.6) {
+      st.spread.done = true;
+      window.AtenaTouch.fullscreen(widget.dataset.key, grow > 1);
+    }
+  }
+
   function zoom(hands) {
     const pts = hands.map((h) => ({ x: (h[4].x + h[8].x) / 2, y: (h[4].y + h[8].y) / 2 }));
     const span = dist(pts[0], pts[1]);
@@ -79,6 +92,7 @@
       const target = canvas && canvas.closest(".v3-stage canvas");
       if (target) target.dispatchEvent(new WheelEvent("wheel", { bubbles: true, cancelable: true, deltaY: (st.pair - span) * 2400,
         clientX: st.x, clientY: st.y }));
+      else spread(canvas, span);
     }
     st.pair = span;
   }
@@ -158,7 +172,7 @@
     if (hands.length) {
       track(hands[0]);
       if (hands.length === 2 && hands.every((h) => dist(h[4], h[8]) / (dist(h[0], h[9]) || 0.1) < PINCH_ON)) zoom(hands);
-      else st.pair = null;
+      else { st.pair = null; st.spread = null; }
     } else if (st.seen && now - st.seen > 700) {
       if (st.pinch) { st.pinch = false; release(st.x, st.y); }
       st.cursor.classList.remove("on", "pinch");

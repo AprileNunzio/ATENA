@@ -1,0 +1,30 @@
+.desk > .widget { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; touch-action: none; }
+.widget .wk-tap { cursor: pointer; position: relative; padding-right: 18px; border-radius: 8px; transition: background 0.2s; }
+.widget .wk-tap::after { content: "›"; position: absolute; right: 4px; top: 50%; transform: translateY(-50%); opacity: 0.55; font-size: 1.2em; }
+.widget .wk-tap:active { background: rgba(var(--tone, 41, 224, 255), 0.14); }
+.wt-menu { position: fixed; inset: 0; z-index: 90; background: rgba(0, 4, 10, 0.35); }
+.wt-menu-card { position: absolute; display: flex; flex-direction: column; gap: 10px; padding: 14px; min-width: 220px; border-radius: 20px;
+  background: rgba(6, 16, 30, 0.94); border: 1px solid rgba(41, 224, 255, 0.45); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); animation: wt-pop 0.18s ease-out both; }
+.wt-menu-card button, .wt-actions button { font: inherit; font-size: 20px; min-height: 60px; padding: 0 22px; border-radius: 14px; cursor: pointer;
+  color: #eaf8ff; background: rgba(41, 224, 255, 0.1); border: 1px solid rgba(41, 224, 255, 0.35); }
+.wt-menu-card button[data-wt="close"] { background: rgba(255, 77, 106, 0.14); border-color: rgba(255, 77, 106, 0.5); }
+.wt-menu-card button[data-wt="cancel"] { background: transparent; color: #9fb4c4; }
+.wt-sheet { position: fixed; inset: 0; z-index: 95; display: grid; place-items: center; padding: 24px; background: rgba(0, 3, 8, 0.82);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); animation: wt-fade 0.25s ease both; }
+.wt-sheet-card { position: relative; width: min(1100px, 100%); max-height: 100%; overflow: auto; padding: clamp(22px, 4vw, 48px); border-radius: 26px;
+  background: rgba(6, 16, 30, 0.96); border: 1px solid rgba(41, 224, 255, 0.35); color: #eaf8ff; box-sizing: border-box; }
+.wt-sheet-card h1 { font-size: clamp(28px, 4.2vw, 56px); line-height: 1.15; font-weight: 500; margin: 6px 64px 18px 0; }
+.wt-sheet-card img { display: block; width: 100%; max-height: 46vh; object-fit: cover; border-radius: 18px; margin-bottom: 20px; }
+.wt-sheet-card p { font-size: clamp(19px, 2.2vw, 28px); line-height: 1.55; color: #c9dde9; margin: 0 0 18px; white-space: pre-wrap; }
+.wt-meta { font-size: 15px; letter-spacing: 0.12em; text-transform: uppercase; color: #29e0ff; }
+.wt-link { font-size: 14px; color: #7f97a8; word-break: break-all; margin-bottom: 18px; }
+.wt-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.wt-x { position: absolute; top: 16px; right: 16px; width: 60px; height: 60px; border-radius: 50%; font-size: 26px; cursor: pointer;
+  color: #eaf8ff; background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.2); }
+.wt-exit { position: fixed; top: 16px; right: 16px; z-index: 60; display: none; font: inherit; font-size: 20px; min-height: 56px; padding: 0 22px;
+  border-radius: 28px; cursor: pointer; color: #eaf8ff; background: rgba(6, 16, 30, 0.8); border: 1px solid rgba(41, 224, 255, 0.45); }
+body.desk-full .wt-exit { display: block; }
+@keyframes wt-pop { from { transform: scale(0.9); opacity: 0; } }
+@keyframes wt-fade { from { opacity: 0; } }
+@media (max-width: 600px) { .wt-sheet { padding: 0; } .wt-sheet-card { border-radius: 0; height: 100%; } }

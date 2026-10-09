@@ -22,6 +22,8 @@ TONES = ("cyan", "green", "blue", "violet", "amber", "red")
 FILES = {"widget.js": "application/javascript", "widget.css": "text/css"}
 _ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{1,40}$")
 REQUEST_HOLD = 120
+SNOOZE = 600
+SNOOZE_FORGET = 6 * 3600
 
 
 class Desk:
@@ -33,6 +35,7 @@ class Desk:
         self.sources: dict = {}
         self.suppressed: set = set()
         self.request_at = 0.0
+        self.dismissed: dict[str, tuple[str, float]] = {}
         self.idle_at = 0.0
         self.prefs = self._load()
         USER_DIR.mkdir(parents=True, exist_ok=True)
@@ -152,6 +155,8 @@ class Desk:
         if not m:
             return
         key = key or wid
+        if self.snoozed(key, data):
+            return
         ttl = ttl if ttl is not None else m.get("ttl")
         old = self.instances.get(key)
         self.instances[key] = {
@@ -162,6 +167,30 @@ class Desk:
             "expires_at": time.time() + float(ttl) if ttl else None,
         }
         self.publish()
+
+    @staticmethod
+    def _sig(data) -> str:
+        return json.dumps(data or {}, sort_keys=True, default=str)
+
+    def dismiss(self, key: str) -> bool:
+        inst = self.instances.get(key)
+        if not inst:
+            return False
+        now = time.time()
+        self.dismissed = {k: v for k, v in self.dismissed.items() if now - v[1] < SNOOZE_FORGET}
+        if not inst.get("intent") and not self.widgets.get(inst["id"], {}).get("urgent"):
+            self.dismissed[key] = (self._sig(inst["data"]), now)
+        self.hide(key=key)
+        return True
+
+    def snoozed(self, key: str, data) -> bool:
+        hit = self.dismissed.get(key)
+        if not hit:
+            return False
+        if time.time() - hit[1] < SNOOZE or hit[0] == self._sig(data):
+            return True
+        self.dismissed.pop(key, None)
+        return False
 
     def hide(self, wid: str | None = None, key: str | None = None) -> None:
         keys = [key] if key else [k for k, i in self.instances.items() if i["id"] == wid]

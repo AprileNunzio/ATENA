@@ -12,5 +12,14 @@ class TrustedUrlTest(unittest.TestCase):
             self.assertFalse(tvwindow.trusted(url, "atena.local:8443"), url)
 
 
+class WidgetsUrlTest(unittest.TestCase):
+    def test_only_the_one_time_screen_link_is_built(self):
+        self.assertEqual(tvwindow.widgets_url("https://atena.local:8443/", "/screen/open?t=abc"),
+                         "https://atena.local:8443/screen/open?t=abc")
+        for path in ("https://evil.example/screen/open?t=a", "//evil.example/screen/open?t=a", "/admin", "/screen/open"):
+            with self.assertRaises(ValueError):
+                tvwindow.widgets_url("https://atena.local:8443", path)
+
+
 if __name__ == "__main__":
     unittest.main()
